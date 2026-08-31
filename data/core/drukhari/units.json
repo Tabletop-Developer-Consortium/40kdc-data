@@ -98,6 +98,20 @@
         "count": 2,
         "per_models": 6
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2c3a-9752-2516-69ab"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a52a5ba0-7c76-5719-bb74-93d8cd740f5c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fc53b2c1-0884-4388-a360-80567d8caf42"
+      }
     ]
   },
   {
@@ -163,7 +177,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a5d3-e21b-bf13-a952"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "f79-710f-8626-e3a8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3d07f339-ebba-5e0e-85a9-016952e80876"
+      },
+      {
+        "namespace": "mfm",
+        "id": "35d5461d-5518-42f1-9e65-c1a6075f8692"
+      }
+    ]
   },
   {
     "id": "succubus",
@@ -221,7 +253,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b5a9-c802-10f0-6768"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0663ebd8-7d9f-5e90-baca-a6b938468f23"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c1ae38f8-5363-4fad-8d87-0909b6f405df"
+      }
+    ]
   },
   {
     "id": "hellions",
@@ -304,7 +350,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2311-9feb-9d0a-8154"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "686583a0-8333-5d5d-8668-912d9d8ad6a4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0c17850d-e2c4-428c-a3c8-3d3d801d7914"
+      }
+    ]
   },
   {
     "id": "venom",
@@ -380,7 +440,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ee2c-6ca0-5e29-37a6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4c3ce51c-97f7-5dfb-a0a0-a2d9599ec48e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c38e6ff3-f68d-485b-a515-24211d90d7a1"
+      }
+    ]
   },
   {
     "id": "scourges-with-shardcarbines",
@@ -461,6 +535,20 @@
         ],
         "count": 1,
         "per_models": 0
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f2d1-4574-223f-998f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d84d0201-a5f1-5362-8ff2-56cbe47d23a1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7be772ef-f93a-418d-813c-75e36aae92ae"
       }
     ]
   },
@@ -556,6 +644,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d20b-783-ccf6-b29d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ed01e2f2-7522-597f-913f-1205c8df3ace"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cfa50fc8-d751-4423-a584-480d46334f5f"
+      }
     ]
   },
   {
@@ -631,7 +733,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "635b-21f4-f801-453"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "85c03b0d-973a-5b99-bf38-8b869a4b8a99"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6e7fd3a2-bab3-436e-9cf4-3692e964943d"
+      }
+    ]
   },
   {
     "id": "lelith-hesperax",
@@ -692,7 +808,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ae1b-1a96-5b4c-cecc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e69027cf-35e4-500e-ab20-0fb01cd281b0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "97d12366-0971-4196-91ee-f5e5af2144b4"
+      }
+    ]
   },
   {
     "id": "razorwing-jetfighter",
@@ -754,7 +884,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fbc4-c7d0-db5b-91c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6d9f1792-a381-5b5f-94de-beffb94e1604"
+      },
+      {
+        "namespace": "mfm",
+        "id": "25d7da7d-27e2-4a7d-8527-11e4ef259461"
+      }
+    ]
   },
   {
     "id": "scourges-with-heavy-weapons",
@@ -839,6 +983,20 @@
       {
         "item_id": "haywire-blaster",
         "cost": 5
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7c93-baac-e65f-58bd"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "00691ecb-bf5a-51e5-80c1-6ff31a35d942"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dbf067f4-4c83-45d1-9ba0-243cc1b89ea6"
       }
     ]
   },
@@ -933,6 +1091,24 @@
       {
         "item_id": "twin-haywire-blaster",
         "cost": 5
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5c5f-b70b-f6ee-a81e"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "6065-abbb-b1a0-4800"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1e30664e-db2c-535b-bb85-4d6759053a26"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5cec7cfa-bc87-4e5d-a321-dfbc2a3aded9"
       }
     ]
   },
@@ -1035,6 +1211,20 @@
         "count": 1,
         "per_models": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2659-7a1b-3ce6-8e4b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ce4db86a-c461-5977-9294-533b4ddb15dc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7b244876-3ee9-4ae5-85e2-457f55569011"
+      }
     ]
   },
   {
@@ -1095,7 +1285,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "32ff-aec4-9669-c8a2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d41a6f29-d084-508a-b020-5f207c0c8e90"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f2b4d576-17af-4717-af8c-b85fb6273c8a"
+      }
+    ]
   },
   {
     "id": "archon",
@@ -1159,7 +1363,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5c1c-fa4a-3234-c711"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f0164c73-b047-5e23-9ed1-b8068a690340"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d1eb30b2-ed6d-4938-beb6-a5ff5f41c15a"
+      }
+    ]
   },
   {
     "id": "lady-malys",
@@ -1221,7 +1439,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a223-234b-7886-fccc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8e4d1ba2-3cdc-5e8e-bda1-da92601c642b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4416d0b0-3c86-47c6-ad02-4f6d55a6828a"
+      }
+    ]
   },
   {
     "id": "ravager",
@@ -1287,6 +1519,20 @@
       {
         "item_id": "dark-lance",
         "cost": 5
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3376-d337-6a33-4bca"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "075546f0-4a15-560e-a1fd-488f9937204c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "00b3c755-3971-4f52-beb0-dce4695c6a05"
       }
     ]
   },
@@ -1356,6 +1602,20 @@
         ],
         "count": 3,
         "per_models": 0
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "edca-1a1b-902d-421a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cb257844-3bd9-5053-9f57-bb6ad6589bc4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ec56c788-7d9a-4de0-95b6-67040c98c4a9"
       }
     ]
   },
@@ -1444,6 +1704,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "76ab-197c-bd41-181b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b3b41fc4-05ac-5c0a-a27d-34855aa0bf49"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c991ab8b-7c08-46e1-b82e-c209e815d569"
+      }
     ]
   },
   {
@@ -1504,7 +1778,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "71e1-7d54-4856-4ce1"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "31b00211-e1f3-52c2-a019-956f8b4afe54"
+      },
+      {
+        "namespace": "mfm",
+        "id": "557d9e8e-4c8a-4e60-a5ce-cada18d562c8"
+      }
+    ]
   },
   {
     "id": "drazhar",
@@ -1563,7 +1851,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a30b-b966-d264-e935"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f5df79b5-3976-53b1-9679-d08cbde8a167"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a1654b25-220b-4f99-87f7-3f6545186b8f"
+      }
+    ]
   },
   {
     "id": "incubi",
@@ -1659,6 +1961,24 @@
         "count": 2,
         "per_models": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1529-793d-481b-82bf"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "a783-f14f-4278-c2a3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a87d6522-7e1a-5f02-a6cd-f32bacdf03c0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fcf530d2-6c38-40d1-b576-b33fc17103ec"
+      }
     ]
   },
   {
@@ -1738,7 +2058,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6a3a-7973-b509-532e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "163eda0b-b737-5705-8fcc-32284892df01"
+      },
+      {
+        "namespace": "mfm",
+        "id": "58bfc42e-b7cb-49d7-90a0-c7f8c523fce2"
+      }
+    ]
   },
   {
     "id": "coven-of-agonies-cronos",
@@ -1784,7 +2118,13 @@
       "combat-patrol"
     ],
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9f12eccf-4877-44a9-bffa-e87d2cfe831f"
+      }
+    ]
   },
   {
     "id": "coven-of-agonies-talos",
@@ -1830,7 +2170,13 @@
       "combat-patrol"
     ],
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "423dda79-22ff-4a1c-8fba-944b7b10734c"
+      }
+    ]
   },
   {
     "id": "coven-of-agonies-wracks",
@@ -1933,6 +2279,12 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 25
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7d864aac-03ad-46d5-b60e-cacaec8fd814"
+      }
+    ]
   }
 ]

@@ -2,9 +2,7 @@
   "$schema": "../mfm-source-map.schema.json",
   "entity_schema": "schemas/core/unit.schema.json",
   "mapping_version": 1,
-  "root_tables": [
-    "datasheet"
-  ],
+  "root_tables": ["datasheet"],
   "fields": {
     "/ability_ids": {
       "provenance": "repo-authored",
@@ -19,9 +17,7 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/author-reconcile.ts#reconcileFaction"
-      ],
+      "consumers": ["tools/src/author-reconcile.ts#reconcileFaction"],
       "reason": "Ability links come from community-authored enrichment records rather than MFM prose."
     },
     "/ability_ids/*": {
@@ -37,9 +33,7 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/author-reconcile.ts#reconcileFaction"
-      ],
+      "consumers": ["tools/src/author-reconcile.ts#reconcileFaction"],
       "reason": "Ability links come from community-authored enrichment records rather than MFM prose."
     },
     "/aliases": {
@@ -104,9 +98,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -154,9 +146,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -204,9 +194,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -254,9 +242,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -304,9 +290,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -354,9 +338,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -404,9 +386,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -454,9 +434,7 @@
           "operation": "Normalize the selected source tier."
         }
       ],
-      "filters": [
-        "Retain only unambiguous host-faction pricing groups."
-      ],
+      "filters": ["Retain only unambiguous host-faction pricing groups."],
       "precedence": [],
       "consumers": [
         "tools/src/mfm/seed-units.ts#buildSeedUnit",
@@ -467,9 +445,7 @@
     "/attachment_role": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.datasheet_bodyguard_group.bodyguardType"
-      ],
+      "sources": ["data.datasheet_bodyguard_group.bodyguardType"],
       "joins": [
         {
           "relation": "datasheet_bodyguard_group.datasheetId",
@@ -486,20 +462,14 @@
       "filters": [
         "Exclude Combat Patrol datasheets; scope groups to the current datasheet."
       ],
-      "precedence": [
-        "Leader wins over support for mixed-role source rows."
-      ],
-      "consumers": [
-        "tools/src/mfm/attachment.ts#runAttachmentRoles"
-      ],
+      "precedence": ["Leader wins over support for mixed-role source rows."],
+      "consumers": ["tools/src/mfm/attachment.ts#runAttachmentRoles"],
       "reason": "Attachment role is derived from the authoritative bodyguard-group role with the documented leader-wins flattening rule."
     },
     "/base_size_mm": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.datasheet.localisations.*.baseSize"
-      ],
+      "sources": ["data.datasheet.localisations.*.baseSize"],
       "joins": [],
       "transforms": [
         {
@@ -513,17 +483,13 @@
       "precedence": [
         "A parsed value fills an empty field and corrects or de-drafts a provisional (draft) one; a non-draft authored value the dump contradicts is surfaced for review, never overwritten (the dump carries 0.5-1mm oval rounding errors)."
       ],
-      "consumers": [
-        "tools/src/mfm/base-sizes.ts#runBaseSizes"
-      ],
+      "consumers": ["tools/src/mfm/base-sizes.ts#runBaseSizes"],
       "reason": "runBaseSizes derives the representative base from the dump baseSize for confident round/oval datasheets; categories, per-model bases, and hand-authored conflicts remain authored, so coverage is partial."
     },
     "/base_size_mm/diameter": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.datasheet.localisations.*.baseSize"
-      ],
+      "sources": ["data.datasheet.localisations.*.baseSize"],
       "joins": [],
       "transforms": [
         {
@@ -537,17 +503,13 @@
       "precedence": [
         "A parsed value fills an empty field and corrects or de-drafts a provisional (draft) one; a non-draft authored value the dump contradicts is surfaced for review, never overwritten (the dump carries 0.5-1mm oval rounding errors)."
       ],
-      "consumers": [
-        "tools/src/mfm/base-sizes.ts#runBaseSizes"
-      ],
+      "consumers": ["tools/src/mfm/base-sizes.ts#runBaseSizes"],
       "reason": "runBaseSizes derives the representative base from the dump baseSize for confident round/oval datasheets; categories, per-model bases, and hand-authored conflicts remain authored, so coverage is partial."
     },
     "/base_size_mm/draft": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.datasheet.localisations.*.baseSize"
-      ],
+      "sources": ["data.datasheet.localisations.*.baseSize"],
       "joins": [],
       "transforms": [
         {
@@ -561,17 +523,13 @@
       "precedence": [
         "A parsed value fills an empty field and corrects or de-drafts a provisional (draft) one; a non-draft authored value the dump contradicts is surfaced for review, never overwritten (the dump carries 0.5-1mm oval rounding errors)."
       ],
-      "consumers": [
-        "tools/src/mfm/base-sizes.ts#runBaseSizes"
-      ],
+      "consumers": ["tools/src/mfm/base-sizes.ts#runBaseSizes"],
       "reason": "runBaseSizes derives the representative base from the dump baseSize for confident round/oval datasheets; categories, per-model bases, and hand-authored conflicts remain authored, so coverage is partial."
     },
     "/base_size_mm/length": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.datasheet.localisations.*.baseSize"
-      ],
+      "sources": ["data.datasheet.localisations.*.baseSize"],
       "joins": [],
       "transforms": [
         {
@@ -585,17 +543,13 @@
       "precedence": [
         "A parsed value fills an empty field and corrects or de-drafts a provisional (draft) one; a non-draft authored value the dump contradicts is surfaced for review, never overwritten (the dump carries 0.5-1mm oval rounding errors)."
       ],
-      "consumers": [
-        "tools/src/mfm/base-sizes.ts#runBaseSizes"
-      ],
+      "consumers": ["tools/src/mfm/base-sizes.ts#runBaseSizes"],
       "reason": "runBaseSizes derives the representative base from the dump baseSize for confident round/oval datasheets; categories, per-model bases, and hand-authored conflicts remain authored, so coverage is partial."
     },
     "/base_size_mm/shape": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.datasheet.localisations.*.baseSize"
-      ],
+      "sources": ["data.datasheet.localisations.*.baseSize"],
       "joins": [],
       "transforms": [
         {
@@ -609,17 +563,13 @@
       "precedence": [
         "A parsed value fills an empty field and corrects or de-drafts a provisional (draft) one; a non-draft authored value the dump contradicts is surfaced for review, never overwritten (the dump carries 0.5-1mm oval rounding errors)."
       ],
-      "consumers": [
-        "tools/src/mfm/base-sizes.ts#runBaseSizes"
-      ],
+      "consumers": ["tools/src/mfm/base-sizes.ts#runBaseSizes"],
       "reason": "runBaseSizes derives the representative base from the dump baseSize for confident round/oval datasheets; categories, per-model bases, and hand-authored conflicts remain authored, so coverage is partial."
     },
     "/base_size_mm/size": {
       "provenance": "unresolved-candidate",
       "coverage": "not-applicable",
-      "sources": [
-        "data.datasheet.localisations.*.baseSize"
-      ],
+      "sources": ["data.datasheet.localisations.*.baseSize"],
       "joins": [],
       "transforms": [],
       "filters": [],
@@ -630,9 +580,7 @@
     "/base_size_mm/width": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.datasheet.localisations.*.baseSize"
-      ],
+      "sources": ["data.datasheet.localisations.*.baseSize"],
       "joins": [],
       "transforms": [
         {
@@ -646,9 +594,7 @@
       "precedence": [
         "A parsed value fills an empty field and corrects or de-drafts a provisional (draft) one; a non-draft authored value the dump contradicts is surfaced for review, never overwritten (the dump carries 0.5-1mm oval rounding errors)."
       ],
-      "consumers": [
-        "tools/src/mfm/base-sizes.ts#runBaseSizes"
-      ],
+      "consumers": ["tools/src/mfm/base-sizes.ts#runBaseSizes"],
       "reason": "runBaseSizes derives the representative base from the dump baseSize for confident round/oval datasheets; categories, per-model bases, and hand-authored conflicts remain authored, so coverage is partial."
     },
     "/conditional_keywords": {
@@ -691,40 +637,57 @@
       "transforms": [],
       "filters": [],
       "precedence": [],
-      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "consumers": [
+        "tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"
+      ],
       "reason": "One supported source row becomes one conditional keyword grant."
     },
     "/conditional_keywords/*/keyword": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": ["data.conditional_keyword.keywordId", "data.keyword.localisations.*.name"],
+      "sources": [
+        "data.conditional_keyword.keywordId",
+        "data.keyword.localisations.*.name"
+      ],
       "joins": [],
       "transforms": [],
       "filters": [],
       "precedence": [],
-      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "consumers": [
+        "tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"
+      ],
       "reason": "The granted keyword id resolves to its source display label."
     },
     "/conditional_keywords/*/required_detachment_id": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": ["data.conditional_keyword.requiredDetachmentId", "data.detachment.localisations.*.name"],
+      "sources": [
+        "data.conditional_keyword.requiredDetachmentId",
+        "data.detachment.localisations.*.name"
+      ],
       "joins": [],
       "transforms": [],
       "filters": [],
       "precedence": [],
-      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "consumers": [
+        "tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"
+      ],
       "reason": "The source detachment requirement resolves to the repository detachment slug."
     },
     "/conditional_keywords/*/required_faction_keyword": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": ["data.conditional_keyword.requiredRosterFactionKeywordId", "data.faction_keyword.localisations.*.name"],
+      "sources": [
+        "data.conditional_keyword.requiredRosterFactionKeywordId",
+        "data.faction_keyword.localisations.*.name"
+      ],
       "joins": [],
       "transforms": [],
       "filters": [],
       "precedence": [],
-      "consumers": ["tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"],
+      "consumers": [
+        "tools/src/mfm/conditional-keywords.ts#runConditionalKeywords"
+      ],
       "reason": "The source roster-faction requirement resolves to its display keyword."
     },
     "/excluded_faction_keywords": {
@@ -748,6 +711,81 @@
       "precedence": [],
       "consumers": [],
       "reason": "Negative faction access is curated repository data; the MFM applicability rows do not encode the same exclusion contract."
+    },
+    "/external_refs": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.datasheet.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Preserve every structurally routed datasheet identity under the mfm namespace."
+        }
+      ],
+      "filters": [
+        "Live datasheets whose faction route and canonical name resolve to an existing unit."
+      ],
+      "precedence": [
+        "Additive: retain exact references from every other namespace."
+      ],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-units.ts#buildSeedUnit"
+      ],
+      "reason": "External source identities are additive interoperability metadata."
+    },
+    "/external_refs/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.datasheet.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Create one unique namespace/id pair."
+        }
+      ],
+      "filters": ["Only exact routed unit matches."],
+      "precedence": ["Additive; exact duplicate pairs are ignored."],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-units.ts#buildSeedUnit"
+      ],
+      "reason": "Each item preserves one exact external identity."
+    },
+    "/external_refs/*/id": {
+      "provenance": "direct",
+      "coverage": "implemented",
+      "sources": ["data.datasheet.id"],
+      "joins": [],
+      "transforms": [],
+      "filters": ["Only exact routed unit matches."],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-units.ts#buildSeedUnit"
+      ],
+      "reason": "The external id is the MFM datasheet primary key."
+    },
+    "/external_refs/*/namespace": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.datasheet.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Label the source identity with the constant mfm namespace."
+        }
+      ],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/seed-units.ts#buildSeedUnit"
+      ],
+      "reason": "The namespace distinguishes MFM ids from other source identities."
     },
     "/faction_id": {
       "provenance": "derived",
@@ -779,9 +817,7 @@
         "Prefer publication ownership; shared-roster filing may select the parent repository directory."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Faction ownership follows the datasheet publication, never datasheet applicability overlays."
     },
     "/faction_keywords": {
@@ -811,9 +847,7 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Faction keywords are applicability overlays and do not replace publication ownership."
     },
     "/faction_keywords/*": {
@@ -843,17 +877,13 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Faction keywords are applicability overlays and do not replace publication ownership."
     },
     "/game_modes": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.publication.isCombatPatrol"
-      ],
+      "sources": ["data.publication.isCombatPatrol"],
       "joins": [
         {
           "relation": "datasheet.publicationId",
@@ -869,17 +899,13 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Combat Patrol publication state derives the unit game-mode reference."
     },
     "/game_modes/*": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.publication.isCombatPatrol"
-      ],
+      "sources": ["data.publication.isCombatPatrol"],
       "joins": [
         {
           "relation": "datasheet.publicationId",
@@ -895,9 +921,7 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Combat Patrol publication state derives the unit game-mode reference."
     },
     "/game_version": {
@@ -908,9 +932,7 @@
       "transforms": [],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Game version is repository release context, not inferred from dump metadata."
     },
     "/game_version/dataslate": {
@@ -921,9 +943,7 @@
       "transforms": [],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Game version is repository release context, not inferred from dump metadata."
     },
     "/game_version/edition": {
@@ -934,17 +954,13 @@
       "transforms": [],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Game version is repository release context, not inferred from dump metadata."
     },
     "/id": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.datasheet.localisations.*.name"
-      ],
+      "sources": ["data.datasheet.localisations.*.name"],
       "joins": [],
       "transforms": [
         {
@@ -956,18 +972,13 @@
         "Use the selected non-Legends datasheet in the resolved faction directory."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The unit id is deterministically slugged from the authoritative datasheet name."
     },
     "/is_legend": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.datasheet.isLegends",
-        "data.publication.isLegends"
-      ],
+      "sources": ["data.datasheet.isLegends", "data.publication.isLegends"],
       "joins": [
         {
           "relation": "datasheet.publicationId",
@@ -1021,9 +1032,7 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Unit keywords are derived from miniature keyword assignments."
     },
     "/keywords/*": {
@@ -1058,9 +1067,7 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Unit keywords are derived from miniature keyword assignments."
     },
     "/model_count": {
@@ -1093,13 +1100,9 @@
           "operation": "Aggregate composition row minima and maxima into the unit envelope."
         }
       ],
-      "filters": [
-        "Use buildable compositions for the current datasheet."
-      ],
+      "filters": ["Use buildable compositions for the current datasheet."],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Model-count bounds are aggregated from authoritative composition rows."
     },
     "/model_count/max": {
@@ -1132,13 +1135,9 @@
           "operation": "Aggregate composition row minima and maxima into the unit envelope."
         }
       ],
-      "filters": [
-        "Use buildable compositions for the current datasheet."
-      ],
+      "filters": ["Use buildable compositions for the current datasheet."],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Model-count bounds are aggregated from authoritative composition rows."
     },
     "/model_count/min": {
@@ -1171,30 +1170,20 @@
           "operation": "Aggregate composition row minima and maxima into the unit envelope."
         }
       ],
-      "filters": [
-        "Use buildable compositions for the current datasheet."
-      ],
+      "filters": ["Use buildable compositions for the current datasheet."],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Model-count bounds are aggregated from authoritative composition rows."
     },
     "/name": {
       "provenance": "direct",
       "coverage": "implemented",
-      "sources": [
-        "data.datasheet.localisations.*.name"
-      ],
+      "sources": ["data.datasheet.localisations.*.name"],
       "joins": [],
       "transforms": [],
-      "filters": [
-        "Select the trimmed English localisation."
-      ],
+      "filters": ["Select the trimmed English localisation."],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The display name comes directly from the selected datasheet localisation."
     },
     "/points": {
@@ -1578,9 +1567,7 @@
     "/points_provisional": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.unit_composition.points"
-      ],
+      "sources": ["data.unit_composition.points"],
       "joins": [
         {
           "relation": "unit_composition.datasheetId",
@@ -1596,9 +1583,7 @@
       ],
       "filters": [],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The provisional flag records whether the authoritative pricing graph could be resolved without ambiguity."
     },
     "/profiles": {
@@ -1625,9 +1610,7 @@
         "Ignore hidden stat lines and deduplicate identical visible profiles."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Profiles are derived from visible miniature stat lines."
     },
     "/profiles/*": {
@@ -1654,17 +1637,13 @@
         "Ignore hidden stat lines and deduplicate identical visible profiles."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Profiles are derived from visible miniature stat lines."
     },
     "/profiles/*/Ld": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.miniature.leadership"
-      ],
+      "sources": ["data.miniature.leadership"],
       "joins": [
         {
           "relation": "miniature.datasheetId",
@@ -1682,17 +1661,13 @@
         "Only visible miniature stat lines for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The profile value is parsed from the matching miniature source field."
     },
     "/profiles/*/M": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.miniature.movement"
-      ],
+      "sources": ["data.miniature.movement"],
       "joins": [
         {
           "relation": "miniature.datasheetId",
@@ -1710,17 +1685,13 @@
         "Only visible miniature stat lines for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The profile value is parsed from the matching miniature source field."
     },
     "/profiles/*/OC": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.miniature.objectiveControl"
-      ],
+      "sources": ["data.miniature.objectiveControl"],
       "joins": [
         {
           "relation": "miniature.datasheetId",
@@ -1738,17 +1709,13 @@
         "Only visible miniature stat lines for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The profile value is parsed from the matching miniature source field."
     },
     "/profiles/*/Sv": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.miniature.save"
-      ],
+      "sources": ["data.miniature.save"],
       "joins": [
         {
           "relation": "miniature.datasheetId",
@@ -1766,17 +1733,13 @@
         "Only visible miniature stat lines for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The profile value is parsed from the matching miniature source field."
     },
     "/profiles/*/T": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.miniature.toughness"
-      ],
+      "sources": ["data.miniature.toughness"],
       "joins": [
         {
           "relation": "miniature.datasheetId",
@@ -1794,17 +1757,13 @@
         "Only visible miniature stat lines for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The profile value is parsed from the matching miniature source field."
     },
     "/profiles/*/W": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.miniature.wounds"
-      ],
+      "sources": ["data.miniature.wounds"],
       "joins": [
         {
           "relation": "miniature.datasheetId",
@@ -1822,17 +1781,13 @@
         "Only visible miniature stat lines for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The profile value is parsed from the matching miniature source field."
     },
     "/profiles/*/invuln_sv": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.invulnerable_save.save"
-      ],
+      "sources": ["data.invulnerable_save.save"],
       "joins": [
         {
           "relation": "invulnerable_save.datasheetId",
@@ -1861,9 +1816,7 @@
     "/profiles/*/invuln_sv_melee": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.invulnerable_save.meleeSave"
-      ],
+      "sources": ["data.invulnerable_save.meleeSave"],
       "joins": [
         {
           "relation": "invulnerable_save.datasheetId",
@@ -1892,9 +1845,7 @@
     "/profiles/*/invuln_sv_ranged": {
       "provenance": "derived",
       "coverage": "partial",
-      "sources": [
-        "data.invulnerable_save.rangedSave"
-      ],
+      "sources": ["data.invulnerable_save.rangedSave"],
       "joins": [
         {
           "relation": "invulnerable_save.datasheetId",
@@ -1923,9 +1874,7 @@
     "/profiles/*/name": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.miniature.localisations.*.name"
-      ],
+      "sources": ["data.miniature.localisations.*.name"],
       "joins": [
         {
           "relation": "miniature.datasheetId",
@@ -1943,9 +1892,7 @@
         "Only visible miniature stat lines for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "The profile value is parsed from the matching miniature source field."
     },
     "/role": {
@@ -1982,9 +1929,7 @@
         "Union keywords across visible and hidden miniatures for the current datasheet."
       ],
       "precedence": [],
-      "consumers": [
-        "tools/src/mfm/seed-units.ts#buildSeedUnit"
-      ],
+      "consumers": ["tools/src/mfm/seed-units.ts#buildSeedUnit"],
       "reason": "Role is derived from the datasheet miniature keyword vocabulary."
     },
     "/transport_capacity": {
@@ -2080,9 +2025,7 @@
       "precedence": [
         "Use the tightest structurally supported cap for overlapping source limits."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearBudgets"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearBudgets"],
       "reason": "Budget coverage is partial because several cataloged all-model and alternate choice shapes remain intentionally unimplemented."
     },
     "/wargear_budgets/*": {
@@ -2112,9 +2055,7 @@
       "precedence": [
         "Use the tightest structurally supported cap for overlapping source limits."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearBudgets"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearBudgets"],
       "reason": "Budget coverage is partial because several cataloged all-model and alternate choice shapes remain intentionally unimplemented."
     },
     "/wargear_budgets/*/count": {
@@ -2144,9 +2085,7 @@
       "precedence": [
         "Use the tightest structurally supported cap for overlapping source limits."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearBudgets"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearBudgets"],
       "reason": "Budget coverage is partial because several cataloged all-model and alternate choice shapes remain intentionally unimplemented."
     },
     "/wargear_budgets/*/items": {
@@ -2176,9 +2115,7 @@
       "precedence": [
         "Use the tightest structurally supported cap for overlapping source limits."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearBudgets"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearBudgets"],
       "reason": "Budget coverage is partial because several cataloged all-model and alternate choice shapes remain intentionally unimplemented."
     },
     "/wargear_budgets/*/items/*": {
@@ -2208,9 +2145,7 @@
       "precedence": [
         "Use the tightest structurally supported cap for overlapping source limits."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearBudgets"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearBudgets"],
       "reason": "Budget coverage is partial because several cataloged all-model and alternate choice shapes remain intentionally unimplemented."
     },
     "/wargear_budgets/*/per_models": {
@@ -2240,9 +2175,7 @@
       "precedence": [
         "Use the tightest structurally supported cap for overlapping source limits."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearBudgets"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearBudgets"],
       "reason": "Budget coverage is partial because several cataloged all-model and alternate choice shapes remain intentionally unimplemented."
     },
     "/wargear_budgets/*/duplicate_limit": {
@@ -2302,9 +2235,7 @@
       "precedence": [
         "Per-item source prices override no inferred free default."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearCosts"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearCosts"],
       "reason": "Per-item costs come from priced source options after supported loadout resolution."
     },
     "/wargear_costs/*": {
@@ -2331,9 +2262,7 @@
       "precedence": [
         "Per-item source prices override no inferred free default."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearCosts"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearCosts"],
       "reason": "Per-item costs come from priced source options after supported loadout resolution."
     },
     "/wargear_costs/*/cost": {
@@ -2360,9 +2289,7 @@
       "precedence": [
         "Per-item source prices override no inferred free default."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearCosts"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearCosts"],
       "reason": "Per-item costs come from priced source options after supported loadout resolution."
     },
     "/wargear_costs/*/item_id": {
@@ -2389,9 +2316,7 @@
       "precedence": [
         "Per-item source prices override no inferred free default."
       ],
-      "consumers": [
-        "tools/src/mfm/wargear.ts#runWargearCosts"
-      ],
+      "consumers": ["tools/src/mfm/wargear.ts#runWargearCosts"],
       "reason": "Per-item costs come from priced source options after supported loadout resolution."
     },
     "/weapon_ids": {

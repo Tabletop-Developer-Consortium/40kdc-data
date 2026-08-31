@@ -15,7 +15,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5672306e-9410-5b58-b7b0-dcb98b75f252"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7d03a386-0b47-4684-bd23-eeac1bebc139"
+      }
+    ]
   },
   {
     "id": "furnace-of-plagues-virulent-vectorium",
@@ -33,7 +43,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1850daac-4364-5c67-b857-49e2f9bff098"
+      },
+      {
+        "namespace": "mfm",
+        "id": "572b6378-e1cf-433c-841b-015a715aed94"
+      }
+    ]
   },
   {
     "id": "arch-contaminator-virulent-vectorium",
@@ -51,7 +71,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "aeab3eaf-4053-588e-8118-3d94429410eb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f6592bda-6788-468f-a7f0-2ad86506c925"
+      }
+    ]
   },
   {
     "id": "revolting-regeneration-virulent-vectorium",
@@ -69,7 +99,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d114afb9-b898-5611-a486-90b633a18eca"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e389de76-b121-4110-b01e-343ed1bec502"
+      }
+    ]
   },
   {
     "id": "eye-of-affliction-mortarions-hammer",
@@ -87,7 +127,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "39fc74e7-ceb6-53db-ab83-2eaddd9879ac"
+      },
+      {
+        "namespace": "mfm",
+        "id": "184bc9b1-4743-4683-bb76-b667e8084f98"
+      }
+    ]
   },
   {
     "id": "bilemaw-blight-mortarions-hammer",
@@ -105,7 +155,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2ba490c4-926d-5b86-8f22-b48d11eb2863"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5c3eba83-5786-4320-92e5-b6369e5c0535"
+      }
+    ]
   },
   {
     "id": "insectile-murmuration-upgrade-flyblown-host",
@@ -124,7 +184,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "fa211b3a-a993-44c2-bbce-b954c4d653db"
+      }
+    ]
   },
   {
     "id": "rejuvenating-swarm-paragons-of-putrescence",
@@ -146,6 +212,12 @@
     "max_targets": 1,
     "exclusion_keywords": [
       "Terminator"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "98b3b2a1-6ebe-4087-a039-9ecc48fec9b0"
+      }
     ]
   },
   {
@@ -164,7 +236,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b840d298-168e-5f92-9d7e-d65f8efea64d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6b6d82dd-7aac-49f5-8219-c2ce15220e4b"
+      }
+    ]
   },
   {
     "id": "plagueveil-upgrade-flyblown-host",
@@ -183,7 +265,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "ff671003-161c-417a-96b9-a62c53d7cd3d"
+      }
+    ]
   },
   {
     "id": "tendrilous-emissions-mortarions-hammer",
@@ -201,7 +289,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0087ac44-7f9c-5f2b-85a8-a690ecdb1b05"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7b1f761d-498a-4439-a0c1-e76a6cff030e"
+      }
+    ]
   },
   {
     "id": "final-ingredient-champions-of-contagion",
@@ -219,7 +317,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "9788834e-00d4-5dd7-a155-782a01aa0cbf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "64b1ed35-3581-4727-b68f-91af8d8d9af8"
+      }
+    ]
   },
   {
     "id": "visions-of-virulence-champions-of-contagion",
@@ -237,7 +345,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4ba7227d-a1fa-50f3-ba76-34f19b658bb7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "813b1ef8-03dc-4f3c-96a8-110aa39dac35"
+      }
+    ]
   },
   {
     "id": "needle-of-nurgle-champions-of-contagion",
@@ -255,7 +373,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "211d0237-3efb-5261-ba10-898fb16ef512"
+      },
+      {
+        "namespace": "mfm",
+        "id": "944ad595-51c6-4fad-8aef-7c779fac2544"
+      }
+    ]
   },
   {
     "id": "cornucophagus-champions-of-contagion",
@@ -273,7 +401,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f226e20a-399f-5eaf-bd8d-12d8091381d5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "473c6049-4c72-42e1-9cbb-49624112c62d"
+      }
+    ]
   },
   {
     "id": "beckoning-blight-tallyband-summoners",
@@ -291,7 +429,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b4fe2e71-e5c4-55a4-9371-babf8bd2e1f4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c0d51c91-9231-442d-9867-c45605bb73ca"
+      }
+    ]
   },
   {
     "id": "fell-harvester-tallyband-summoners",
@@ -309,7 +457,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b7e10a39-8f7d-53cf-ae30-67f146732349"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c61119f2-8aea-4203-ab1b-565c4deacebe"
+      }
+    ]
   },
   {
     "id": "entropic-knell-tallyband-summoners",
@@ -327,7 +485,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ca9f05e6-d9c5-5c6e-90f2-ce50c90d2c1b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fa2dce92-6a33-4ba4-9401-f3568989a54d"
+      }
+    ]
   },
   {
     "id": "tome-of-bounteous-blessings-tallyband-summoners",
@@ -345,7 +513,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "69c4cbb2-afd4-5399-8a88-bfe31e6200d1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c717fc16-3d50-4312-af50-9d7653c5266a"
+      }
+    ]
   },
   {
     "id": "witherbone-pipes-shamblerot-vectorium",
@@ -363,7 +541,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4438bb68-56cb-50ff-b034-f2cf03c38470"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5d974c69-74c8-4495-8370-f4c9e20d3c4f"
+      }
+    ]
   },
   {
     "id": "lord-of-the-walking-pox-shamblerot-vectorium",
@@ -381,7 +569,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8ff2f45d-da60-5500-8dd5-e57c53ee706b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0b8d22c7-a46c-4865-9a51-dc622a894fec"
+      }
+    ]
   },
   {
     "id": "sorrowsyphon-shamblerot-vectorium",
@@ -399,7 +597,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7f5dcbc5-421e-5e49-9063-6bbfb9932b58"
+      },
+      {
+        "namespace": "mfm",
+        "id": "646ffc25-fbc8-4702-82ad-ea7c853e5736"
+      }
+    ]
   },
   {
     "id": "talisman-of-burgeoning-shamblerot-vectorium",
@@ -417,7 +625,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4a7fa8ce-5d68-5b8d-ae76-b2e5d6920fb5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "89e9fb12-929f-4931-8002-58f48241447d"
+      }
+    ]
   },
   {
     "id": "face-of-death-death-lords-chosen",
@@ -435,7 +653,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0a84238c-f9fd-5938-bcbf-07d4d1245356"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cff1e6f0-e980-4a6d-a722-e86946398006"
+      }
+    ]
   },
   {
     "id": "vile-vigour-death-lords-chosen",
@@ -453,7 +681,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "03c2363f-1d30-5af6-853a-54b536019592"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8259676b-b493-4d15-b60e-b1922dac0d44"
+      }
+    ]
   },
   {
     "id": "warprot-talisman-death-lords-chosen",
@@ -471,7 +709,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4dbb55db-0008-593d-b443-4ee0846a2d9b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b7a6b2a3-f33e-4620-a7aa-826bbccede72"
+      }
+    ]
   },
   {
     "id": "helm-of-the-fly-king-death-lords-chosen",
@@ -489,7 +737,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4ab749f6-aafb-5658-95f9-792c09a28126"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e9aee006-05f7-44cd-9622-5a7a43b13bcc"
+      }
+    ]
   },
   {
     "id": "parasitic-woe-reaper-upgrade-contagion-engines",
@@ -507,7 +765,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "57326899-e3a2-4260-b48b-7fdce760ec8c"
+      }
+    ]
   },
   {
     "id": "lancet-of-the-worldsore-upgrade-contagion-engines",
@@ -532,6 +796,12 @@
         "Death Guard",
         "Myphitic Blight-haulers"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6e0f3baf-ed09-4117-a0a1-181dee486e68"
+      }
     ]
   },
   {
@@ -551,7 +821,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c8c48717-89c6-48b6-bf61-41c84aefc022"
+      }
+    ]
   },
   {
     "id": "bountiful-regeneration-maggot-lords",
@@ -570,6 +846,12 @@
     "keyword_restrictions": [
       "Lord of Virulence",
       "Maggot Lords"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d4db55ce-e6d8-499a-8627-78f59de1e7a4"
+      }
     ]
   },
   {
@@ -589,6 +871,12 @@
     "keyword_restrictions": [
       "Maggot Lords",
       "Tallyman"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "5c863751-9ea1-4464-b75c-65e254e9becc"
+      }
     ]
   }
 ]

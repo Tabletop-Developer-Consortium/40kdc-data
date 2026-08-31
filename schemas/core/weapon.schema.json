@@ -6,6 +6,9 @@
   "type": "object",
   "properties": {
     "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "external_refs": {
+      "$ref": "../defs/common.schema.json#/$defs/external-reference-list"
+    },
     "name": { "type": "string", "minLength": 1, "maxLength": 128 },
     "type": { "enum": ["ranged", "melee"] },
     "faction_id": {
@@ -52,14 +55,26 @@
             "items": {
               "type": "object",
               "properties": {
-                "keyword_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+                "keyword_id": {
+                  "$ref": "../defs/common.schema.json#/$defs/entity-id"
+                },
                 "parameters": {
                   "type": "object",
                   "description": "Reference-site parameters conforming to the catalog entry's required parameters and optional target-keyword applicability gates.",
                   "properties": {
-                    "value": { "$ref": "../defs/common.schema.json#/$defs/stat-value" },
-                    "target_keyword": { "type": "string", "minLength": 1, "maxLength": 64 },
-                    "threshold": { "type": "integer", "minimum": 2, "maximum": 6 },
+                    "value": {
+                      "$ref": "../defs/common.schema.json#/$defs/stat-value"
+                    },
+                    "target_keyword": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 64
+                    },
+                    "threshold": {
+                      "type": "integer",
+                      "minimum": 2,
+                      "maximum": 6
+                    },
                     "required_target_keywords_any": {
                       "$ref": "../defs/common.schema.json#/$defs/keyword-list",
                       "minItems": 1,

@@ -21,7 +21,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "89ef95a3-482f-4e6e-ab2a-92b88687d1c8"
+      }
+    ]
   },
   {
     "id": "twin-heavy-bolter",
@@ -78,7 +84,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "icon"
+    "category": "icon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7c1b90fb-5b4b-499f-8f6b-52b98f115efa"
+      }
+    ]
   },
   {
     "id": "brayhorn",
@@ -86,7 +98,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "ca845520-e9c5-4191-a605-0505035a64e6"
+      }
+    ]
   },
   {
     "id": "herd-banner",
@@ -95,6 +113,12 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9e660f68-928e-43a7-8af4-915cb722ac9c"
+      }
+    ]
   }
 ]

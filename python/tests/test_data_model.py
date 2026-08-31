@@ -12,12 +12,44 @@ from typing import Any
 
 import pytest
 
+from wh40kdc.data.collection import Collection
+
 
 def test_deduplicates_abilities_by_faction_and_id(dataset: Any) -> None:
     keys = [f"{a.raw.get('faction_id') or ''}::{a.id}" for a in dataset.abilities.all]
     assert len(set(keys)) == len(keys)
     idols = [a for a in dataset.abilities.all if a.id == "idol-of-blessed-blood"]
     assert len(idols) == 2, "both factions' idol-of-blessed-blood copies survive dedupe"
+
+
+def test_by_external_ref_returns_every_exact_match() -> None:
+    items = [
+        {
+            "id": "first",
+            "external_refs": [
+                {"namespace": "source", "id": "shared"},
+                {"namespace": "source", "id": "alternate"},
+            ],
+        },
+        {
+            "id": "second",
+            "external_refs": [{"namespace": "source", "id": "shared"}],
+        },
+    ]
+    collection = Collection(
+        items,
+        id_of=lambda item: item["id"],
+        external_refs_of=lambda item: item["external_refs"],
+        wrap=lambda item: item,
+    )
+
+    assert [item["id"] for item in collection.by_external_ref("source", "shared")] == [
+        "first",
+        "second",
+    ]
+    assert [item["id"] for item in collection.by_external_ref("source", "alternate")] == ["first"]
+    assert collection.by_external_ref("Source", "shared") == []
+    assert collection.by_external_ref("source", "Shared") == []
 
 
 def test_resolves_shared_ability_id_to_units_own_factions_copy(dataset: Any) -> None:

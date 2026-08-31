@@ -26,6 +26,11 @@
 import { readFileSync, writeFileSync, existsSync, mkdirSync, readdirSync } from "node:fs";
 import { resolve, join } from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  GAME_DATACARDS_BASE,
+  GAME_DATACARDS_FACTION_FILES,
+  GAME_DATACARDS_GLOBAL_FILES,
+} from "./game-datacards-source.js";
 
 const __dirname = fileURLToPath(new URL(".", import.meta.url));
 const REPO = resolve(__dirname, "../..");
@@ -45,50 +50,6 @@ const REPORT_PATH = flag("--report");
 const REFRESH = flag("--refresh-source");
 const factionArgs = args.filter((a, i) => !a.startsWith("--") && !["--store", "--report", "--refresh-source"].includes(args[i - 1]));
 
-const GDC_BASE = "https://raw.githubusercontent.com/game-datacards/datasources/main/10th/json";
-
-// enrichment faction id -> game-datacards file basename(s). Marines span chapters.
-const FACTION_FILES: Record<string, string[]> = {
-  "adepta-sororitas": ["adeptasororitas"],
-  "adeptus-astartes": ["space_marines", "blacktemplar", "bloodangels", "darkangels", "deathwatch", "spacewolves", "marines_leviathan"],
-  "adeptus-custodes": ["adeptuscustodes"],
-  "adeptus-mechanicus": ["adeptusmechanicus"],
-  aeldari: ["aeldari"],
-  "agents-of-the-imperium": ["agents"],
-  "astra-militarum": ["astramilitarum"],
-  "chaos-daemons": ["chaosdaemons"],
-  "chaos-knights": ["chaosknights"],
-  "chaos-space-marines": ["chaos_spacemarines"],
-  "death-guard": ["deathguard"],
-  drukhari: ["drukhari"],
-  "emperors-children": ["emperors_children"],
-  "genestealer-cults": ["gsc"],
-  "grey-knights": ["greyknights"],
-  "imperial-knights": ["imperialknights"],
-  "leagues-of-votann": ["votann"],
-  necrons: ["necrons"],
-  orks: ["orks"],
-  "tau-empire": ["tau"],
-  "thousand-sons": ["thousandsons"],
-  tyranids: ["tyranids"],
-  "world-eaters": ["worldeaters"],
-  // Space Marine chapters: own datacards file where one exists, else the generic
-  // space_marines file (shared detachments/enhancements/stratagems).
-  "black-templars": ["blacktemplar", "space_marines"],
-  "blood-angels": ["bloodangels", "space_marines"],
-  "dark-angels": ["darkangels", "space_marines"],
-  deathwatch: ["deathwatch", "space_marines"],
-  "space-wolves": ["spacewolves", "space_marines"],
-  "crimson-fists": ["space_marines"],
-  "imperial-fists": ["space_marines"],
-  "iron-hands": ["space_marines"],
-  "raven-guard": ["space_marines"],
-  salamanders: ["space_marines"],
-  ultramarines: ["space_marines"],
-  "white-scars": ["space_marines"],
-};
-// universal sources appended to every faction (core stratagems + global enhancements).
-const GLOBAL_FILES = ["core", "enhancements"];
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Json = any;
@@ -111,7 +72,7 @@ const fetched = new Map<string, Json>();
 async function gdcFile(base: string): Promise<Json | null> {
   if (fetched.has(base)) return fetched.get(base);
   try {
-    const res = await fetch(`${GDC_BASE}/${base}.json`);
+    const res = await fetch(`${GAME_DATACARDS_BASE}/${base}.json`);
     if (!res.ok) { fetched.set(base, null); return null; }
     const j = await res.json();
     fetched.set(base, j);
@@ -187,7 +148,10 @@ async function backfillFaction(faction: string): Promise<FactionResult | null> {
   const have = new Set(store.map((e) => e.ability_id));
 
   // build text map from this faction's game-datacards file(s) + universal files
-  const files = [...(FACTION_FILES[faction] ?? []), ...GLOBAL_FILES];
+  const files = [
+    ...(GAME_DATACARDS_FACTION_FILES[faction] ?? []),
+    ...GAME_DATACARDS_GLOBAL_FILES,
+  ];
   const text = new Map<string, string>();
   const refOf = new Map<string, string>();
   for (const base of files) {

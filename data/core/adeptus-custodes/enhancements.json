@@ -15,7 +15,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7c48e7ca-4887-5e92-a257-2fea7f4c9c28"
+      },
+      {
+        "namespace": "mfm",
+        "id": "831e4eb8-44f6-4aeb-a8c4-5f00087bd4ad"
+      }
+    ]
   },
   {
     "id": "gift-of-terran-artifice-talons-of-the-emperor",
@@ -33,7 +43,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "66ed7f74-f5b7-5fbf-a0e8-4c579019f95d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "60461b2c-c1ca-4046-82a2-436078ebfb10"
+      }
+    ]
   },
   {
     "id": "champion-of-the-imperium-talons-of-the-emperor",
@@ -51,7 +71,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e76461c8-f5e4-5de4-9ac1-a9eacaecfed4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0b57d282-31a3-476b-bd78-f3951d1fe698"
+      }
+    ]
   },
   {
     "id": "aegis-projector-talons-of-the-emperor",
@@ -69,7 +99,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8cea8354-4ea2-5ee6-86b8-e152dd6b38cb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3a2d0fec-d3ae-4ba8-b9fc-5a5a1cbe108f"
+      }
+    ]
   },
   {
     "id": "from-the-hall-of-armouries-shield-host",
@@ -87,11 +127,21 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "20443bdc-0816-5747-8439-0be4e730b911"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a48ca031-033e-43c8-b79c-8199175c448e"
+      }
+    ]
   },
   {
     "id": "castellans-mark-shield-host",
-    "name": "Castellan\u2019s Mark",
+    "name": "Castellan’s Mark",
     "detachment_id": "shield-host",
     "cost": 20,
     "keyword_restrictions": [
@@ -105,7 +155,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "cee6f358-d49c-5211-a71b-9158da4e44a5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "327de5fd-0b06-4114-8583-8315493a7e0b"
+      }
+    ]
   },
   {
     "id": "auric-mantle-shield-host",
@@ -128,6 +188,16 @@
       [
         "Shield-Captain"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2895c197-59a2-5c74-97bd-6d2b2155e809"
+      },
+      {
+        "namespace": "mfm",
+        "id": "613d5ac2-7229-4e15-8b37-959bb7f3dd64"
+      }
     ]
   },
   {
@@ -151,6 +221,16 @@
       [
         "Shield-Captain"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "391bdcad-e358-5f6f-9f2f-dd38ec95aaa0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2571079f-cdf9-49df-8cba-42ef31db936c"
+      }
     ]
   },
   {
@@ -169,7 +249,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ce4f2977-a0b3-5b3a-881e-beceed66f764"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2bf0ae91-04b4-4ce5-8019-8e699d1d6093"
+      }
+    ]
   },
   {
     "id": "enhanced-voidsheen-cloak-null-maiden-vigil",
@@ -187,11 +277,21 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b55887df-591b-52f9-9531-7e02e9fb0cf7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "69c9f474-ba9e-402d-bb49-0c8f9ecf52d4"
+      }
+    ]
   },
   {
     "id": "huntress-eye-null-maiden-vigil",
-    "name": "Huntress\u2019 Eye",
+    "name": "Huntress’ Eye",
     "detachment_id": "null-maiden-vigil",
     "cost": 15,
     "keyword_restrictions": [
@@ -205,7 +305,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "20710ec5-d85b-5c35-929f-44b851a1c88f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a0dd4369-a684-4a28-a35e-f8412fe754e9"
+      }
+    ]
   },
   {
     "id": "oblivion-knight-null-maiden-vigil",
@@ -223,7 +333,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ba327514-adfa-5f13-aec1-b490d2980529"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ad4c7b31-c0d1-4fdc-940e-9b82ca3d3057"
+      }
+    ]
   },
   {
     "id": "blade-imperator-auric-champions",
@@ -241,7 +361,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7c349a49-abca-5a86-8fcf-27aec55f8023"
+      },
+      {
+        "namespace": "mfm",
+        "id": "22731c87-c0f4-4f0a-bf8d-700329d52fef"
+      }
+    ]
   },
   {
     "id": "inspirational-exemplar-auric-champions",
@@ -259,7 +389,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "9cb3013e-8289-5361-9d34-952fbf0ed27c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "84f59743-864c-4f63-89c2-33de243b7adf"
+      }
+    ]
   },
   {
     "id": "veiled-blade-auric-champions",
@@ -277,7 +417,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e5d9453b-6151-55f9-a5ad-ab0adda078f6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d178eeae-2a4d-4597-af84-02bef5cb5d36"
+      }
+    ]
   },
   {
     "id": "martial-philosopher-auric-champions",
@@ -295,7 +445,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d3a73051-27cb-5ad6-ba2c-b5c1d4ab121d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7e0f723a-b181-4a70-a5f7-26de7497135a"
+      }
+    ]
   },
   {
     "id": "adamantine-talisman-solar-spearhead",
@@ -313,7 +473,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "de87bd2a-5c6a-50dd-8b03-d8d49b19c3fd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d25d6f4b-3dcf-4b17-8e8e-b39a487012c9"
+      }
+    ]
   },
   {
     "id": "augury-uplink-solar-spearhead",
@@ -331,7 +501,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5274b486-9020-5acf-8cd0-e90bf4c9feb5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3f8a63b3-0196-4a79-951b-c87d463e68e3"
+      }
+    ]
   },
   {
     "id": "honoured-fallen-aura-solar-spearhead",
@@ -350,7 +530,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "551da8bf-8c69-5faf-a328-0a03b9b99062"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ff916c03-34fc-4bd7-8be8-2c2057604b19"
+      }
+    ]
   },
   {
     "id": "veteran-of-the-kataphraktoi-solar-spearhead",
@@ -375,6 +565,16 @@
         "Adeptus Custodes",
         "Mounted"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4671a39f-b2e8-5ace-b9db-054b51e2d070"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5e535e96-d158-4b11-900a-f072d6d8cae7"
+      }
     ]
   },
   {
@@ -394,7 +594,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "58b4d1fc-d24b-5c86-aafd-077b643d9731"
+      },
+      {
+        "namespace": "mfm",
+        "id": "373e554a-2273-4820-b7fd-98b6e7541436"
+      }
+    ]
   },
   {
     "id": "praesidius-lions-of-the-emperor",
@@ -412,7 +622,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2004f402-89ce-5b07-943f-8f962b4ced1e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8be61c26-7307-4e5d-98a0-f8958a199c00"
+      }
+    ]
   },
   {
     "id": "fierce-conqueror-lions-of-the-emperor",
@@ -430,7 +650,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "dd505ad2-22e0-5e58-81fb-094afd364f0a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "09443c78-9599-4b1c-baa0-836142b59bb1"
+      }
+    ]
   },
   {
     "id": "admonimortis-lions-of-the-emperor",
@@ -448,7 +678,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "fd5868cf-6cf7-53c2-a264-57df9670413b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6bf0be50-a491-4d36-9491-929b860c64bf"
+      }
+    ]
   },
   {
     "id": "interred-expertise-upgrade-might-of-the-moritoi",
@@ -467,7 +707,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a4e003a1-9e8c-4c4b-a89f-3888cfa5996b"
+      }
+    ]
   },
   {
     "id": "auramite-sarcophagus-upgrade-might-of-the-moritoi",
@@ -486,7 +732,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d4dd3841-9337-45cd-b61e-5c734a27752a"
+      }
+    ]
   },
   {
     "id": "encircling-hunter-silent-hunters",
@@ -504,7 +756,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "07ef08d8-3ea5-4d3f-b80d-abd0ba6b0115"
+      }
+    ]
   },
   {
     "id": "psyk-out-grenades-upgrade-silent-hunters",
@@ -522,7 +780,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a6a5395d-5ffd-4573-9728-bf2f55e0585e"
+      }
+    ]
   },
   {
     "id": "mnemo-locked-shrine-cipher-tharanatoi-hammerblow",
@@ -541,7 +805,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "3f4fbec7-0f75-4462-a2e8-8a40cfb92691"
+      }
+    ]
   },
   {
     "id": "efficient-aggression-tharanatoi-hammerblow",
@@ -560,7 +830,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e83e4cec-c76d-4769-9863-158c10165f91"
+      }
+    ]
   },
   {
     "id": "comrades-in-wrath-tristraens-gilded-blades",
@@ -581,7 +857,13 @@
       "Gilded Blades Allarus Custodians"
     ],
     "upgrade_tag": true,
-    "ability_id": "comrades-in-wrath-tristraens-gilded-blades"
+    "ability_id": "comrades-in-wrath-tristraens-gilded-blades",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d95b698f-01aa-4e91-94e2-709bd5e9097d"
+      }
+    ]
   },
   {
     "id": "shattering-charge-tristraens-gilded-blades",
@@ -601,6 +883,12 @@
       "Adeptus Custodes",
       "Tristraen of the Gilded Blades"
     ],
-    "ability_id": "shattering-charge-tristraens-gilded-blades"
+    "ability_id": "shattering-charge-tristraens-gilded-blades",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "f832b7c7-53b8-4bd3-856d-29b837ad35ea"
+      }
+    ]
   }
 ]

@@ -38,13 +38,14 @@ type collectionOpts struct {
 // Collection is a collection of one entity type, parameterised by its wrapped
 // view type V.
 type Collection[V any] struct {
-	idOf      func(any) string
-	nameOf    func(any) string
-	wrap      func(any) V
-	items     []any
-	byID      map[string]any
-	byNorm    map[string][]any
-	byFaction map[string][]any
+	idOf          func(any) string
+	nameOf        func(any) string
+	wrap          func(any) V
+	items         []any
+	byID          map[string]any
+	byNorm        map[string][]any
+	byFaction     map[string][]any
+	byExternalRef map[string][]any
 	// Ids registered under >1 faction; nil unless guardUnscoped.
 	ambiguousIDs map[string]struct{}
 	entityLabel  string
@@ -54,14 +55,15 @@ type Collection[V any] struct {
 
 func newCollection[V any](items []any, wrap func(any) V, opts collectionOpts) *Collection[V] {
 	c := &Collection[V]{
-		idOf:      opts.idOf,
-		nameOf:    opts.nameOf,
-		wrap:      wrap,
-		items:     make([]any, 0, len(items)),
-		byID:      make(map[string]any),
-		byNorm:    make(map[string][]any),
-		byFaction: make(map[string][]any),
-		idAliases: opts.idAliases,
+		idOf:          opts.idOf,
+		nameOf:        opts.nameOf,
+		wrap:          wrap,
+		items:         make([]any, 0, len(items)),
+		byID:          make(map[string]any),
+		byNorm:        make(map[string][]any),
+		byFaction:     make(map[string][]any),
+		byExternalRef: make(map[string][]any),
+		idAliases:     opts.idAliases,
 	}
 	dedupe := opts.dedupeKeyOf
 	if dedupe == nil {
@@ -97,6 +99,19 @@ func newCollection[V any](items []any, wrap func(any) V, opts collectionOpts) *C
 					continue
 				}
 				c.byNorm[aliasKey] = append(c.byNorm[aliasKey], item)
+			}
+		}
+		if record, ok := item.(map[string]any); ok {
+			for _, value := range getList(record, "external_refs") {
+				ref, ok := value.(map[string]any)
+				if !ok {
+					continue
+				}
+				namespace, id := getStr(ref, "namespace"), getStr(ref, "id")
+				if namespace != "" && id != "" {
+					key := namespace + "\x00" + id
+					c.byExternalRef[key] = append(c.byExternalRef[key], item)
+				}
 			}
 		}
 		if opts.factionOf != nil {
@@ -215,6 +230,17 @@ func (c *Collection[V]) GetInFaction(id, factionID string) (V, bool) {
 func (c *Collection[V]) Has(id string) bool {
 	_, ok := c.rawByID(id)
 	return ok
+}
+
+// ByExternalRef returns every record carrying an exact external source
+// identity. External mappings are many-to-many, so this always returns a slice.
+func (c *Collection[V]) ByExternalRef(namespace, id string) []V {
+	items := c.byExternalRef[namespace+"\x00"+id]
+	out := make([]V, len(items))
+	for i, item := range items {
+		out[i] = c.wrap(item)
+	}
+	return out
 }
 
 // Find finds one record by id or name (first match).

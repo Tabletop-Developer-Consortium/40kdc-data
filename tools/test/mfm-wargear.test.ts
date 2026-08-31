@@ -1,7 +1,16 @@
 import { describe, it, expect } from "vitest";
 import { MfmDump } from "../src/mfm/loader.js";
-import { deriveWargear, withinEditDistance1, dumpComposition, reconcileModels, makeResolver, limitedSetBudgets, wargearItemsForDatasheet } from "../src/mfm/wargear.js";
+import {
+  deriveWargear,
+  withinEditDistance1,
+  dumpComposition,
+  reconcileModels,
+  makeResolver,
+  limitedSetBudgets,
+  wargearItemsForDatasheet,
+} from "../src/mfm/wargear.js";
 import { mintWeapon } from "../src/mfm/gear-projection.js";
+import { resolveMfmWeaponEntityId } from "../src/mfm/weapon-variants.js";
 
 /**
  * A hand-built minimal dump exercising the full derivation: two model types
@@ -14,7 +23,11 @@ describe("mintWeapon", () => {
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "weapon", wargearType: "weapon", localisations: { en: { name: "Fabricated axe" } } },
+          {
+            id: "weapon",
+            wargearType: "weapon",
+            localisations: { en: { name: "Fabricated axe" } },
+          },
         ],
         wargear_item_profile: [
           {
@@ -47,6 +60,7 @@ describe("mintWeapon", () => {
       ),
     ).toEqual({
       id: "fabricated-axe",
+      external_refs: [{ namespace: "mfm", id: "weapon" }],
       name: "Fabricated axe",
       type: "melee",
       profiles: [
@@ -58,23 +72,88 @@ describe("mintWeapon", () => {
       ],
       game_version: { edition: "11th", dataslate: "launch" },
     });
+    expect(
+      resolveMfmWeaponEntityId(
+        dump,
+        item,
+        "fixture-unit",
+        [
+          {
+            id: "fabricated-axe",
+            name: "Fabricated axe",
+            type: "melee",
+            profiles: [
+              {
+                name: "Fabricated axe",
+                range: "Melee",
+                stats: { A: 1, WS: 3, S: 6, AP: -2, D: 2 },
+              },
+            ],
+          },
+          {
+            id: "fabricated-axe-fixture-unit",
+            name: "Fabricated axe",
+            type: "melee",
+            profiles: [
+              {
+                name: "Fabricated axe",
+                range: "Melee",
+                stats: { A: 4, WS: 3, S: 6, AP: -2, D: 2 },
+              },
+            ],
+          },
+        ],
+        { edition: "11th", dataslate: "launch" },
+      ),
+    ).toBe("fabricated-axe-fixture-unit");
   });
 });
 
 function fixtureDump(): MfmDump {
-  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
+  const wi = (id: string, name: string) => ({
+    id,
+    wargearType: "weapon",
+    localisations: { en: { name } },
+  });
   return new MfmDump({
     data: {
       miniature: [
-        { id: "m-champ", displayOrder: 0, localisations: { en: { name: "Champion" } } },
-        { id: "m-trooper", displayOrder: 1, localisations: { en: { name: "Trooper" } } },
+        {
+          id: "m-champ",
+          displayOrder: 0,
+          localisations: { en: { name: "Champion" } },
+        },
+        {
+          id: "m-trooper",
+          displayOrder: 1,
+          localisations: { en: { name: "Trooper" } },
+        },
       ],
       unit_composition: [
-        { id: "uc1", datasheetId: "ds1", isDefault: true, displayOrder: 1, points: 100, referenceGroupingKeywordId: null },
+        {
+          id: "uc1",
+          datasheetId: "ds1",
+          isDefault: true,
+          displayOrder: 1,
+          points: 100,
+          referenceGroupingKeywordId: null,
+        },
       ],
       unit_composition_miniature: [
-        { id: "ucm1", min: 1, max: 1, unitCompositionId: "uc1", miniatureId: "m-champ" },
-        { id: "ucm2", min: 4, max: 9, unitCompositionId: "uc1", miniatureId: "m-trooper" },
+        {
+          id: "ucm1",
+          min: 1,
+          max: 1,
+          unitCompositionId: "uc1",
+          miniatureId: "m-champ",
+        },
+        {
+          id: "ucm2",
+          min: 4,
+          max: 9,
+          unitCompositionId: "uc1",
+          miniatureId: "m-trooper",
+        },
       ],
       wargear_item: [
         wi("wi-bolter", "Combi-bolter"),
@@ -85,19 +164,70 @@ function fixtureDump(): MfmDump {
       // Base loadout lives in default>0 option groups (the authoritative model).
       // One base group per miniature; each group is all-default>0.
       wargear_option_group: [
-        { id: "g-champ", displayOrder: 1, datasheetId: "ds1", miniatureId: "m-champ", isStaticWargear: false },
-        { id: "g-troop", displayOrder: 2, datasheetId: "ds1", miniatureId: "m-trooper", isStaticWargear: false },
+        {
+          id: "g-champ",
+          displayOrder: 1,
+          datasheetId: "ds1",
+          miniatureId: "m-champ",
+          isStaticWargear: false,
+        },
+        {
+          id: "g-troop",
+          displayOrder: 2,
+          datasheetId: "ds1",
+          miniatureId: "m-trooper",
+          isStaticWargear: false,
+        },
       ],
       wargear_option: [
         // Champion base slot: a single figure → checkboxes default 1 (1/1 model = 1 each).
-        { id: "wo-c-bolter", wargearItemId: "wi-bolter", wargearOptionGroupId: "g-champ", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 1 },
-        { id: "wo-c-blade", wargearItemId: "wi-blade", wargearOptionGroupId: "g-champ", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 2 },
+        {
+          id: "wo-c-bolter",
+          wargearItemId: "wi-bolter",
+          wargearOptionGroupId: "g-champ",
+          inputType: "checkbox",
+          defaultValue: 1,
+          points: 0,
+          displayOrder: 1,
+        },
+        {
+          id: "wo-c-blade",
+          wargearItemId: "wi-blade",
+          wargearOptionGroupId: "g-champ",
+          inputType: "checkbox",
+          defaultValue: 1,
+          points: 0,
+          displayOrder: 2,
+        },
         // Trooper base slot: a bulk model → steppers default = model count (4) → 1 each.
-        { id: "wo-t-bolter", wargearItemId: "wi-bolter", wargearOptionGroupId: "g-troop", inputType: "stepper", defaultValue: 4, points: 0, displayOrder: 1 },
-        { id: "wo-t-blade", wargearItemId: "wi-blade", wargearOptionGroupId: "g-troop", inputType: "stepper", defaultValue: 4, points: 0, displayOrder: 2 },
+        {
+          id: "wo-t-bolter",
+          wargearItemId: "wi-bolter",
+          wargearOptionGroupId: "g-troop",
+          inputType: "stepper",
+          defaultValue: 4,
+          points: 0,
+          displayOrder: 1,
+        },
+        {
+          id: "wo-t-blade",
+          wargearItemId: "wi-blade",
+          wargearOptionGroupId: "g-troop",
+          inputType: "stepper",
+          defaultValue: 4,
+          points: 0,
+          displayOrder: 2,
+        },
       ],
       loadout_choice_set: [
-        { id: "lcs-trooper", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-trooper", alternate: false },
+        {
+          id: "lcs-trooper",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: "m-trooper",
+          alternate: false,
+        },
       ],
       loadout_choice: [
         { id: "lc1", loadoutChoiceSetId: "lcs-trooper" },
@@ -105,30 +235,76 @@ function fixtureDump(): MfmDump {
       ],
       loadout_choice_wargear_item: [
         // branch 1 = the base (combi-bolter + accursed weapon) → excluded as no-op
-        { id: "i1", count: 1, wargearItemId: "wi-bolter", loadoutChoiceId: "lc1" },
-        { id: "i2", count: 1, wargearItemId: "wi-blade", loadoutChoiceId: "lc1" },
+        {
+          id: "i1",
+          count: 1,
+          wargearItemId: "wi-bolter",
+          loadoutChoiceId: "lc1",
+        },
+        {
+          id: "i2",
+          count: 1,
+          wargearItemId: "wi-blade",
+          loadoutChoiceId: "lc1",
+        },
         // branch 2 = power fist + reaper autocannon
-        { id: "i3", count: 1, wargearItemId: "wi-fist", loadoutChoiceId: "lc2" },
-        { id: "i4", count: 1, wargearItemId: "wi-reaper", loadoutChoiceId: "lc2" },
+        {
+          id: "i3",
+          count: 1,
+          wargearItemId: "wi-fist",
+          loadoutChoiceId: "lc2",
+        },
+        {
+          id: "i4",
+          count: 1,
+          wargearItemId: "wi-reaper",
+          loadoutChoiceId: "lc2",
+        },
       ],
       limited_wargear_choice_set: [
-        { id: "lim1", mandatory: false, datasheetId: "ds1", miniatureId: "m-trooper" },
+        {
+          id: "lim1",
+          mandatory: false,
+          datasheetId: "ds1",
+          miniatureId: "m-trooper",
+        },
       ],
-      limited_wargear_choice: [{ id: "lwc1", limitedWargearChoiceSetId: "lim1" }],
+      limited_wargear_choice: [
+        { id: "lwc1", limitedWargearChoiceSetId: "lim1" },
+      ],
       limited_wargear_choice_wargear_item: [
-        { id: "li1", count: 1, wargearItemId: "wi-reaper", limitedWargearChoiceId: "lwc1" },
+        {
+          id: "li1",
+          count: 1,
+          wargearItemId: "wi-reaper",
+          limitedWargearChoiceId: "lwc1",
+        },
       ],
       // 1 reaper per 5 models
       wargear_limit: [
-        { id: "wl1", modelCount: 5, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim1" },
+        {
+          id: "wl1",
+          modelCount: 5,
+          choiceLimit: 1,
+          duplicateLimit: null,
+          limitedWargearChoiceSetId: "lim1",
+        },
       ],
     },
   });
 }
 
-const VALID = new Set(["combi-bolter", "accursed-weapon", "power-fist", "reaper-autocannon"]);
+const VALID = new Set([
+  "combi-bolter",
+  "accursed-weapon",
+  "power-fist",
+  "reaper-autocannon",
+]);
 const resolve = (name: string) => {
-  const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const id = name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
   return VALID.has(id) ? id : null;
 };
 
@@ -137,14 +313,32 @@ describe("wargearItemsForDatasheet", () => {
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "weapon", wargearType: "weapon", localisations: { en: { name: "Fabricated blade" } } },
-          { id: "shield", wargearType: "wargear", localisations: { en: { name: "Fabricated shield" } } },
+          {
+            id: "weapon",
+            wargearType: "weapon",
+            localisations: { en: { name: "Fabricated blade" } },
+          },
+          {
+            id: "shield",
+            wargearType: "wargear",
+            localisations: { en: { name: "Fabricated shield" } },
+          },
         ],
         wargear_option_group: [
-          { id: "group", datasheetId: "datasheet", miniatureId: null, displayOrder: 1, isStaticWargear: false },
+          {
+            id: "group",
+            datasheetId: "datasheet",
+            miniatureId: null,
+            displayOrder: 1,
+            isStaticWargear: false,
+          },
         ],
         wargear_option: [
-          { id: "option", wargearItemId: "shield", wargearOptionGroupId: "group" },
+          {
+            id: "option",
+            wargearItemId: "shield",
+            wargearOptionGroupId: "group",
+          },
         ],
         all_model_wargear_choice_set: [],
         all_model_wargear_choice: [],
@@ -173,8 +367,14 @@ describe("deriveWargear", () => {
   const d = deriveWargear(fixtureDump(), "ds1", resolve);
 
   it("derives per-model default loadouts from default>0 option groups", () => {
-    expect(d.defaultsByModel.get("Champion")).toEqual(["combi-bolter", "accursed-weapon"]);
-    expect(d.defaultsByModel.get("Trooper")).toEqual(["combi-bolter", "accursed-weapon"]);
+    expect(d.defaultsByModel.get("Champion")).toEqual([
+      "combi-bolter",
+      "accursed-weapon",
+    ]);
+    expect(d.defaultsByModel.get("Trooper")).toEqual([
+      "combi-bolter",
+      "accursed-weapon",
+    ]);
   });
 
   it("emits a per-model swap option that replaces the base and offers the non-base branch", () => {
@@ -184,7 +384,10 @@ describe("deriveWargear", () => {
     // The base branch is dropped as a no-op; the heavy branch remains.
     expect(o.replacement).toEqual(["power-fist", "reaper-autocannon"]);
     // 1-per-5 squad cap → per_n_models 5, scoped to the bulk model.
-    expect(o.model_constraint).toEqual({ model_name: "Trooper", per_n_models: 5 });
+    expect(o.model_constraint).toEqual({
+      model_name: "Trooper",
+      per_n_models: 5,
+    });
   });
 
   it("leaves no orphan: every offered weapon is a default or reachable via an option", () => {
@@ -193,7 +396,8 @@ describe("deriveWargear", () => {
     for (const o of d.options) {
       for (const id of o.replaces ?? []) reach.add(id);
       for (const id of o.replacement ?? []) reach.add(id);
-      for (const g of o.replacement_choice ?? []) for (const id of g) reach.add(id);
+      for (const g of o.replacement_choice ?? [])
+        for (const id of g) reach.add(id);
     }
     for (const w of VALID) expect(reach.has(w), `${w} reachable`).toBe(true);
   });
@@ -213,15 +417,44 @@ describe("deriveWargear", () => {
  * ONLY that slot's base weapon — never the whole base set (the over-listing shape).
  */
 function crossProductDump(): MfmDump {
-  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
-  const lcwi = (id: string, wargearItemId: string, loadoutChoiceId: string) => ({ id, count: 1, wargearItemId, loadoutChoiceId });
+  const wi = (id: string, name: string) => ({
+    id,
+    wargearType: "weapon",
+    localisations: { en: { name } },
+  });
+  const lcwi = (
+    id: string,
+    wargearItemId: string,
+    loadoutChoiceId: string,
+  ) => ({ id, count: 1, wargearItemId, loadoutChoiceId });
   return new MfmDump({
     data: {
-      miniature: [{ id: "m-w", displayOrder: 0, localisations: { en: { name: "Warrior" } } }],
-      unit_composition: [
-        { id: "uc1", datasheetId: "ds1", isDefault: true, displayOrder: 1, points: 80, referenceGroupingKeywordId: null },
+      miniature: [
+        {
+          id: "m-w",
+          displayOrder: 0,
+          localisations: { en: { name: "Warrior" } },
+        },
       ],
-      unit_composition_miniature: [{ id: "ucm1", min: 1, max: 1, unitCompositionId: "uc1", miniatureId: "m-w" }],
+      unit_composition: [
+        {
+          id: "uc1",
+          datasheetId: "ds1",
+          isDefault: true,
+          displayOrder: 1,
+          points: 80,
+          referenceGroupingKeywordId: null,
+        },
+      ],
+      unit_composition_miniature: [
+        {
+          id: "ucm1",
+          min: 1,
+          max: 1,
+          unitCompositionId: "uc1",
+          miniatureId: "m-w",
+        },
+      ],
       wargear_item: [
         wi("wi-bp", "Bolt pistol"),
         wi("wi-pp", "Plasma pistol"),
@@ -230,14 +463,43 @@ function crossProductDump(): MfmDump {
       ],
       // Base loadout (default>0): bolt pistol + chainsword on the single model.
       wargear_option_group: [
-        { id: "g-w", displayOrder: 1, datasheetId: "ds1", miniatureId: "m-w", isStaticWargear: false },
+        {
+          id: "g-w",
+          displayOrder: 1,
+          datasheetId: "ds1",
+          miniatureId: "m-w",
+          isStaticWargear: false,
+        },
       ],
       wargear_option: [
-        { id: "wo-bp", wargearItemId: "wi-bp", wargearOptionGroupId: "g-w", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 1 },
-        { id: "wo-cs", wargearItemId: "wi-cs", wargearOptionGroupId: "g-w", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 2 },
+        {
+          id: "wo-bp",
+          wargearItemId: "wi-bp",
+          wargearOptionGroupId: "g-w",
+          inputType: "checkbox",
+          defaultValue: 1,
+          points: 0,
+          displayOrder: 1,
+        },
+        {
+          id: "wo-cs",
+          wargearItemId: "wi-cs",
+          wargearOptionGroupId: "g-w",
+          inputType: "checkbox",
+          defaultValue: 1,
+          points: 0,
+          displayOrder: 2,
+        },
       ],
       loadout_choice_set: [
-        { id: "lcs-w", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-w", alternate: false },
+        {
+          id: "lcs-w",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: "m-w",
+          alternate: false,
+        },
       ],
       loadout_choice: [
         { id: "lc1", loadoutChoiceSetId: "lcs-w" }, // base
@@ -246,10 +508,14 @@ function crossProductDump(): MfmDump {
         { id: "lc4", loadoutChoiceSetId: "lcs-w" }, // A+B
       ],
       loadout_choice_wargear_item: [
-        lcwi("j1", "wi-bp", "lc1"), lcwi("j2", "wi-cs", "lc1"),
-        lcwi("j3", "wi-pp", "lc2"), lcwi("j4", "wi-cs", "lc2"),
-        lcwi("j5", "wi-bp", "lc3"), lcwi("j6", "wi-pf", "lc3"),
-        lcwi("j7", "wi-pp", "lc4"), lcwi("j8", "wi-pf", "lc4"),
+        lcwi("j1", "wi-bp", "lc1"),
+        lcwi("j2", "wi-cs", "lc1"),
+        lcwi("j3", "wi-pp", "lc2"),
+        lcwi("j4", "wi-cs", "lc2"),
+        lcwi("j5", "wi-bp", "lc3"),
+        lcwi("j6", "wi-pf", "lc3"),
+        lcwi("j7", "wi-pp", "lc4"),
+        lcwi("j8", "wi-pf", "lc4"),
       ],
       // No squad caps for this single model — empty, but the keys must exist.
       limited_wargear_choice_set: [],
@@ -261,35 +527,52 @@ function crossProductDump(): MfmDump {
 }
 
 describe("deriveWargear — exact cross-product factorization", () => {
-  const CP_VALID = new Set(["bolt-pistol", "plasma-pistol", "chainsword", "power-fist"]);
+  const CP_VALID = new Set([
+    "bolt-pistol",
+    "plasma-pistol",
+    "chainsword",
+    "power-fist",
+  ]);
   const resolveCP = (name: string) => {
-    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const id = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
     return CP_VALID.has(id) ? id : null;
   };
 
   it("factors an exact two-slot cross-product into two independent per-slot swaps", () => {
     const d = deriveWargear(crossProductDump(), "ds1", resolveCP);
     expect(d.unresolved).toEqual([]);
-    expect(d.defaultsByModel.get("Warrior")).toEqual(["bolt-pistol", "chainsword"]);
+    expect(d.defaultsByModel.get("Warrior")).toEqual([
+      "bolt-pistol",
+      "chainsword",
+    ]);
 
     // The enumeration is exactly {bp|pp} × {cs|pf}, so it factors losslessly:
     // TWO single-slot options, and no both-slot bundle record at all (the
     // bundle shape both over-lists and lets per-record caps stack).
     expect(d.options).toHaveLength(2);
-    const byRepl = (repl: string) => d.options.find((o) => (o.replacement ?? []).join(",") === repl);
+    const byRepl = (repl: string) =>
+      d.options.find((o) => (o.replacement ?? []).join(",") === repl);
     const aSwap = byRepl("plasma-pistol");
     const bSwap = byRepl("power-fist");
     expect(aSwap, "plasma-pistol swap option").toBeDefined();
     expect(bSwap, "power-fist swap option").toBeDefined();
     expect(aSwap!.replaces).toEqual(["bolt-pistol"]);
     expect(bSwap!.replaces).toEqual(["chainsword"]);
-    expect(d.notes.some((n) => n.includes("factored into 2 independent slot swaps"))).toBe(true);
+    expect(
+      d.notes.some((n) => n.includes("factored into 2 independent slot swaps")),
+    ).toBe(true);
 
     // Regression guard: no option that swaps in a single weapon may list more than
     // one base weapon in `replaces`. Reverting to `removed = baseSet` trips this.
     for (const o of d.options) {
       if ((o.replacement ?? []).length === 1) {
-        expect(o.replaces ?? [], `single-weapon swap ${JSON.stringify(o.replacement)} over-lists replaces`).toHaveLength(1);
+        expect(
+          o.replaces ?? [],
+          `single-weapon swap ${JSON.stringify(o.replacement)} over-lists replaces`,
+        ).toHaveLength(1);
       }
     }
   });
@@ -307,29 +590,71 @@ describe("deriveWargear — exact cross-product factorization", () => {
  * on a 10-model squad. Exact factorization puts it in ONE record.
  */
 function deathCompanyDump(): MfmDump {
-  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
+  const wi = (id: string, name: string) => ({
+    id,
+    wargearType: "weapon",
+    localisations: { en: { name } },
+  });
   const pistols = ["wi-hbp", "wi-hf", "wi-ip", "wi-pp"];
   const melee = ["wi-acs", "wi-pf", "wi-pw", "wi-ev"];
   const loadout_choice: { id: string; loadoutChoiceSetId: string }[] = [];
-  const loadout_choice_wargear_item: { id: string; count: number; wargearItemId: string; loadoutChoiceId: string }[] = [];
+  const loadout_choice_wargear_item: {
+    id: string;
+    count: number;
+    wargearItemId: string;
+    loadoutChoiceId: string;
+  }[] = [];
   let n = 0;
   for (const p of pistols) {
     for (const m of melee) {
       n++;
       loadout_choice.push({ id: `lc${n}`, loadoutChoiceSetId: "lcs-dc" });
       loadout_choice_wargear_item.push(
-        { id: `li${n}a`, count: 1, wargearItemId: p, loadoutChoiceId: `lc${n}` },
-        { id: `li${n}b`, count: 1, wargearItemId: m, loadoutChoiceId: `lc${n}` },
+        {
+          id: `li${n}a`,
+          count: 1,
+          wargearItemId: p,
+          loadoutChoiceId: `lc${n}`,
+        },
+        {
+          id: `li${n}b`,
+          count: 1,
+          wargearItemId: m,
+          loadoutChoiceId: `lc${n}`,
+        },
       );
     }
   }
   return new MfmDump({
     data: {
-      miniature: [{ id: "m-dc", displayOrder: 0, localisations: { en: { name: "Death Company Marine with Jump Packs" } } }],
-      unit_composition: [
-        { id: "uc1", datasheetId: "ds1", isDefault: true, displayOrder: 1, points: 120, referenceGroupingKeywordId: null },
+      miniature: [
+        {
+          id: "m-dc",
+          displayOrder: 0,
+          localisations: {
+            en: { name: "Death Company Marine with Jump Packs" },
+          },
+        },
       ],
-      unit_composition_miniature: [{ id: "ucm1", min: 5, max: 10, unitCompositionId: "uc1", miniatureId: "m-dc" }],
+      unit_composition: [
+        {
+          id: "uc1",
+          datasheetId: "ds1",
+          isDefault: true,
+          displayOrder: 1,
+          points: 120,
+          referenceGroupingKeywordId: null,
+        },
+      ],
+      unit_composition_miniature: [
+        {
+          id: "ucm1",
+          min: 5,
+          max: 10,
+          unitCompositionId: "uc1",
+          miniatureId: "m-dc",
+        },
+      ],
       wargear_item: [
         wi("wi-hbp", "Heavy bolt pistol"),
         wi("wi-hf", "Hand flamer"),
@@ -341,20 +666,59 @@ function deathCompanyDump(): MfmDump {
         wi("wi-ev", "Eviscerator"),
       ],
       wargear_option_group: [
-        { id: "g-dc", displayOrder: 1, datasheetId: "ds1", miniatureId: "m-dc", isStaticWargear: false },
+        {
+          id: "g-dc",
+          displayOrder: 1,
+          datasheetId: "ds1",
+          miniatureId: "m-dc",
+          isStaticWargear: false,
+        },
       ],
       wargear_option: [
-        { id: "wo-hbp", wargearItemId: "wi-hbp", wargearOptionGroupId: "g-dc", inputType: "stepper", defaultValue: 5, points: 0, displayOrder: 1 },
-        { id: "wo-acs", wargearItemId: "wi-acs", wargearOptionGroupId: "g-dc", inputType: "stepper", defaultValue: 5, points: 0, displayOrder: 2 },
+        {
+          id: "wo-hbp",
+          wargearItemId: "wi-hbp",
+          wargearOptionGroupId: "g-dc",
+          inputType: "stepper",
+          defaultValue: 5,
+          points: 0,
+          displayOrder: 1,
+        },
+        {
+          id: "wo-acs",
+          wargearItemId: "wi-acs",
+          wargearOptionGroupId: "g-dc",
+          inputType: "stepper",
+          defaultValue: 5,
+          points: 0,
+          displayOrder: 2,
+        },
       ],
       loadout_choice_set: [
-        { id: "lcs-dc", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-dc", alternate: false },
+        {
+          id: "lcs-dc",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: "m-dc",
+          alternate: false,
+        },
       ],
       loadout_choice,
       loadout_choice_wargear_item,
       limited_wargear_choice_set: [
-        { id: "lim-ev", mandatory: false, datasheetId: "ds1", miniatureId: "m-dc" },
-        { id: "lim-mel", mandatory: false, datasheetId: "ds1", miniatureId: "m-dc" },
+        {
+          id: "lim-ev",
+          mandatory: false,
+          datasheetId: "ds1",
+          miniatureId: "m-dc",
+        },
+        {
+          id: "lim-mel",
+          mandatory: false,
+          datasheetId: "ds1",
+          miniatureId: "m-dc",
+        },
       ],
       limited_wargear_choice: [
         { id: "lwc-ev", limitedWargearChoiceSetId: "lim-ev" },
@@ -362,15 +726,54 @@ function deathCompanyDump(): MfmDump {
         { id: "lwc-pw", limitedWargearChoiceSetId: "lim-mel" },
       ],
       limited_wargear_choice_wargear_item: [
-        { id: "y1", count: 1, wargearItemId: "wi-ev", limitedWargearChoiceId: "lwc-ev" },
-        { id: "y2", count: 1, wargearItemId: "wi-pf", limitedWargearChoiceId: "lwc-pf" },
-        { id: "y3", count: 1, wargearItemId: "wi-pw", limitedWargearChoiceId: "lwc-pw" },
+        {
+          id: "y1",
+          count: 1,
+          wargearItemId: "wi-ev",
+          limitedWargearChoiceId: "lwc-ev",
+        },
+        {
+          id: "y2",
+          count: 1,
+          wargearItemId: "wi-pf",
+          limitedWargearChoiceId: "lwc-pf",
+        },
+        {
+          id: "y3",
+          count: 1,
+          wargearItemId: "wi-pw",
+          limitedWargearChoiceId: "lwc-pw",
+        },
       ],
       wargear_limit: [
-        { id: "wl-ev0", modelCount: 0, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim-ev" },
-        { id: "wl-ev10", modelCount: 10, choiceLimit: 2, duplicateLimit: null, limitedWargearChoiceSetId: "lim-ev" },
-        { id: "wl-mel0", modelCount: 0, choiceLimit: 2, duplicateLimit: null, limitedWargearChoiceSetId: "lim-mel" },
-        { id: "wl-mel10", modelCount: 10, choiceLimit: 3, duplicateLimit: null, limitedWargearChoiceSetId: "lim-mel" },
+        {
+          id: "wl-ev0",
+          modelCount: 0,
+          choiceLimit: 1,
+          duplicateLimit: null,
+          limitedWargearChoiceSetId: "lim-ev",
+        },
+        {
+          id: "wl-ev10",
+          modelCount: 10,
+          choiceLimit: 2,
+          duplicateLimit: null,
+          limitedWargearChoiceSetId: "lim-ev",
+        },
+        {
+          id: "wl-mel0",
+          modelCount: 0,
+          choiceLimit: 2,
+          duplicateLimit: null,
+          limitedWargearChoiceSetId: "lim-mel",
+        },
+        {
+          id: "wl-mel10",
+          modelCount: 10,
+          choiceLimit: 3,
+          duplicateLimit: null,
+          limitedWargearChoiceSetId: "lim-mel",
+        },
       ],
     },
   });
@@ -388,20 +791,29 @@ describe("deriveWargear — Death Company shape (split-allowance regression)", (
     "eviscerator",
   ]);
   const resolveDC = (name: string) => {
-    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const id = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
     return DC_VALID.has(id) ? id : null;
   };
   const d = deriveWargear(deathCompanyDump(), "ds1", resolveDC);
 
   it("factors the 16-branch enumeration into the two datasheet slots", () => {
     expect(d.unresolved).toEqual([]);
-    expect(d.notes.some((note) => note.includes("factored into 2 independent slot swaps"))).toBe(true);
+    expect(
+      d.notes.some((note) =>
+        note.includes("factored into 2 independent slot swaps"),
+      ),
+    ).toBe(true);
     expect(d.options).toHaveLength(3);
   });
 
   it("the eviscerator lands in exactly ONE record, per-5 capped (no cap stacking)", () => {
     const granting = d.options.filter((o) => {
-      const branches = o.replacement ? [o.replacement] : (o.replacement_choice ?? []);
+      const branches = o.replacement
+        ? [o.replacement]
+        : (o.replacement_choice ?? []);
       return branches.some((b) => b.includes("eviscerator"));
     });
     expect(granting).toHaveLength(1);
@@ -411,9 +823,15 @@ describe("deriveWargear — Death Company shape (split-allowance regression)", (
   });
 
   it("the pistol slot is one option with the three pistol branches", () => {
-    const pistol = d.options.find((o) => (o.replaces ?? []).join(",") === "heavy-bolt-pistol");
+    const pistol = d.options.find(
+      (o) => (o.replaces ?? []).join(",") === "heavy-bolt-pistol",
+    );
     expect(pistol, "pistol slot option").toBeDefined();
-    expect(pistol!.replacement_choice).toEqual([["hand-flamer"], ["inferno-pistol"], ["plasma-pistol"]]);
+    expect(pistol!.replacement_choice).toEqual([
+      ["hand-flamer"],
+      ["inferno-pistol"],
+      ["plasma-pistol"],
+    ]);
     expect(pistol!.model_constraint).toEqual({ any_number: true });
   });
 
@@ -423,7 +841,10 @@ describe("deriveWargear — Death Company shape (split-allowance regression)", (
     );
     expect(meleeSwap, "fist/weapon option").toBeDefined();
     expect(meleeSwap!.replaces).toEqual(["astartes-chainsword"]);
-    expect(meleeSwap!.replacement_choice).toEqual([["power-fist"], ["power-weapon"]]);
+    expect(meleeSwap!.replacement_choice).toEqual([
+      ["power-fist"],
+      ["power-weapon"],
+    ]);
     expect(meleeSwap!.model_constraint).toEqual({ max_count: 3 });
   });
 
@@ -436,9 +857,16 @@ describe("deriveWargear — Death Company shape (split-allowance regression)", (
       model_constraint: o.model_constraint,
       ...(o.replaces ? { replaces: o.replaces } : {}),
       ...(o.replacement ? { replacement: o.replacement } : {}),
-      ...(o.replacement_choice ? { replacement_choice: o.replacement_choice } : {}),
+      ...(o.replacement_choice
+        ? { replacement_choice: o.replacement_choice }
+        : {}),
     }));
-    const budgets = limitedSetBudgets(deathCompanyDump(), "ds1", resolveDC, records);
+    const budgets = limitedSetBudgets(
+      deathCompanyDump(),
+      "ds1",
+      resolveDC,
+      records,
+    );
     expect(budgets.some((b) => b.items.includes("eviscerator"))).toBe(false);
     // The shared fist/weapon set still emits its offset pair (2-at-5 / 3-at-10).
     expect(budgets).toEqual([
@@ -462,15 +890,44 @@ describe("deriveWargear — Death Company shape (split-allowance regression)", (
  * branches touch the base becomes a pure ADDITION, not a whole-kit swap.
  */
 function perSlotDump(): MfmDump {
-  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
-  const lcwi = (id: string, wargearItemId: string, loadoutChoiceId: string) => ({ id, count: 1, wargearItemId, loadoutChoiceId });
+  const wi = (id: string, name: string) => ({
+    id,
+    wargearType: "weapon",
+    localisations: { en: { name } },
+  });
+  const lcwi = (
+    id: string,
+    wargearItemId: string,
+    loadoutChoiceId: string,
+  ) => ({ id, count: 1, wargearItemId, loadoutChoiceId });
   return new MfmDump({
     data: {
-      miniature: [{ id: "m-nw", displayOrder: 0, localisations: { en: { name: "Necron Warrior" } } }],
-      unit_composition: [
-        { id: "uc1", datasheetId: "ds1", isDefault: true, displayOrder: 1, points: 80, referenceGroupingKeywordId: null },
+      miniature: [
+        {
+          id: "m-nw",
+          displayOrder: 0,
+          localisations: { en: { name: "Necron Warrior" } },
+        },
       ],
-      unit_composition_miniature: [{ id: "ucm1", min: 10, max: 20, unitCompositionId: "uc1", miniatureId: "m-nw" }],
+      unit_composition: [
+        {
+          id: "uc1",
+          datasheetId: "ds1",
+          isDefault: true,
+          displayOrder: 1,
+          points: 80,
+          referenceGroupingKeywordId: null,
+        },
+      ],
+      unit_composition_miniature: [
+        {
+          id: "ucm1",
+          min: 10,
+          max: 20,
+          unitCompositionId: "uc1",
+          miniatureId: "m-nw",
+        },
+      ],
       wargear_item: [
         wi("wi-ccw", "Close combat weapon"),
         wi("wi-flayer", "Gauss flayer"),
@@ -480,18 +937,75 @@ function perSlotDump(): MfmDump {
       ],
       // Base loadout (default>0): ccw + gauss flayer on every model.
       wargear_option_group: [
-        { id: "g-nw", displayOrder: 1, datasheetId: "ds1", miniatureId: "m-nw", isStaticWargear: false },
+        {
+          id: "g-nw",
+          displayOrder: 1,
+          datasheetId: "ds1",
+          miniatureId: "m-nw",
+          isStaticWargear: false,
+        },
       ],
       wargear_option: [
-        { id: "wo-ccw", wargearItemId: "wi-ccw", wargearOptionGroupId: "g-nw", inputType: "stepper", defaultValue: 10, points: 0, displayOrder: 1 },
-        { id: "wo-flayer", wargearItemId: "wi-flayer", wargearOptionGroupId: "g-nw", inputType: "stepper", defaultValue: 10, points: 0, displayOrder: 2 },
+        {
+          id: "wo-ccw",
+          wargearItemId: "wi-ccw",
+          wargearOptionGroupId: "g-nw",
+          inputType: "stepper",
+          defaultValue: 10,
+          points: 0,
+          displayOrder: 1,
+        },
+        {
+          id: "wo-flayer",
+          wargearItemId: "wi-flayer",
+          wargearOptionGroupId: "g-nw",
+          inputType: "stepper",
+          defaultValue: 10,
+          points: 0,
+          displayOrder: 2,
+        },
       ],
       loadout_choice_set: [
-        { id: "lcs-melee", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
-        { id: "lcs-ranged", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
-        { id: "lcs-icon", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
-        { id: "lcs-runt", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: null, alternate: false },
-        { id: "lcs-extra-flayer", limit: 1, allowDuplicates: false, datasheetId: "ds1", miniatureId: "m-nw", alternate: false },
+        {
+          id: "lcs-melee",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: "m-nw",
+          alternate: false,
+        },
+        {
+          id: "lcs-ranged",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: "m-nw",
+          alternate: false,
+        },
+        {
+          id: "lcs-icon",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: "m-nw",
+          alternate: false,
+        },
+        {
+          id: "lcs-runt",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: null,
+          alternate: false,
+        },
+        {
+          id: "lcs-extra-flayer",
+          limit: 1,
+          allowDuplicates: false,
+          datasheetId: "ds1",
+          miniatureId: "m-nw",
+          alternate: false,
+        },
       ],
       loadout_choice: [
         { id: "lc-melee", loadoutChoiceSetId: "lcs-melee" }, // sole branch = the fixed ccw
@@ -528,18 +1042,26 @@ describe("deriveWargear — per-slot choice sets (slot-scoped delta)", () => {
     "ammo-runt",
   ]);
   const resolvePS = (name: string) => {
-    const id = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+    const id = name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
     return PS_VALID.has(id) ? id : null;
   };
   const d = deriveWargear(perSlotDump(), "ds1", resolvePS);
 
   it("resolves the full vocabulary", () => {
     expect(d.unresolved).toEqual([]);
-    expect(d.defaultsByModel.get("Necron Warrior")).toEqual(["close-combat-weapon", "gauss-flayer"]);
+    expect(d.defaultsByModel.get("Necron Warrior")).toEqual([
+      "close-combat-weapon",
+      "gauss-flayer",
+    ]);
   });
 
   it("scopes a slot's swap to its own base weapon — the ccw stays out of replaces", () => {
-    const reaperSwap = d.options.find((o) => (o.replacement ?? []).includes("gauss-reaper"));
+    const reaperSwap = d.options.find((o) =>
+      (o.replacement ?? []).includes("gauss-reaper"),
+    );
     expect(reaperSwap, "gauss-reaper swap option").toBeDefined();
     expect(reaperSwap!.replaces).toEqual(["gauss-flayer"]);
   });
@@ -552,13 +1074,17 @@ describe("deriveWargear — per-slot choice sets (slot-scoped delta)", () => {
   });
 
   it("turns a base-disjoint set (icon/instrument) into a pure addition, not a kit swap", () => {
-    const icon = d.options.find((o) => (o.replacement ?? []).includes("daemonic-icon"));
+    const icon = d.options.find((o) =>
+      (o.replacement ?? []).includes("daemonic-icon"),
+    );
     expect(icon, "daemonic-icon option").toBeDefined();
     expect(icon!.replaces).toBeUndefined();
   });
 
   it("turns an optional unit-scoped choice into a pure addition", () => {
-    const runt = d.options.find((o) => (o.replacement ?? []).includes("ammo-runt"));
+    const runt = d.options.find((o) =>
+      (o.replacement ?? []).includes("ammo-runt"),
+    );
     expect(runt, "ammo-runt option").toBeDefined();
     expect(runt!.replaces).toBeUndefined();
     expect(runt!.model_constraint).toEqual({ max_count: 1 });
@@ -578,7 +1104,11 @@ describe("deriveWargear — per-slot choice sets (slot-scoped delta)", () => {
 describe("dumpComposition + reconcileModels (Category ② synthesis)", () => {
   const dump = fixtureDump();
   const defaults = deriveWargear(dump, "ds1", resolve).defaultsByModel;
-  const unit = { id: "u1", model_count: { min: 5, max: 10 }, base_size_mm: { shape: "round", diameter: 32 } };
+  const unit = {
+    id: "u1",
+    model_count: { min: 5, max: 10 },
+    base_size_mm: { shape: "round", diameter: 32 },
+  };
 
   it("reads the dump's default composition in display order (champion leads)", () => {
     expect(dumpComposition(dump, "ds1")).toEqual([
@@ -598,7 +1128,12 @@ describe("dumpComposition + reconcileModels (Category ② synthesis)", () => {
         default_weapon_ids: ["combi-bolter", "accursed-weapon"],
       },
     ];
-    const rec = reconcileModels(collapsed, dumpComposition(dump, "ds1"), defaults, unit);
+    const rec = reconcileModels(
+      collapsed,
+      dumpComposition(dump, "ds1"),
+      defaults,
+      unit,
+    );
     expect(rec).not.toBeNull();
     expect(rec!.synthesized).toEqual(["Champion"]);
     expect(rec!.models).toEqual([
@@ -627,12 +1162,19 @@ describe("dumpComposition + reconcileModels (Category ② synthesis)", () => {
       { name: "Champion", min: 1, max: 1 },
       { name: "Trooper", min: 4, max: 9 },
     ];
-    expect(reconcileModels(complete, dumpComposition(dump, "ds1"), defaults, unit)).toBeNull();
+    expect(
+      reconcileModels(complete, dumpComposition(dump, "ds1"), defaults, unit),
+    ).toBeNull();
   });
 
   it("refuses to synthesize (flags for manual reconcile) when a repo row is absent from the dump", () => {
     const divergent = [{ name: "Heavy Trooper", min: 5, max: 10 }]; // name not in the dump
-    const rec = reconcileModels(divergent, dumpComposition(dump, "ds1"), defaults, unit);
+    const rec = reconcileModels(
+      divergent,
+      dumpComposition(dump, "ds1"),
+      defaults,
+      unit,
+    );
     expect(rec).not.toBeNull();
     expect(rec!.synthesized).toEqual([]);
     expect(rec!.models).toEqual(divergent); // untouched
@@ -641,8 +1183,16 @@ describe("dumpComposition + reconcileModels (Category ② synthesis)", () => {
 });
 
 describe("deriveDefaults quantity rule + heterogeneity guard (option-group model)", () => {
-  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
-  const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const wi = (id: string, name: string) => ({
+    id,
+    wargearType: "weapon",
+    localisations: { en: { name } },
+  });
+  const slug = (name: string) =>
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
   // deriveWargear touches the choice/limit tables; provide empty defaults.
   const mkDump = (data: Record<string, unknown[]>) =>
     new MfmDump({
@@ -660,55 +1210,193 @@ describe("deriveDefaults quantity rule + heterogeneity guard (option-group model
 
   it("multiplies a stepper default by 1/model_count → a genuine multi-weapon (×2)", () => {
     const dump = mkDump({
-      miniature: [{ id: "m1", displayOrder: 0, localisations: { en: { name: "Walker" } } }],
-      unit_composition: [{ id: "uc", datasheetId: "dsX", isDefault: true, displayOrder: 1, points: 0, referenceGroupingKeywordId: null }],
-      unit_composition_miniature: [{ id: "ucm", min: 1, max: 1, unitCompositionId: "uc", miniatureId: "m1" }],
+      miniature: [
+        {
+          id: "m1",
+          displayOrder: 0,
+          localisations: { en: { name: "Walker" } },
+        },
+      ],
+      unit_composition: [
+        {
+          id: "uc",
+          datasheetId: "dsX",
+          isDefault: true,
+          displayOrder: 1,
+          points: 0,
+          referenceGroupingKeywordId: null,
+        },
+      ],
+      unit_composition_miniature: [
+        {
+          id: "ucm",
+          min: 1,
+          max: 1,
+          unitCompositionId: "uc",
+          miniatureId: "m1",
+        },
+      ],
       wargear_item: [wi("wi-shoota", "Twin big shoota")],
-      wargear_option_group: [{ id: "g", displayOrder: 1, datasheetId: "dsX", miniatureId: "m1", isStaticWargear: false }],
-      wargear_option: [{ id: "o", wargearItemId: "wi-shoota", wargearOptionGroupId: "g", inputType: "stepper", defaultValue: 2, points: 0, displayOrder: 1 }],
+      wargear_option_group: [
+        {
+          id: "g",
+          displayOrder: 1,
+          datasheetId: "dsX",
+          miniatureId: "m1",
+          isStaticWargear: false,
+        },
+      ],
+      wargear_option: [
+        {
+          id: "o",
+          wargearItemId: "wi-shoota",
+          wargearOptionGroupId: "g",
+          inputType: "stepper",
+          defaultValue: 2,
+          points: 0,
+          displayOrder: 1,
+        },
+      ],
     });
-    expect(deriveWargear(dump, "dsX", slug).defaultsByModel.get("Walker")).toEqual([
-      "twin-big-shoota",
-      "twin-big-shoota",
-    ]);
+    expect(
+      deriveWargear(dump, "dsX", slug).defaultsByModel.get("Walker"),
+    ).toEqual(["twin-big-shoota", "twin-big-shoota"]);
   });
 
   it("skips a miniature split across >1 default group (heterogeneity) and notes it", () => {
     const dump = mkDump({
-      miniature: [{ id: "m1", displayOrder: 0, localisations: { en: { name: "Retinue" } } }],
-      unit_composition: [{ id: "uc", datasheetId: "dsY", isDefault: true, displayOrder: 1, points: 0, referenceGroupingKeywordId: null }],
-      unit_composition_miniature: [{ id: "ucm", min: 4, max: 4, unitCompositionId: "uc", miniatureId: "m1" }],
+      miniature: [
+        {
+          id: "m1",
+          displayOrder: 0,
+          localisations: { en: { name: "Retinue" } },
+        },
+      ],
+      unit_composition: [
+        {
+          id: "uc",
+          datasheetId: "dsY",
+          isDefault: true,
+          displayOrder: 1,
+          points: 0,
+          referenceGroupingKeywordId: null,
+        },
+      ],
+      unit_composition_miniature: [
+        {
+          id: "ucm",
+          min: 4,
+          max: 4,
+          unitCompositionId: "uc",
+          miniatureId: "m1",
+        },
+      ],
       wargear_item: [wi("wi-a", "Gun A"), wi("wi-b", "Gun B")],
       wargear_option_group: [
-        { id: "g1", displayOrder: 1, datasheetId: "dsY", miniatureId: "m1", isStaticWargear: false },
-        { id: "g2", displayOrder: 2, datasheetId: "dsY", miniatureId: "m1", isStaticWargear: false },
+        {
+          id: "g1",
+          displayOrder: 1,
+          datasheetId: "dsY",
+          miniatureId: "m1",
+          isStaticWargear: false,
+        },
+        {
+          id: "g2",
+          displayOrder: 2,
+          datasheetId: "dsY",
+          miniatureId: "m1",
+          isStaticWargear: false,
+        },
       ],
       wargear_option: [
-        { id: "o1", wargearItemId: "wi-a", wargearOptionGroupId: "g1", inputType: "stepper", defaultValue: 3, points: 0, displayOrder: 1 },
-        { id: "o2", wargearItemId: "wi-b", wargearOptionGroupId: "g2", inputType: "stepper", defaultValue: 1, points: 0, displayOrder: 1 },
+        {
+          id: "o1",
+          wargearItemId: "wi-a",
+          wargearOptionGroupId: "g1",
+          inputType: "stepper",
+          defaultValue: 3,
+          points: 0,
+          displayOrder: 1,
+        },
+        {
+          id: "o2",
+          wargearItemId: "wi-b",
+          wargearOptionGroupId: "g2",
+          inputType: "stepper",
+          defaultValue: 1,
+          points: 0,
+          displayOrder: 1,
+        },
       ],
     });
     const d = deriveWargear(dump, "dsY", slug);
     expect(d.defaultsByModel.has("Retinue")).toBe(false);
-    expect(d.notes.some((n) => n.includes("default loadout groups"))).toBe(true);
+    expect(d.notes.some((n) => n.includes("default loadout groups"))).toBe(
+      true,
+    );
   });
 
   it("leaves a datasheet-wide (miniatureId null) default group to MANUAL_DEFAULTS", () => {
     const dump = mkDump({
-      miniature: [{ id: "m1", displayOrder: 0, localisations: { en: { name: "Tank" } } }],
-      unit_composition: [{ id: "uc", datasheetId: "dsZ", isDefault: true, displayOrder: 1, points: 0, referenceGroupingKeywordId: null }],
-      unit_composition_miniature: [{ id: "ucm", min: 1, max: 1, unitCompositionId: "uc", miniatureId: "m1" }],
+      miniature: [
+        { id: "m1", displayOrder: 0, localisations: { en: { name: "Tank" } } },
+      ],
+      unit_composition: [
+        {
+          id: "uc",
+          datasheetId: "dsZ",
+          isDefault: true,
+          displayOrder: 1,
+          points: 0,
+          referenceGroupingKeywordId: null,
+        },
+      ],
+      unit_composition_miniature: [
+        {
+          id: "ucm",
+          min: 1,
+          max: 1,
+          unitCompositionId: "uc",
+          miniatureId: "m1",
+        },
+      ],
       wargear_item: [wi("wi-turret", "Support turret")],
-      wargear_option_group: [{ id: "g", displayOrder: 1, datasheetId: "dsZ", miniatureId: null, isStaticWargear: false }],
-      wargear_option: [{ id: "o", wargearItemId: "wi-turret", wargearOptionGroupId: "g", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 1 }],
+      wargear_option_group: [
+        {
+          id: "g",
+          displayOrder: 1,
+          datasheetId: "dsZ",
+          miniatureId: null,
+          isStaticWargear: false,
+        },
+      ],
+      wargear_option: [
+        {
+          id: "o",
+          wargearItemId: "wi-turret",
+          wargearOptionGroupId: "g",
+          inputType: "checkbox",
+          defaultValue: 1,
+          points: 0,
+          displayOrder: 1,
+        },
+      ],
     });
     expect(deriveWargear(dump, "dsZ", slug).defaultsByModel.size).toBe(0);
   });
 });
 
 describe("deriveWargear per-model swaps and ratio caps", () => {
-  const wi = (id: string, name: string) => ({ id, wargearType: "weapon", localisations: { en: { name } } });
-  const slug = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const wi = (id: string, name: string) => ({
+    id,
+    wargearType: "weapon",
+    localisations: { en: { name } },
+  });
+  const slug = (name: string) =>
+    name
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "");
   // Two model types. A multi-model "Goremonger" offering its chainblade swapped for
   // one of {autopistol, blood-harpoon} (per-model menu — stays any_number). A
   // "Trooper" with an uncapped swap (any number) and a swap that is governed by
@@ -717,15 +1405,42 @@ describe("deriveWargear per-model swaps and ratio caps", () => {
     return new MfmDump({
       data: {
         miniature: [
-          { id: "m-gore", displayOrder: 0, localisations: { en: { name: "Goremonger" } } },
-          { id: "m-troop", displayOrder: 1, localisations: { en: { name: "Trooper" } } },
+          {
+            id: "m-gore",
+            displayOrder: 0,
+            localisations: { en: { name: "Goremonger" } },
+          },
+          {
+            id: "m-troop",
+            displayOrder: 1,
+            localisations: { en: { name: "Trooper" } },
+          },
         ],
         unit_composition: [
-          { id: "uc", datasheetId: "ds", isDefault: true, displayOrder: 1, points: 0, referenceGroupingKeywordId: null },
+          {
+            id: "uc",
+            datasheetId: "ds",
+            isDefault: true,
+            displayOrder: 1,
+            points: 0,
+            referenceGroupingKeywordId: null,
+          },
         ],
         unit_composition_miniature: [
-          { id: "ucm1", min: 1, max: 7, unitCompositionId: "uc", miniatureId: "m-gore" },
-          { id: "ucm2", min: 1, max: 5, unitCompositionId: "uc", miniatureId: "m-troop" },
+          {
+            id: "ucm1",
+            min: 1,
+            max: 7,
+            unitCompositionId: "uc",
+            miniatureId: "m-gore",
+          },
+          {
+            id: "ucm2",
+            min: 1,
+            max: 5,
+            unitCompositionId: "uc",
+            miniatureId: "m-troop",
+          },
         ],
         wargear_item: [
           wi("wi-chainblade", "Chainblade"),
@@ -738,26 +1453,127 @@ describe("deriveWargear per-model swaps and ratio caps", () => {
         ],
         wargear_option_group: [
           // base loadouts (defaultValue > 0)
-          { id: "g-gore-base", displayOrder: 1, datasheetId: "ds", miniatureId: "m-gore", isStaticWargear: false },
-          { id: "g-troop-base", displayOrder: 2, datasheetId: "ds", miniatureId: "m-troop", isStaticWargear: false },
+          {
+            id: "g-gore-base",
+            displayOrder: 1,
+            datasheetId: "ds",
+            miniatureId: "m-gore",
+            isStaticWargear: false,
+          },
+          {
+            id: "g-troop-base",
+            displayOrder: 2,
+            datasheetId: "ds",
+            miniatureId: "m-troop",
+            isStaticWargear: false,
+          },
           // optional swaps (defaultValue == 0) — the inputType carries the cap
-          { id: "g-gore-swaps", displayOrder: 3, datasheetId: "ds", miniatureId: "m-gore", isStaticWargear: false },
-          { id: "g-troop-swaps", displayOrder: 4, datasheetId: "ds", miniatureId: "m-troop", isStaticWargear: false },
+          {
+            id: "g-gore-swaps",
+            displayOrder: 3,
+            datasheetId: "ds",
+            miniatureId: "m-gore",
+            isStaticWargear: false,
+          },
+          {
+            id: "g-troop-swaps",
+            displayOrder: 4,
+            datasheetId: "ds",
+            miniatureId: "m-troop",
+            isStaticWargear: false,
+          },
         ],
         wargear_option: [
-          { id: "o-gore-cb", wargearItemId: "wi-chainblade", wargearOptionGroupId: "g-gore-base", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 1 },
-          { id: "o-troop-b", wargearItemId: "wi-bolter", wargearOptionGroupId: "g-troop-base", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 1 },
-          { id: "o-troop-p", wargearItemId: "wi-pistol", wargearOptionGroupId: "g-troop-base", inputType: "checkbox", defaultValue: 1, points: 0, displayOrder: 2 },
+          {
+            id: "o-gore-cb",
+            wargearItemId: "wi-chainblade",
+            wargearOptionGroupId: "g-gore-base",
+            inputType: "checkbox",
+            defaultValue: 1,
+            points: 0,
+            displayOrder: 1,
+          },
+          {
+            id: "o-troop-b",
+            wargearItemId: "wi-bolter",
+            wargearOptionGroupId: "g-troop-base",
+            inputType: "checkbox",
+            defaultValue: 1,
+            points: 0,
+            displayOrder: 1,
+          },
+          {
+            id: "o-troop-p",
+            wargearItemId: "wi-pistol",
+            wargearOptionGroupId: "g-troop-base",
+            inputType: "checkbox",
+            defaultValue: 1,
+            points: 0,
+            displayOrder: 2,
+          },
           // swaps: checkbox → max 1; stepper → any number; checkbox+ratio → ratio
-          { id: "o-auto", wargearItemId: "wi-autopistol", wargearOptionGroupId: "g-gore-swaps", inputType: "checkbox", defaultValue: 0, points: 0, displayOrder: 1 },
-          { id: "o-harpoon", wargearItemId: "wi-harpoon", wargearOptionGroupId: "g-gore-swaps", inputType: "checkbox", defaultValue: 0, points: 0, displayOrder: 2 },
-          { id: "o-special", wargearItemId: "wi-special", wargearOptionGroupId: "g-troop-swaps", inputType: "stepper", defaultValue: 0, points: 0, displayOrder: 1 },
-          { id: "o-heavy", wargearItemId: "wi-heavy", wargearOptionGroupId: "g-troop-swaps", inputType: "checkbox", defaultValue: 0, points: 0, displayOrder: 2 },
+          {
+            id: "o-auto",
+            wargearItemId: "wi-autopistol",
+            wargearOptionGroupId: "g-gore-swaps",
+            inputType: "checkbox",
+            defaultValue: 0,
+            points: 0,
+            displayOrder: 1,
+          },
+          {
+            id: "o-harpoon",
+            wargearItemId: "wi-harpoon",
+            wargearOptionGroupId: "g-gore-swaps",
+            inputType: "checkbox",
+            defaultValue: 0,
+            points: 0,
+            displayOrder: 2,
+          },
+          {
+            id: "o-special",
+            wargearItemId: "wi-special",
+            wargearOptionGroupId: "g-troop-swaps",
+            inputType: "stepper",
+            defaultValue: 0,
+            points: 0,
+            displayOrder: 1,
+          },
+          {
+            id: "o-heavy",
+            wargearItemId: "wi-heavy",
+            wargearOptionGroupId: "g-troop-swaps",
+            inputType: "checkbox",
+            defaultValue: 0,
+            points: 0,
+            displayOrder: 2,
+          },
         ],
         loadout_choice_set: [
-          { id: "lcs-1-gore", limit: 1, allowDuplicates: false, datasheetId: "ds", miniatureId: "m-gore", alternate: false },
-          { id: "lcs-2-special", limit: 1, allowDuplicates: false, datasheetId: "ds", miniatureId: "m-troop", alternate: false },
-          { id: "lcs-3-heavy", limit: 1, allowDuplicates: false, datasheetId: "ds", miniatureId: "m-troop", alternate: false },
+          {
+            id: "lcs-1-gore",
+            limit: 1,
+            allowDuplicates: false,
+            datasheetId: "ds",
+            miniatureId: "m-gore",
+            alternate: false,
+          },
+          {
+            id: "lcs-2-special",
+            limit: 1,
+            allowDuplicates: false,
+            datasheetId: "ds",
+            miniatureId: "m-troop",
+            alternate: false,
+          },
+          {
+            id: "lcs-3-heavy",
+            limit: 1,
+            allowDuplicates: false,
+            datasheetId: "ds",
+            miniatureId: "m-troop",
+            alternate: false,
+          },
         ],
         loadout_choice: [
           { id: "c1a", loadoutChoiceSetId: "lcs-1-gore" },
@@ -770,37 +1586,111 @@ describe("deriveWargear per-model swaps and ratio caps", () => {
         ],
         loadout_choice_wargear_item: [
           // gore: base chainblade, or autopistol, or blood harpoon
-          { id: "x1", count: 1, wargearItemId: "wi-chainblade", loadoutChoiceId: "c1a" },
-          { id: "x2", count: 1, wargearItemId: "wi-autopistol", loadoutChoiceId: "c1b" },
-          { id: "x3", count: 1, wargearItemId: "wi-harpoon", loadoutChoiceId: "c1c" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-chainblade",
+            loadoutChoiceId: "c1a",
+          },
+          {
+            id: "x2",
+            count: 1,
+            wargearItemId: "wi-autopistol",
+            loadoutChoiceId: "c1b",
+          },
+          {
+            id: "x3",
+            count: 1,
+            wargearItemId: "wi-harpoon",
+            loadoutChoiceId: "c1c",
+          },
           // trooper special swap: base [bolter,pistol] or [special,pistol]
-          { id: "x4", count: 1, wargearItemId: "wi-bolter", loadoutChoiceId: "c2a" },
-          { id: "x5", count: 1, wargearItemId: "wi-pistol", loadoutChoiceId: "c2a" },
-          { id: "x6", count: 1, wargearItemId: "wi-special", loadoutChoiceId: "c2b" },
-          { id: "x7", count: 1, wargearItemId: "wi-pistol", loadoutChoiceId: "c2b" },
+          {
+            id: "x4",
+            count: 1,
+            wargearItemId: "wi-bolter",
+            loadoutChoiceId: "c2a",
+          },
+          {
+            id: "x5",
+            count: 1,
+            wargearItemId: "wi-pistol",
+            loadoutChoiceId: "c2a",
+          },
+          {
+            id: "x6",
+            count: 1,
+            wargearItemId: "wi-special",
+            loadoutChoiceId: "c2b",
+          },
+          {
+            id: "x7",
+            count: 1,
+            wargearItemId: "wi-pistol",
+            loadoutChoiceId: "c2b",
+          },
           // trooper heavy swap: base [bolter,pistol] or [bolter,heavy]
-          { id: "x8", count: 1, wargearItemId: "wi-bolter", loadoutChoiceId: "c3a" },
-          { id: "x9", count: 1, wargearItemId: "wi-pistol", loadoutChoiceId: "c3a" },
-          { id: "x10", count: 1, wargearItemId: "wi-bolter", loadoutChoiceId: "c3b" },
-          { id: "x11", count: 1, wargearItemId: "wi-heavy", loadoutChoiceId: "c3b" },
+          {
+            id: "x8",
+            count: 1,
+            wargearItemId: "wi-bolter",
+            loadoutChoiceId: "c3a",
+          },
+          {
+            id: "x9",
+            count: 1,
+            wargearItemId: "wi-pistol",
+            loadoutChoiceId: "c3a",
+          },
+          {
+            id: "x10",
+            count: 1,
+            wargearItemId: "wi-bolter",
+            loadoutChoiceId: "c3b",
+          },
+          {
+            id: "x11",
+            count: 1,
+            wargearItemId: "wi-heavy",
+            loadoutChoiceId: "c3b",
+          },
         ],
         // heavy weapon capped 1-per-5 (mini-scoped single set → per-option ratio)
         limited_wargear_choice_set: [
-          { id: "lim-heavy", mandatory: false, datasheetId: "ds", miniatureId: "m-troop" },
+          {
+            id: "lim-heavy",
+            mandatory: false,
+            datasheetId: "ds",
+            miniatureId: "m-troop",
+          },
         ],
-        limited_wargear_choice: [{ id: "lwc-heavy", limitedWargearChoiceSetId: "lim-heavy" }],
+        limited_wargear_choice: [
+          { id: "lwc-heavy", limitedWargearChoiceSetId: "lim-heavy" },
+        ],
         limited_wargear_choice_wargear_item: [
-          { id: "lwi-heavy", count: 1, wargearItemId: "wi-heavy", limitedWargearChoiceId: "lwc-heavy" },
+          {
+            id: "lwi-heavy",
+            count: 1,
+            wargearItemId: "wi-heavy",
+            limitedWargearChoiceId: "lwc-heavy",
+          },
         ],
         wargear_limit: [
-          { id: "wl-heavy", modelCount: 5, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim-heavy" },
+          {
+            id: "wl-heavy",
+            modelCount: 5,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim-heavy",
+          },
         ],
       },
     });
   }
 
   const d = deriveWargear(dump(), "ds", slug);
-  const byRemoved = (id: string) => d.options.find((o) => (o.replaces ?? []).includes(id));
+  const byRemoved = (id: string) =>
+    d.options.find((o) => (o.replaces ?? []).includes(id));
 
   it("a checkbox swap with no limited set stays per-model (any_number)", () => {
     // The app checkbox is a per-MODEL-card toggle, not a unit-wide cap: every
@@ -810,19 +1700,28 @@ describe("deriveWargear per-model swaps and ratio caps", () => {
     expect(o.replaces).toEqual(["chainblade"]);
     // the two alternatives merge under one option (same replaced weapon)
     expect(o.replacement_choice).toEqual([["autopistol"], ["blood-harpoon"]]);
-    expect(o.model_constraint).toEqual({ model_name: "Goremonger", any_number: true });
+    expect(o.model_constraint).toEqual({
+      model_name: "Goremonger",
+      any_number: true,
+    });
   });
 
   it("leaves a stepper swap uncapped (any_number)", () => {
     const o = byRemoved("bolter")!;
     expect(o.replacement).toEqual(["special-weapon"]);
-    expect(o.model_constraint).toEqual({ model_name: "Trooper", any_number: true });
+    expect(o.model_constraint).toEqual({
+      model_name: "Trooper",
+      any_number: true,
+    });
   });
 
   it("a wargear_limit ratio caps the swap (per_n_models)", () => {
     const o = byRemoved("pistol")!;
     expect(o.replacement).toEqual(["heavy-weapon"]);
-    expect(o.model_constraint).toEqual({ model_name: "Trooper", per_n_models: 5 });
+    expect(o.model_constraint).toEqual({
+      model_name: "Trooper",
+      per_n_models: 5,
+    });
   });
 });
 
@@ -830,7 +1729,11 @@ describe("makeResolver per-unit priority overrides", () => {
   // Both ids are valid faction weapons (the GW dump reuses the display name
   // "Questoris multi-laser" for two distinct profiles). Without an override the
   // exact slug wins; the per-unit override must remap it BEFORE the direct match.
-  const valid = new Set(["questoris-multi-laser", "chainbreaker-multi-laser", "las-impulsor"]);
+  const valid = new Set([
+    "questoris-multi-laser",
+    "chainbreaker-multi-laser",
+    "las-impulsor",
+  ]);
 
   it("returns the exact-slug match when no override applies", () => {
     const r = makeResolver(valid, []);
@@ -838,14 +1741,24 @@ describe("makeResolver per-unit priority overrides", () => {
   });
 
   it("a priority override remaps a valid id to another, beating the direct match", () => {
-    const r = makeResolver(valid, [], {}, { "questoris-multi-laser": "chainbreaker-multi-laser" });
+    const r = makeResolver(
+      valid,
+      [],
+      {},
+      { "questoris-multi-laser": "chainbreaker-multi-laser" },
+    );
     expect(r("Questoris multi-laser")).toBe("chainbreaker-multi-laser");
     // unrelated names are unaffected
     expect(r("Las-impulsor")).toBe("las-impulsor");
   });
 
   it("a priority override pointing at a non-existent id falls through to the direct match", () => {
-    const r = makeResolver(valid, [], {}, { "questoris-multi-laser": "not-a-real-id" });
+    const r = makeResolver(
+      valid,
+      [],
+      {},
+      { "questoris-multi-laser": "not-a-real-id" },
+    );
     expect(r("Questoris multi-laser")).toBe("questoris-multi-laser");
   });
 });
@@ -856,32 +1769,71 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
   // GW tiers it (2/1 at 10 models, 4/2 at 20) — the binding (tightest-ratio) row's
   // dup must ride alongside its count/per_models. Faithful shape: one CHOICE per
   // alternative weapon (a multi-item choice is a bundle, not alternatives).
-  const budgetResolve = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const budgetResolve = (name: string) =>
+    name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
   const sharedDump = (
-    limits: Array<{ modelCount: number; choiceLimit: number; duplicateLimit: number | null }>,
+    limits: Array<{
+      modelCount: number;
+      choiceLimit: number;
+      duplicateLimit: number | null;
+    }>,
     defaultModelCount?: number,
   ) =>
     new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-a", wargearType: "weapon", localisations: { en: { name: "Alpha" } } },
-          { id: "wi-b", wargearType: "weapon", localisations: { en: { name: "Beta" } } },
+          {
+            id: "wi-a",
+            wargearType: "weapon",
+            localisations: { en: { name: "Alpha" } },
+          },
+          {
+            id: "wi-b",
+            wargearType: "weapon",
+            localisations: { en: { name: "Beta" } },
+          },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
         limited_wargear_choice: [
           { id: "lwc-a", limitedWargearChoiceSetId: "lim" },
           { id: "lwc-b", limitedWargearChoiceSetId: "lim" },
         ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-a", limitedWargearChoiceId: "lwc-a" },
-          { id: "x2", count: 1, wargearItemId: "wi-b", limitedWargearChoiceId: "lwc-b" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-a",
+            limitedWargearChoiceId: "lwc-a",
+          },
+          {
+            id: "x2",
+            count: 1,
+            wargearItemId: "wi-b",
+            limitedWargearChoiceId: "lwc-b",
+          },
         ],
-        wargear_limit: limits.map((l, i) => ({ id: `wl${i}`, ...l, limitedWargearChoiceSetId: "lim" })),
+        wargear_limit: limits.map((l, i) => ({
+          id: `wl${i}`,
+          ...l,
+          limitedWargearChoiceSetId: "lim",
+        })),
         ...(defaultModelCount == null
           ? {}
           : {
               unit_composition: [
-                { id: "uc1", datasheetId: "ds1", isDefault: true, displayOrder: 1 },
+                {
+                  id: "uc1",
+                  datasheetId: "ds1",
+                  isDefault: true,
+                  displayOrder: 1,
+                },
               ],
               unit_composition_miniature: [
                 {
@@ -906,7 +1858,14 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
       budgetResolve,
     );
     // Ratios tie (0.2); first-wins picks the {2,10,1} row → count 2, per_models 10, dup 1.
-    expect(budgets).toEqual([{ items: ["alpha", "beta"], count: 2, per_models: 10, duplicate_limit: 1 }]);
+    expect(budgets).toEqual([
+      {
+        items: ["alpha", "beta"],
+        count: 2,
+        per_models: 10,
+        duplicate_limit: 1,
+      },
+    ]);
   });
 
   it("captures a flat duplicate_limit when per_models is 0", () => {
@@ -915,7 +1874,9 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
       "ds1",
       budgetResolve,
     );
-    expect(budgets).toEqual([{ items: ["alpha", "beta"], count: 4, per_models: 0, duplicate_limit: 2 }]);
+    expect(budgets).toEqual([
+      { items: ["alpha", "beta"], count: 4, per_models: 0, duplicate_limit: 2 },
+    ]);
   });
 
   it("omits duplicate_limit entirely when the dump row has none", () => {
@@ -924,7 +1885,9 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
       "ds1",
       budgetResolve,
     );
-    expect(budgets).toEqual([{ items: ["alpha", "beta"], count: 2, per_models: 10 }]);
+    expect(budgets).toEqual([
+      { items: ["alpha", "beta"], count: 2, per_models: 10 },
+    ]);
     expect("duplicate_limit" in budgets[0]).toBe(false);
   });
 
@@ -940,7 +1903,9 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
       "ds1",
       budgetResolve,
     );
-    expect(budgets).toEqual([{ items: ["alpha", "beta"], count: 2, per_models: 10 }]);
+    expect(budgets).toEqual([
+      { items: ["alpha", "beta"], count: 2, per_models: 10 },
+    ]);
   });
 
   it("preserves an offset flat baseline and its scaling upper tier", () => {
@@ -963,7 +1928,8 @@ describe("limitedSetBudgets — per-item duplicate cap capture", () => {
 });
 
 describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", () => {
-  const budgetResolve = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+  const budgetResolve = (name: string) =>
+    name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
   it("a multi-item choice scales the cap: choiceLimit counts picks, not copies", () => {
     // Wolf Guard Terminators: one choice = [assault cannon + power fist],
@@ -971,18 +1937,57 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-ac", wargearType: "weapon", localisations: { en: { name: "Assault cannon" } } },
-          { id: "wi-pf", wargearType: "weapon", localisations: { en: { name: "Power fist" } } },
+          {
+            id: "wi-ac",
+            wargearType: "weapon",
+            localisations: { en: { name: "Assault cannon" } },
+          },
+          {
+            id: "wi-pf",
+            wargearType: "weapon",
+            localisations: { en: { name: "Power fist" } },
+          },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
-        limited_wargear_choice: [{ id: "lwc", limitedWargearChoiceSetId: "lim" }],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
+        limited_wargear_choice: [
+          { id: "lwc", limitedWargearChoiceSetId: "lim" },
+        ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-ac", limitedWargearChoiceId: "lwc" },
-          { id: "x2", count: 1, wargearItemId: "wi-pf", limitedWargearChoiceId: "lwc" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-ac",
+            limitedWargearChoiceId: "lwc",
+          },
+          {
+            id: "x2",
+            count: 1,
+            wargearItemId: "wi-pf",
+            limitedWargearChoiceId: "lwc",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 5, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
-          { id: "wl1", modelCount: 10, choiceLimit: 2, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 5,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
+          {
+            id: "wl1",
+            modelCount: 10,
+            choiceLimit: 2,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -995,21 +2000,58 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-hf", wargearType: "weapon", localisations: { en: { name: "Hand flamer" } } },
-          { id: "wi-ip", wargearType: "weapon", localisations: { en: { name: "Inferno pistol" } } },
+          {
+            id: "wi-hf",
+            wargearType: "weapon",
+            localisations: { en: { name: "Hand flamer" } },
+          },
+          {
+            id: "wi-ip",
+            wargearType: "weapon",
+            localisations: { en: { name: "Inferno pistol" } },
+          },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
         limited_wargear_choice: [
           { id: "lwc-hf", limitedWargearChoiceSetId: "lim" },
           { id: "lwc-ip", limitedWargearChoiceSetId: "lim" },
         ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 2, wargearItemId: "wi-hf", limitedWargearChoiceId: "lwc-hf" },
-          { id: "x2", count: 2, wargearItemId: "wi-ip", limitedWargearChoiceId: "lwc-ip" },
+          {
+            id: "x1",
+            count: 2,
+            wargearItemId: "wi-hf",
+            limitedWargearChoiceId: "lwc-hf",
+          },
+          {
+            id: "x2",
+            count: 2,
+            wargearItemId: "wi-ip",
+            limitedWargearChoiceId: "lwc-ip",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 0, choiceLimit: 2, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
-          { id: "wl1", modelCount: 10, choiceLimit: 4, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 0,
+            choiceLimit: 2,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
+          {
+            id: "wl1",
+            modelCount: 10,
+            choiceLimit: 4,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -1025,25 +2067,67 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-bg", wargearType: "weapon", localisations: { en: { name: "Boltgun" } } },
-          { id: "wi-si", wargearType: "wargear", localisations: { en: { name: "Simulacrum" } } },
+          {
+            id: "wi-bg",
+            wargearType: "weapon",
+            localisations: { en: { name: "Boltgun" } },
+          },
+          {
+            id: "wi-si",
+            wargearType: "wargear",
+            localisations: { en: { name: "Simulacrum" } },
+          },
         ],
-        miniature: [{ id: "m1", localisations: { en: { name: "Battle Sister" } } }],
+        miniature: [
+          { id: "m1", localisations: { en: { name: "Battle Sister" } } },
+        ],
         wargear_option_group: [],
         unit_composition: [],
         wargear_option: [{ id: "wo-bg", wargearItemId: "wi-bg" }],
-        base_miniature_loadout: [{ id: "bml1", datasheetId: "ds1", miniatureId: "m1" }],
-        base_miniature_loadout_wargear_option: [
-          { id: "bo1", count: 1, wargearOptionId: "wo-bg", baseMiniatureLoadoutId: "bml1" },
+        base_miniature_loadout: [
+          { id: "bml1", datasheetId: "ds1", miniatureId: "m1" },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
-        limited_wargear_choice: [{ id: "lwc", limitedWargearChoiceSetId: "lim" }],
+        base_miniature_loadout_wargear_option: [
+          {
+            id: "bo1",
+            count: 1,
+            wargearOptionId: "wo-bg",
+            baseMiniatureLoadoutId: "bml1",
+          },
+        ],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
+        limited_wargear_choice: [
+          { id: "lwc", limitedWargearChoiceSetId: "lim" },
+        ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-bg", limitedWargearChoiceId: "lwc" },
-          { id: "x2", count: 1, wargearItemId: "wi-si", limitedWargearChoiceId: "lwc" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-bg",
+            limitedWargearChoiceId: "lwc",
+          },
+          {
+            id: "x2",
+            count: 1,
+            wargearItemId: "wi-si",
+            limitedWargearChoiceId: "lwc",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 0, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 0,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -1056,27 +2140,81 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-ccw", wargearType: "weapon", localisations: { en: { name: "Close combat weapon" } } },
-          { id: "wi-rl", wargearType: "weapon", localisations: { en: { name: "Rokkit launcha" } } },
-          { id: "wi-ks", wargearType: "weapon", localisations: { en: { name: "Kustom shoota" } } },
+          {
+            id: "wi-ccw",
+            wargearType: "weapon",
+            localisations: { en: { name: "Close combat weapon" } },
+          },
+          {
+            id: "wi-rl",
+            wargearType: "weapon",
+            localisations: { en: { name: "Rokkit launcha" } },
+          },
+          {
+            id: "wi-ks",
+            wargearType: "weapon",
+            localisations: { en: { name: "Kustom shoota" } },
+          },
         ],
         limited_wargear_choice_set: [
-          { id: "lim-rl", mandatory: false, datasheetId: "ds1", miniatureId: "m1" },
-          { id: "lim-ks", mandatory: false, datasheetId: "ds1", miniatureId: "m1" },
+          {
+            id: "lim-rl",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+          {
+            id: "lim-ks",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
         ],
         limited_wargear_choice: [
           { id: "lwc-rl", limitedWargearChoiceSetId: "lim-rl" },
           { id: "lwc-ks", limitedWargearChoiceSetId: "lim-ks" },
         ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-ccw", limitedWargearChoiceId: "lwc-rl" },
-          { id: "x2", count: 1, wargearItemId: "wi-rl", limitedWargearChoiceId: "lwc-rl" },
-          { id: "x3", count: 1, wargearItemId: "wi-ccw", limitedWargearChoiceId: "lwc-ks" },
-          { id: "x4", count: 1, wargearItemId: "wi-ks", limitedWargearChoiceId: "lwc-ks" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-ccw",
+            limitedWargearChoiceId: "lwc-rl",
+          },
+          {
+            id: "x2",
+            count: 1,
+            wargearItemId: "wi-rl",
+            limitedWargearChoiceId: "lwc-rl",
+          },
+          {
+            id: "x3",
+            count: 1,
+            wargearItemId: "wi-ccw",
+            limitedWargearChoiceId: "lwc-ks",
+          },
+          {
+            id: "x4",
+            count: 1,
+            wargearItemId: "wi-ks",
+            limitedWargearChoiceId: "lwc-ks",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 0, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim-rl" },
-          { id: "wl1", modelCount: 0, choiceLimit: 2, duplicateLimit: null, limitedWargearChoiceSetId: "lim-ks" },
+          {
+            id: "wl0",
+            modelCount: 0,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim-rl",
+          },
+          {
+            id: "wl1",
+            modelCount: 0,
+            choiceLimit: 2,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim-ks",
+          },
         ],
       },
     });
@@ -1093,24 +2231,66 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-pg", wargearType: "weapon", localisations: { en: { name: "Plasma gun" } } },
-          { id: "wi-mg", wargearType: "weapon", localisations: { en: { name: "Meltagun" } } },
-          { id: "wi-pb", wargearType: "weapon", localisations: { en: { name: "Plague belcher" } } },
+          {
+            id: "wi-pg",
+            wargearType: "weapon",
+            localisations: { en: { name: "Plasma gun" } },
+          },
+          {
+            id: "wi-mg",
+            wargearType: "weapon",
+            localisations: { en: { name: "Meltagun" } },
+          },
+          {
+            id: "wi-pb",
+            wargearType: "weapon",
+            localisations: { en: { name: "Plague belcher" } },
+          },
         ],
-        miniature: [{ id: "m1", localisations: { en: { name: "Plague Marine" } } }],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
+        miniature: [
+          { id: "m1", localisations: { en: { name: "Plague Marine" } } },
+        ],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
         limited_wargear_choice: [
           { id: "lwc-pg", limitedWargearChoiceSetId: "lim" },
           { id: "lwc-mg", limitedWargearChoiceSetId: "lim" },
           { id: "lwc-pb", limitedWargearChoiceSetId: "lim" },
         ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-pg", limitedWargearChoiceId: "lwc-pg" },
-          { id: "x2", count: 1, wargearItemId: "wi-mg", limitedWargearChoiceId: "lwc-mg" },
-          { id: "x3", count: 1, wargearItemId: "wi-pb", limitedWargearChoiceId: "lwc-pb" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-pg",
+            limitedWargearChoiceId: "lwc-pg",
+          },
+          {
+            id: "x2",
+            count: 1,
+            wargearItemId: "wi-mg",
+            limitedWargearChoiceId: "lwc-mg",
+          },
+          {
+            id: "x3",
+            count: 1,
+            wargearItemId: "wi-pb",
+            limitedWargearChoiceId: "lwc-pb",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 5, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 5,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -1127,7 +2307,9 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     // plasma-gun copies are unattributable, so only the other specials stay
     // policed. (Had the set collapsed to ONE surviving item, the mini-scoped
     // single-weapon gate would drop the budget entirely.)
-    expect(limitedSetBudgets(dump, "ds1", budgetResolve, [championOption])).toEqual([
+    expect(
+      limitedSetBudgets(dump, "ds1", budgetResolve, [championOption]),
+    ).toEqual([
       { items: ["meltagun", "plague-belcher"], count: 1, per_models: 5 },
     ]);
   });
@@ -1136,23 +2318,68 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-ccw", wargearType: "weapon", localisations: { en: { name: "Close combat weapon" } } },
-          { id: "wi-rl", wargearType: "weapon", localisations: { en: { name: "Rokkit launcha" } } },
-          { id: "wi-bs", wargearType: "weapon", localisations: { en: { name: "Big shoota" } } },
+          {
+            id: "wi-ccw",
+            wargearType: "weapon",
+            localisations: { en: { name: "Close combat weapon" } },
+          },
+          {
+            id: "wi-rl",
+            wargearType: "weapon",
+            localisations: { en: { name: "Rokkit launcha" } },
+          },
+          {
+            id: "wi-bs",
+            wargearType: "weapon",
+            localisations: { en: { name: "Big shoota" } },
+          },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
         limited_wargear_choice: [
           { id: "lwc-rl", limitedWargearChoiceSetId: "lim" },
           { id: "lwc-bs", limitedWargearChoiceSetId: "lim" },
         ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-ccw", limitedWargearChoiceId: "lwc-rl" },
-          { id: "x2", count: 1, wargearItemId: "wi-rl", limitedWargearChoiceId: "lwc-rl" },
-          { id: "x3", count: 1, wargearItemId: "wi-ccw", limitedWargearChoiceId: "lwc-bs" },
-          { id: "x4", count: 1, wargearItemId: "wi-bs", limitedWargearChoiceId: "lwc-bs" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-ccw",
+            limitedWargearChoiceId: "lwc-rl",
+          },
+          {
+            id: "x2",
+            count: 1,
+            wargearItemId: "wi-rl",
+            limitedWargearChoiceId: "lwc-rl",
+          },
+          {
+            id: "x3",
+            count: 1,
+            wargearItemId: "wi-ccw",
+            limitedWargearChoiceId: "lwc-bs",
+          },
+          {
+            id: "x4",
+            count: 1,
+            wargearItemId: "wi-bs",
+            limitedWargearChoiceId: "lwc-bs",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 10, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 10,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -1165,9 +2392,9 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
       replaces: ["slugga", "choppa"],
       replacement: ["shoota", "close-combat-weapon"],
     };
-    expect(limitedSetBudgets(dump, "ds1", budgetResolve, [shootaSwap])).toEqual([
-      { items: ["big-shoota", "rokkit-launcha"], count: 1, per_models: 10 },
-    ]);
+    expect(limitedSetBudgets(dump, "ds1", budgetResolve, [shootaSwap])).toEqual(
+      [{ items: ["big-shoota", "rokkit-launcha"], count: 1, per_models: 10 }],
+    );
   });
 
   it("keeps items whose uncapped branch realizes one of the set's own choices", () => {
@@ -1178,16 +2405,46 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-cf", wargearType: "weapon", localisations: { en: { name: "Chainfist" } } },
+          {
+            id: "wi-cf",
+            wargearType: "weapon",
+            localisations: { en: { name: "Chainfist" } },
+          },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: null }],
-        limited_wargear_choice: [{ id: "lwc", limitedWargearChoiceSetId: "lim" }],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: null,
+          },
+        ],
+        limited_wargear_choice: [
+          { id: "lwc", limitedWargearChoiceSetId: "lim" },
+        ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-cf", limitedWargearChoiceId: "lwc" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-cf",
+            limitedWargearChoiceId: "lwc",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 5, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
-          { id: "wl1", modelCount: 10, choiceLimit: 2, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 5,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
+          {
+            id: "wl1",
+            modelCount: 10,
+            choiceLimit: 2,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -1196,14 +2453,17 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
       unit_id: "chaos-terminators",
       faction_id: "world-eaters",
       game_version: { edition: "11th", dataslate: "x" },
-      model_constraint: { model_name: "World Eaters Terminator", any_number: true },
+      model_constraint: {
+        model_name: "World Eaters Terminator",
+        any_number: true,
+      },
       replaces: ["combi-bolter", "accursed-weapon"],
       replacement_choice: [["chainfist", "combi-weapon"]],
     };
     // (5,1) and (10,2) tie at ratio 0.2 — first row wins, semantically identical.
-    expect(limitedSetBudgets(dump, "ds1", budgetResolve, [trooperSwap])).toEqual([
-      { items: ["chainfist"], count: 1, per_models: 5 },
-    ]);
+    expect(
+      limitedSetBudgets(dump, "ds1", budgetResolve, [trooperSwap]),
+    ).toEqual([{ items: ["chainfist"], count: 1, per_models: 5 }]);
   });
 
   it("emits a mini-scoped single-weapon budget when derived records split the allowance", () => {
@@ -1214,16 +2474,46 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-ev", wargearType: "weapon", localisations: { en: { name: "Eviscerator" } } },
+          {
+            id: "wi-ev",
+            wargearType: "weapon",
+            localisations: { en: { name: "Eviscerator" } },
+          },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
-        limited_wargear_choice: [{ id: "lwc", limitedWargearChoiceSetId: "lim" }],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
+        limited_wargear_choice: [
+          { id: "lwc", limitedWargearChoiceSetId: "lim" },
+        ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-ev", limitedWargearChoiceId: "lwc" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-ev",
+            limitedWargearChoiceId: "lwc",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 0, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
-          { id: "wl1", modelCount: 10, choiceLimit: 2, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 0,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
+          {
+            id: "wl1",
+            modelCount: 10,
+            choiceLimit: 2,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -1245,34 +2535,67 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
       replaces: ["astartes-chainsword"],
       replacement: ["eviscerator"],
     };
-    expect(limitedSetBudgets(dump, "ds1", budgetResolve, [bundleSwap, loneSwap])).toEqual([
-      { items: ["eviscerator"], count: 2, per_models: 10 },
-    ]);
+    expect(
+      limitedSetBudgets(dump, "ds1", budgetResolve, [bundleSwap, loneSwap]),
+    ).toEqual([{ items: ["eviscerator"], count: 2, per_models: 10 }]);
     // One granting record → the per-record cap is the correct total; no budget.
-    expect(limitedSetBudgets(dump, "ds1", budgetResolve, [loneSwap])).toEqual([]);
+    expect(limitedSetBudgets(dump, "ds1", budgetResolve, [loneSwap])).toEqual(
+      [],
+    );
   });
 
   it("drops a set whose every item is excluded", () => {
     const dump = new MfmDump({
       data: {
         wargear_item: [
-          { id: "wi-bg", wargearType: "weapon", localisations: { en: { name: "Boltgun" } } },
+          {
+            id: "wi-bg",
+            wargearType: "weapon",
+            localisations: { en: { name: "Boltgun" } },
+          },
         ],
         miniature: [{ id: "m1", localisations: { en: { name: "Trooper" } } }],
         wargear_option_group: [],
         unit_composition: [],
         wargear_option: [{ id: "wo-bg", wargearItemId: "wi-bg" }],
-        base_miniature_loadout: [{ id: "bml1", datasheetId: "ds1", miniatureId: "m1" }],
-        base_miniature_loadout_wargear_option: [
-          { id: "bo1", count: 1, wargearOptionId: "wo-bg", baseMiniatureLoadoutId: "bml1" },
+        base_miniature_loadout: [
+          { id: "bml1", datasheetId: "ds1", miniatureId: "m1" },
         ],
-        limited_wargear_choice_set: [{ id: "lim", mandatory: false, datasheetId: "ds1", miniatureId: "m1" }],
-        limited_wargear_choice: [{ id: "lwc", limitedWargearChoiceSetId: "lim" }],
+        base_miniature_loadout_wargear_option: [
+          {
+            id: "bo1",
+            count: 1,
+            wargearOptionId: "wo-bg",
+            baseMiniatureLoadoutId: "bml1",
+          },
+        ],
+        limited_wargear_choice_set: [
+          {
+            id: "lim",
+            mandatory: false,
+            datasheetId: "ds1",
+            miniatureId: "m1",
+          },
+        ],
+        limited_wargear_choice: [
+          { id: "lwc", limitedWargearChoiceSetId: "lim" },
+        ],
         limited_wargear_choice_wargear_item: [
-          { id: "x1", count: 1, wargearItemId: "wi-bg", limitedWargearChoiceId: "lwc" },
+          {
+            id: "x1",
+            count: 1,
+            wargearItemId: "wi-bg",
+            limitedWargearChoiceId: "lwc",
+          },
         ],
         wargear_limit: [
-          { id: "wl0", modelCount: 0, choiceLimit: 1, duplicateLimit: null, limitedWargearChoiceSetId: "lim" },
+          {
+            id: "wl0",
+            modelCount: 0,
+            choiceLimit: 1,
+            duplicateLimit: null,
+            limitedWargearChoiceSetId: "lim",
+          },
         ],
       },
     });
@@ -1282,7 +2605,9 @@ describe("limitedSetBudgets — choice bundles, copy counts, and exclusions", ()
 
 describe("withinEditDistance1", () => {
   it("matches GW↔repo spelling drift", () => {
-    expect(withinEditDistance1("absolvor-bolt-pistol", "absolver-bolt-pistol")).toBe(true); // substitution
+    expect(
+      withinEditDistance1("absolvor-bolt-pistol", "absolver-bolt-pistol"),
+    ).toBe(true); // substitution
     expect(withinEditDistance1("twin-killsaws", "twin-killsaw")).toBe(true); // deletion
     expect(withinEditDistance1("nuncio-acquila", "nuncio-aquila")).toBe(true); // insertion
   });

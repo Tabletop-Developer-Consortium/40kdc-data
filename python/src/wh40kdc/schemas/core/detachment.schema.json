@@ -6,6 +6,9 @@
   "type": "object",
   "properties": {
     "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "external_refs": {
+      "$ref": "../defs/common.schema.json#/$defs/external-reference-list"
+    },
     "name": { "type": "string", "minLength": 1, "maxLength": 128 },
     "faction_id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
     "detachment_rule_id": {
@@ -53,8 +56,12 @@
         {
           "type": "object",
           "properties": {
-            "required_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
-            "excluded_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+            "required_keywords": {
+              "$ref": "../defs/common.schema.json#/$defs/keyword-list"
+            },
+            "excluded_keywords": {
+              "$ref": "../defs/common.schema.json#/$defs/keyword-list"
+            },
             "notes": { "type": "string" }
           },
           "additionalProperties": false
@@ -86,7 +93,9 @@
       "description": "A construction keyword a detachment grants to units matching a keyword filter. Blanket by default (every matching unit gains it); when `max_selected` is set, the keyword is instead granted to up to that many matching units of the player's choice (e.g. Houndpack Lance: 'select three WAR DOG units; they gain CHARACTER').",
       "properties": {
         "keyword": { "$ref": "../defs/common.schema.json#/$defs/keyword" },
-        "to_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+        "to_keywords": {
+          "$ref": "../defs/common.schema.json#/$defs/keyword-list"
+        },
         "max_selected": {
           "type": "integer",
           "minimum": 1,

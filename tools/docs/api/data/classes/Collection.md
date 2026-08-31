@@ -149,6 +149,32 @@ Whether a record with this exact id exists.
 `boolean`
 
 ***
+### byExternalRef()
+
+> **byExternalRef**(`namespace`, `id`): `V`[]
+
+Defined in: [data/collection.ts:251](https://github.com/wn-mitch/40kdc-data/blob/c9c88e6391023daf41c88513e9ecb21950c56b1c/tools/src/data/collection.ts#L251)
+
+Return every canonical record carrying an exact external source identity.
+External mappings are many-to-many: several records may share one source
+identity, and one record may carry several ids from the same namespace.
+
+#### Parameters
+
+##### namespace
+
+`string`
+
+##### id
+
+`string`
+
+#### Returns
+
+`V`[]
+
+***
+
 
 ### find()
 

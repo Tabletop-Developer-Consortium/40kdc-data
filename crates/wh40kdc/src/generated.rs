@@ -4559,6 +4559,9 @@ for DesignateTargetEffectSelectScope {
 ///        "$ref": "#/$defs/entity-id"
 ///      }
 ///    },
+///    "external_refs": {
+///      "$ref": "#/$defs/external-reference-list"
+///    },
 ///    "faction_id": {
 ///      "$ref": "#/$defs/entity-id"
 ///    },
@@ -4654,6 +4657,8 @@ pub struct Detachment {
     pub detachment_rule_ids: ::std::option::Option<Vec<EntityId>>,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub enhancement_ids: ::std::vec::Vec<EntityId>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub external_refs: ::std::option::Option<ExternalReferenceList>,
     pub faction_id: EntityId,
     ///11e: ids of the Force Disposition entities this detachment grants. Empty until assigned.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -5973,6 +5978,9 @@ impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
 ///        }
 ///      ]
 ///    },
+///    "external_refs": {
+///      "$ref": "#/$defs/external-reference-list"
+///    },
 ///    "game_modes": {
 ///      "description": "Game modes this enhancement is legal or authored for; absent implies matched-play.",
 ///      "$ref": "#/$defs/game-modes"
@@ -6042,6 +6050,8 @@ pub struct Enhancement {
     pub detachment_id: EntityId,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub exclusion_keywords: ::std::option::Option<KeywordList>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub external_refs: ::std::option::Option<ExternalReferenceList>,
     ///Game modes this enhancement is legal or authored for; absent implies matched-play.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub game_modes: ::std::option::Option<GameModes>,
@@ -6322,6 +6332,239 @@ impl<'de> ::serde::Deserialize<'de> for EventBoundReferenceEventVar {
             })
     }
 }
+///A stable identifier assigned to the same entity by an external data source.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "A stable identifier assigned to the same entity by an external data source.",
+///  "type": "object",
+///  "required": [
+///    "id",
+///    "namespace"
+///  ],
+///  "properties": {
+///    "id": {
+///      "description": "Identifier exactly as assigned by the external source.",
+///      "type": "string",
+///      "maxLength": 256,
+///      "minLength": 1
+///    },
+///    "namespace": {
+///      "description": "Open source namespace, such as 'mfm', 'bsdata', or 'game-datacards'.",
+///      "type": "string",
+///      "maxLength": 64,
+///      "minLength": 1,
+///      "pattern": "^[a-z0-9][a-z0-9._-]*$"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct ExternalReference {
+    ///Identifier exactly as assigned by the external source.
+    pub id: ExternalReferenceId,
+    ///Open source namespace, such as 'mfm', 'bsdata', or 'game-datacards'.
+    pub namespace: ExternalReferenceNamespace,
+}
+///Identifier exactly as assigned by the external source.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Identifier exactly as assigned by the external source.",
+///  "type": "string",
+///  "maxLength": 256,
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ExternalReferenceId(::std::string::String);
+impl ::std::ops::Deref for ExternalReferenceId {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ExternalReferenceId> for ::std::string::String {
+    fn from(value: ExternalReferenceId) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ExternalReferenceId {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() > 256usize {
+            return Err("longer than 256 characters".into());
+        }
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ExternalReferenceId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ExternalReferenceId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ExternalReferenceId {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ExternalReferenceId {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///Known external source identities. More than one id per namespace and cross-entity fan-out are valid.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Known external source identities. More than one id per namespace and cross-entity fan-out are valid.",
+///  "type": "array",
+///  "items": {
+///    "$ref": "#/$defs/external-reference"
+///  },
+///  "uniqueItems": true
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(transparent)]
+pub struct ExternalReferenceList(pub Vec<ExternalReference>);
+impl ::std::ops::Deref for ExternalReferenceList {
+    type Target = Vec<ExternalReference>;
+    fn deref(&self) -> &Vec<ExternalReference> {
+        &self.0
+    }
+}
+impl ::std::convert::From<ExternalReferenceList> for Vec<ExternalReference> {
+    fn from(value: ExternalReferenceList) -> Self {
+        value.0
+    }
+}
+impl ::std::convert::From<Vec<ExternalReference>> for ExternalReferenceList {
+    fn from(value: Vec<ExternalReference>) -> Self {
+        Self(value)
+    }
+}
+///Open source namespace, such as 'mfm', 'bsdata', or 'game-datacards'.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Open source namespace, such as 'mfm', 'bsdata', or 'game-datacards'.",
+///  "type": "string",
+///  "maxLength": 64,
+///  "minLength": 1,
+///  "pattern": "^[a-z0-9][a-z0-9._-]*$"
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct ExternalReferenceNamespace(::std::string::String);
+impl ::std::ops::Deref for ExternalReferenceNamespace {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<ExternalReferenceNamespace> for ::std::string::String {
+    fn from(value: ExternalReferenceNamespace) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for ExternalReferenceNamespace {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() > 64usize {
+            return Err("longer than 64 characters".into());
+        }
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        static PATTERN: ::std::sync::LazyLock<::regress::Regex> = ::std::sync::LazyLock::new(||
+        { ::regress::Regex::new("^[a-z0-9][a-z0-9._-]*$").unwrap() });
+        if PATTERN.find(value).is_none() {
+            return Err("doesn't match pattern \"^[a-z0-9][a-z0-9._-]*$\"".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for ExternalReferenceNamespace {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for ExternalReferenceNamespace {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for ExternalReferenceNamespace {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for ExternalReferenceNamespace {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
 ///A playable faction or sub-faction.
 ///
 /// <details><summary>JSON schema</summary>
@@ -6342,6 +6585,9 @@ impl<'de> ::serde::Deserialize<'de> for EventBoundReferenceEventVar {
 ///      "items": {
 ///        "type": "string"
 ///      }
+///    },
+///    "external_refs": {
+///      "$ref": "#/$defs/external-reference-list"
 ///    },
 ///    "faction_rule_id": {
 ///      "description": "Reference to the faction-wide ability (e.g., Oath of Moment)",
@@ -6393,6 +6639,8 @@ impl<'de> ::serde::Deserialize<'de> for EventBoundReferenceEventVar {
 pub struct Faction {
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub aliases: ::std::vec::Vec<::std::string::String>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub external_refs: ::std::option::Option<ExternalReferenceList>,
     ///Reference to the faction-wide ability (e.g., Oath of Moment)
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub faction_rule_id: ::std::option::Option<EntityId>,
@@ -22557,6 +22805,9 @@ impl<'de> ::serde::Deserialize<'de> for StatValueString {
 ///        }
 ///      ]
 ///    },
+///    "external_refs": {
+///      "$ref": "#/$defs/external-reference-list"
+///    },
 ///    "game_modes": {
 ///      "description": "Game modes this stratagem is legal or authored for; absent implies matched-play.",
 ///      "$ref": "#/$defs/game-modes"
@@ -22640,6 +22891,8 @@ pub struct Stratagem {
     ///Null for core stratagems
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub detachment_id: ::std::option::Option<EntityId>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub external_refs: ::std::option::Option<ExternalReferenceList>,
     ///Game modes this stratagem is legal or authored for; absent implies matched-play.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub game_modes: ::std::option::Option<GameModes>,
@@ -25001,6 +25254,9 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerSubject {
 ///        }
 ///      ]
 ///    },
+///    "external_refs": {
+///      "$ref": "#/$defs/external-reference-list"
+///    },
 ///    "faction_id": {
 ///      "$ref": "#/$defs/entity-id"
 ///    },
@@ -25323,6 +25579,8 @@ pub struct Unit {
     ///Faction keywords whose armies are barred from taking this otherwise-generic unit. Used where the game removes a generic unit from a specific sub-faction without printing a replacement (e.g. Black Templars cannot field Librarians; Deathwatch cannot field the generic Tactical Squad). An army may take this unit only if none of its faction keywords appear here. Absent/empty = available to every keyword-eligible army. Distinct from `faction_keywords`, which is the positive access list; this is the negative one for the rare exclusions a flat shared pool cannot otherwise express.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub excluded_faction_keywords: ::std::option::Option<KeywordList>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub external_refs: ::std::option::Option<ExternalReferenceList>,
     pub faction_id: EntityId,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub faction_keywords: ::std::option::Option<KeywordList>,
@@ -27016,6 +27274,9 @@ pub struct Wall {
 ///        }
 ///      ]
 ///    },
+///    "external_refs": {
+///      "$ref": "#/$defs/external-reference-list"
+///    },
 ///    "game_version": {
 ///      "$ref": "#/$defs/game-version-ref"
 ///    },
@@ -27037,6 +27298,8 @@ pub struct Wall {
 pub struct Wargear {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub category: ::std::option::Option<WargearCategory>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub external_refs: ::std::option::Option<ExternalReferenceList>,
     pub game_version: GameVersionRef,
     pub id: EntityId,
     pub name: WargearName,
@@ -27475,6 +27738,9 @@ impl<'de> ::serde::Deserialize<'de> for WargearOptionModelConstraintModelName {
 ///    "type"
 ///  ],
 ///  "properties": {
+///    "external_refs": {
+///      "$ref": "#/$defs/external-reference-list"
+///    },
 ///    "faction_id": {
 ///      "description": "Owning faction, stamped at bundle time from the weapon's data/core/<faction>/ directory. Enables faction-scoped resolution of a unit's weapon_ids so a bare weapon id shared across factions (e.g. 'close-combat-weapon') resolves to the wielder's own faction copy rather than whichever faction bundled first.",
 ///      "$ref": "#/$defs/entity-id"
@@ -27654,6 +27920,8 @@ impl<'de> ::serde::Deserialize<'de> for WargearOptionModelConstraintModelName {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 #[serde(deny_unknown_fields)]
 pub struct Weapon {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub external_refs: ::std::option::Option<ExternalReferenceList>,
     ///Owning faction, stamped at bundle time from the weapon's data/core/<faction>/ directory. Enables faction-scoped resolution of a unit's weapon_ids so a bare weapon id shared across factions (e.g. 'close-combat-weapon') resolves to the wielder's own faction copy rather than whichever faction bundled first.
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub faction_id: ::std::option::Option<EntityId>,

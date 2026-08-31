@@ -50,6 +50,38 @@
       "type": "string",
       "description": "GitHub handle or '40kdc-community'"
     },
+    "external-reference": {
+      "type": "object",
+      "description": "A stable identifier assigned to the same entity by an external data source.",
+      "properties": {
+        "namespace": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 64,
+          "pattern": "^[a-z0-9][a-z0-9._-]*$",
+          "description": "Open source namespace, such as 'mfm', 'bsdata', or 'game-datacards'."
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 256,
+          "description": "Identifier exactly as assigned by the external source."
+        }
+      },
+      "required": [
+        "namespace",
+        "id"
+      ],
+      "additionalProperties": false
+    },
+    "external-reference-list": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/external-reference"
+      },
+      "uniqueItems": true,
+      "description": "Known external source identities. More than one id per namespace and cross-entity fan-out are valid."
+    },
     "phase": {
       "type": "string",
       "enum": [
@@ -785,6 +817,9 @@
         "id": {
           "$ref": "#/$defs/entity-id"
         },
+        "external_refs": {
+          "$ref": "#/$defs/external-reference-list"
+        },
         "name": {
           "type": "string",
           "minLength": 1,
@@ -913,6 +948,9 @@
         "id": {
           "$ref": "#/$defs/entity-id"
         },
+        "external_refs": {
+          "$ref": "#/$defs/external-reference-list"
+        },
         "name": {
           "type": "string",
           "minLength": 1,
@@ -1015,6 +1053,9 @@
       "properties": {
         "id": {
           "$ref": "#/$defs/entity-id"
+        },
+        "external_refs": {
+          "$ref": "#/$defs/external-reference-list"
         },
         "name": {
           "type": "string",
@@ -1701,6 +1742,9 @@
       "properties": {
         "id": {
           "$ref": "#/$defs/entity-id"
+        },
+        "external_refs": {
+          "$ref": "#/$defs/external-reference-list"
         },
         "name": {
           "type": "string",
@@ -2475,6 +2519,9 @@
         "id": {
           "$ref": "#/$defs/entity-id"
         },
+        "external_refs": {
+          "$ref": "#/$defs/external-reference-list"
+        },
         "name": {
           "type": "string",
           "minLength": 1,
@@ -3021,6 +3068,9 @@
         "id": {
           "$ref": "#/$defs/entity-id"
         },
+        "external_refs": {
+          "$ref": "#/$defs/external-reference-list"
+        },
         "name": {
           "type": "string",
           "minLength": 1,
@@ -3107,6 +3157,9 @@
       "properties": {
         "id": {
           "$ref": "#/$defs/entity-id"
+        },
+        "external_refs": {
+          "$ref": "#/$defs/external-reference-list"
         },
         "name": {
           "type": "string",

@@ -6,7 +6,17 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "icon"
+    "category": "icon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b42dc91c-b394-4be6-8fb0-aa4e65ef7daa"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fed5c916-2d8b-4686-844c-0378d90f6d9c"
+      }
+    ]
   },
   {
     "id": "flare-launcher",
@@ -14,7 +24,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "61c63ee8-1c41-4e6c-b0e8-5451c154c896"
+      }
+    ]
   },
   {
     "id": "spotter",
@@ -22,7 +38,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "ea265349-dc8b-491b-a164-16e0ef1e0a55"
+      }
+    ]
   },
   {
     "id": "survey-augur",
@@ -30,7 +52,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d47b0a50-f539-4af2-b886-e08f4ef8c786"
+      }
+    ]
   },
   {
     "id": "alchemicus-familiar",
@@ -38,6 +66,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "8315877d-349f-4db7-8f6d-2122795cdb93"
+      }
+    ]
   }
 ]

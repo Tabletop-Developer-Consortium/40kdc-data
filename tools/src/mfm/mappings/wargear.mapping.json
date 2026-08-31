@@ -2,22 +2,93 @@
   "$schema": "../mfm-source-map.schema.json",
   "entity_schema": "schemas/core/wargear.schema.json",
   "mapping_version": 1,
-  "root_tables": [
-    "wargear_item"
-  ],
+  "root_tables": ["wargear_item"],
   "fields": {
     "/category": {
       "provenance": "unresolved-candidate",
       "coverage": "not-applicable",
-      "sources": [
-        "data.wargear_item.wargearType"
-      ],
+      "sources": ["data.wargear_item.wargearType"],
       "joins": [],
       "transforms": [],
       "filters": [],
       "precedence": [],
       "consumers": [],
       "reason": "Not dump-sourceable at repo granularity: wargearType is only weapon|wargear — a coarse entity-type discriminator the repo already models structurally (weapons.json vs wargear.json), not the free-form category. The repo category is a fine-grained community grouping (icon/banner/token/standard/upgrade/equipment) with no structured dump field (wargear_item exposes only id/localisations/noMultiProfileIcon/wargearType), so it stays repo-authored."
+    },
+    "/external_refs": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.wargear_item.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Preserve every datasheet-owned non-weapon identity under the mfm namespace."
+        }
+      ],
+      "filters": [
+        "Wargear items structurally reached through a matched datasheet loadout and resolved by canonical name."
+      ],
+      "precedence": [
+        "Additive: retain exact references from every other namespace."
+      ],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/gear-projection.ts#mintWargear"
+      ],
+      "reason": "External source identities are additive interoperability metadata."
+    },
+    "/external_refs/*": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.wargear_item.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Create one unique namespace/id pair."
+        }
+      ],
+      "filters": ["Only exact datasheet-owned wargear matches."],
+      "precedence": ["Additive; exact duplicate pairs are ignored."],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/gear-projection.ts#mintWargear"
+      ],
+      "reason": "Each item preserves one exact external identity."
+    },
+    "/external_refs/*/id": {
+      "provenance": "direct",
+      "coverage": "implemented",
+      "sources": ["data.wargear_item.id"],
+      "joins": [],
+      "transforms": [],
+      "filters": ["Only exact datasheet-owned wargear matches."],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/gear-projection.ts#mintWargear"
+      ],
+      "reason": "The external id is the MFM wargear_item primary key."
+    },
+    "/external_refs/*/namespace": {
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": ["data.wargear_item.id"],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+          "operation": "Label the source identity with the constant mfm namespace."
+        }
+      ],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/external-refs.ts#runMfmExternalRefs",
+        "tools/src/mfm/gear-projection.ts#mintWargear"
+      ],
+      "reason": "The namespace distinguishes MFM ids from other source identities."
     },
     "/game_version": {
       "provenance": "repo-authored",
@@ -60,9 +131,7 @@
     "/id": {
       "provenance": "derived",
       "coverage": "implemented",
-      "sources": [
-        "data.wargear_item.localisations.*.name"
-      ],
+      "sources": ["data.wargear_item.localisations.*.name"],
       "joins": [],
       "transforms": [
         {
@@ -86,9 +155,7 @@
     "/name": {
       "provenance": "direct",
       "coverage": "implemented",
-      "sources": [
-        "data.wargear_item.localisations.*.name"
-      ],
+      "sources": ["data.wargear_item.localisations.*.name"],
       "joins": [],
       "transforms": [],
       "filters": [

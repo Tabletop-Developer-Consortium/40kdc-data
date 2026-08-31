@@ -29,6 +29,14 @@ StatValue: TypeAlias = int | str
 ContributorRef: TypeAlias = str
 
 
+class ExternalReference(TypedDict):
+    namespace: str
+    id: str
+
+
+ExternalReferenceList: TypeAlias = list[ExternalReference]
+
+
 Phase: TypeAlias = Literal["command", "movement", "shooting", "charge", "fight"]
 
 
@@ -265,6 +273,7 @@ class Restrictions(TypedDict):
 
 class Detachment(TypedDict):
     id: EntityId
+    external_refs: NotRequired[ExternalReferenceList]
     name: str
     faction_id: EntityId
     detachment_rule_id: NotRequired[EntityId | None]
@@ -286,6 +295,7 @@ KeywordRestrictionGroup: TypeAlias = list[Keyword]
 
 class Enhancement(TypedDict):
     id: EntityId
+    external_refs: NotRequired[ExternalReferenceList]
     name: str
     detachment_id: EntityId
     cost: int
@@ -304,6 +314,7 @@ class Enhancement(TypedDict):
 
 class Faction(TypedDict):
     id: EntityId
+    external_refs: NotRequired[ExternalReferenceList]
     name: str
     parent_faction_id: NotRequired[EntityId | None]
     game_version: GameVersionRef
@@ -419,6 +430,7 @@ class TargetRestrictions(TypedDict):
 
 class Stratagem(TypedDict):
     id: EntityId
+    external_refs: NotRequired[ExternalReferenceList]
     name: str
     category: Literal["core", "detachment"]
     type: NotRequired[Literal["battle-tactic", "strategic-ploy", "epic-deed", "wargear"]]
@@ -626,6 +638,7 @@ class TransportCapacity(TypedDict):
 
 class Unit(TypedDict):
     id: EntityId
+    external_refs: NotRequired[ExternalReferenceList]
     name: str
     aliases: NotRequired[list[str]]
     faction_id: EntityId
@@ -681,6 +694,7 @@ class WargearOption(TypedDict):
 
 class Wargear(TypedDict):
     id: EntityId
+    external_refs: NotRequired[ExternalReferenceList]
     name: str
     category: NotRequired[str | None]
     game_version: GameVersionRef
@@ -723,6 +737,7 @@ class Profile1(TypedDict):
 
 class Weapon(TypedDict):
     id: EntityId
+    external_refs: NotRequired[ExternalReferenceList]
     name: str
     type: Literal["ranged", "melee"]
     faction_id: NotRequired[EntityId]

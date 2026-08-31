@@ -20,6 +20,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c7d24ce3-acdf-414d-af2a-81c602983045"
+      }
     ]
   },
   {
@@ -50,6 +56,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "take-and-hold"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "355721a8-7f31-4a55-94e0-cbc895fb2397"
+      }
     ]
   },
   {
@@ -78,6 +90,12 @@
     "detachment_points": 3,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "86620542-e27d-4e99-a70e-da69a673c9fb"
+      }
     ]
   },
   {
@@ -128,7 +146,13 @@
         "min": 3
       }
     ],
-    "tags": []
+    "tags": [],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a634e475-384b-40cd-957d-cd99201ab3e4"
+      }
+    ]
   },
   {
     "id": "traitoris-lance",
@@ -156,6 +180,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "purge-the-foe"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b40710c8-474d-402d-bb22-9903e280dcff"
+      }
     ]
   },
   {
@@ -179,6 +209,12 @@
     "detachment_points": 1,
     "force_dispositions": [
       "priority-assets"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "993e9b23-3ade-4fb1-bb27-f9270de48978"
+      }
     ]
   },
   {
@@ -203,7 +239,13 @@
     "force_dispositions": [
       "reconnaissance"
     ],
-    "tags": []
+    "tags": [],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e2637679-6163-4ea2-93cb-8c5a263ecc33"
+      }
+    ]
   },
   {
     "id": "helhunt-lance",
@@ -231,6 +273,12 @@
     "detachment_points": 2,
     "force_dispositions": [
       "disruption"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9bef33d0-15fa-49f8-ac91-42496470641d"
+      }
     ]
   }
 ]

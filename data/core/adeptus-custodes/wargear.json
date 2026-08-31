@@ -6,7 +6,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a953553a-11dd-4105-a141-50667ddb666b"
+      }
+    ]
   },
   {
     "id": "praesidium-shield",
@@ -14,7 +20,17 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1aa2c464-883e-489a-81ea-9ea8895ccb75"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bb155c10-9ce7-495e-9e1f-22970e181d82"
+      }
+    ]
   },
   {
     "id": "tarsis-buckler",
@@ -22,6 +38,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "ae8d3318-35f9-417c-ace7-01eaf3bb87d7"
+      }
+    ]
   }
 ]

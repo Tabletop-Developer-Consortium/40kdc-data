@@ -5,7 +5,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1471d478-16f0-4ae5-8e10-b81d96a07945"
+      }
+    ]
   },
   {
     "id": "aspect-shrine-token",
@@ -14,7 +20,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "token"
+    "category": "token",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c0abcfea-ada7-44a9-8760-6e38969cc70a"
+      }
+    ]
   },
   {
     "id": "soul-trap",
@@ -22,7 +34,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "13df0ce0-d27d-4004-a370-1611de3526db"
+      }
+    ]
   },
   {
     "id": "master-crafted-power-weapon",
@@ -47,7 +65,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "icon"
+    "category": "icon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "49a47f0e-f2f3-49f4-9089-b4c164174287"
+      }
+    ]
   },
   {
     "id": "phantasm-grenade-launcher",
@@ -55,7 +79,21 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "69fe633d-fa89-4a70-9de3-9bfccbf68a09"
+      },
+      {
+        "namespace": "mfm",
+        "id": "79bfd4a0-3952-454b-95db-bee1f1f23580"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a27f1572-67ff-4f06-89a5-0c3147bdb33b"
+      }
+    ]
   },
   {
     "id": "gladiatorial-weapons",
@@ -72,7 +110,13 @@
       "edition": "10th",
       "dataslate": "2025-q3"
     },
-    "category": "token"
+    "category": "token",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "7a5cde45-5a87-4a49-a0d3-8e035b99c93e"
+      }
+    ]
   },
   {
     "id": "cluster-caltrops",
@@ -80,7 +124,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "4c13862a-8646-4675-8660-92e80d1ed9b6"
+      }
+    ]
   },
   {
     "id": "grav-talon",
@@ -88,7 +138,17 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "6d7b527c-2b1a-44b6-b72a-e035011627a4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f4d519e6-ad5f-48f7-9e96-c9b8168322c2"
+      }
+    ]
   },
   {
     "id": "mistshield",
@@ -96,7 +156,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "2169123d-6e3f-4f28-a135-c8d388172eab"
+      }
+    ]
   },
   {
     "id": "scattershield",
@@ -104,7 +170,13 @@
     "game_version": {
       "edition": "10th",
       "dataslate": "2025-q3"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "88c4b502-3037-48b4-bd44-937d14a7c999"
+      }
+    ]
   },
   {
     "id": "flip-belt",
@@ -112,7 +184,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "f8c591a9-b2f0-409c-95bc-c75e92d9813c"
+      }
+    ]
   },
   {
     "id": "serpent-shield",
@@ -120,7 +198,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "23aebc71-e6d1-4ccd-bbc6-7344e8c3f89d"
+      }
+    ]
   },
   {
     "id": "faolchu",
@@ -128,7 +212,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "00cd87c9-1c81-4922-91fc-e8c993814efb"
+      }
+    ]
   },
   {
     "id": "channeller-stones",
@@ -136,7 +226,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "18c4bfb4-b13e-4b82-96fd-6aad896046dc"
+      }
+    ]
   },
   {
     "id": "forceshield",
@@ -144,7 +240,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c763e3a3-a9ea-48c5-947e-bbbe7ae67d83"
+      }
+    ]
   },
   {
     "id": "shadow-field",
@@ -152,7 +254,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "569c1f3b-3654-4e93-86a9-477b7bff5e12"
+      }
+    ]
   },
   {
     "id": "drakolithe-once-per-battle-per-token",
@@ -160,6 +268,12 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "launch"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "f3fc6ea0-ce76-4274-8437-18f049576e97"
+      }
+    ]
   }
 ]

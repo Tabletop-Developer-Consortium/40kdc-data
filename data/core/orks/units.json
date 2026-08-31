@@ -53,7 +53,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8dd-f235-ef18-d36"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fd282ce4-c66d-59cb-a801-9077e5569da7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "61ee2d13-93dd-41b5-b3d1-ff7e0e677203"
+      }
+    ]
   },
   {
     "id": "kustom-boosta-blasta",
@@ -110,7 +124,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b803-bafc-2b52-160d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "04e65945-62f8-54a9-82b7-23b92c74a0d2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f3f63bb5-4db0-4b50-94e3-45347473d209"
+      }
+    ]
   },
   {
     "id": "lootas",
@@ -184,7 +212,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3bff-9fad-2d11-7866"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4313053f-9a2a-5a45-9427-5cba8aef2c7e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d4652762-fb5b-453a-81d5-bea44d715a73"
+      }
+    ]
   },
   {
     "id": "wurrboy",
@@ -244,7 +286,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "290-ff5a-b14f-e432"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3dc1b72a-b8f7-58b4-8bab-fa54e7523b2a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d16859d8-eec3-4556-b10a-1bc4e73d7faa"
+      }
+    ]
   },
   {
     "id": "shokkjump-dragsta",
@@ -299,7 +355,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1d12-e2ae-33bb-4558"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "31525a0d-8f9d-5999-b8b6-eb8e8aa13d1f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f5b60a7d-b0b4-4ee3-8035-8c3b3c874f31"
+      }
+    ]
   },
   {
     "id": "burna-boyz",
@@ -358,7 +428,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "71b2-e955-6588-87f4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "aaec3250-022f-5250-8811-fad6216836e7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e2d407d7-3962-4c7d-a6f6-3443604a90a1"
+      }
+    ]
   },
   {
     "id": "boomdakka-snazzwagon",
@@ -415,7 +499,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c7c8-6b5b-6bfc-52d1"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0c057420-5a2c-598e-a2ce-50c72fff23de"
+      },
+      {
+        "namespace": "mfm",
+        "id": "47d27483-5b3b-420c-95fa-bfd0befe2817"
+      }
+    ]
   },
   {
     "id": "gargantuan-squiggoth",
@@ -484,7 +582,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "aeed-c6d9-4b90-376a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3928904f-341e-5718-a995-6a87f94d00f6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "85400667-20b1-4a24-ac2b-ce42c3101749"
+      }
+    ]
   },
   {
     "id": "ardmob-boyz",
@@ -539,7 +651,17 @@
       "combat-patrol"
     ],
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "63cdcf67-14f9-4233-94eb-e9fc83540fc4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e6444013-4fb5-42af-92a0-9da6cccf630c"
+      }
+    ]
   },
   {
     "id": "ardmob-gretchin",
@@ -587,7 +709,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 25
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "78cd83a9-847c-4329-b799-a8b94c237fd1"
+      }
+    ]
   },
   {
     "id": "ardmob-warboss",
@@ -637,7 +765,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 50
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9c76c38d-b347-447f-8c4d-9345578deca1"
+      }
+    ]
   },
   {
     "id": "ardmob-wartrakk",
@@ -686,7 +820,13 @@
       "shape": "oval",
       "width": 105,
       "length": 70
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "114ad759-bfc7-47fc-835b-2926d40e7ec6"
+      }
+    ]
   },
   {
     "id": "ardmob-weirdboy",
@@ -736,7 +876,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 50
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "67524464-74a5-4718-9f39-41153ad1f501"
+      }
+    ]
   },
   {
     "id": "weirdboy",
@@ -793,7 +939,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "260d-9ce4-ea1f-a957"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "21308fb3-2753-5c17-a04d-7b8bc695fbbb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7691a766-172f-4011-807d-a9af6f9d7ceb"
+      }
+    ]
   },
   {
     "id": "warbikers",
@@ -867,7 +1027,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "83a7-ea20-ed9-d14a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "01b374d7-1471-53cf-bff9-cca5d7efcf13"
+      },
+      {
+        "namespace": "mfm",
+        "id": "99e837f4-ef82-488b-ad2f-0d27d5ddbead"
+      }
+    ]
   },
   {
     "id": "deffkoptas",
@@ -931,7 +1105,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2d6e-aa3b-c28c-5ef0"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "99d257a5-ca17-5cdf-96a1-7473031a1259"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1502e293-1237-4c81-9cb4-d913ba23b246"
+      }
+    ]
   },
   {
     "id": "painboy",
@@ -989,7 +1177,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7669-1442-2c0b-e0c9"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "233c4eaf-0ffd-51c8-816d-3a05bb14b6bf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e5028623-8bef-4f11-9084-3fb20212307b"
+      }
+    ]
   },
   {
     "id": "killa-kans",
@@ -1068,7 +1270,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8c36-c946-2e0f-f648"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "17461bcd-24d2-580b-b1e4-aa86fdaaf5bf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f49b305a-f2eb-4a3c-a090-931958c6f53b"
+      }
+    ]
   },
   {
     "id": "big-mek",
@@ -1127,7 +1343,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fbee-427a-1c46-f621"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6868b71c-9c3a-5064-a377-e11a4d158e5a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f1b5d961-a505-4806-85b7-311b64fc8697"
+      }
+    ]
   },
   {
     "id": "squighog-boyz",
@@ -1210,6 +1440,20 @@
         "count": 1,
         "per_models": 4
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6a83-8e1f-63ef-50c3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "576c28c7-b40a-5ad3-a820-bd80cf729190"
+      },
+      {
+        "namespace": "mfm",
+        "id": "50c806c7-a2ee-45d1-916a-94984e19b06e"
+      }
     ]
   },
   {
@@ -1268,7 +1512,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "494b-11ce-5af-5b50"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "043501a6-a92e-5b75-b153-7d70ceb9ffcc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8728a0a4-4d67-4cb4-bde1-02710547bf45"
+      }
+    ]
   },
   {
     "id": "wazbom-blastajet",
@@ -1329,7 +1587,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3832-ad97-2b3b-8775"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5b0506a2-f061-5d06-b6b8-5b9bb351eada"
+      },
+      {
+        "namespace": "mfm",
+        "id": "36dc2926-66df-4ea5-a02e-d4732617025f"
+      }
+    ]
   },
   {
     "id": "battlewagon",
@@ -1407,6 +1679,20 @@
         "keyword": "Wagon",
         "required_detachment_id": "rollin-deff"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "306a-b2ac-aaf1-9a7c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "acda7dbd-3e08-583d-a83d-5085f32f80ee"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1c9d82f2-a0cd-4991-8653-e955460637b3"
+      }
     ]
   },
   {
@@ -1468,7 +1754,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e651-5901-35e5-dc35"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "68d7d3de-7926-54df-8238-c1ed05b23fef"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ca1b7913-c219-4acb-b6bb-a95e669c4ae5"
+      }
+    ]
   },
   {
     "id": "morkanaut",
@@ -1540,7 +1840,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9ee5-2b39-de06-dda6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c33dd7fe-1ade-5788-bf63-5b801dfef7f1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b3a5277b-0a65-47a7-925c-f7622cda3dd3"
+      }
+    ]
   },
   {
     "id": "ghazghkull-thraka",
@@ -1600,7 +1914,25 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4ea0-6b70-c17c-bc00"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "de55-e326-8a31-d7b0"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5eaa496c-6dd6-5387-8308-d5e62f207d0c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "85197265-dcd6-4f1c-b699-cacba1b123c6"
+      }
+    ]
   },
   {
     "id": "breaka-boyz",
@@ -1665,7 +1997,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a596-3d99-257e-0ea1"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e6f29289-8f7a-5a70-829c-f4b4146917c1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9c5dc3fe-b149-4aa5-9973-6e95ad2dac8b"
+      }
+    ]
   },
   {
     "id": "stompa",
@@ -1739,7 +2085,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6c08-9131-14a3-a3b4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4a9a33db-6bd9-570c-8a96-6a7841919d6b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f89e7381-3eea-46b0-8339-860fa41cb77a"
+      }
+    ]
   },
   {
     "id": "biged-bossbunka",
@@ -1799,7 +2159,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b82a-6b65-7050-ac48"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "60ac82b0-fd1d-599d-8484-c5e926301cfe"
+      },
+      {
+        "namespace": "mfm",
+        "id": "72f4b744-afbe-4846-9ec6-2c4a34674a48"
+      }
+    ]
   },
   {
     "id": "tankbustas",
@@ -1884,6 +2258,20 @@
         "count": 2,
         "per_models": 0,
         "duplicate_limit": 1
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "dadc-d370-ef10-853c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "dcb10a15-0567-5c33-83f9-ba6d36a3b99b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cd03e48d-ef51-40a1-97c7-0f2ada778c7c"
       }
     ]
   },
@@ -1990,6 +2378,20 @@
         ],
         "count": 1,
         "per_models": 0
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "303-267f-e45c-6aa9"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "907ea7d6-7868-508c-874b-15982396713d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4476a990-945b-406e-a44f-f5f02cf7c3d4"
       }
     ]
   },
@@ -2101,6 +2503,20 @@
         "count": 1,
         "per_models": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e3b1-1240-2476-cd86"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "126f5eb6-5c28-57fb-a570-21a60a3d85f0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "01474b35-18d2-4231-9e9d-c175829eec3d"
+      }
     ]
   },
   {
@@ -2172,7 +2588,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1291-7ba8-2c5a-4a92"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7fdf8eed-2556-52b8-b54f-ad8be211aef0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c168aeaf-e2f6-483e-9bc6-c334b720c8be"
+      }
+    ]
   },
   {
     "id": "painboss",
@@ -2229,7 +2659,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a74a-107a-e2ac-7e4c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "00de84f1-3352-56ca-944e-a272f9101301"
+      },
+      {
+        "namespace": "mfm",
+        "id": "db0dcb52-1257-44f2-9d7f-07e419f8c2fa"
+      }
+    ]
   },
   {
     "id": "gorkanaut",
@@ -2303,7 +2747,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "56d6-a7fc-fa08-4345"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4ffe5482-08d8-5c01-bf59-a4bb152fd94e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f7abac94-2442-4805-81c9-9a56a2448d10"
+      }
+    ]
   },
   {
     "id": "mek-gunz",
@@ -2391,7 +2849,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b37a-8686-db2c-8cbd"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "71a0da31-35c6-57d1-89b9-ca161b90bb1b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "776a3fba-6bf3-42e9-a41a-f137c4c8053e"
+      }
+    ]
   },
   {
     "id": "stormboyz",
@@ -2468,6 +2940,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "taktikal-brigade"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4adf-8249-c6b2-dd4f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9fae7cc2-0704-5d98-9819-5c9164820636"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cc2fce5d-ed17-4064-a8aa-7286b5ce54c9"
+      }
     ]
   },
   {
@@ -2526,7 +3012,25 @@
       "dataslate": "codex-orks"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": true,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1de9-b138-28a1-9c4b"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "65c-aa48-f306-465a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2505a4c1-5b1a-55ab-8340-c2a874d71104"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a8848006-145a-4941-a1b1-be910f71c7a7"
+      }
+    ]
   },
   {
     "id": "blitza-bommer",
@@ -2582,7 +3086,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a20-d3af-2c3e-3267"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0ec6442e-cdf6-5669-b5ab-57cccdf4a27f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ec718ab5-ef45-4887-bbc9-0db34bde5431"
+      }
+    ]
   },
   {
     "id": "deff-dread",
@@ -2648,7 +3166,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1594-b986-e77e-d89d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a7a7a663-bd7e-55fc-b41c-6402d2745af4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "914f5a07-e9e1-4cad-a149-fd7b0d07298a"
+      }
+    ]
   },
   {
     "id": "beastboss",
@@ -2709,7 +3241,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5a5d-c5a4-39b8-4a3f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6acd203a-43b6-5fd6-9737-949144462427"
+      },
+      {
+        "namespace": "mfm",
+        "id": "32b88410-dc45-48ea-b070-f0e0154b5327"
+      }
+    ]
   },
   {
     "id": "dakkajet",
@@ -2764,7 +3310,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3b42-b41f-d11e-bdca"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9640f5b7-a970-5211-b77d-f607db6edf47"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4186d0d0-2abb-4c28-91a4-1e5b81a7e0b0"
+      }
+    ]
   },
   {
     "id": "big-mek-in-mega-armour",
@@ -2827,7 +3387,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "95e9-6da3-5e75-2566"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2b660da7-5b42-5386-a510-b6f835cf5be2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c074df95-5b3d-49b3-8b6f-bfa9918bd8a0"
+      }
+    ]
   },
   {
     "id": "rukkatrukk-squigbuggy",
@@ -2883,7 +3457,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a856-30b7-e56d-57db"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cf029f7c-7e85-5ab4-9b12-acacb0beb38e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8111429e-0358-4760-b435-1f77c43125d0"
+      }
+    ]
   },
   {
     "id": "beast-snagga-boyz",
@@ -2967,6 +3555,20 @@
         "count": 2,
         "per_models": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b7c3-d00e-daf2-76fb"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9d13f644-86ae-568e-9f34-97e50e1cb30d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ebb6b151-5a87-487a-81c9-d019440cc01b"
+      }
     ]
   },
   {
@@ -3028,7 +3630,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ca85-1d18-dc30-d64e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "76ae3494-a689-5dd3-92e6-99d47032ef82"
+      },
+      {
+        "namespace": "mfm",
+        "id": "61f7eb94-3def-4e9b-94fb-44548a36dc27"
+      }
+    ]
   },
   {
     "id": "mek",
@@ -3086,7 +3702,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3b2-8c11-616a-1005"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0d7f5f3a-61ae-5be6-9cbb-217e8b4a9421"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b92b38a2-55a2-4fba-8d36-56d254b9813f"
+      }
+    ]
   },
   {
     "id": "mozrog-skragbad",
@@ -3146,7 +3776,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b42b-ea0-38f1-6300"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9fef8723-d3b7-5638-8b79-5ed7e3399ef4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2f346abf-971d-4e4d-a528-7d7a820c605f"
+      }
+    ]
   },
   {
     "id": "zodgrod-wortsnagga",
@@ -3202,7 +3846,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ce45-db08-3795-18a9"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5c0a00c4-5adf-501e-856d-ab55f4bf892a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0ab156a5-a197-44b1-a7fa-ee0ab31defbd"
+      }
+    ]
   },
   {
     "id": "gretchin",
@@ -3290,6 +3948,28 @@
         "keyword": "Battleline",
         "required_detachment_id": "dread-mob"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "0206-4864-9594-65a0"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "43dd-f974-3fc8-8abc"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "de8f-24f9-c543-92b7"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c137a3eb-f513-5d58-9659-b9ca41e61b6b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e526e829-57ea-445d-b69d-5b4b2fa394eb"
+      }
     ]
   },
   {
@@ -3357,7 +4037,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "dde2-ca42-e3bc-2ef6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "36485c40-7cb8-5bf4-ba24-1f287dd37a13"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e9066eed-965d-4e48-b462-02d66ff2a047"
+      }
+    ]
   },
   {
     "id": "kill-rig",
@@ -3427,6 +4121,20 @@
       {
         "keyword": "Wagon",
         "required_detachment_id": "rollin-deff"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "eb21-c97f-2d9a-b363"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c70f4da0-73a6-5bb0-9c6f-893a5a9f42b1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "40287b42-ee16-4ae4-8cbb-96e87d827a0b"
       }
     ]
   },
@@ -3516,6 +4224,20 @@
         "count": 1,
         "per_models": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b16a-7132-3f8a-abe5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "40af5f86-133a-5802-9ee9-4f0a8b483b56"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d063a486-12c5-466e-911b-e14e87b97f9e"
+      }
     ]
   },
   {
@@ -3578,7 +4300,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a8b7-351-d911-a4d6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b2154bb5-34f0-5c55-adda-b29d978fab29"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c338b81f-4198-4721-8fb4-7daf22eca5cd"
+      }
+    ]
   },
   {
     "id": "meganobz",
@@ -3681,7 +4417,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7067-34f4-5272-e05f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4a45c36d-652e-5cdb-a08d-a28f6644b794"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3bd34d99-cc45-4b10-9829-ad114eb8b614"
+      }
+    ]
   },
   {
     "id": "burna-bommer",
@@ -3738,7 +4488,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "93a1-386a-e40f-472f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5a5b64ff-c95d-5b5b-9f3f-db978a1ad4c4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "85e33a56-f6fa-46ef-a868-aec1a2949e99"
+      }
+    ]
   },
   {
     "id": "hunta-rig",
@@ -3806,6 +4570,20 @@
         "keyword": "Wagon",
         "required_detachment_id": "rollin-deff"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "70de-d621-8465-f7b8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5680837d-12d4-5c28-9b6e-6ceb36083c1c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8214c6e2-2233-4229-a9d9-3257fe8dbe22"
+      }
     ]
   },
   {
@@ -3869,7 +4647,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2efc-c4b3-2ecc-5a37"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4adbb8b3-5ea7-5582-b45b-ba8626da7226"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d7d98a90-7e1d-4432-976e-9219baece76c"
+      }
+    ]
   },
   {
     "id": "bannernob",
@@ -3924,6 +4716,16 @@
     "ability_ids": [
       "waaagh",
       "waaagh-banner"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3b35-92f5-bd1a-af8d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "73c5ba73-501a-41df-81d5-80c7db95c59c"
+      }
     ]
   },
   {
@@ -3979,6 +4781,16 @@
       "blitz-dem-gitz",
       "dakkablitz",
       "even-more-dakka"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "78a7-cf35-aa8d-c420"
+      },
+      {
+        "namespace": "mfm",
+        "id": "087d21d9-47b7-4d5f-a207-aed4005f0dcb"
+      }
     ]
   },
   {
@@ -4035,6 +4847,16 @@
       "breakin-heads",
       "smashin-da-eads",
       "somethin-to-prove"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "181e-be55-d9c6-2b69"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a7a56757-d2be-4487-af71-55715c66a767"
+      }
     ]
   },
   {
@@ -4086,6 +4908,16 @@
       "bombdakka-support",
       "bust-em",
       "indiscriminate-detonations"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9e51-a749-18ba-2ea4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a0a04c15-fee5-4144-9bb7-6d9fdc78fea1"
+      }
     ]
   },
   {
@@ -4150,6 +4982,20 @@
       "shokk-attack-engine",
       "throttlerokkit-shokka-engine",
       "turbo-engine"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2ab7-ab71-0af4-5d39"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3cee164b-75d7-5440-b295-0cbc7efbe88f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "007dd4d3-a1d8-441c-9581-6c2d6b466deb"
+      }
     ]
   }
 ]

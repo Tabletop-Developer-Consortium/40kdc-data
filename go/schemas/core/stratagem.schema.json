@@ -6,6 +6,9 @@
   "type": "object",
   "properties": {
     "id": { "$ref": "../defs/common.schema.json#/$defs/entity-id" },
+    "external_refs": {
+      "$ref": "../defs/common.schema.json#/$defs/external-reference-list"
+    },
     "name": { "type": "string", "minLength": 1, "maxLength": 128 },
     "category": {
       "type": "string",
@@ -29,7 +32,12 @@
     "player_turn": { "$ref": "../defs/common.schema.json#/$defs/player-turn" },
     "timing": {
       "type": "string",
-      "enum": ["once-per-phase", "once-per-turn", "once-per-battle", "unlimited"]
+      "enum": [
+        "once-per-phase",
+        "once-per-turn",
+        "once-per-battle",
+        "unlimited"
+      ]
     },
     "target_restrictions": {
       "oneOf": [
@@ -44,7 +52,9 @@
               "$ref": "../defs/common.schema.json#/$defs/keyword-list",
               "description": "OR set: the target must carry at least one keyword listed here. Use for rules that target a unit with one of several keywords (e.g. Crushing Impact's MONSTER/VEHICLE, Explosives' EXPLOSIVES/GRENADES). Mirrors the `army_keywords_any` OR-gate on allied-rule.schema.json."
             },
-            "excluded_keywords": { "$ref": "../defs/common.schema.json#/$defs/keyword-list" },
+            "excluded_keywords": {
+              "$ref": "../defs/common.schema.json#/$defs/keyword-list"
+            },
             "notes": { "type": "string" }
           },
           "additionalProperties": false
@@ -64,6 +74,15 @@
       "description": "Game modes this stratagem is legal or authored for; absent implies matched-play."
     }
   },
-  "required": ["id", "name", "category", "cp_cost", "phases", "player_turn", "timing", "game_version"],
+  "required": [
+    "id",
+    "name",
+    "category",
+    "cp_cost",
+    "phases",
+    "player_turn",
+    "timing",
+    "game_version"
+  ],
   "additionalProperties": false
 }

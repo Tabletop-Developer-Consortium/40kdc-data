@@ -58,6 +58,20 @@
         "keyword": "Burrower",
         "required_detachment_id": "subterranean-assault"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "56db-d7c-b349-677f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6c4e1665-c826-50e4-8db9-304ca1d6fb74"
+      },
+      {
+        "namespace": "mfm",
+        "id": "845791ff-0ab3-44a2-a24d-c2e8ceea9479"
+      }
     ]
   },
   {
@@ -118,6 +132,20 @@
       {
         "keyword": "Burrower",
         "required_detachment_id": "subterranean-assault"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2bbb-d811-15f7-1a81"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "22c5eef9-80de-594a-be01-19174a72b2a9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "962aa559-1cdb-4e7d-8476-7e9c5ab17a94"
       }
     ]
   },
@@ -203,6 +231,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "warrior-bioform-onslaught"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a125-b6fb-2945-56a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7c0e60dd-c71a-55fd-8ff3-f9e862fa2f5e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "33f75ed2-c401-4f39-99d6-a1328384a6da"
+      }
     ]
   },
   {
@@ -268,7 +310,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fa68-fcb9-38c-cd0f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0d7e8129-da97-5e33-80e4-012f62c438c7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "feeb4379-7289-4baa-a1f9-88de108bb5bd"
+      }
+    ]
   },
   {
     "id": "harridan",
@@ -337,7 +393,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9b5c-3b5a-1f80-9a74"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "566eaac5-daad-5c8e-833d-a8c69749d04c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bce9d40d-c8f6-441b-9181-349c81aae55d"
+      }
+    ]
   },
   {
     "id": "norn-emissary",
@@ -402,7 +472,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5720-2873-8c2c-edc3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "895a59c0-f445-5d73-81ba-439ff8831a27"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3516ca8e-d0bb-436e-a5c8-01b856025373"
+      }
+    ]
   },
   {
     "id": "winged-tyranid-prime",
@@ -462,7 +546,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "507d-5ea4-6ef1-bf66"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "792bad62-c549-5721-8184-f4c025cc6f8a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1f64f61b-5e17-4ace-a8f0-301f352ff0ee"
+      }
+    ]
   },
   {
     "id": "von-ryans-leapers",
@@ -523,7 +621,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9bd8-ac8c-2d3b-79f6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e072d88d-2084-536a-97bc-206e99ae6d3c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "21a90836-b9b0-4ac4-9fb4-c6baf998352f"
+      }
+    ]
   },
   {
     "id": "hierophant",
@@ -593,7 +705,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fbc0-3a2b-1d7d-23d9"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "56dcf747-9ed9-5ee6-b4cc-5b4dc564324f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d0dd7cf2-67db-4906-b7e3-d402cb4abf2a"
+      }
+    ]
   },
   {
     "id": "the-swarmlord",
@@ -656,7 +782,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "13f7-1a3-eff-7393"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "98de8243-66f7-535c-94ec-28a17277255b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "97badace-a127-4cfe-bd92-74a9b1d6a9fb"
+      }
+    ]
   },
   {
     "id": "exocrine",
@@ -718,7 +858,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bbfd-5b01-5bd3-a28b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b31924b6-d882-5eda-92c7-003cea05d7c1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0891af0e-0830-4f7e-bece-91ac1f9b5166"
+      }
+    ]
   },
   {
     "id": "venomthropes",
@@ -776,7 +930,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b563-c6d3-d0e5-1b78"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2e0c66ae-f16b-54cf-bb28-daf55aac09c5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fd57fb0d-192d-45ed-8c61-d61d15a9032a"
+      }
+    ]
   },
   {
     "id": "tyranid-warriors-with-melee-bio-weapons",
@@ -839,6 +1007,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "warrior-bioform-onslaught"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5815-871c-9260-287a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "661e51bb-c49f-5d0e-8c9d-cf5255ee3267"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4917eff2-546a-402b-bfaa-4a54c4208459"
+      }
     ]
   },
   {
@@ -896,7 +1078,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c590-436d-4fd-ef26"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "041d0bee-aee2-5ac5-9311-6dface0f50db"
+      },
+      {
+        "namespace": "mfm",
+        "id": "71249763-f0a5-4dff-a57c-b15a389fa629"
+      }
+    ]
   },
   {
     "id": "tyrannocyte",
@@ -966,7 +1162,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fada-677a-f6a4-cd12"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fd1b3b32-8417-51ca-876f-082d5eef9851"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1bc7c6ac-8675-4419-91df-561a39f97efa"
+      }
+    ]
   },
   {
     "id": "ripper-swarms",
@@ -1028,7 +1238,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1de2-b57b-aa0a-1f0d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ab44d828-ed62-5627-afa5-70fcdadf98a0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fda35bdf-9772-4a57-9258-1d0b8aee9367"
+      }
+    ]
   },
   {
     "id": "biovores",
@@ -1089,7 +1313,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3f2c-85ec-d83c-4a2f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5408a2a2-0dd1-55ab-9280-6d893fd9a60c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d2090381-f221-4351-9fdd-e65ea20d8579"
+      }
+    ]
   },
   {
     "id": "deathleaper",
@@ -1150,7 +1388,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bc36-92fe-ecc6-58b3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "624f081f-0912-5c5d-a443-b8b558de9a1f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "98839c9f-9131-4349-b485-c6769bfc1d8b"
+      }
+    ]
   },
   {
     "id": "hyperadapted-raveners",
@@ -1229,7 +1481,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c10d-772e-a54f-a2b9"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b31432b9-ba4c-5755-adc4-e01f592dd53d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "414d233e-7e32-485c-a1b9-7fe565d7a6e2"
+      }
+    ]
   },
   {
     "id": "norn-assimilator",
@@ -1292,7 +1558,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6a9b-8e2f-edac-fa2d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5fb3c75c-f1a2-5a08-b36c-d1cd3df3961c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bf89ff1e-6604-4b08-b22c-efeda49428fe"
+      }
+    ]
   },
   {
     "id": "sporocyst",
@@ -1346,7 +1626,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2cdd-3bf1-55e0-7641"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1f163976-4455-58f4-b61b-5d9c2fd09f6a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "345b7c36-6ef3-40e5-94d7-3f0ea8c174dd"
+      }
+    ]
   },
   {
     "id": "tyrannofex",
@@ -1421,6 +1715,20 @@
         "item_id": "rupture-cannon",
         "cost": 20
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1705-379b-330d-36d4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "718f867e-0cfd-52ef-a8df-b2687ddcac88"
+      },
+      {
+        "namespace": "mfm",
+        "id": "388bfa11-362d-479f-adc4-cc8f630bd9c3"
+      }
     ]
   },
   {
@@ -1486,7 +1794,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "642f-9302-4fdc-ab68"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e3804d17-7081-58c3-ba2f-2de1c2438e33"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1886e094-c06e-42db-a52e-6296007a34c8"
+      }
+    ]
   },
   {
     "id": "psychophage",
@@ -1544,7 +1866,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b6ac-f091-a018-dab2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d5a50301-0327-56f8-8e31-1741c01c7b28"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fe3ff113-1c85-4046-a5af-c9e71c79e144"
+      }
+    ]
   },
   {
     "id": "zoanthropes",
@@ -1605,7 +1941,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b622-a22-a04f-6303"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "63bb6521-6679-5ee4-83b0-09f3131380f5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e64ab51e-1aad-4c14-9b36-7452b44eb4e4"
+      }
+    ]
   },
   {
     "id": "broodlord",
@@ -1666,7 +2016,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b86a-b38a-380c-483d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "521dd839-5fa0-5e3d-aa1d-b635fc1b20f0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ea51238d-b35d-4a60-a199-1b0811aa0762"
+      }
+    ]
   },
   {
     "id": "harpy",
@@ -1725,7 +2089,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c679-b06a-750b-e7f7"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f1ca1132-af5d-5073-9411-2fa0a02d5c20"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a342769f-8ebf-47af-9c52-8dec0d4c78c6"
+      }
+    ]
   },
   {
     "id": "parasite-of-mortrex",
@@ -1786,7 +2164,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d213-efd8-a2b4-42d2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a5be0b4a-f8f1-5f2e-940d-575b5255b9a4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f92c5ee1-103b-45eb-be5e-ffeebe57d1d6"
+      }
+    ]
   },
   {
     "id": "tyrant-guard",
@@ -1844,7 +2236,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1645-5407-92c8-1441"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "a827-afc9-ca29-b723"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "38c53884-d96b-5972-8a17-740d18d07a31"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c66e1a14-da65-47b2-821c-ba05773c1ffb"
+      }
+    ]
   },
   {
     "id": "screamer-killer",
@@ -1905,7 +2315,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8e53-d4a-a69f-e71d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cb163d86-d544-5b6c-9626-07f3adc88658"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bac8f050-8bfc-481b-8ec5-4702a8996808"
+      }
+    ]
   },
   {
     "id": "mucolid-spores",
@@ -1962,7 +2386,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "707a-9de8-f75b-41c5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "413eff40-c743-561f-b8b6-d4a66638abfb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f368162f-cde6-4c69-8828-8e48aaba4451"
+      }
+    ]
   },
   {
     "id": "hormagaunts",
@@ -2021,7 +2459,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8e0b-d72a-535a-996b"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "f15b-9f9c-9bf0-8160"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b6d511cb-c07b-5e74-9aaf-0d2e07b841b3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "95715c9e-9d72-430d-b7e5-1a998d31b6dc"
+      }
+    ]
   },
   {
     "id": "genestealers",
@@ -2096,7 +2552,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "853e-48b8-4cc5-3704"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a2e7de56-15c2-56ab-ae84-c2ddb15cf630"
+      },
+      {
+        "namespace": "mfm",
+        "id": "af9e49a8-674b-4da5-831f-d7e1168d9a44"
+      }
+    ]
   },
   {
     "id": "toxicrene",
@@ -2150,7 +2620,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "30d0-521c-1d45-f57b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d71c0768-ad7f-5d9e-9cb8-e849dbc083f2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7aca80ee-1d89-4459-ba9c-ab8138d41d59"
+      }
+    ]
   },
   {
     "id": "pyrovores",
@@ -2236,7 +2720,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d2c6-bd0b-3205-3319"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "719c228c-1866-557f-a039-98eba8de59bf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e1a373eb-5430-445b-8f5a-6326abc17a4a"
+      }
+    ]
   },
   {
     "id": "neurotyrant",
@@ -2297,7 +2795,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1ae1-ed96-5100-eda5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "690228cc-b07b-5d25-9643-7b50d9db5d5d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cb1abd7e-e14d-4714-a60b-6d3afba549d1"
+      }
+    ]
   },
   {
     "id": "termagants",
@@ -2362,7 +2874,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "359c-db2c-681a-8d62"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "5c17-dcfb-6d07-1b12"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "00fb3f2f-b6be-50ac-935d-eed391fe6ac1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "385a9258-023f-4117-89eb-91217ef2a058"
+      }
+    ]
   },
   {
     "id": "tyranid-prime-with-lash-whip",
@@ -2420,7 +2950,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "31f9-9730-853c-6f13"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "374e796b-8904-5303-afa2-4bb31fbc0760"
+      },
+      {
+        "namespace": "mfm",
+        "id": "54e924cf-f5c0-4f14-8859-bec27932bf30"
+      }
+    ]
   },
   {
     "id": "hive-guard",
@@ -2495,7 +3039,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ac7a-2560-c083-45b8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f652fcb5-9711-533f-ae7c-498aff0f2ba2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "218eda32-590f-44ce-b31f-b49fdf353109"
+      }
+    ]
   },
   {
     "id": "barbgaunts",
@@ -2552,7 +3110,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6de-ccee-11b4-be3e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f9800d2a-a62c-5ad0-9374-39169c572515"
+      },
+      {
+        "namespace": "mfm",
+        "id": "afe80fb1-c0a6-4f83-b1cc-0cba459d0649"
+      }
+    ]
   },
   {
     "id": "neurogaunts",
@@ -2613,7 +3185,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8ccc-3f27-7e4e-da81"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f314346e-a318-5ce8-9dd4-3a9b35b22acd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c8428280-eb03-4c26-9006-fda445ca2721"
+      }
+    ]
   },
   {
     "id": "hive-crone",
@@ -2673,7 +3259,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "93aa-dd13-de9d-402b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6aee35fc-ced8-5243-a844-4ed9638eb360"
+      },
+      {
+        "namespace": "mfm",
+        "id": "96d78d62-4459-47d8-b611-11f9eefd66eb"
+      }
+    ]
   },
   {
     "id": "tervigon",
@@ -2733,7 +3333,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "cd6d-87b3-125a-f372"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "505ab8d4-2791-5d03-9052-6e1a43dde98c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "78057a72-7dc2-4ca1-a9ed-dadd231a6a2d"
+      }
+    ]
   },
   {
     "id": "old-one-eye",
@@ -2792,7 +3406,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9184-9ab6-9238-f558"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "da6d41eb-57dc-5006-8015-d05579b5a4f6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3637d8e2-08ec-47c2-bab7-a63f119732d9"
+      }
+    ]
   },
   {
     "id": "maleceptor",
@@ -2856,7 +3484,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2c2d-a2f9-61a8-a6c6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "34f8493b-83eb-5afb-9215-8cf8d720adba"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b9d6b567-2436-4db8-b757-070883316084"
+      }
+    ]
   },
   {
     "id": "carnifexes",
@@ -2922,7 +3564,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9efd-5564-f0f5-21ea"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "28b62847-0a45-5cf7-a498-0ed2ab794f82"
+      },
+      {
+        "namespace": "mfm",
+        "id": "02e36b43-c163-4f97-90e9-80e72a16d3f2"
+      }
+    ]
   },
   {
     "id": "hive-tyrant",
@@ -2983,7 +3639,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3e96-8098-3401-77af"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8d9221f9-a074-5b1d-8d02-53e272a832d0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a5d1a499-47aa-4b7a-9913-09172ee91bd4"
+      }
+    ]
   },
   {
     "id": "gargoyles",
@@ -3047,7 +3717,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "28f8-9249-bb94-4e30"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "9ce8-7a63-15c3-0347"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c1b0580d-173f-5441-856d-a5262b91c0f2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9e89c70c-9674-4c52-b215-b05d85569ec7"
+      }
+    ]
   },
   {
     "id": "haruspex",
@@ -3111,7 +3799,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6249-358f-27d7-ef60"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b7f8d67b-a254-50e3-b8bf-38346df1546f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fc920a1b-b648-4a9f-95a2-2738206795a0"
+      }
+    ]
   },
   {
     "id": "lictor",
@@ -3167,7 +3869,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "da44-72c9-7a27-48aa"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0d3bc100-533c-5a07-93e5-b6e944c037fb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4cafed2f-39f8-419a-a937-ed52ff20c275"
+      }
+    ]
   },
   {
     "id": "raveners",
@@ -3229,7 +3945,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3f5-f7d6-1ce8-e6b9"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cc767c7b-3110-509f-814e-98d9c58d1964"
+      },
+      {
+        "namespace": "mfm",
+        "id": "76df28d2-8996-4cd1-b9c9-b8248432ed79"
+      }
+    ]
   },
   {
     "id": "the-red-terror",
@@ -3283,7 +4013,21 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 100
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7173-1bd9-b60b-6555"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f6283be2-781f-57b5-94e2-9fa8267ae350"
+      },
+      {
+        "namespace": "mfm",
+        "id": "657c1613-454f-49a9-9619-ba906aac38ce"
+      }
+    ]
   },
   {
     "id": "terror-of-vardenghast",
@@ -3336,7 +4080,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 50
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c56659e2-3b41-4d80-90d2-1ef97f8c542d"
+      }
+    ]
   },
   {
     "id": "vardenghast-swarm-barbgaunts",
@@ -3383,7 +4133,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "555f4831-2107-4b02-a1ac-d3dd4c8df91b"
+      }
+    ]
   },
   {
     "id": "vardenghast-swarm-psychophage",
@@ -3433,7 +4189,13 @@
       "shape": "oval",
       "width": 120,
       "length": 92
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "48d27695-b9fb-4087-a8e5-8881946b6ede"
+      }
+    ]
   },
   {
     "id": "vardenghast-swarm-termagants",
@@ -3531,6 +4293,12 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e270dd10-0a39-4141-87c1-6e8cb4c20bdc"
+      }
+    ]
   }
 ]

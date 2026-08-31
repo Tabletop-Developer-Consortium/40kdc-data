@@ -59,7 +59,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "da8a-de9f-1fe7-2513"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "42779506-fcd1-5145-a0ed-5df12d5b4096"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ee33a5d3-436a-4cb8-9f88-af023d82eb77"
+      }
+    ]
   },
   {
     "id": "gladiator-lancer",
@@ -125,7 +139,29 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7814-107b-a498-96f6"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "7dec-dc3d-c40a-8ce"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b22e3ef7-6afa-5dda-8637-067fc98a4e31"
+      },
+      {
+        "namespace": "mfm",
+        "id": "28efe884-f718-4745-8b0c-6ed221f65504"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5f3b31db-62e7-4b4e-9699-ad0d4bdd33fc"
+      }
+    ]
   },
   {
     "id": "terminator-squad",
@@ -211,6 +247,28 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4808-a80b-309a-7933"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "80ad-6e62-65e3-e667"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8ca68d6d-5841-5437-aa03-5d0d660a010f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "38903c97-fd84-45ee-ad2a-e60bfb01f157"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6ad781cd-6ee5-493b-8114-44363a3ae071"
+      }
     ]
   },
   {
@@ -281,7 +339,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "68dd-5f49-4f17-cd84"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9892bec6-67ae-5ad3-b020-86a6f127fce7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "73c68929-2c2a-4ebc-8cb9-4b23407c02c5"
+      }
+    ]
   },
   {
     "id": "sword-brethren-squad",
@@ -388,7 +460,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "206c-6b4d-4aaa-7e79"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5cdf034f-5f2e-5951-a345-a6fe52657512"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0c901841-b89d-4e0c-be08-ad06860f1e8b"
+      }
+    ]
   },
   {
     "id": "crusader-squad",
@@ -477,6 +563,20 @@
         "count": 4,
         "per_models": 20
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8bbe-e7fc-44b7-ed94"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e7576cd7-d91f-5864-bc14-9b38345b9417"
+      },
+      {
+        "namespace": "mfm",
+        "id": "79d4ae8a-6fbd-4787-a8f3-2692cbc71212"
+      }
     ]
   },
   {
@@ -540,7 +640,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ea3d-f2b8-cce7-0762"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "86a2b728-d20e-55ce-baf0-ce61b0d6449c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "357623fb-321e-4365-8935-cd104423f6db"
+      }
+    ]
   },
   {
     "id": "sternguard-veteran-squad",
@@ -636,6 +750,28 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "907f-11-c4d1-ec21"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "a499-86fa-4d0c-b06d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3bf460b5-81a0-51c5-9bbb-4556fae29a26"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cec275e8-0bf3-499c-9646-3b84443eb02c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f7aff398-85bb-4f56-bd37-bfc91532214c"
+      }
     ]
   },
   {
@@ -715,6 +851,28 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1d65-c592-2e16-b045"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "8525-2de1-14fd-c1f5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "99c456e2-eaf2-5c78-88b7-22e7d20f2605"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8d33dc91-fc83-460f-afc5-b8c8e85b934c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fff20f1b-855e-45e3-9a7c-81254a215fc4"
+      }
     ]
   },
   {
@@ -789,7 +947,25 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6c29-b6fd-c8bb-4aad"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "8165-e372-4fd6-3274"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "68bd0bd6-bbf1-5464-a004-0074c02e764a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7a14ad01-a45b-4272-be2a-bea1228bc129"
+      }
+    ]
   },
   {
     "id": "castellan",
@@ -852,16 +1028,30 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f151-e676-d3b8-200c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c754e3a4-fcdb-51bd-a458-8296733b3ea6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6206701e-6a5e-4239-ae79-077a211bd78b"
+      }
+    ]
   },
   {
     "id": "emperors-champion",
-    "name": "Emperor\u2019s Champion",
+    "name": "Emperor’s Champion",
     "faction_id": "adeptus-astartes",
     "role": "character",
     "profiles": [
       {
-        "name": "Emperor\u2019s Champion",
+        "name": "Emperor’s Champion",
         "M": 8,
         "T": 4,
         "W": 5,
@@ -883,7 +1073,7 @@
       "Grenades",
       "Imperium",
       "Tacticus",
-      "Emperor\u2019s Champion"
+      "Emperor’s Champion"
     ],
     "faction_keywords": [
       "Adeptus Astartes",
@@ -911,7 +1101,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ca2f-f408-c1bd-b87f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "de359200-b270-58a2-8c53-8aaad1553ed8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "851856d8-4852-4a31-8bb5-c069f6d8b084"
+      }
+    ]
   },
   {
     "id": "impulsor",
@@ -1003,6 +1207,28 @@
         "unit_count_min": 4,
         "unit_count_max": null,
         "host_faction": "black-templars"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bfb1-7512-e1a3-9fa2"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "fa27-4bc1-72c9-894f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5fe8f17a-a8fb-5a0a-9b91-d61114df7d56"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9aeb551d-6c87-42ca-b13c-97c31e62de93"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ef2ccd76-4552-40b5-ab0f-c806ac456686"
       }
     ]
   },
@@ -1161,6 +1387,28 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9259-f166-15f2-7f79"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "a344-192f-aae2-16e5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "40ee135b-a29f-5683-a9be-d618abe9dbd5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "33573b80-b342-4624-a282-ba3ed7c04068"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6843a410-d0fa-4b3e-8cd5-a000eb3cf015"
+      }
     ]
   },
   {
@@ -1226,7 +1474,29 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5704-ffe4-4a53-8789"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "6b89-8147-9b6b-6db1"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6bbb474f-faae-5610-8e6c-941d01509be8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "85b09425-65d4-4ecf-8974-689ff36853aa"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c75a736d-2aac-40ad-bab0-78e768d49831"
+      }
+    ]
   },
   {
     "id": "crusade-ancient",
@@ -1287,7 +1557,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "dca2-b12f-d1a9-5822"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fa08a5d9-66a1-5a17-b171-59927398f279"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ac4bb457-439b-42be-ae6a-501fa97d7931"
+      }
+    ]
   },
   {
     "id": "repulsor",
@@ -1365,6 +1649,28 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c3e8-3cde-8b39-4b19"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "e8e-fc5c-c689-99ca"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5ae6c5e7-c11c-54a7-8232-22219c6e66df"
+      },
+      {
+        "namespace": "mfm",
+        "id": "46a89128-fa0a-4013-847a-ee4b5b490b53"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7102909d-95e0-42d3-99e3-e21364ba2365"
+      }
     ]
   },
   {
@@ -1430,7 +1736,29 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bfb6-4320-74cf-bbda"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "ed20-824b-7419-aebc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0fae5944-73f5-5791-b835-ba2938f5d76f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5396e3da-e344-4478-b9f9-6466c96a9dbb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "55fb581c-0805-4e4a-a6f4-9aea8aadf019"
+      }
+    ]
   },
   {
     "id": "death-company-dreadnought",
@@ -1507,6 +1835,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3b6e-cc3e-c2a4-0cbd"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3ee2094c-aa41-580b-bc63-43da2b51f238"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c0364758-8330-4028-b87a-b5154a7dc325"
+      }
     ]
   },
   {
@@ -1575,7 +1917,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f80-be5-d17c-db23"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d893b19a-cb3f-59e5-8a1f-bd75238d3ff8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4eefbf16-a2d3-4301-8e84-b122cf83ee81"
+      }
+    ]
   },
   {
     "id": "death-company-captain-with-jump-pack",
@@ -1645,7 +2001,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2574-a949-ae3f-58c2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "19ebaa29-6ec3-5cb7-9644-e15bbb5060b3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cecaf9b2-f369-4dbe-b013-74b3ff46c441"
+      }
+    ]
   },
   {
     "id": "death-company-marines",
@@ -1758,6 +2128,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "the-lost-brethren"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3825-ac3a-75ec-fa0d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8b22cef6-4f2b-599c-8504-b457c3f430fc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c475e222-864c-42e9-8b23-5e400302b421"
+      }
     ]
   },
   {
@@ -1821,7 +2205,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f943-72c8-581c-e6f2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4c4b1340-4603-51d7-91a8-3b715d94241a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d37c55b2-43dc-4093-9051-ea1b50a23b29"
+      }
+    ]
   },
   {
     "id": "blood-angels-captain",
@@ -1884,7 +2282,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "829b-da42-2d62-6daf"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "017775d5-d5d0-5891-82ba-e161fa43b611"
+      },
+      {
+        "namespace": "mfm",
+        "id": "96dd287c-d05b-448b-a2b8-feb3d8218ce9"
+      }
+    ]
   },
   {
     "id": "chief-librarian-mephiston",
@@ -1948,7 +2360,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ab35-2c36-9389-d1d5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "dc788dd1-8d00-5724-a0df-a5ab92a159c6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "72f541ed-6136-42e2-b86e-d2243ac6952e"
+      }
+    ]
   },
   {
     "id": "lemartes",
@@ -2014,7 +2440,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "cbc2-18c9-45b6-6327"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1e784468-8db7-572a-922f-87d8a0060dd2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "626d0a43-a1fd-48e5-a8e3-379dfae6b5fe"
+      }
+    ]
   },
   {
     "id": "commander-dante",
@@ -2079,7 +2519,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7323-ebf-9afe-7e7a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e5145978-72b9-5509-a15a-d1213bda57a0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d906421b-e147-452b-86bc-f0293746c545"
+      }
+    ]
   },
   {
     "id": "death-company-marines-with-bolt-rifles",
@@ -2195,6 +2649,20 @@
         "keyword": "Battleline",
         "required_detachment_id": "the-lost-brethren"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4aab-3ca5-0435-ed5e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b9557837-1b04-5259-940e-8119494de566"
+      },
+      {
+        "namespace": "mfm",
+        "id": "10f6d882-ef36-4ce1-9a10-9c0a08c1e9c2"
+      }
     ]
   },
   {
@@ -2257,7 +2725,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "29f1-bb28-6424-6d14"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ea9e7286-4775-5e55-b2e0-b1c2c7c63b12"
+      },
+      {
+        "namespace": "mfm",
+        "id": "339ce90c-c01b-4222-a5b0-28284c0f9637"
+      }
+    ]
   },
   {
     "id": "sanguinary-guard",
@@ -2350,6 +2832,24 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "25e4-ead-faac-2531"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "8e33-50a5-d053-ee15"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3ba1b185-c189-5eec-8440-679398e4b683"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6b6b4a64-7aca-48f9-88a4-a3dd3cb87d87"
+      }
     ]
   },
   {
@@ -2418,7 +2918,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "640-9969-d5b9-875c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9ce6d8b7-7943-518e-be4d-d89fd9f9a057"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a0d726c5-f0ce-4cba-bc51-e64eb4f270c0"
+      }
+    ]
   },
   {
     "id": "death-company-marines-with-jump-packs",
@@ -2533,6 +3047,20 @@
         "count": 4,
         "per_models": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "65f6-18df-f6df-7e39"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "69896ab7-453e-5c6e-8181-53fbf140df02"
+      },
+      {
+        "namespace": "mfm",
+        "id": "75865686-56e2-40e7-b0cd-4d749c9b4ed0"
+      }
     ]
   },
   {
@@ -2598,7 +3126,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4743-6dc9-fda7-0a8c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "21a7f88a-f5d9-58a9-bd4a-44dc8202dd22"
+      },
+      {
+        "namespace": "mfm",
+        "id": "127a4bfb-af29-431a-8592-f5756195d5ee"
+      }
+    ]
   },
   {
     "id": "ravenwing-darkshroud",
@@ -2658,7 +3200,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "152b-a271-df2b-21a9"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a3a7cf44-57f6-55cd-aef8-6da96e65dd21"
+      },
+      {
+        "namespace": "mfm",
+        "id": "751aa1e1-089a-4732-bb32-3c327213fee7"
+      }
+    ]
   },
   {
     "id": "ravenwing-black-knights",
@@ -2747,6 +3303,20 @@
         "count": 2,
         "per_models": 6
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "212d-f302-aaaf-5c12"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "18601d27-010d-50a9-84b8-e30b26dac1b7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e479d5a6-6367-4ffa-a143-f8260ec6a358"
+      }
     ]
   },
   {
@@ -2812,7 +3382,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "38c9-66a1-fe60-46af"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "72e9446e-116a-5ef1-9ecf-956c1ce11c9e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "93fa929e-1107-4b07-9833-e1236e8df6f9"
+      }
+    ]
   },
   {
     "id": "deathwing-terminator-squad",
@@ -2899,6 +3483,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6135-d842-8e61-889d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "76f2cda0-0d76-57a6-9b61-7db0598b1683"
+      },
+      {
+        "namespace": "mfm",
+        "id": "88aa6d99-b712-42c3-961f-171000c3c481"
+      }
     ]
   },
   {
@@ -2977,7 +3575,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f34-e2f9-c98e-1916"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a673671f-02bc-550b-b51b-bb4c0237e6b4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "99278960-975f-443f-b658-e7da07e2546c"
+      }
+    ]
   },
   {
     "id": "azrael",
@@ -3041,7 +3653,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "81bd-ce4e-229f-a88"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "dba448cc-ea5e-5fd9-bd91-c795467fd1d2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2c8e0331-4d53-44dc-bd48-5a1aacca2818"
+      }
+    ]
   },
   {
     "id": "land-speeder-vengeance",
@@ -3110,7 +3736,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b4a0-d2fe-a988-f28b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a74cac10-eb28-5fac-adf0-1b0ad6f0ad4a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e310b2d0-59b7-44d1-8b5e-60a12f5bcfc6"
+      }
+    ]
   },
   {
     "id": "nephilim-jetfighter",
@@ -3172,7 +3812,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4f36-6609-efac-baa6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "101d5e2e-9a10-59a2-830a-92c827f9f203"
+      },
+      {
+        "namespace": "mfm",
+        "id": "51062f7a-15de-4be6-b4c7-ded1bcc9064d"
+      }
+    ]
   },
   {
     "id": "asmodai",
@@ -3235,7 +3889,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9bf9-1e30-e4b4-939c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "73dea935-78f8-5af7-a400-04c431a64bd8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "00422d3c-a337-4c70-a521-4c3f268fecc6"
+      }
+    ]
   },
   {
     "id": "deathwing-knights",
@@ -3310,6 +3978,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a6cc-9a65-dbf1-71b0"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0a59cf75-fb0a-540f-9206-4ff05900b6a4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f522bffd-8580-405a-a4e7-063aed70a553"
+      }
     ]
   },
   {
@@ -3373,16 +4055,30 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bf62-244b-f9db-6cf"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b0e28fbd-1d1d-5c84-acc7-ee729e62fe99"
+      },
+      {
+        "namespace": "mfm",
+        "id": "28dd278b-fdb7-4c37-9171-c924399c20c1"
+      }
+    ]
   },
   {
     "id": "lion-eljonson",
-    "name": "Lion El\u2019Jonson",
+    "name": "Lion El’Jonson",
     "faction_id": "adeptus-astartes",
     "role": "epic-hero",
     "profiles": [
       {
-        "name": "Lion El\u2019Jonson",
+        "name": "Lion El’Jonson",
         "M": 8,
         "T": 9,
         "W": 10,
@@ -3404,7 +4100,7 @@
       "Epic Hero",
       "Imperium",
       "Primarch",
-      "Lion El\u2019Jonson"
+      "Lion El’Jonson"
     ],
     "faction_keywords": [
       "Adeptus Astartes",
@@ -3436,7 +4132,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "15d3-ebc7-d28b-daf4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "0749c654-22ff-5ed6-be5e-9acdf8583933"
+      },
+      {
+        "namespace": "mfm",
+        "id": "38867cfd-ef90-473f-9a15-6a297180c6dd"
+      }
+    ]
   },
   {
     "id": "ravenwing-command-squad",
@@ -3518,6 +4228,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e87d-f173-88b9-aa84"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "65697143-7593-5759-a841-ef1aaddef7f6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "515eaf0d-be4b-4a33-89ae-228f029c2bbf"
+      }
     ]
   },
   {
@@ -3581,7 +4305,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4b0d-45ff-fab3-7472"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7e3ea0b9-3d47-53aa-9bb5-757c44eb1ec1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0828fcb2-0d80-4e42-af5d-d040ccfd3a61"
+      }
+    ]
   },
   {
     "id": "ravenwing-dark-talon",
@@ -3640,7 +4378,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9b3d-e812-4248-522"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "eab64694-a982-55df-80a6-73d5036f7d8f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f6b89272-de6b-4255-9024-9c0dcc17a656"
+      }
+    ]
   },
   {
     "id": "sammael",
@@ -3708,7 +4460,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8f4b-c343-bef5-6779"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "171df937-ae5f-5b45-8d8d-2685fe36fcc2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "10040480-4f18-442e-9762-a47d3d4d61aa"
+      }
+    ]
   },
   {
     "id": "watch-captain-artemis",
@@ -3770,7 +4536,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3d7c-2de-31ea-b028"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8939a3d9-e5c9-5552-96e6-689e5885c77b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1d3fde2b-33b6-4473-a3fe-5bd80358faa5"
+      }
+    ]
   },
   {
     "id": "indomitor-kill-team",
@@ -3856,7 +4636,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6cb-912c-c43-210b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "dbdca121-6845-5c9d-9f5f-87bf34e025aa"
+      },
+      {
+        "namespace": "mfm",
+        "id": "702b93e4-6cd8-4bf1-9507-374dc1a7f397"
+      }
+    ]
   },
   {
     "id": "deathwatch-veterans",
@@ -3989,6 +4783,20 @@
         "count": 2,
         "per_models": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "66ab-476a-134e-ec7b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c48b1394-4b28-5f92-95c4-b78096646206"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3c70e24a-d4a5-4954-8827-83276d99881c"
+      }
     ]
   },
   {
@@ -4079,7 +4887,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b169-ff89-b05e-3884"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cfcdda12-8be4-5326-8a7a-49e645d0ac5e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bf1908d4-18e7-46fd-a308-f65e69b70974"
+      }
+    ]
   },
   {
     "id": "talonstrike-kill-team",
@@ -4176,7 +4998,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c679-f252-32b1-ebcc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "926f1ddd-17f1-5f70-83d9-33661e46e7c9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e162e0db-3a17-43c7-9f42-a0c0999e4fad"
+      }
+    ]
   },
   {
     "id": "watch-master",
@@ -4236,7 +5072,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "f7c3-45d2-a7ac-d8bc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "10af0717-f94a-5ae6-90f3-427da01cbe73"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2d67853c-0434-4066-a3b1-4d495dcb4450"
+      }
+    ]
   },
   {
     "id": "corvus-blackstar",
@@ -4305,7 +5155,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d861-972b-54f9-bdfa"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a6d0dca5-9c60-57c5-9977-cb5ce5b0ea78"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ea8838d6-c077-479d-9581-8a74c487df99"
+      }
+    ]
   },
   {
     "id": "deathwatch-terminator-squad",
@@ -4392,6 +5256,20 @@
         ],
         "count": 3,
         "per_models": 0
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "390e-706b-a059-378b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4f308a36-978b-5a6e-af9f-88b23662e882"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6a9d561e-9504-44a9-9a7b-5c62318db97b"
       }
     ]
   },
@@ -4494,6 +5372,20 @@
         ],
         "count": 2,
         "per_models": 10
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a077-e1c9-f8f0-d38"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6d6d7954-6b4c-5b5e-ab5f-b972bf64503e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1ccb48ec-c82d-4d27-a4ef-f199e79e8043"
       }
     ]
   },
@@ -4598,6 +5490,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2544-5189-7806-30f3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "55e4e25e-f3a5-5d16-919f-b82aa3e7a00f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "87f83fe4-3976-49cf-b6a7-fd09bfb8675d"
+      }
     ]
   },
   {
@@ -4661,7 +5567,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1d56-1cc3-de57-10e2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "be09a646-d690-5507-a239-3b21e4ac3e20"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9b35ef53-6653-4a41-b1fb-28449fa871df"
+      }
+    ]
   },
   {
     "id": "adrax-agatone",
@@ -4722,7 +5642,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "98c-87ea-f51b-1475"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a79c6651-690d-51b2-8cc8-d3d52f997ef3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9c310043-5651-467f-b623-aa52a974ab9f"
+      }
+    ]
   },
   {
     "id": "assault-intercessor-squad",
@@ -4798,6 +5732,20 @@
         "models": 10,
         "cost": 150,
         "host_faction": "blood-angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a10b-fbfe-b1fa-6f0c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f17f9afa-b67f-54db-94eb-4e3b3cb3eee9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3e9ac9da-6be5-45b0-8a24-98ba99800556"
       }
     ]
   },
@@ -4878,7 +5826,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3e14-2a-d358-6ada"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "e9978935-9b9f-5858-92c9-381d9378953b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "72d48b65-499b-44d0-aede-31b4ef0ab3d6"
+      }
+    ]
   },
   {
     "id": "ancient-in-terminator-armour",
@@ -4946,6 +5908,20 @@
       {
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fc7f-8176-c10c-ca8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "81e4e63c-f454-5372-94de-37fc2b857b0c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "eff3e091-a068-49b7-9a0a-6eb02e546be4"
       }
     ]
   },
@@ -5022,6 +5998,20 @@
         "keyword": "Speeder",
         "required_detachment_id": "fulguris-task-force"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9cb9-9ab5-727f-80e5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "81c471c8-099f-5435-bfd9-44da6d7de4c1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "54a4856a-0fc2-4682-9979-90c99b31847e"
+      }
     ]
   },
   {
@@ -5084,16 +6074,30 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "e671-cd3a-2b03-3954"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d2001ab7-9e30-5321-aba6-0f865ab4e987"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5b2cab09-f686-462b-801a-5a3a9ff3703d"
+      }
+    ]
   },
   {
     "id": "korsarro-khan",
-    "name": "Kor\u2019sarro Khan",
+    "name": "Kor’sarro Khan",
     "faction_id": "adeptus-astartes",
     "role": "epic-hero",
     "profiles": [
       {
-        "name": "Kor\u2019sarro Khan",
+        "name": "Kor’sarro Khan",
         "M": 6,
         "T": 4,
         "W": 5,
@@ -5116,7 +6120,7 @@
       "Imperium",
       "Tacticus",
       "Captain",
-      "Kor\u2019sarro Khan"
+      "Kor’sarro Khan"
     ],
     "faction_keywords": [
       "Adeptus Astartes",
@@ -5143,7 +6147,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "63f3-6aeb-c9ed-abfc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "990cf04d-3c9b-5891-8513-cc95e7a5ac0f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "24701e79-346a-4721-b25d-d5d2f2f6a8e8"
+      }
+    ]
   },
   {
     "id": "suboden-khan",
@@ -5207,7 +6225,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d72d-b930-9849-924e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4e7ed63c-a711-5566-84a1-637094e5ca28"
+      },
+      {
+        "namespace": "mfm",
+        "id": "aee9c464-e423-4637-91c1-9bb2f3d20f55"
+      }
+    ]
   },
   {
     "id": "aethon-shaan",
@@ -5272,7 +6304,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "cbb9-15e9-16ae-6597"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "adaaf09e-4121-59f8-bc1a-9dd869a965ad"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ca050262-bc18-446d-96c2-827fdbd24173"
+      }
+    ]
   },
   {
     "id": "eradicator-squad",
@@ -5350,7 +6396,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c570-c6ba-c9dc-5a44"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b3a4b88e-2164-580c-8fb1-a5c6e4e8e62a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "258c4554-ef84-418a-9125-ca1ccd5e8d03"
+      }
+    ]
   },
   {
     "id": "librarian",
@@ -5421,6 +6481,20 @@
     "attachment_role": "leader",
     "excluded_faction_keywords": [
       "Black Templars"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "78eb-9334-f5c0-6095"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7d6fbc0a-42a0-59f2-8fc2-579ab8e03f20"
+      },
+      {
+        "namespace": "mfm",
+        "id": "aec1fcef-ecec-4fe6-8312-5c1a8ea81571"
+      }
     ]
   },
   {
@@ -5483,7 +6557,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "eecd-6976-6410-1e42"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5a09a60a-8d85-5328-911f-0f1fd393900a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "60e20a9e-9cc1-42e5-8d11-28b39f688634"
+      }
+    ]
   },
   {
     "id": "dreadnought",
@@ -5550,6 +6638,20 @@
       {
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d204-13c6-dab1-ecdc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9ae4aba2-748d-5e1f-96f9-f71efd85a5b6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "707c3861-353c-462a-9628-281e6048b9aa"
       }
     ]
   },
@@ -5628,6 +6730,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ae9a-10e3-8091-20"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f995c048-454a-5054-82bf-d3eca07582d6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f508b10f-ae04-476b-aede-33a9b80011eb"
+      }
     ]
   },
   {
@@ -5694,7 +6810,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d4c8-dd6a-cd7a-ccc3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3f20009a-ac23-5a71-9fb3-314a04b85d34"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3e841dc9-30de-48ce-9a44-3ea70d50a16e"
+      }
+    ]
   },
   {
     "id": "bladeguard-veteran-squad",
@@ -5806,6 +6936,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7044-bf1-f949-c32d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3a13a631-0ca2-5801-91bf-3ed7b2a524ab"
+      },
+      {
+        "namespace": "mfm",
+        "id": "00b5af06-1b59-463a-80c9-1e064372fca0"
+      }
     ]
   },
   {
@@ -5864,7 +7008,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "edf8-643b-cd1-3c11"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ee860940-24a0-5e4d-9e45-7cf2a3d2c096"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1417a9a5-f1d5-48cd-bd9d-354aed864678"
+      }
+    ]
   },
   {
     "id": "storm-speeder-hammerstrike",
@@ -5939,6 +7097,20 @@
         "keyword": "Speeder",
         "required_detachment_id": "fulguris-task-force"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9489-445c-f950-7292"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "79cdae87-5d70-5367-b24c-df606b276834"
+      },
+      {
+        "namespace": "mfm",
+        "id": "750213fe-1d77-4558-b009-242facf389cc"
+      }
     ]
   },
   {
@@ -6000,7 +7172,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5936-83d6-4e30-915c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b066706e-e32b-5cae-9e48-2d158020b0d2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9e47f883-718a-41f8-82f7-59a3325a3419"
+      }
+    ]
   },
   {
     "id": "judiciar",
@@ -6059,7 +7245,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8dcb-987c-1ab4-b976"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "975b42e0-7b09-5ece-9dfe-a5da3838b3cf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b62309dc-f481-4317-a781-3bff77861a22"
+      }
+    ]
   },
   {
     "id": "victrix-honour-guard",
@@ -6148,6 +7348,32 @@
         "item_id": "blades-of-honour",
         "cost": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3719-2013-c91c-1838"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "85dd-78b4-efce-5768"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "9b89-f132-4fef-8e51"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "ad41-e903-1a8b-83a3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "18f6ba44-ee24-5e96-9452-b8f58031772e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5ab7a6a5-3db3-4595-b8a4-c031bdc3ef31"
+      }
     ]
   },
   {
@@ -6214,6 +7440,24 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "dc24-dd64-5d97-df3c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a61cd885-4d38-5de2-bcd7-d74522a8c9f8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cc8bb72d-0f4f-5e68-97c7-20d7385395b0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "41a69db5-a94f-4ebb-ad38-61825edb4adc"
+      }
     ]
   },
   {
@@ -6274,7 +7518,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4aea-b1cc-6c69-1c44"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "278c55e7-acf2-5924-a017-dc9e4933deb2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dd5a0468-2839-49f6-9036-c37de8ef5ac7"
+      }
+    ]
   },
   {
     "id": "drop-pod",
@@ -6345,7 +7603,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4d57-c5c8-c1a1-e8a6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "799e25f4-a120-560f-bcec-719ea05533ac"
+      },
+      {
+        "namespace": "mfm",
+        "id": "64e980d2-c0c6-436e-bb92-6111b5e08f39"
+      }
+    ]
   },
   {
     "id": "captain-with-jump-pack",
@@ -6418,6 +7690,20 @@
         "models": 1,
         "cost": 80,
         "host_faction": "blood-angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1319-45d-bb95-dfd4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9820b84f-1b0a-5bba-942b-bc18a2f221a9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "83072ad0-5846-4eed-a450-ef10b98ca9c7"
       }
     ]
   },
@@ -6494,6 +7780,20 @@
         "keyword": "Speeder",
         "required_detachment_id": "fulguris-task-force"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "993a-9cbc-8052-e40"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ab2e1798-e58f-5c0d-a48a-247520d288d6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a1a41202-50d3-4e09-b70c-e6163071eebd"
+      }
     ]
   },
   {
@@ -6551,7 +7851,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5882-9143-e7c5-ac11"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4d5b4ec3-22a0-5ede-b3e9-9bfd070f2cc8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "77963911-be84-4852-8d43-6c6828e71f88"
+      }
+    ]
   },
   {
     "id": "suppressor-squad",
@@ -6609,7 +7923,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "97f6-b1f8-c72d-e826"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3a1b4813-01ca-5a6b-83c2-dd4d1b327fa3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "235ce59a-e559-448a-aaef-a252faff9168"
+      }
+    ]
   },
   {
     "id": "librarian-in-terminator-armour",
@@ -6678,6 +8006,24 @@
       {
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2468-24f5-ad9b-8388"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2253b01e-9a65-551b-b690-50a460cedced"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "76427e7e-ec93-537e-94d3-a614d30246f0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2d2d2d93-7d9a-4dfe-9645-7288e2a4d986"
       }
     ]
   },
@@ -6771,16 +8117,30 @@
     "excluded_faction_keywords": [
       "Deathwatch",
       "Space Wolves"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3f4c-1e67-66dc-ffa5"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f715322f-e40b-5c04-bbee-e34a13203a6b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "74c044ed-6a53-45a9-ab84-7d1f5a30bada"
+      }
     ]
   },
   {
     "id": "vulkan-hestan",
-    "name": "Vulkan He\u2019stan",
+    "name": "Vulkan He’stan",
     "faction_id": "adeptus-astartes",
     "role": "epic-hero",
     "profiles": [
       {
-        "name": "Vulkan He\u2019stan",
+        "name": "Vulkan He’stan",
         "M": 6,
         "T": 4,
         "W": 5,
@@ -6804,7 +8164,7 @@
       "Imperium",
       "Tacticus",
       "Captain",
-      "Vulkan He\u2019stan"
+      "Vulkan He’stan"
     ],
     "faction_keywords": [
       "Adeptus Astartes",
@@ -6833,7 +8193,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b351-fccc-2121-1e1e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "45d31fd3-800c-5f73-9e81-4124e484e1b1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "19b5427c-58eb-41ae-af6d-611e4f59721c"
+      }
+    ]
   },
   {
     "id": "centurion-devastator-squad",
@@ -6901,6 +8275,20 @@
         "item_id": "twin-lascannon",
         "cost": 5
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6ba0-cede-e278-f86b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d08f3b3f-ff1c-557b-b582-d2b5383a97f7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7af2db9c-c3dd-4c62-98d9-d1c161b8c3c3"
+      }
     ]
   },
   {
@@ -6962,7 +8350,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7102-b3a4-9bfc-1b84"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b0b6ef3b-fb16-5a94-8c40-2ce491728c24"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1db34bd3-5f48-4d1b-b222-87decab7dfc2"
+      }
+    ]
   },
   {
     "id": "heavy-intercessor-squad",
@@ -7025,7 +8427,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7324-e591-939b-b675"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f5fd658b-bc18-5e73-85d4-94f8678198cd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "26fd651a-711f-41d9-a072-d9c9be32bd0f"
+      }
+    ]
   },
   {
     "id": "iron-father-feirros",
@@ -7088,7 +8504,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6c9d-4ec3-69dd-90b2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7a55a0fb-d80d-5724-9ef8-5dbe69f98112"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4cdce960-e935-45fc-82e0-fcc28c665015"
+      }
+    ]
   },
   {
     "id": "scout-squad",
@@ -7186,6 +8616,20 @@
     ],
     "excluded_faction_keywords": [
       "Deathwatch"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1117-cda-7f74-196b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5c07fa81-89e6-54aa-acbc-3e4499579637"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bd4d9b1a-0394-45e8-a88d-b5c54f69233a"
+      }
     ]
   },
   {
@@ -7248,7 +8692,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a136-76f7-34d1-8035"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d1cfaaaa-bf15-5dc5-aece-7859649ca4d4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "de36bfa7-9cc5-4875-b9d8-d3940027b48c"
+      }
+    ]
   },
   {
     "id": "apothecary-biologis",
@@ -7310,6 +8768,20 @@
     "attachment_role": "support",
     "excluded_faction_keywords": [
       "Space Wolves"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c6e9-c0c8-5f13-5771"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7af3435c-e3c2-5096-a4e8-45b5066d0e46"
+      },
+      {
+        "namespace": "mfm",
+        "id": "61579253-8a18-457d-88ae-60d7ac022a63"
+      }
     ]
   },
   {
@@ -7383,6 +8855,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1c00-9398-b9e7-446a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4633d8b4-dfaa-5c8e-b0e9-740ebc923c28"
+      },
+      {
+        "namespace": "mfm",
+        "id": "601d1b93-87e2-408c-8706-e4e35ac4adf0"
+      }
     ]
   },
   {
@@ -7447,6 +8933,20 @@
     "attachment_role": "leader",
     "excluded_faction_keywords": [
       "Black Templars"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "137c-2add-1a51-ee96"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "eea8ef2c-0dc2-53d9-99e2-77a4d6ecb3e3"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a993bfbc-d3b1-4e0b-9ea7-7a90457b165b"
+      }
     ]
   },
   {
@@ -7509,6 +9009,24 @@
     "attachment_role": "support",
     "excluded_faction_keywords": [
       "Space Wolves"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8a9d-11f-fad-bd0f"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "db85-c6c5-42a8-378b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6b3a7444-7a20-5c20-a3b4-e7ac3ded70bf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "848cfd43-e850-4440-aadb-e26cd4946454"
+      }
     ]
   },
   {
@@ -7586,6 +9104,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8cca-9318-3bec-d360"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d63b5215-7378-55b6-b363-5d768a81474d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cce87254-8728-43fb-a14f-cd26a324e342"
+      }
     ]
   },
   {
@@ -7651,7 +9183,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ce15-e87e-7cff-b129"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "206eeab4-32a1-57f3-99bf-d1d8e96cef39"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0ec8b8b9-7906-4ab2-87d8-54e8a6e76484"
+      }
+    ]
   },
   {
     "id": "chief-librarian-tigurius",
@@ -7713,7 +9259,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3ef1-1647-cd7b-a40b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "aad0f52c-e204-5ddd-a9db-84b0a4707b2e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "399140e8-8abf-43e9-a48e-30583dbce343"
+      }
+    ]
   },
   {
     "id": "stormtalon-gunship",
@@ -7780,6 +9340,20 @@
         "keyword": "Ravenwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1bb6-878e-7af1-5bdb"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "76354f4a-b1a5-58d7-a0df-1066c75926e5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5c6f75d3-4ad5-4042-9424-7e2a8eee08bf"
+      }
     ]
   },
   {
@@ -7844,7 +9418,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "596f-dbdc-41e7-088a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b1e6cdfd-dd71-51ff-b312-dfb44a9ffe8b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2d6d9a94-ad2f-425e-853e-4bce65e228c7"
+      }
+    ]
   },
   {
     "id": "razorback",
@@ -7919,7 +9507,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ed11-25b9-a0eb-89f4"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "270018ea-69b6-553f-976f-7dff195a88bf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f2484f5b-bf0e-4aec-a1f6-cb1c06e4e54f"
+      }
+    ]
   },
   {
     "id": "eliminator-squad",
@@ -7979,7 +9581,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d6c3-e9d2-430d-6c2f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ad3d4f6f-6c7b-5668-aeef-79be5d3e1b26"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c30d0b57-6613-4b18-a71b-a082d22a2e4b"
+      }
+    ]
   },
   {
     "id": "outrider-squad",
@@ -8074,6 +9690,20 @@
         "keyword": "Ravenwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b5e8-c34b-566b-8bda"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7a701c86-8b99-5ef2-94a7-15e3cb64e34a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d5a5b4f6-c63e-421d-9a58-5a0df13bee8b"
+      }
     ]
   },
   {
@@ -8140,7 +9770,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a3ea-7a0d-fef8-23bf"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "89a5bc47-72bc-50c4-a6c0-7952a6d8fb41"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3ea51431-bb1e-42a8-b25c-0eb01615c79b"
+      }
+    ]
   },
   {
     "id": "centurion-assault-squad",
@@ -8201,7 +9845,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2a8a-522d-51e4-3abc"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5689c57d-bec3-54f4-92dc-d5cca77534f0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "25e339e2-946e-45f3-bb89-742688562b3c"
+      }
+    ]
   },
   {
     "id": "vindicator",
@@ -8265,7 +9923,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "cb6d-201f-4888-3027"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d3292df5-bfd1-5e04-b335-5c87e717f411"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f563e8ca-0a01-45ad-ae6f-d907dd31b56c"
+      }
+    ]
   },
   {
     "id": "tactical-squad",
@@ -8358,6 +10030,20 @@
     "excluded_faction_keywords": [
       "Deathwatch",
       "Space Wolves"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c09a-6504-d25f-477"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a345ee5b-b2c6-530a-9baf-73a455aba51a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "56a89836-34ad-4a12-8259-050aa1f8c36f"
+      }
     ]
   },
   {
@@ -8422,7 +10108,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ae85-3e33-217d-7413"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "82cf4278-37e8-5c09-8c97-b795d77f3667"
+      },
+      {
+        "namespace": "mfm",
+        "id": "632bd3f6-4c24-4d96-aae5-34288ceb073b"
+      }
+    ]
   },
   {
     "id": "cato-sicarius",
@@ -8484,7 +10184,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b014-911d-271a-5b8e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "9225304f-8069-5cbc-bba6-bd42f41c852d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "65df5837-39c7-4d85-b9fb-b66459cb7cdc"
+      }
+    ]
   },
   {
     "id": "wardens-of-ultramar",
@@ -8557,7 +10271,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b793-b77e-9e49-d397"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "46257f58-c3cc-5ba3-b979-0026be7c4e56"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7750b656-3226-4916-a2aa-ab2137314b17"
+      }
+    ]
   },
   {
     "id": "redemptor-dreadnought",
@@ -8638,6 +10366,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1d94-b3c8-9205-827e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "223464ee-1634-52c5-9a15-70389d6d6fd5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2c43e025-56f1-4c11-b17d-ce935bbaca67"
+      }
     ]
   },
   {
@@ -8698,7 +10440,25 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6562-d718-b8e0-c457"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "f26a-2b25-1582-ae68"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2ff66703-b397-5f27-b037-f11a84965fcc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6d01dddf-c440-4751-93ff-54502221c9f8"
+      }
+    ]
   },
   {
     "id": "pedro-kantor",
@@ -8762,7 +10522,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "59e3-5a97-f36d-5b94"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "a5466eb5-f937-5880-bdb0-43b0ce3cbce6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "529d2da3-7fbb-408a-baa0-5db2e9f54b9b"
+      }
+    ]
   },
   {
     "id": "chaplain-in-terminator-armour",
@@ -8827,6 +10601,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c026-b762-d0a6-5ef1"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6dcf2c16-999d-5127-b23e-c4912ce9cc43"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b9fd77d2-e5f3-4dc1-a81a-020313851109"
+      }
     ]
   },
   {
@@ -8890,7 +10678,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "109f-f71d-56-d9eb"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "85c1befb-18db-5277-b669-cdab91030a21"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fff1718a-d5f7-56d5-82a0-7188d027a3f1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "abe8a2c9-02cd-45ed-b490-3068d69b51f5"
+      }
+    ]
   },
   {
     "id": "incursor-squad",
@@ -8978,6 +10784,20 @@
         ],
         "count": 1,
         "per_models": 0
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "527c-120e-9e4e-9bfe"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6e3736a3-d5fa-5320-9fc7-1978c08644ef"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d54c22f1-7947-4013-b6f1-c2e2f824721b"
       }
     ]
   },
@@ -9090,6 +10910,20 @@
         "unit_count_max": null,
         "host_faction": "blood-angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "cdd9-efda-95-e7b2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4b12ae04-3b8f-5d4a-9e05-f4fdd5e94913"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d1a72666-0a03-4a30-8ce6-1733ccd0ab29"
+      }
     ]
   },
   {
@@ -9153,7 +10987,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "efbb-2823-7b70-5a7a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4b8a6081-793e-5f5b-ba13-97dc447236f8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "911a0552-404b-4c2b-a114-726c525230a0"
+      }
+    ]
   },
   {
     "id": "vanguard-veteran-squad-with-jump-packs",
@@ -9272,6 +11120,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9e9c-bf4d-2d40-be82"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "7a79c892-5f99-5475-96c7-d4b3ba808c93"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2151c904-7486-4787-97ee-1fa9208981d4"
+      }
     ]
   },
   {
@@ -9331,7 +11193,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2f2e-d99b-b235-163a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "128e8838-b062-57d4-8bcb-8aa9b012526d"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fe69f0c0-d8c6-465d-8a88-6d453b5c5af5"
+      }
+    ]
   },
   {
     "id": "aggressor-squad",
@@ -9408,7 +11284,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "129d-2da5-66f3-f4ec"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c9e75539-37ab-5990-a16a-952209ccad7a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f7219f56-0d7e-46f0-bb56-73fc596ee09e"
+      }
+    ]
   },
   {
     "id": "stormhawk-interceptor",
@@ -9476,6 +11366,20 @@
         "keyword": "Ravenwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3d99-47aa-8cf3-883f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "3c3fb08c-0ecf-57c3-bcaf-dfc9ea67b744"
+      },
+      {
+        "namespace": "mfm",
+        "id": "71781c4b-b1ea-40dc-9bf6-fc0404689ca0"
+      }
     ]
   },
   {
@@ -9539,7 +11443,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6c10-5b51-5bc0-8d2c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "1abbc533-9ffb-5095-8cb4-b8f948061854"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5ddc8777-1516-4b72-b5a1-05685ed1cecb"
+      }
+    ]
   },
   {
     "id": "predator-annihilator",
@@ -9605,7 +11523,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "31a-6c3e-5843-4023"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ae8823f4-1e44-58db-a791-de6260571359"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d1981bef-c632-43d3-91cb-9994d3cda75c"
+      }
+    ]
   },
   {
     "id": "chaplain-on-bike",
@@ -9669,6 +11601,20 @@
       {
         "keyword": "Ravenwing",
         "required_faction_keyword": "Dark Angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5d1d-2230-8199-3ab3"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "427470a5-0515-50c3-afd7-58042c36aaa1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5faa2f68-6a43-45d9-97d8-4f0e3d8146e4"
       }
     ]
   },
@@ -9751,6 +11697,20 @@
         "keyword": "Ravenwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "469b-3370-30f3-473a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d3f766f6-109b-5002-bc61-d042afef6b75"
+      },
+      {
+        "namespace": "mfm",
+        "id": "47e790b3-2abd-4230-b280-ae87e036dad8"
+      }
     ]
   },
   {
@@ -9812,7 +11772,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6dfd-beb0-5b01-b21e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "650280f3-5fbf-59de-bdbb-845a78097c41"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bcb796c0-5af9-4605-b30c-53e1035fe946"
+      }
+    ]
   },
   {
     "id": "captain-in-phobos-armour",
@@ -9873,7 +11847,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a976-7cd5-9657-d91a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "056b030e-f4d7-50d1-9528-b1547d5fffe4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e804eb6a-4f46-402b-9a59-61e87ba44d6a"
+      }
+    ]
   },
   {
     "id": "chaplain-with-jump-pack",
@@ -9947,6 +11935,20 @@
         "models": 1,
         "cost": 80,
         "host_faction": "blood-angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "23f1-2df2-7085-cf41"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cea9dfce-bbfa-5ac3-81cb-a79d5fabec96"
+      },
+      {
+        "namespace": "mfm",
+        "id": "387ec5bd-26a4-459d-8763-a78df521262b"
       }
     ]
   },
@@ -10027,6 +12029,20 @@
         "count": 2,
         "per_models": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8da0-4570-c3c-819f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "ba5159e6-672b-5e6f-a7e1-dd03f49cb4b5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2f94186b-7ca5-482d-9b25-5b50201347a0"
+      }
     ]
   },
   {
@@ -10095,7 +12111,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "98db-fff3-b1b2-e22f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "743808c1-22b5-56a7-8ab2-1782a3ab6995"
+      },
+      {
+        "namespace": "mfm",
+        "id": "291197e5-6b94-4275-bbe2-cb2177e1411f"
+      }
+    ]
   },
   {
     "id": "land-raider-redeemer",
@@ -10173,6 +12203,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "d361-a36e-1448-264d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "02779f77-6969-5f09-96af-3d742dd7b5df"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3fdf331d-4e93-4d52-a78e-5d5f14c3dc32"
+      }
     ]
   },
   {
@@ -10237,7 +12281,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3416-dfee-84ee-e21d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "bff65e3c-701c-597b-a853-019a4f0bf33c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0c966839-270e-4d74-a70f-617a7744d895"
+      }
+    ]
   },
   {
     "id": "rhino",
@@ -10311,7 +12369,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a14e-75ca-ef91-397f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "37ad9afa-0732-530e-ac40-a91802dcc98a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2af79aee-3a97-4283-911b-8558d6cb44e5"
+      }
+    ]
   },
   {
     "id": "invader-atv",
@@ -10372,6 +12444,24 @@
       {
         "keyword": "Ravenwing",
         "required_faction_keyword": "Dark Angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "8d7b-3dfe-7b91-2490"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "bb3d-11c0-7a1e-d7ab"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c3990430-965c-5f21-a1ea-2a17fdb07961"
+      },
+      {
+        "namespace": "mfm",
+        "id": "aa6a8aac-523d-4373-ae57-40d2a5673aa6"
       }
     ]
   },
@@ -10468,6 +12558,20 @@
         "count": 1,
         "per_models": 0
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "70dc-ed18-2788-b35a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "fc597ceb-aa47-52f2-8b47-f92bb8b63b3e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1cbb50bd-dd61-47ed-bad2-1fbe43c96cd2"
+      }
     ]
   },
   {
@@ -10539,6 +12643,20 @@
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "5dc7-aa6c-7053-cede"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6bf98fa4-49c6-5958-a542-888f09955ffb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6f090a62-3938-4647-a993-94f090b204f2"
+      }
     ]
   },
   {
@@ -10599,7 +12717,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b007-fc7b-8e4a-b017"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "777d43b8-ed79-5ba7-83ee-c27e402752da"
+      },
+      {
+        "namespace": "mfm",
+        "id": "84342745-031a-414d-a3f2-d9b32a8cc52d"
+      }
+    ]
   },
   {
     "id": "kayvaan-shrike",
@@ -10665,7 +12797,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "339f-9776-243d-69a6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "54abfd41-d81e-5238-be09-db481da796ac"
+      },
+      {
+        "namespace": "mfm",
+        "id": "cb262cc7-d6e9-4a4a-a155-65e5a0917eee"
+      }
+    ]
   },
   {
     "id": "uriel-ventris",
@@ -10727,7 +12873,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "169a-7229-ea50-1c4f"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "896d350b-6346-59b7-941d-7164cdb4cf36"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5657fe03-7e74-4e43-b1b5-f5156016b5f8"
+      }
+    ]
   },
   {
     "id": "lieutenant-in-phobos-armour",
@@ -10789,7 +12949,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "support"
+    "attachment_role": "support",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fe0e-6070-e7b-d4b8"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "666b66c4-08ba-5f68-8eb4-2817466de9ad"
+      },
+      {
+        "namespace": "mfm",
+        "id": "99994996-bdc4-47f1-807d-4da9dcfb1aa1"
+      }
+    ]
   },
   {
     "id": "reiver-squad",
@@ -10855,7 +13029,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a7ae-e495-683b-7c90"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c55fc645-90a7-5857-ab8c-8a1bd3d27e22"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9b535b98-681a-4812-b574-e95134a681e4"
+      }
+    ]
   },
   {
     "id": "chaplain",
@@ -10913,7 +13101,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ceb5-55c7-2d49-d952"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "617d09bb-af62-5df9-9454-263132cbd00b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9bf2422a-3f70-4aa2-9dcc-5d8aa9b71e90"
+      }
+    ]
   },
   {
     "id": "invictor-tactical-warsuit",
@@ -10973,7 +13175,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "24df-fdd6-4d7b-fc0e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "84126ce0-85ba-5960-8f4f-b5fa650ee62b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3a9c16f7-9a55-485f-a801-917265a17065"
+      }
+    ]
   },
   {
     "id": "bladeguard-ancient",
@@ -11037,6 +13253,20 @@
       {
         "keyword": "Deathwing",
         "required_faction_keyword": "Dark Angels"
+      }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "9ca5-e5f4-f85d-bcca"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "01dd9844-2d3e-5c90-ad47-5da21d4dd9ff"
+      },
+      {
+        "namespace": "mfm",
+        "id": "93e9d10f-372d-42e2-9545-3354f9e9b3e8"
       }
     ]
   },
@@ -11127,6 +13357,20 @@
         "unit_count_max": null,
         "host_faction": "space-wolves"
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c125-1106-f06d-9682"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "928a43b7-7178-5826-92ff-0a03ee4bf111"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f0cad002-36f8-4d07-82ba-0d49e4ae2104"
+      }
     ]
   },
   {
@@ -11189,7 +13433,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "23d2-ea9a-cc45-476"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "f7c221df-be2f-5050-9b4d-1af14f9d6716"
+      },
+      {
+        "namespace": "mfm",
+        "id": "47b8725f-328d-4100-adf8-28680b6d45aa"
+      }
+    ]
   },
   {
     "id": "thunderwolf-cavalry",
@@ -11283,6 +13541,20 @@
         "count": 1,
         "per_models": 3
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "7a50-3722-8195-5877"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "5d78ad6a-0eaa-5cb9-877f-76b039ebac0a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1fe84e8c-ef82-4b4c-91ee-d91ebc82d0a7"
+      }
     ]
   },
   {
@@ -11344,7 +13616,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "60ce-47ea-50fa-53f2"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4b6c3e90-12a2-5555-8d6a-8823a984108f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e2253101-0c6c-4716-a309-5ba4d9ce03a2"
+      }
+    ]
   },
   {
     "id": "fenrisian-wolves",
@@ -11419,7 +13705,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "dc75-5a79-4121-1d72"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "813450b5-2d22-5134-8274-91854c51eac2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3b736e89-e3f2-433f-9016-eab60e59303d"
+      }
+    ]
   },
   {
     "id": "wolf-priest",
@@ -11476,7 +13776,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "b3b1-d1df-d9be-d48e"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "dafbc0f6-a94a-5528-888c-bedbe6db9fcc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c67303fc-f9f6-40d1-b4c7-0f1c06f23fba"
+      }
+    ]
   },
   {
     "id": "wolf-guard-headtakers",
@@ -11558,7 +13872,33 @@
       "dataslate": "pre-launch-provisional"
     },
     "is_legend": false,
-    "points_provisional": true
+    "points_provisional": true,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "0f93-6850-8f14-a351"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "4927-b3e9-d22a-2930"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "c135-aa4c-6d86-2e05"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "d4ef-1ddc-1ed5-5156"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "8d93ba37-ccb2-573b-ac1a-19ae62eb92e8"
+      },
+      {
+        "namespace": "mfm",
+        "id": "966dd7c1-7db6-47a4-ad41-fabaa1c0f053"
+      }
+    ]
   },
   {
     "id": "iron-priest",
@@ -11618,7 +13958,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3212-bec7-a50e-3363"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "36402ee1-25bb-540f-8ebd-b42ec847a408"
+      },
+      {
+        "namespace": "mfm",
+        "id": "79db442b-77b7-4244-86ca-0c9d3798318e"
+      }
+    ]
   },
   {
     "id": "njal-stormcaller",
@@ -11680,7 +14034,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bd47-a00a-e70-abd6"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4e1ce088-51f7-5366-90d0-bc8ad197383f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a66189e5-5ec5-4dd6-9a09-b4a465115668"
+      }
+    ]
   },
   {
     "id": "blood-claws",
@@ -11744,7 +14112,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fa8f-f5a2-993-bdbb"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "509a8a8a-43d8-5db1-98f2-823ea51919e9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "567ac9f4-d173-49f4-bbb4-99bb63bea0f5"
+      }
+    ]
   },
   {
     "id": "ulrik-the-slayer",
@@ -11806,7 +14188,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "fc7c-83a5-7106-41ab"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "2ffa5346-6ffc-517d-9767-1fdbe0f895c2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "896e1a38-bb75-4ce6-a631-fa727b870cb1"
+      }
+    ]
   },
   {
     "id": "logan-grimnar",
@@ -11870,7 +14266,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c65-46c6-3a62-80c"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "75374f5c-5b30-5b87-b2e4-1f8c176b21e6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3786f037-dab8-4c69-9173-3946fe7044b3"
+      }
+    ]
   },
   {
     "id": "wolf-guard-terminators",
@@ -11968,6 +14378,20 @@
         "count": 4,
         "per_models": 10
       }
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ca30-caf3-d7a8-1d32"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "b2efd0c3-1e96-53b3-af25-531fda7b309b"
+      },
+      {
+        "namespace": "mfm",
+        "id": "70485a61-879a-4bcf-b69b-66ce195b9c9e"
+      }
     ]
   },
   {
@@ -12036,7 +14460,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "91fa-49ac-5b0a-c155"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "91b61de1-b739-56ea-9a66-5c2c3d1bf286"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6a88fb5f-9a97-4ceb-a25c-1990c09eb2c0"
+      }
+    ]
   },
   {
     "id": "wulfen-with-storm-shields",
@@ -12113,7 +14551,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "4c72-3f0c-7f94-af96"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "d519a668-ba66-5ac5-8b50-a18f2fdf6ebb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6b5acbd0-f884-4c6e-81e5-d48bef177d26"
+      }
+    ]
   },
   {
     "id": "bjorn-the-fell-handed",
@@ -12178,7 +14630,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "c35a-6d78-2169-3d23"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "edd355c2-4e85-5611-823c-cb639b3b193e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c5acd20b-d9dc-4ba1-800e-1f9157533cda"
+      }
+    ]
   },
   {
     "id": "arjac-rockfist",
@@ -12238,7 +14704,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "a9c8-1a6-a0e1-7698"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cede527d-411f-53f3-b0cd-f0770b1937c6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a8dc6d02-1303-4d45-bbca-4ddb1406451c"
+      }
+    ]
   },
   {
     "id": "wolf-guard-battle-leader",
@@ -12301,7 +14781,21 @@
     },
     "is_legend": false,
     "points_provisional": false,
-    "attachment_role": "leader"
+    "attachment_role": "leader",
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "bbdb-49fd-da4d-3d7a"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "4dec53de-2d15-5154-b6c2-4e172f493255"
+      },
+      {
+        "namespace": "mfm",
+        "id": "27e2604f-8c2c-404c-a711-5e36d0512e7c"
+      }
+    ]
   },
   {
     "id": "wolf-scouts",
@@ -12381,7 +14875,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "ee6b-3815-3a1a-6458"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "c086546e-a615-5212-be4a-d91d1f6a1b70"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f21a10ef-9b8b-4735-9d72-30000c0e92b1"
+      }
+    ]
   },
   {
     "id": "wulfen",
@@ -12457,7 +14965,25 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "1913-4915-74c0-9b7d"
+      },
+      {
+        "namespace": "bsdata",
+        "id": "d937-bd7d-618d-4e2d"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "6f5e1517-b22e-544e-bf10-b3b3a2d66daf"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e769d914-d77d-4974-ba44-9239d933fb0f"
+      }
+    ]
   },
   {
     "id": "murderfang",
@@ -12521,7 +15047,21 @@
       "dataslate": "launch"
     },
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "6ef5-6700-d888-df3b"
+      },
+      {
+        "namespace": "game-datacards",
+        "id": "cbc3fcf5-ecb4-5134-a733-a67e904e4698"
+      },
+      {
+        "namespace": "mfm",
+        "id": "084406d6-188c-4a7b-a783-a45599ea6f0e"
+      }
+    ]
   },
   {
     "id": "eradicator-squad-with-heavy-bolters",
@@ -12576,6 +15116,16 @@
     },
     "ability_ids": [
       "overlapping-detonations"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "3bc7-8328-a080-3958"
+      },
+      {
+        "namespace": "mfm",
+        "id": "9a12ed08-8333-4f62-860e-946b35f3e3f6"
+      }
     ]
   },
   {
@@ -12639,6 +15189,16 @@
     "ability_ids": [
       "purgation-run",
       "deep-strike"
+    ],
+    "external_refs": [
+      {
+        "namespace": "bsdata",
+        "id": "2e1f-9342-f5e8-37ab"
+      },
+      {
+        "namespace": "mfm",
+        "id": "c56c8e39-c3b7-4e5e-83d9-62e07801563d"
+      }
     ]
   },
   {
@@ -12695,6 +15255,12 @@
     "ability_ids": [
       "relic-shield",
       "master-of-war"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "4a70c609-1728-4ccb-99be-b609ef18575c"
+      }
     ]
   },
   {
@@ -12750,6 +15316,12 @@
     },
     "ability_ids": [
       "stalwart-defenders"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "0080dcbd-c2de-4b82-a7a7-e94c47fd54f4"
+      }
     ]
   },
   {
@@ -12800,7 +15372,13 @@
       "shape": "oval",
       "width": 105,
       "length": 70
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e46bda3b-7f50-4bd0-a7a4-d661e3814485"
+      }
+    ]
   },
   {
     "id": "assault-force-librarian",
@@ -12856,6 +15434,12 @@
     },
     "ability_ids": [
       "empyric-insight"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e45bd259-44a9-4d11-b3f7-b7c60acd1c48"
+      }
     ]
   },
   {
@@ -12911,6 +15495,12 @@
     },
     "ability_ids": [
       "rapid-reactions"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "9a248fbd-de4c-497f-8e05-0252056811c0"
+      }
     ]
   },
   {
@@ -12965,7 +15555,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "60d581a1-5162-42c1-9e12-447d031331b6"
+      }
+    ]
   },
   {
     "id": "vow-sworn-bladeguard-veteran-squad",
@@ -13016,7 +15612,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c69e3176-1de4-45a7-a0b7-89f5447b7376"
+      }
+    ]
   },
   {
     "id": "vow-sworn-crusader-squad",
@@ -13075,7 +15677,13 @@
       "combat-patrol"
     ],
     "is_legend": false,
-    "points_provisional": false
+    "points_provisional": false,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "5b5b33d8-f43d-4abc-a3cc-3deab3172fac"
+      }
+    ]
   },
   {
     "id": "vow-sworn-sword-brethren-squad",
@@ -13126,7 +15734,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "4e0229aa-fefd-4c27-b43a-0d07fc7a4f65"
+      }
+    ]
   },
   {
     "id": "captain-raldeo",
@@ -13183,6 +15797,12 @@
     },
     "ability_ids": [
       "targeted-intercession"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "553fb477-1c74-4f86-a96f-f630a56fcdad"
+      }
     ]
   },
   {
@@ -13239,6 +15859,12 @@
     },
     "ability_ids": [
       "targeted-intercession"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "27968cc7-61ae-4baa-a05a-f9f77088e9c4"
+      }
     ]
   },
   {
@@ -13348,7 +15974,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "3a2bcb02-ddcd-49cf-b308-85e74a481eec"
+      }
+    ]
   },
   {
     "id": "vengeful-brethren-bladeguard-veteran-squad",
@@ -13409,7 +16041,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "d0be44a1-47bd-4d27-9ba6-7b98377bc597"
+      }
+    ]
   },
   {
     "id": "vengeful-brethren-hellblaster-squad",
@@ -13460,7 +16098,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 32
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "48eb4b77-fea4-499e-ba38-f9a88b7104aa"
+      }
+    ]
   },
   {
     "id": "vengeful-brethren-intercessor-squad",
@@ -13513,7 +16157,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 32
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1a4d6108-0711-43a9-a68d-e1cff3b2b4d5"
+      }
+    ]
   },
   {
     "id": "askars-wolfpack-blood-claws",
@@ -13566,7 +16216,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 32
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "a3304419-ee30-4968-82f4-a0ab449ec6b7"
+      }
+    ]
   },
   {
     "id": "askars-wolfpack-wolf-guard-terminators",
@@ -13617,7 +16273,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "1c53150a-ce0c-4be8-a25e-346350b00385"
+      }
+    ]
   },
   {
     "id": "askars-wolfpack-wulfen",
@@ -13666,7 +16328,13 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "cbb8c197-ed21-44f5-b59e-6a510286ba64"
+      }
+    ]
   },
   {
     "id": "fyrri-askar",
@@ -13720,6 +16388,12 @@
     "base_size_mm": {
       "shape": "round",
       "diameter": 40
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "2f3bb2ac-8cf3-4d85-a94a-60d737284e33"
+      }
+    ]
   }
 ]

@@ -15,7 +15,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "1fbb59ed-87a1-571c-a5f8-7e99e4ff2b03"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bbc09d5c-a926-4660-a0a9-e9bf51301379"
+      }
+    ]
   },
   {
     "id": "supa-glowy-fing-dread-mob",
@@ -33,7 +43,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d65cf378-ab49-51d4-afcb-5ba71e5d86b1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6d5b6077-f812-4cdf-9f73-fff6c455516c"
+      }
+    ]
   },
   {
     "id": "press-it-fasta-dread-mob",
@@ -51,7 +71,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "04a94fd0-edd9-55c8-b512-5e67f149bed9"
+      },
+      {
+        "namespace": "mfm",
+        "id": "23079735-4f0d-42eb-b660-665e5c3cb72f"
+      }
+    ]
   },
   {
     "id": "gitfinder-gogglez-dread-mob",
@@ -69,7 +99,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "64bb884b-743a-50d0-b021-1252e6db152f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "feb611dd-912d-42c4-acd1-c9e0922bd5aa"
+      }
+    ]
   },
   {
     "id": "runnin-boots-blitz-brigade",
@@ -88,7 +128,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "20a7fc90-21c1-59bb-b2c2-f25b39c7e4ce"
+      },
+      {
+        "namespace": "mfm",
+        "id": "fb854ed4-d89a-48fe-8885-668fc666fb57"
+      }
+    ]
   },
   {
     "id": "blitzkaptin-blitz-brigade",
@@ -106,7 +156,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "95ef4141-9419-52c2-90f5-c7748f09bef2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "1bda534d-da5b-4e7f-b5ee-4fd9b2a9c321"
+      }
+    ]
   },
   {
     "id": "supercharged-squig-oil-blitz-brigade",
@@ -124,7 +184,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "521d3faa-30d4-52ea-aba7-d937a954f96e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b17429f1-34f9-4b96-89b7-43e46a1146be"
+      }
+    ]
   },
   {
     "id": "tuff-git-blitz-brigade",
@@ -143,7 +213,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "48fe8dad-0574-55e1-86bc-7add13404efb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "64087f3d-3911-4ed5-bffd-419226e7de28"
+      }
+    ]
   },
   {
     "id": "dreadherder-dread-mob",
@@ -175,6 +255,16 @@
     },
     "keyword_restrictions": [
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b1dff2e8-981b-5e96-996a-f9283fcbc48a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6e1ce3ba-cf8c-4f03-8826-d8c32b03c38c"
+      }
     ]
   },
   {
@@ -191,6 +281,16 @@
     },
     "keyword_restrictions": [
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "77cee509-35ac-5ef7-a91b-5cf16abd0a57"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7387cdc9-10f1-49b5-846f-bd74d0990559"
+      }
     ]
   },
   {
@@ -207,6 +307,16 @@
     },
     "keyword_restrictions": [
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5dd256af-85d2-5036-b709-4fad6166faa5"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5276cd34-90a7-4ddb-ae3b-bbadf3775764"
+      }
     ]
   },
   {
@@ -223,6 +333,16 @@
     },
     "keyword_restrictions": [
       "Beastboss on Squigosaur"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4c37071f-c693-5efb-a215-1bc7648e04a2"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bb4fc923-48a3-4b7f-a58e-08e2bc7bdbe4"
+      }
     ]
   },
   {
@@ -240,6 +360,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a2af83f9-581c-530f-bb91-decaf1bdef0a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "987fbbf7-d3d3-4e55-a058-14332291177a"
+      }
     ]
   },
   {
@@ -764,6 +894,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Warboss in Mega Armour"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7705aa17-edb3-508a-be7e-bdcc60425dff"
+      },
+      {
+        "namespace": "mfm",
+        "id": "3d83cfeb-581e-435d-b322-029c6adf5add"
+      }
     ]
   },
   {
@@ -783,6 +923,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4f02b2d6-abe5-5d7c-b48b-071811c2ccd4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "e291c41b-6522-4912-a96a-b720d4c622e7"
+      }
     ]
   },
   {
@@ -802,6 +952,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "337bf07f-eadc-53e1-8437-3ef3f9a2bd3c"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7c2dd985-67a3-45f1-bd44-f0184b602442"
+      }
     ]
   },
   {
@@ -820,6 +980,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e477df3c-dc56-5202-b784-dfab86c50736"
+      },
+      {
+        "namespace": "mfm",
+        "id": "dfd09bc4-e093-4201-b0db-c782a4868a24"
+      }
     ]
   },
   {
@@ -838,6 +1008,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f13e040e-7121-58a3-a1a7-b532febd4ffd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "193c7ee0-362c-4c27-92f7-97c33317dba4"
+      }
     ]
   },
   {
@@ -856,6 +1036,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Beastboss on Squigosaur"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f4002ad4-ff7e-5982-ac7d-0190fef0295a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "331bb820-2848-4288-86db-75419c914d31"
+      }
     ]
   },
   {
@@ -875,6 +1065,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c14bcbec-fcd0-50d5-bd24-5a7f7e719a86"
+      },
+      {
+        "namespace": "mfm",
+        "id": "580c5d4d-7866-4f6c-bf44-5f82dc26e1ec"
+      }
     ]
   },
   {
@@ -893,6 +1093,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Deffkilla Wartrike"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "88394912-1d74-5086-8803-d1459bdd398f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "33b00a2b-b234-4caf-b5bf-59de4374b7e7"
+      }
     ]
   },
   {
@@ -911,6 +1121,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Deffkilla Wartrike"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "cca301d6-7791-562e-9172-a36a3051bafb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a85af4a1-7f20-456c-829f-ca0ccf55f026"
+      }
     ]
   },
   {
@@ -930,6 +1150,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Warboss"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2e728759-0b08-59a6-9f57-aa2c1e513262"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f23a65d4-01ec-4c5a-b35a-6ad7664b7fd0"
+      }
     ]
   },
   {
@@ -948,6 +1178,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Beast Snagga"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4e501d88-8a90-5825-ac3a-0d8d94ee7aa0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "054ed69c-a8e8-4469-80bf-1d1e39dc5103"
+      }
     ]
   },
   {
@@ -973,6 +1213,12 @@
     ],
     "exclusion_keywords": [
       "Mega Armour"
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "64bce989-3720-4e84-a38f-4f34a7c6cf5a"
+      }
     ]
   },
   {
@@ -992,6 +1238,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "615dbb49-1211-5bc2-83e4-f8a30440c872"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6516c10a-9123-4046-8c02-5567433b3290"
+      }
     ]
   },
   {
@@ -1011,6 +1267,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Warboss"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ae96d045-8e1f-5e09-abd9-e475672d6ccd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "86673872-5905-47cb-a23e-382723db48cd"
+      }
     ]
   },
   {
@@ -1029,6 +1295,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Beast Snagga"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "cbd957ad-712c-59d3-bbde-4ecd6bf94bc0"
+      },
+      {
+        "namespace": "mfm",
+        "id": "7a2c90a9-5645-451d-971a-7c3068698401"
+      }
     ]
   },
   {
@@ -1048,6 +1324,16 @@
     "keyword_restrictions": [
       "Infantry",
       "Warboss"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "3b39df9c-3267-5482-8d06-9ab7fc5a078f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "b26524a0-05cb-4f6d-a0ee-eb29836d5cd5"
+      }
     ]
   },
   {
@@ -1066,6 +1352,16 @@
     "max_targets": 1,
     "keyword_restrictions": [
       "Orks"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c1b72e4f-c461-5b1f-9568-86b2b968355a"
+      },
+      {
+        "namespace": "mfm",
+        "id": "04e821f4-4153-49f4-b6b4-365816821e2c"
+      }
     ]
   }
 ]

@@ -91,6 +91,26 @@ Display name, if the record has one — drives [Collection.find](../classes/Coll
 `string` \| `undefined`
 
 ***
+### externalRefsOf?
+
+> `optional` **externalRefsOf?**: (`item`) => readonly `object`[] \| `null` \| `undefined`
+
+Defined in: [data/collection.ts:69](https://github.com/wn-mitch/40kdc-data/blob/c9c88e6391023daf41c88513e9ecb21950c56b1c/tools/src/data/collection.ts#L69)
+
+Stable source identities indexed by [Collection.byExternalRef](../classes/Collection.md#byexternalref).
+
+#### Parameters
+
+##### item
+
+`T`
+
+#### Returns
+
+readonly `object`[] \| `null` \| `undefined`
+
+***
+
 
 ### factionOf?
 

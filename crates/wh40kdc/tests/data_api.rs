@@ -6,7 +6,7 @@
 
 #![cfg(feature = "bundled-data")]
 
-use wh40kdc::{normalize_name, Dataset, Phase, RawData};
+use wh40kdc::{normalize_name, Collection, Dataset, ExternalReference, Phase, RawData};
 
 // --- normalize_name ---------------------------------------------------------
 
@@ -112,6 +112,50 @@ fn by_faction_disambiguates_a_shared_unit() {
             "by_faction({f}) should contain the priest"
         );
     }
+}
+
+#[test]
+fn by_external_ref_returns_every_exact_match() {
+    #[derive(Debug)]
+    struct Item {
+        id: &'static str,
+        refs: Vec<ExternalReference>,
+    }
+    let reference = |namespace: &str, id: &str| {
+        serde_json::from_value(serde_json::json!({ "namespace": namespace, "id": id })).unwrap()
+    };
+    let collection = Collection::build(
+        vec![
+            Item {
+                id: "first",
+                refs: vec![
+                    reference("source", "shared"),
+                    reference("source", "alternate"),
+                ],
+            },
+            Item {
+                id: "second",
+                refs: vec![reference("source", "shared")],
+            },
+        ],
+        |item| item.id.to_string(),
+        |_| None,
+        |_| None,
+        |item| item.id.to_string(),
+    )
+    .with_external_refs(|item| &item.refs);
+
+    let ids = |namespace: &str, id: &str| {
+        collection
+            .by_external_ref(namespace, id)
+            .into_iter()
+            .map(|item| item.id)
+            .collect::<Vec<_>>()
+    };
+    assert_eq!(ids("source", "shared"), vec!["first", "second"]);
+    assert_eq!(ids("source", "alternate"), vec!["first"]);
+    assert!(ids("Source", "shared").is_empty());
+    assert!(ids("source", "Shared").is_empty());
 }
 
 // --- unscoped-lookup guard ---------------------------------------------------

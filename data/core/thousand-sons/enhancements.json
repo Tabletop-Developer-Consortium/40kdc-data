@@ -16,7 +16,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b7c701ed-32e6-54f2-9cb1-96de862eae15"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4ee4139b-25fd-42d7-95c1-7ec98fdf5492"
+      }
+    ]
   },
   {
     "id": "incandaeum-grand-coven",
@@ -34,7 +44,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "876096da-bbaf-5dc7-9f50-abb80ed8d7dd"
+      },
+      {
+        "namespace": "mfm",
+        "id": "49f1c08f-ace4-471d-bf57-1f1be7b0f523"
+      }
+    ]
   },
   {
     "id": "umbralefic-crystal-grand-coven",
@@ -52,11 +72,21 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f8224d58-36a5-55f4-a475-4b4f38c61495"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f2e24d64-f111-42bf-84f6-cd1ae234afec"
+      }
+    ]
   },
   {
     "id": "eldritch-vortex-of-etaph-grand-coven",
-    "name": "Eldritch Vortex of E\u2019Taph",
+    "name": "Eldritch Vortex of E’Taph",
     "detachment_id": "grand-coven",
     "cost": 35,
     "keyword_restrictions": [
@@ -70,7 +100,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8178a678-3fdb-5df7-8bc8-1cfe8b8b9018"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ffcd2ea7-c818-42ae-9bf0-0109b5fadc37"
+      }
+    ]
   },
   {
     "id": "arcane-might-hexwarp-thrallband",
@@ -88,7 +128,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4aa02c68-5ad7-5447-96e3-ec472e76f5dc"
+      },
+      {
+        "namespace": "mfm",
+        "id": "23b38434-e051-4b26-a841-cbe2d62b5904"
+      }
+    ]
   },
   {
     "id": "empowered-manifestation-hexwarp-thrallband",
@@ -106,7 +156,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a1f4c88e-58a5-5422-b135-26a95467f13e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "418bfe60-1e00-4326-b88d-63ee710b7bea"
+      }
+    ]
   },
   {
     "id": "empyric-onslaught-hexwarp-thrallband",
@@ -124,7 +184,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "485db1b0-f74c-5ec3-a526-ba74d778d372"
+      },
+      {
+        "namespace": "mfm",
+        "id": "a372c063-aacf-450e-8d87-d5e447b9872b"
+      }
+    ]
   },
   {
     "id": "noctilith-mantle-hexwarp-thrallband",
@@ -142,7 +212,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a344e349-5fce-5743-8314-cb3ccae23fdb"
+      },
+      {
+        "namespace": "mfm",
+        "id": "8d464a37-9c4a-4368-814e-7326236c2f28"
+      }
+    ]
   },
   {
     "id": "nethershriek-mind-eater-changehost-of-deceit",
@@ -165,6 +245,16 @@
       [
         "Lord of Change"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4839df02-cc1e-510e-8cf4-47aa6f576437"
+      },
+      {
+        "namespace": "mfm",
+        "id": "077526d6-2583-4c1b-a766-a271ebe685e9"
+      }
     ]
   },
   {
@@ -184,7 +274,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0648e288-c025-5672-ad78-94ef997a96f4"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d096fcb5-f375-4a1b-93df-c2e455dabeba"
+      }
+    ]
   },
   {
     "id": "duplicitous-malediction-changehost-of-deceit",
@@ -207,6 +307,16 @@
       [
         "Lord of Change"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "622a5fd2-67bf-5e04-86d1-aed157886d98"
+      },
+      {
+        "namespace": "mfm",
+        "id": "72eca6a9-aa37-41e5-b78b-f1010327706d"
+      }
     ]
   },
   {
@@ -226,7 +336,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "50926b25-976a-5048-976f-0f2a77184418"
+      },
+      {
+        "namespace": "mfm",
+        "id": "aaf89db6-ceaf-4051-936b-fcb7ad589ed9"
+      }
+    ]
   },
   {
     "id": "warpmeld-dagger-warpmeld-pact",
@@ -244,7 +364,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e3d3fe88-a20f-559e-85b1-b029f8226a43"
+      },
+      {
+        "namespace": "mfm",
+        "id": "0e2f4b29-498d-4e89-9af1-373f8d3ae792"
+      }
+    ]
   },
   {
     "id": "diamond-of-distortion-warpmeld-pact",
@@ -262,7 +392,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "382a3646-c3e3-5da8-a5e8-a26b19beea2e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "6178ef4b-4657-4b5b-8292-735d191e1b46"
+      }
+    ]
   },
   {
     "id": "bray-lord-warpmeld-pact",
@@ -288,6 +428,16 @@
     ],
     "attachment_bodyguard_ids": [
       "tzaangors"
+    ],
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "8174f967-6b5d-5bfa-a3d5-5dedaf7a0ba1"
+      },
+      {
+        "namespace": "mfm",
+        "id": "97f56fc4-c754-4f63-9e7a-7c4da6a1b3ad"
+      }
     ]
   },
   {
@@ -306,7 +456,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "854d3e20-8be4-5068-9cb5-7a4245cc30f7"
+      },
+      {
+        "namespace": "mfm",
+        "id": "ec87a2f7-7b37-4475-aecc-e1b855221749"
+      }
+    ]
   },
   {
     "id": "risen-rubricae-rubricae-phalanx",
@@ -324,7 +484,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "01eb5357-565e-55cd-805c-e92828ea50b6"
+      },
+      {
+        "namespace": "mfm",
+        "id": "5217a83b-742c-4e2a-966d-8ce26ec5adf8"
+      }
+    ]
   },
   {
     "id": "arcane-thralls-aura-rubricae-phalanx",
@@ -342,7 +512,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "46b00514-cfa3-5a51-aa7b-4f575362ed46"
+      },
+      {
+        "namespace": "mfm",
+        "id": "2f2c0eee-bd59-406c-bd72-63b5b68681bb"
+      }
+    ]
   },
   {
     "id": "lord-of-the-rubricae-rubricae-phalanx",
@@ -360,7 +540,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "71fb43bf-e72d-5eca-8322-1930cda54a13"
+      },
+      {
+        "namespace": "mfm",
+        "id": "f4d1b38c-22ac-42d7-98a4-1d944dd63b52"
+      }
+    ]
   },
   {
     "id": "stave-abominus-rubricae-phalanx",
@@ -379,7 +569,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a5a7c4ec-692c-51d6-8431-6f533399e856"
+      },
+      {
+        "namespace": "mfm",
+        "id": "01116f1d-09f7-43b3-9a8e-30ee3eaeada6"
+      }
+    ]
   },
   {
     "id": "warp-syphon-warpforged-cabal",
@@ -397,7 +597,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "f0875044-8664-5d31-9ba4-689880f33491"
+      },
+      {
+        "namespace": "mfm",
+        "id": "d65b60ec-d113-4061-b008-3bb63940a2e3"
+      }
+    ]
   },
   {
     "id": "perplexing-cloak-warpforged-cabal",
@@ -416,7 +626,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e176d2a6-7c5d-5433-b327-505806600f72"
+      },
+      {
+        "namespace": "mfm",
+        "id": "857f4218-0a35-44db-b747-7f37a411fd9d"
+      }
+    ]
   },
   {
     "id": "biomechanical-mutation-warpforged-cabal",
@@ -434,7 +654,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0a9b17bb-e1b7-5c4c-a1f8-8bdcfd3f6b5f"
+      },
+      {
+        "namespace": "mfm",
+        "id": "bc6605cd-c889-430d-b851-c6275a59e76d"
+      }
+    ]
   },
   {
     "id": "warp-cursed-runemaster-warpforged-cabal",
@@ -452,7 +682,17 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2cbf74a2-f8e9-546a-a745-d3004062073e"
+      },
+      {
+        "namespace": "mfm",
+        "id": "4f20a5e0-7e45-486f-b80d-7f769e1c6ece"
+      }
+    ]
   },
   {
     "id": "eruption-of-vitality-ritual-of-regeneration",
@@ -479,6 +719,12 @@
         "Psyker",
         "Thousand Sons"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "aa1cab90-1c8f-4fc5-aa0e-a059876c9168"
+      }
     ]
   },
   {
@@ -506,6 +752,12 @@
         "Psyker",
         "Thousand Sons"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "b0d14bf1-434c-499d-b74d-aae2f320c5cf"
+      }
     ]
   },
   {
@@ -529,6 +781,12 @@
       [
         "Exalted Sorcerer"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "2d9eaedb-d4b1-4d07-9cc4-3bb50194cfeb"
+      }
     ]
   },
   {
@@ -552,6 +810,12 @@
       [
         "Exalted Sorcerer"
       ]
+    ],
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "587e90c8-b30d-4dfb-81b5-537e0fecce1e"
+      }
     ]
   },
   {
@@ -571,7 +835,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": false,
-    "max_targets": 1
+    "max_targets": 1,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "3df871e5-cb4a-4570-93ea-c3bde4059876"
+      }
+    ]
   },
   {
     "id": "thicket-of-bladed-bone-upgrade-servants-of-change",
@@ -589,7 +859,13 @@
     },
     "points_provisional": false,
     "upgrade_tag": true,
-    "max_targets": 3
+    "max_targets": 3,
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "cb50a092-b387-493d-a329-fb3ebb9d603a"
+      }
+    ]
   },
   {
     "id": "foresight-of-the-changer-prism-of-zadophon",
@@ -609,7 +885,13 @@
       "Prism of Zadophon",
       "Tzaangor Shaman"
     ],
-    "ability_id": "foresight-of-the-changer-prism-of-zadophon"
+    "ability_id": "foresight-of-the-changer-prism-of-zadophon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "c2166ef6-25fa-4eab-98d0-b66d321fdc97"
+      }
+    ]
   },
   {
     "id": "warp-tainted-shells-prism-of-zadophon",
@@ -629,6 +911,12 @@
       "Daemon Prince",
       "Prism of Zadophon"
     ],
-    "ability_id": "warp-tainted-shells-prism-of-zadophon"
+    "ability_id": "warp-tainted-shells-prism-of-zadophon",
+    "external_refs": [
+      {
+        "namespace": "mfm",
+        "id": "e472737b-595b-4329-8875-1a94fc04a71d"
+      }
+    ]
   }
 ]

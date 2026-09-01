@@ -1,6 +1,9 @@
 export const GAME_DATACARDS_BASE =
   "https://raw.githubusercontent.com/game-datacards/datasources/main/10th/json";
 
+export const GAME_DATACARDS_IDENTITY_BASE =
+  "https://raw.githubusercontent.com/game-datacards/datasources/main/11th/gdc";
+
 /** Repository faction id → exact game-datacards source file basenames. */
 export const GAME_DATACARDS_FACTION_FILES: Readonly<
   Record<string, readonly string[]>

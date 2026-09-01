@@ -1,5 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
+import { isDeepStrictEqual } from "node:util";
 import type { ExternalReference } from "./generated.js";
 import {
   addExternalRef,
@@ -98,6 +99,23 @@ export class CoreExternalRefStore {
     return "added";
   }
 
+  removeNamespace(namespace: string): number {
+    let removed = 0;
+    for (const file of this.files) {
+      for (const record of file.records) {
+        const refs = record.external_refs;
+        if (!refs) continue;
+        const retained = refs.filter((ref) => ref.namespace !== namespace);
+        if (retained.length === refs.length) continue;
+        removed += refs.length - retained.length;
+        if (retained.length > 0) record.external_refs = retained;
+        else delete record.external_refs;
+        file.dirty = true;
+      }
+    }
+    return removed;
+  }
+
   get(
     entityType: ExternalRefEntityType,
     dir: string,
@@ -149,7 +167,11 @@ export class CoreExternalRefStore {
 
   stagedWrites(): StagedWrite[] {
     return this.files
-      .filter((file) => file.dirty)
+      .filter(
+        (file) =>
+          file.dirty &&
+          !isDeepStrictEqual(readJsonArray(file.path), file.records),
+      )
       .sort((left, right) => left.path.localeCompare(right.path))
       .map((file) => ({ path: file.path, value: file.records }));
   }

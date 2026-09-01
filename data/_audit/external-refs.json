@@ -18,12 +18,12 @@
       "with_external_refs": 1089,
       "covered_entities_by_namespace": {
         "bsdata": 997,
-        "game-datacards": 989,
+        "game-datacards": 999,
         "mfm": 1089
       },
       "references_by_namespace": {
         "bsdata": 1061,
-        "game-datacards": 992,
+        "game-datacards": 999,
         "mfm": 1099
       }
     },
@@ -39,37 +39,37 @@
     },
     "enhancement": {
       "entities": 995,
-      "with_external_refs": 961,
+      "with_external_refs": 945,
       "covered_entities_by_namespace": {
-        "game-datacards": 764,
+        "game-datacards": 899,
         "mfm": 945
       },
       "references_by_namespace": {
-        "game-datacards": 764,
+        "game-datacards": 899,
         "mfm": 945
       }
     },
     "stratagem": {
       "entities": 1434,
-      "with_external_refs": 1405,
+      "with_external_refs": 1385,
       "covered_entities_by_namespace": {
-        "game-datacards": 1127,
+        "game-datacards": 1307,
         "mfm": 1384
       },
       "references_by_namespace": {
-        "game-datacards": 1127,
+        "game-datacards": 1307,
         "mfm": 1384
       }
     },
     "weapon": {
       "entities": 3177,
-      "with_external_refs": 3036,
+      "with_external_refs": 3088,
       "covered_entities_by_namespace": {
-        "bsdata": 2807,
+        "bsdata": 2859,
         "mfm": 3006
       },
       "references_by_namespace": {
-        "bsdata": 3341,
+        "bsdata": 3393,
         "mfm": 3189
       }
     },
@@ -85,6 +85,22 @@
     }
   },
   "fan_out": [
+    {
+      "namespace": "bsdata",
+      "id": "050a-60ad-b309-77f5",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon-burna-boyz",
+          "faction_id": "orks"
+        }
+      ]
+    },
     {
       "namespace": "bsdata",
       "id": "0e77-2630-6f58-75ce",
@@ -276,6 +292,22 @@
           "entity_type": "weapon",
           "id": "armoured-tracks-chaos-vindicator",
           "faction_id": "thousand-sons"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "1fa0-d99a-154f-ffd8",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "big-shoota",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "big-shoota-boyz",
+          "faction_id": "orks"
         }
       ]
     },
@@ -549,6 +581,27 @@
     },
     {
       "namespace": "bsdata",
+      "id": "29e9-cd9b-66bd-fe60",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa-boyz",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa-nobz",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "2b1f-798d-9bca-4ad9",
       "targets": [
         {
@@ -664,6 +717,22 @@
           "entity_type": "weapon",
           "id": "close-combat-weapon-kelermorph",
           "faction_id": "genestealer-cults"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "32ab-c37c-b71f-8415",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "kombi-rokkit",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "kombi-rokkit-boyz",
+          "faction_id": "orks"
         }
       ]
     },
@@ -901,6 +970,38 @@
     },
     {
       "namespace": "bsdata",
+      "id": "3daf-71a1-f386-435b",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "choppa-bannernob",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "3f62-4655-f148-baff",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-big-mek-dakkarig",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "3f91-0cab-f770-21d9",
       "targets": [
         {
@@ -970,6 +1071,22 @@
     },
     {
       "namespace": "bsdata",
+      "id": "44dd-ab41-a003-f560",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-wartrakk",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "453b-e939-8b7d-68a2",
       "targets": [
         {
@@ -1028,6 +1145,22 @@
     },
     {
       "namespace": "bsdata",
+      "id": "4e6a-844c-26bf-2b5d",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "choppa-beast-snagga-boyz",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "4e85-9167-68ce-8738",
       "targets": [
         {
@@ -1044,6 +1177,22 @@
           "entity_type": "weapon",
           "id": "grenade-launcher-tempestus-scions",
           "faction_id": "astra-militarum"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "507e-5415-d6c5-f5f5",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "smasha-gun",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "smasha-gun-mek-gunz",
+          "faction_id": "orks"
         }
       ]
     },
@@ -1205,6 +1354,22 @@
     },
     {
       "namespace": "bsdata",
+      "id": "5bf6-ed4b-e32a-d7c1",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa-kommandos",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "5d22-a8d8-8e57-b8ab",
       "targets": [
         {
@@ -1278,6 +1443,22 @@
     },
     {
       "namespace": "bsdata",
+      "id": "614f-3d6b-88aa-9e15",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa-warboss",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "62ad-da0b-24f7-fe33",
       "targets": [
         {
@@ -1310,6 +1491,22 @@
           "entity_type": "weapon",
           "id": "close-combat-weapon-shroud-runners",
           "faction_id": "aeldari"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "64da-fae7-507d-8b18",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "shoota",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "shoota-beastboss",
+          "faction_id": "orks"
         }
       ]
     },
@@ -1414,6 +1611,38 @@
     },
     {
       "namespace": "bsdata",
+      "id": "6feb-277f-7f31-504a",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "stompy-feet",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "stompy-feet-big-mek-dakkarig",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "7142-4c07-8072-8474",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "big-shoota",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "big-shoota-warboss-in-mega-armour",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "71e2-5897-d6fe-1201",
       "targets": [
         {
@@ -1456,6 +1685,22 @@
           "entity_type": "weapon",
           "id": "force-weapon-sorcerer-in-terminator-armour",
           "faction_id": "thousand-sons"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "752e-cd9b-4721-f0b0",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "slugga",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "slugga-bigboss",
+          "faction_id": "orks"
         }
       ]
     },
@@ -1535,6 +1780,32 @@
     },
     {
       "namespace": "bsdata",
+      "id": "7c7-2cc-12e-c710",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "twin-supa-shoota",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "twin-supa-shoota-blitza-bommer",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "twin-supa-shoota-burna-bommer",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "twin-supa-shoota-dakkajet",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "7d60-17ec-c8ad-1ba4",
       "targets": [
         {
@@ -1562,6 +1833,47 @@
           "entity_type": "weapon",
           "id": "thunder-hammer-tactical-squad",
           "faction_id": "adeptus-astartes"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "80bc-5c89-4125-2253",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-boyz",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-deff-dread",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-gorkanaut",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-kommandos",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-morkanaut",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "rokkit-launcha-tankbustas",
+          "faction_id": "orks"
         }
       ]
     },
@@ -1604,6 +1916,122 @@
           "entity_type": "weapon",
           "id": "close-combat-weapon-hastarii-fusiliers",
           "faction_id": "adeptus-mechanicus"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "8bba-d0bf-1102-2131",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "kustom-shoota",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "kustom-shoota-boyz",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "kustom-shoota-kommandos",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "kustom-shoota-meganobz",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "8ca4-9bdd-d210-624d",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "killsaw",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "killsaw-mek",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "8df-71e4-ccf5-99e8",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon-gretchin",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "8e20-4ae8-9125-42a6",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "beast-snagga-klaw",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "beast-snagga-klaw-beastboss",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "8f0e-a9ba-1cfd-3106",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "burna",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "burna-kommandos",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "8fca-90dd-a784-b5c0",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "choppa-breaka-boyz",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "choppa-flash-gitz",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "choppa-tankbustas",
+          "faction_id": "orks"
         }
       ]
     },
@@ -1855,6 +2283,27 @@
     },
     {
       "namespace": "bsdata",
+      "id": "a325-d197-5553-a355",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw-big-mek",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw-big-mek-in-mega-armour",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "a384-146f-1171-f49f",
       "targets": [
         {
@@ -1866,6 +2315,22 @@
           "entity_type": "weapon",
           "id": "fusion-blaster-commander-in-enforcer-battlesuit",
           "faction_id": "tau-empire"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "a3d0-1971-d5df-1651",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "killsaw",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "killsaw-meganobz",
+          "faction_id": "orks"
         }
       ]
     },
@@ -1997,6 +2462,22 @@
     },
     {
       "namespace": "bsdata",
+      "id": "aecd-6ba5-5558-fee2",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "big-choppa-squighog-boyz",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "b059-adc7-9243-df68",
       "targets": [
         {
@@ -2084,6 +2565,22 @@
     },
     {
       "namespace": "bsdata",
+      "id": "b292-af7e-e129-8336",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon-big-mek-with-shokk-attack-gun",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "b349-9d3a-1a65-3e48",
       "targets": [
         {
@@ -2131,6 +2628,27 @@
     },
     {
       "namespace": "bsdata",
+      "id": "b52d-d0e9-825d-e3a9",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "saw-blades",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "saw-blades-hunta-rig",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "saw-blades-kill-rig",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "b56e-3b3a-25d-2fea",
       "targets": [
         {
@@ -2142,6 +2660,38 @@
           "entity_type": "weapon",
           "id": "close-combat-weapon-vigilant-squad",
           "faction_id": "agents-of-the-imperium"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "b621-5929-fc60-ed8d",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "slugga",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "slugga-boss-snikrot",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "b770-d969-e667-3e1a",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "kannon",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "kannon-gargantuan-squiggoth",
+          "faction_id": "orks"
         }
       ]
     },
@@ -2174,6 +2724,22 @@
           "entity_type": "weapon",
           "id": "power-weapon-hastarii-fusiliers",
           "faction_id": "adeptus-mechanicus"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "bec6-2d9b-d764-288",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon-beast-snagga-boyz",
+          "faction_id": "orks"
         }
       ]
     },
@@ -2455,6 +3021,43 @@
     },
     {
       "namespace": "bsdata",
+      "id": "e17f-30cb-5a48-0ac3",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "spiked-wheels",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "spiked-wheels-boomdakka-snazzwagon",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "e1c3-9162-7c4b-b7da",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon-tankbustas",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "close-combat-weapon-wurrboy",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "e383-791c-b4cf-e0be",
       "targets": [
         {
@@ -2497,6 +3100,22 @@
           "entity_type": "weapon",
           "id": "psycannon-strike-squad",
           "faction_id": "grey-knights"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "e542-78f9-46d8-6c33",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "choppa",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "choppa-boyz",
+          "faction_id": "orks"
         }
       ]
     },
@@ -2634,6 +3253,22 @@
     },
     {
       "namespace": "bsdata",
+      "id": "edac-a910-975a-d4fd",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw-warboss",
+          "faction_id": "orks"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
       "id": "edce-b2da-b8c3-7c8b",
       "targets": [
         {
@@ -2665,6 +3300,27 @@
           "entity_type": "weapon",
           "id": "bolt-pistol-krieg-command-squad",
           "faction_id": "astra-militarum"
+        }
+      ]
+    },
+    {
+      "namespace": "bsdata",
+      "id": "ee65-6385-44ba-3758",
+      "targets": [
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw-boyz",
+          "faction_id": "orks"
+        },
+        {
+          "entity_type": "weapon",
+          "id": "power-klaw-meganobz",
+          "faction_id": "orks"
         }
       ]
     },
@@ -3001,48 +3657,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "06d29cd0-f571-5fe4-a2bf-117f1b127269",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "rapid-embarkation-armoured-speartip"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "rapid-embarkation-firestorm-assault-force"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "086ed7cb-3f50-5ad0-9d0e-6420f05f89db",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "titanic-duel-lords-of-dread"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "titanic-duel-questoris-companions"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "0a7f4234-6d34-5196-b3c9-3c87719b1efe",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "pitiless-hunters-annihilation-legion"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "pitiless-hunters-dread-talons"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "0b020c25-102b-5feb-93f5-5eda796bd1d5",
       "targets": [
         {
@@ -3069,52 +3683,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "0bdbc832-0556-53e7-90aa-2f864a03506e",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "hunters-instincts-shadowmark-talon"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "hunters-instincts-stormlance-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "hunters-instincts-spearpoint-task-force"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "0d4f3365-79e1-5c8b-ad38-05f3c3c27fe3",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "adamantine-mantle-firestorm-assault-force"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "adamantine-mantle-forgefathers-seekers"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "0e1413aa-5cde-5106-b971-584a1e490b10",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "grand-strategist-armoured-infantry"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "grand-strategist-combined-arms"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "10af0717-f94a-5ae6-90f3-427da01cbe73",
       "targets": [
         {
@@ -3131,186 +3699,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "10fac009-6fcc-5480-a123-d57d7b772573",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "dropship-extraction-emperors-shield"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "dropship-extraction-hammer-of-avernii"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "1190816a-dc74-52c2-bd62-26e2fe65ef03",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "contemptuous-disregard-court-of-the-phoenician"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "contemptuous-disregard-veterans-of-the-long-war"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "189f87df-53e3-5494-bedd-241514e5e986",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "slayer-of-champions-slaaneshs-chosen"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "slayer-of-champions-auric-champions"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "193b93ad-e384-5654-841d-f4944f7ef1c2",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "hellfire-rounds-black-spear-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "hellfire-rounds-ordo-xenos-alien-hunters"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "1e21c885-2bf2-56a3-9088-17477f475788",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-1st-company-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-angelic-inheritors"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-anvil-siege-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-armoured-speartip"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-black-spear-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-blade-of-ultramar"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-ceramite-sentinels"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-emperors-shield"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-firestorm-assault-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-forgefathers-seekers"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-gladius-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-hammer-of-avernii"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-headhunter-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-inner-circle-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-ironstorm-spearhead"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-lions-blade-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-ordo-xenos-alien-hunters"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-rage-cursed-onslaught"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-shadowmark-talon"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-spearpoint-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-stormlance-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-the-angelic-host"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-the-lost-brethren"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-unforgiven-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-vanguard-spearhead"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "armour-of-contempt-wrath-of-the-rock"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "1f353fc7-58cc-5e18-a2be-d96b76453d44",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "skyborne-sanctuary-aspect-host"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "skyborne-sanctuary-warhost"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "270018ea-69b6-553f-976f-7dff195a88bf",
       "targets": [
         {
@@ -3322,48 +3710,6 @@
           "entity_type": "unit",
           "id": "razorback",
           "faction_id": "grey-knights"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "299ed59c-451b-57ec-9517-9579aa162279",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "archraider-corsair-coterie"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "archraider-reapers-wager"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "2c66d7b1-c513-567b-91e3-cf1be40a31c5",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "beacon-angelis-black-spear-task-force"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "beacon-angelis-ordo-xenos-alien-hunters"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "365a2986-4e10-59c2-8a27-62e8017d0e91",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "soulsight-armoured-warhost"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "soulsight-devoted-of-ynnead"
         }
       ]
     },
@@ -3427,62 +3773,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "3c933a65-7778-51bb-9baa-ded2326bbf51",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "full-tilt-freeblade-company"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "full-tilt-valourstrike-lance"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "4a2247d8-eb7e-5eb0-8f08-cadf0fd1a700",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "hunters-eye-freeblade-company"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "hunters-eye-spearpoint-task-force"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "4b0d81cd-5507-5f07-bb4b-5eb74b25a561",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "gift-of-foresight-liberator-assault-group"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "gift-of-foresight-warhost"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "4e260f1f-4c83-524b-814e-1bcdd758df20",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "adaptive-tactics-black-spear-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "adaptive-tactics-ordo-xenos-alien-hunters"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "5f021401-11a5-573d-b8e4-43e911156975",
       "targets": [
         {
@@ -3514,21 +3804,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "679ec816-197c-50e7-844f-afd0d62a76ca",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "immolator-forgefathers-seekers"
-        },
-        {
-          "entity_type": "unit",
-          "id": "immolator",
-          "faction_id": "adepta-sororitas"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "690c3a5a-148a-53a2-a43a-194068045ddb",
       "targets": [
         {
@@ -3545,34 +3820,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "71b91715-0532-5449-8709-37b4148a2446",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "dragonfire-rounds-black-spear-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "dragonfire-rounds-ordo-xenos-alien-hunters"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "74bb6a54-70ef-5b0c-9e6c-a66454312904",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "spiteful-demise-lords-of-dread"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "spiteful-demise-shadow-legion"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "76354f4a-b1a5-58d7-a0df-1066c75926e5",
       "targets": [
         {
@@ -3584,20 +3831,6 @@
           "entity_type": "unit",
           "id": "stormtalon-gunship",
           "faction_id": "grey-knights"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "772f9d44-3068-5486-8f12-5ce93773387a",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "celerity-librarius-conclave"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "celerity-banishers"
         }
       ]
     },
@@ -3640,20 +3873,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "7c778992-81c4-558f-8504-39ad4ca59aec",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "deathwing-assault-inner-circle-task-force"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "deathwing-assault-wrath-of-the-rock"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "8939a3d9-e5c9-5552-96e6-689e5885c77b",
       "targets": [
         {
@@ -3665,20 +3884,6 @@
           "entity_type": "unit",
           "id": "watch-captain-artemis",
           "faction_id": "agents-of-the-imperium"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "8d0e62ed-e724-5c02-98d8-de8018891c22",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "kraken-rounds-black-spear-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "kraken-rounds-ordo-xenos-alien-hunters"
         }
       ]
     },
@@ -3742,20 +3947,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "945a9688-343b-5263-aa40-4d7797fa87f1",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "relentless-terror-dread-talons"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "relentless-terror-nightmare-hunt"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "94fc8f61-aafe-53c9-9cad-e37a8a6dd614",
       "targets": [
         {
@@ -3803,48 +3994,6 @@
           "entity_type": "unit",
           "id": "chaos-rhino",
           "faction_id": "world-eaters"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "96554bc2-6477-5d3b-9545-6b783cdbd1a5",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "immolation-protocols-firestorm-assault-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "immolation-protocols-forgefathers-seekers"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "974acc99-4e63-5070-8be8-b14cdcc37bb4",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "forged-in-battle-firestorm-assault-force"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "forged-in-battle-forgefathers-seekers"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "98564edb-b689-57db-8426-be2f66e40e77",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "bounding-advance-saga-of-the-hunter"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "bounding-advance-unending-swarm"
         }
       ]
     },
@@ -3908,20 +4057,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "a8fa56c0-90fe-5cef-930f-7ef50a1a38d4",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "burning-vengeance-firestorm-assault-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "burning-vengeance-forgefathers-seekers"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "abef589f-3101-5e59-97f0-5750fd04cdbf",
       "targets": [
         {
@@ -3949,20 +4084,6 @@
           "entity_type": "unit",
           "id": "chaos-terminators",
           "faction_id": "world-eaters"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "b1b6d092-fd36-5555-9df5-6f03442c48f4",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "war-tempered-artifice-firestorm-assault-force"
-        },
-        {
-          "entity_type": "enhancement",
-          "id": "war-tempered-artifice-forgefathers-seekers"
         }
       ]
     },
@@ -4041,20 +4162,6 @@
     },
     {
       "namespace": "game-datacards",
-      "id": "c4b474a4-1952-5cc0-9f13-5e6706a87a68",
-      "targets": [
-        {
-          "entity_type": "enhancement",
-          "id": "fire-discipline-gladius-task-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "fire-discipline-unforgiven-task-force"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
       "id": "d3f766f6-109b-5002-bc61-d042afef6b75",
       "targets": [
         {
@@ -4103,20 +4210,6 @@
           "entity_type": "unit",
           "id": "forgefiend",
           "faction_id": "world-eaters"
-        }
-      ]
-    },
-    {
-      "namespace": "game-datacards",
-      "id": "d80bd2c6-f71c-551e-bef2-761a604fd681",
-      "targets": [
-        {
-          "entity_type": "stratagem",
-          "id": "crucible-of-battle-firestorm-assault-force"
-        },
-        {
-          "entity_type": "stratagem",
-          "id": "crucible-of-battle-forgefathers-seekers"
         }
       ]
     },

@@ -10,7 +10,7 @@ import { buildExternalRefsAudit } from "../src/audit-external-refs.js";
 
 function refs(
   store: CoreExternalRefStore,
-  entityType: "faction" | "unit" | "weapon",
+  entityType: "faction" | "unit" | "enhancement" | "weapon",
   dir: string,
   id: string,
 ): ExternalReference[] | undefined {
@@ -64,6 +64,34 @@ describe("external source identities", () => {
       namespace: "test-source",
       id: "shared",
     });
+  });
+
+  it("removes one namespace without disturbing other source identities", () => {
+    const store = new CoreExternalRefStore();
+    const before = unitRefs(store, "kharn-the-betrayer") ?? [];
+    const retained = before.filter(
+      (reference) => reference.namespace !== "game-datacards",
+    );
+
+    expect(before.length).toBeGreaterThan(retained.length);
+    expect(store.removeNamespace("game-datacards")).toBeGreaterThan(0);
+    expect(unitRefs(store, "kharn-the-betrayer")).toEqual(retained);
+  });
+
+  it("does not stage a write when namespace replacement is unchanged", () => {
+    const store = new CoreExternalRefStore();
+
+    expect(
+      store.add(
+        "unit",
+        "world-eaters",
+        "kharn-the-betrayer",
+        "round-trip-test",
+        "same-id",
+      ),
+    ).toBe("added");
+    expect(store.removeNamespace("round-trip-test")).toBe(1);
+    expect(store.stagedWrites()).toEqual([]);
   });
 
   it("preserves exact BSData ids on structurally classified entries", () => {
@@ -171,12 +199,25 @@ describe("external source identities", () => {
             ],
           },
         ],
-        ["space_marines", { id: "exact-space-marines-faction-id" }],
+        [
+          "space_marines",
+          {
+            id: "exact-space-marines-faction-id",
+            enhancements: [
+              {
+                id: "exact-artificer-armour-id",
+                name: { en: "Artificer Armour" },
+                detachment: "Gladius Task Force",
+              },
+            ],
+          },
+        ],
       ]),
     );
 
     expect(stats.added.unit).toBe(1);
     expect(stats.added.faction).toBe(1);
+    expect(stats.added.enhancement).toBeGreaterThan(0);
     expect(unitRefs(store, "kharn-the-betrayer")).toContainEqual({
       namespace: "game-datacards",
       id: "exact-game-datacards-id",
@@ -187,6 +228,17 @@ describe("external source identities", () => {
     ).toContainEqual({
       namespace: "game-datacards",
       id: "exact-space-marines-faction-id",
+    });
+    expect(
+      refs(
+        store,
+        "enhancement",
+        "adeptus-astartes",
+        "artificer-armour-gladius-task-force",
+      ),
+    ).toContainEqual({
+      namespace: "game-datacards",
+      id: "exact-artificer-armour-id",
     });
     expect([
       ...(refs(store, "faction", "crimson-fists", "crimson-fists") ?? []),

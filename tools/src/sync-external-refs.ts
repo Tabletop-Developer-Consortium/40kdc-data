@@ -6,9 +6,9 @@ import {
 } from "./core-external-refs.js";
 import { detachmentScopedId, nameToId } from "./converters/id-generator.js";
 import {
-  GAME_DATACARDS_BASE,
   GAME_DATACARDS_FACTION_FILES,
   GAME_DATACARDS_FACTION_IDENTITY_FILES,
+  GAME_DATACARDS_IDENTITY_BASE,
 } from "./game-datacards-source.js";
 import { applyWrites } from "./mfm/apply.js";
 import {
@@ -78,6 +78,12 @@ function record(value: unknown): Record<string, unknown> | null {
   return typeof value === "object" && value !== null && !Array.isArray(value)
     ? (value as Record<string, unknown>)
     : null;
+}
+
+function englishText(value: unknown): string | null {
+  if (typeof value === "string") return value;
+  const localized = record(value);
+  return typeof localized?.en === "string" ? localized.en : null;
 }
 
 function sourceDirForBsdataFile(file: string): string | null {
@@ -248,8 +254,9 @@ export function syncGameDatacardsExternalRefs(
       if (unitDir) {
         for (const value of document.datasheets ?? []) {
           const node = record(value);
-          const id = safeId(node?.name);
-          if (node && id)
+          if (!node) continue;
+          const id = safeId(englishText(node.name));
+          if (id)
             add(store, stats, "unit", unitDir, id, "game-datacards", node.id);
         }
       }
@@ -260,15 +267,12 @@ export function syncGameDatacardsExternalRefs(
       ] as const) {
         for (const value of values) {
           const node = record(value);
-          if (
-            !node ||
-            typeof node.name !== "string" ||
-            typeof node.detachment !== "string"
-          )
-            continue;
+          if (!node || typeof node.detachment !== "string") continue;
+          const name = englishText(node.name);
+          if (!name) continue;
           let id: string;
           try {
-            id = detachmentScopedId(node.name, node.detachment);
+            id = detachmentScopedId(name, node.detachment);
           } catch {
             continue;
           }
@@ -284,10 +288,14 @@ async function fetchGameDatacardsDocuments(): Promise<
   Map<string, GameDatacardsDocument>
 > {
   const basenames = new Set(Object.values(GAME_DATACARDS_FACTION_FILES).flat());
+  // The 11e feed folded the legacy Leviathan snapshot into space_marines.
+  basenames.delete("marines_leviathan");
   const documents = new Map<string, GameDatacardsDocument>();
   await Promise.all(
     [...basenames].map(async (basename) => {
-      const response = await fetch(`${GAME_DATACARDS_BASE}/${basename}.json`);
+      const response = await fetch(
+        `${GAME_DATACARDS_IDENTITY_BASE}/${basename}.json`,
+      );
       if (!response.ok)
         throw new Error(`game-datacards ${basename}: HTTP ${response.status}`);
       documents.set(basename, (await response.json()) as GameDatacardsDocument);
@@ -326,9 +334,14 @@ async function main(): Promise<void> {
   const bsdataStats = syncBsdataExternalRefs(store, bsdata);
   printStats(`BSData ${bsdata.source.resolved_commit}`, bsdataStats);
 
+  const gameDatacardsDocuments = await fetchGameDatacardsDocuments();
+  const removedGameDatacardsRefs = store.removeNamespace("game-datacards");
+  console.log(
+    `game-datacards: removed ${removedGameDatacardsRefs} stale source relationships.`,
+  );
   const gameDatacardsStats = syncGameDatacardsExternalRefs(
     store,
-    await fetchGameDatacardsDocuments(),
+    gameDatacardsDocuments,
   );
   printStats("game-datacards", gameDatacardsStats);
 

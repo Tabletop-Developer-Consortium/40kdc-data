@@ -16,7 +16,41 @@
           "shape": "oval",
           "width": 60,
           "length": 35.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Atalan Jackal w/ Grenade launcher",
+            "weapon_ids": [
+              "grenade-launcher",
+              "close-combat-weapon"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Atalan Jackal",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "atalan-small-arms"
+            ],
+            "max_count": 8
+          },
+          {
+            "name": "Atalan Jackal w/ Atalan power weapon",
+            "weapon_ids": [
+              "atalan-small-arms",
+              "atalan-power-weapon"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Atalan Jackal w/ Grenade launcher & power weapon",
+            "weapon_ids": [
+              "grenade-launcher",
+              "atalan-power-weapon"
+            ],
+            "max_count": 2
+          }
+        ]
       },
       {
         "name": "Atalan Wolfquad",
@@ -152,7 +186,36 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Neophyte Hybrid w/ Hybrid Firearm",
+            "weapon_ids": [
+              "hybrid-firearm",
+              "autopistol",
+              "close-combat-weapon-neophyte-hybrids"
+            ],
+            "max_count": 19
+          },
+          {
+            "name": "Neophyte Hybrid w/ Hybrid Firearm & Cult Icon",
+            "weapon_ids": [
+              "cult-icon",
+              "hybrid-firearm",
+              "autopistol",
+              "close-combat-weapon-neophyte-hybrids"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Neophyte Hybrid w/ Special Weapon",
+            "weapon_ids": [
+              "autopistol",
+              "close-combat-weapon-neophyte-hybrids"
+            ],
+            "max_count": 4
+          }
+        ]
       }
     ],
     "game_version": {
@@ -725,7 +788,32 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Acolyte Hybrid w/ Auto Pistol",
+            "weapon_ids": [
+              "autopistol",
+              "cult-claws-and-knife"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Acolyte Hybrid w/ Cult Icon",
+            "weapon_ids": [
+              "cult-icon",
+              "cult-claws-and-knife"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Acolyte Hybrid w/ Heavy Mining Tool",
+            "weapon_ids": [
+              "heavy-mining-tool"
+            ],
+            "max_count": 6
+          }
+        ]
       }
     ],
     "game_version": {
@@ -794,7 +882,31 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Hybrid Metamorph w/ Autopistol",
+            "weapon_ids": [
+              "metamorph-mutations",
+              "autopistol"
+            ]
+          },
+          {
+            "name": "Hybrid Metamorph w/ Cult Icon",
+            "weapon_ids": [
+              "cult-icon",
+              "metamorph-mutations"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Hybrid Metamorph w/ Hand Flamer",
+            "weapon_ids": [
+              "hand-flamer",
+              "metamorph-mutations"
+            ]
+          }
+        ]
       }
     ],
     "game_version": {
@@ -863,7 +975,24 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Acolyte Hybrid w/ Hand Flamer",
+            "weapon_ids": [
+              "hand-flamer",
+              "cult-claws-and-knife"
+            ]
+          },
+          {
+            "name": "Acolyte Hybrid w/ Cult Icon",
+            "weapon_ids": [
+              "cult-icon",
+              "cult-claws-and-knife"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {

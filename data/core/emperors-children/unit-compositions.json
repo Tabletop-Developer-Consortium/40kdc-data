@@ -299,7 +299,25 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Noise Marine w/ sonic blaster",
+            "weapon_ids": [
+              "sonic-blaster",
+              "close-combat-weapon-noise-marines"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Noise Marine w/ blastmaster",
+            "weapon_ids": [
+              "blastmaster",
+              "close-combat-weapon-noise-marines"
+            ],
+            "max_count": 2
+          }
+        ]
       }
     ],
     "game_version": {
@@ -354,7 +372,30 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tormentor",
+            "weapon_ids": [
+              "boltgun"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Tormentor w/ plasma gun",
+            "weapon_ids": [
+              "plasma-gun"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Tormentor w/ meltagun",
+            "weapon_ids": [
+              "meltagun"
+            ],
+            "max_count": 2
+          }
+        ]
       }
     ],
     "game_version": {

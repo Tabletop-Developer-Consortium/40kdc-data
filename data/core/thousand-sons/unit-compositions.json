@@ -351,7 +351,33 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Rubric Marine w/ inferno boltgun",
+            "weapon_ids": [
+              "inferno-boltgun",
+              "close-combat-weapon-rubric-marines"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Rubric Marine w/ warpflamer",
+            "weapon_ids": [
+              "warpflamer",
+              "close-combat-weapon-rubric-marines"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Rubric Marine w/ soulreaper cannon",
+            "weapon_ids": [
+              "close-combat-weapon-rubric-marines",
+              "soulreaper-cannon"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -590,7 +616,24 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Scarab Occult Terminator w/ heavy warpflamer",
+            "weapon_ids": [
+              "prosperine-khopesh"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Scarab Occult Terminator w/ soulreaper cannon",
+            "weapon_ids": [
+              "prosperine-khopesh",
+              "soulreaper-cannon"
+            ],
+            "max_count": 2
+          }
+        ]
       }
     ],
     "game_version": {
@@ -764,7 +807,23 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tzaangor w/ Tzaangor blades",
+            "weapon_ids": [
+              "tzaangor-blades"
+            ],
+            "max_count": 19
+          },
+          {
+            "name": "Tzaangor w/ pistol and chainsword",
+            "weapon_ids": [
+              "chainsword-tzaangors"
+            ],
+            "max_count": 19
+          }
+        ]
       }
     ],
     "game_version": {

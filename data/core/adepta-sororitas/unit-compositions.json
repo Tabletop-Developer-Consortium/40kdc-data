@@ -255,7 +255,33 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Sanctifier w/ simulacrum imperialis",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "simulacrum-imperialis",
+              "ministorum-hand-flamer"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Sanctifier w/ two hand flamers",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "ministorum-hand-flamer"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Sanctifier w/ hand flamer",
+            "weapon_ids": [
+              "ministorum-hand-flamer"
+            ],
+            "max_count": 4
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1328,7 +1354,26 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Dominion w/ Simulacrum Imperialis",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun-dominion-squad",
+              "close-combat-weapon-dominion-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Dominion w/ Special Weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon-dominion-squad"
+            ],
+            "max_count": 4
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1438,7 +1483,26 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Battle Sister w/ Simulacrum Imperialis",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun",
+              "close-combat-weapon-battle-sisters-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Battle Sister w/ Special Weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon-battle-sisters-squad"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {

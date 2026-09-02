@@ -1043,7 +1043,58 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Exaction Vigilant w/ medi-kit",
+            "weapon_ids": [
+              "arbites-medi-kit"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Exaction Vigilant w/ excruciator maul",
+            "weapon_ids": [
+              "excruciator-maul"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Exaction Vigilant w/ soulguilt scanner",
+            "weapon_ids": [
+              "soulguilt-scanner"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Exaction Vigilant w/ grenade launcher",
+            "weapon_ids": [
+              "arbites-grenade-launcher"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Exaction Vigilant w/ executioner shotgun",
+            "weapon_ids": [
+              "executioner-shotgun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Exaction Vigilant w/ heavy stubber",
+            "weapon_ids": [
+              "heavy-stubber"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Exaction Vigilant w/ webber",
+            "weapon_ids": [
+              "webber"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Cyber-mastiff",
@@ -1130,7 +1181,51 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Navis Armsman w/ heavy shotgun",
+            "weapon_ids": [
+              "navis-heavy-shotgun",
+              "endurant-shield",
+              "close-combat-weapon-imperial-navy-breachers"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Navis Armsman w/ special weapon",
+            "weapon_ids": [
+              "close-combat-weapon-imperial-navy-breachers"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Navis Armsman w/ power weapon",
+            "weapon_ids": [
+              "autopistol",
+              "power-weapon-imperial-navy-breachers",
+              "close-combat-weapon-imperial-navy-breachers"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Navis Armsman",
+            "weapon_ids": [
+              "navis-shotgun",
+              "close-combat-weapon-imperial-navy-breachers"
+            ],
+            "max_count": 7
+          },
+          {
+            "name": "Navis Armsman w/ chainfist",
+            "weapon_ids": [
+              "autopistol",
+              "chainfist",
+              "close-combat-weapon-imperial-navy-breachers"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1255,7 +1350,37 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Vigilant w/ grenade launcher",
+            "weapon_ids": [
+              "arbites-grenade-launcher"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Vigilant w/ executioner shotgun",
+            "weapon_ids": [
+              "executioner-shotgun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Vigilant w/ heavy stubber",
+            "weapon_ids": [
+              "heavy-stubber"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Vigilant w/ webber",
+            "weapon_ids": [
+              "webber"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Cyber-mastiff",
@@ -1619,6 +1744,25 @@
           "close-combat-weapon-sisters-of-battle-squad",
           "boltgun-sisters-of-battle-squad",
           "bolt-pistol"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Battle Sister w/ Simulacrum Imperialis",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun-sisters-of-battle-squad",
+              "close-combat-weapon-sisters-of-battle-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Battle Sister w/ Special Weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon-sisters-of-battle-squad"
+            ],
+            "max_count": 1
+          }
         ]
       }
     ],

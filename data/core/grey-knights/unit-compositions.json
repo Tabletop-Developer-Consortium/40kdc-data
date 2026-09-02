@@ -211,7 +211,33 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Purifier w/ incinerator",
+            "weapon_ids": [
+              "incinerator",
+              "purifying-flame"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purifier w/ psilencer",
+            "weapon_ids": [
+              "psilencer-purifier-squad",
+              "purifying-flame"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purifier w/ psycannon",
+            "weapon_ids": [
+              "psycannon-purifier-squad",
+              "purifying-flame"
+            ],
+            "max_count": 4
+          }
+        ]
       }
     ],
     "game_version": {
@@ -674,7 +700,30 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Purgator w/ incinerator",
+            "weapon_ids": [
+              "incinerator"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purgator w/ psilencer",
+            "weapon_ids": [
+              "psilencer-purgation-squad"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purgator w/ psycannon",
+            "weapon_ids": [
+              "psycannon-purgation-squad"
+            ],
+            "max_count": 4
+          }
+        ]
       }
     ],
     "game_version": {
@@ -779,7 +828,30 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Interceptor w/ incinerator",
+            "weapon_ids": [
+              "incinerator"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Interceptor w/ psilencer",
+            "weapon_ids": [
+              "psilencer-interceptor-squad"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Interceptor w/ psycannon",
+            "weapon_ids": [
+              "psycannon-interceptor-squad"
+            ],
+            "max_count": 2
+          }
+        ]
       }
     ],
     "game_version": {
@@ -883,7 +955,40 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Paladin",
+            "weapon_ids": [
+              "nemesis-force-weapon-paladin-squad",
+              "storm-bolter-paladin-squad"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Paladin with Ancient's Banner",
+            "weapon_ids": [
+              "ancients-banner",
+              "nemesis-force-weapon-paladin-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Paladin with Heavy Weapon",
+            "weapon_ids": [
+              "nemesis-force-weapon-paladin-squad"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Paladin with Narthecium",
+            "weapon_ids": [
+              "apothecarys-narthecium",
+              "nemesis-force-weapon-paladin-squad"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Paladin Ancient",
@@ -1143,7 +1248,40 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Terminator",
+            "weapon_ids": [
+              "nemesis-force-weapon-brotherhood-terminator-squad",
+              "storm-bolter"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Terminator with Ancient's Banner",
+            "weapon_ids": [
+              "ancients-banner",
+              "nemesis-force-weapon-brotherhood-terminator-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Terminator with Narthecium",
+            "weapon_ids": [
+              "apothecarys-narthecium",
+              "nemesis-force-weapon-brotherhood-terminator-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Terminator with Heavy Weapon",
+            "weapon_ids": [
+              "nemesis-force-weapon-brotherhood-terminator-squad"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Ancient",

@@ -382,7 +382,30 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Combat Servitor w/ incendine igniter",
+            "weapon_ids": [
+              "incendine-igniter"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Combat Servitor w/ meltagun",
+            "weapon_ids": [
+              "meltagun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Combat Servitor w/ phophor blaster",
+            "weapon_ids": [
+              "phosphor-blaster-servitor-battleclade"
+            ],
+            "max_count": 6
+          }
+        ]
       }
     ],
     "game_version": {
@@ -665,7 +688,45 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Skitarii Vanguard w/ transuranic arquebus",
+            "weapon_ids": [
+              "transuranic-arquebus"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ arc rifle",
+            "weapon_ids": [
+              "arc-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ plasma caliver",
+            "weapon_ids": [
+              "plasma-caliver"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ omnispex",
+            "weapon_ids": [
+              "radium-carbine"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ data-tether",
+            "weapon_ids": [
+              "radium-carbine",
+              "enhanced-data-tether"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1467,7 +1528,45 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Skitarii Ranger w/ transuranic arquebus",
+            "weapon_ids": [
+              "transuranic-arquebus"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ arc rifle",
+            "weapon_ids": [
+              "arc-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ plasma caliver",
+            "weapon_ids": [
+              "plasma-caliver"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ omnispex",
+            "weapon_ids": [
+              "galvanic-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ data-tether",
+            "weapon_ids": [
+              "galvanic-rifle",
+              "enhanced-data-tether"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {

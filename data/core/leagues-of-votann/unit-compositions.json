@@ -179,6 +179,29 @@
           "bolt-shotgun",
           "magna-coil-autocannon",
           "plasma-knife"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Hernkyn Pioneer w/ searchlight",
+            "weapon_ids": [
+              "rollbar-searchlight"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Hernkyn Pioneer w/ HYLas rotary cannon",
+            "weapon_ids": [
+              "hylas-rotary-cannon"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Hernkyn Pioneer w/ ion beamer",
+            "weapon_ids": [
+              "ion-beamer"
+            ],
+            "max_count": 2
+          }
         ]
       }
     ],
@@ -571,6 +594,24 @@
         "default_weapon_ids": [
           "autoch-pattern-bolter-ironkin-steeljacks-with-melee-weapons",
           "plasma-sword"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Ironkin Steeljack w/ concussion gauntlet",
+            "weapon_ids": [
+              "autoch-pattern-bolter-ironkin-steeljacks-with-melee-weapons",
+              "concussion-gauntlet-ironkin-steeljacks-with-melee-weapons"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Ironkin Steeljack w/ plasma sword",
+            "weapon_ids": [
+              "autoch-pattern-bolter-ironkin-steeljacks-with-melee-weapons",
+              "plasma-sword"
+            ],
+            "max_count": 5
+          }
         ]
       }
     ],
@@ -675,6 +716,29 @@
         "default_weapon_ids": [
           "close-combat-weapon-hernkyn-yaegirs",
           "bolt-shotgun"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Hernkyn Yaegir w/ bolt shotgun",
+            "weapon_ids": [
+              "bolt-shotgun"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Hernkyn Yaegir w/ APM launcher",
+            "weapon_ids": [
+              "apm-launcher"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Hernkyn Yaegir w/ magna-coil rifle",
+            "weapon_ids": [
+              "magna-coil-rifle"
+            ],
+            "max_count": 1
+          }
         ]
       }
     ],
@@ -1009,7 +1073,80 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Hearthkyn Warrior w/ bolter",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors",
+              "autoch-pattern-bolter"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Hearthkyn Warrior w/ ion blaster",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors",
+              "ion-blaster"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Hearthkyn Warrior w/ plasma knife",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Hearthkyn Warrior w/ HYLas rotary cannon",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors",
+              "hylas-rotary-cannon-hearthkyn-warriors"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Hearthkyn Warrior w/ HYLas auto rifle",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors",
+              "hylas-auto-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Hearthkyn Warrior w/ L7 missile launcher",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors",
+              "l7-missile-launcher-hearthkyn-warriors"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Hearthkyn Warrior w/ magna-rail rifle",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors",
+              "magna-rail-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Hearthkyn Warrior w/ EtaCarn plasma beamer",
+            "weapon_ids": [
+              "autoch-pattern-bolt-pistol",
+              "close-combat-weapon-hearthkyn-warriors",
+              "etacarn-plasma-beamer"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {

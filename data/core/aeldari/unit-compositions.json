@@ -930,6 +930,26 @@
           "destructor",
           "twin-shuriken-catapult",
           "witchblade"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Warlock Skyrunner with Witchblade",
+            "weapon_ids": [
+              "twin-shuriken-catapult",
+              "witchblade"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Warlock Skyrunner with Singing Spear",
+            "weapon_ids": [
+              "shuriken-pistol",
+              "twin-shuriken-catapult",
+              "destructor",
+              "singing-spear"
+            ],
+            "max_count": 2
+          }
         ]
       }
     ],
@@ -1238,6 +1258,29 @@
         "default_weapon_ids": [
           "corsair-blade",
           "shuriken-pistol"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Skyreaver w/ flamer",
+            "weapon_ids": [
+              "flamer"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skyreaver w/ fusion gun",
+            "weapon_ids": [
+              "fusion-gun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skyreaver w/ shredder",
+            "weapon_ids": [
+              "shredder"
+            ],
+            "max_count": 1
+          }
         ]
       }
     ],
@@ -1591,7 +1634,36 @@
           "shape": "flying-base",
           "size": "small",
           "draft": true
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Reaver",
+            "weapon_ids": [
+              "splinter-rifle",
+              "splinter-pistol",
+              "bladevanes"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Reaver with Blaster",
+            "weapon_ids": [
+              "blaster",
+              "splinter-pistol",
+              "bladevanes"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Reaver with Heat Lance",
+            "weapon_ids": [
+              "splinter-pistol",
+              "heat-lance",
+              "bladevanes"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -2253,7 +2325,44 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Kabalite Warrior with Shredder",
+            "weapon_ids": [
+              "shredder"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kabalite Warrior",
+            "weapon_ids": [
+              "splinter-rifle"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Kabalite Warrior with Blaster",
+            "weapon_ids": [
+              "blaster"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kabalite Warrior with Splinter Cannon",
+            "weapon_ids": [
+              "splinter-cannon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kabalite Warrior with Dark Lance",
+            "weapon_ids": [
+              "dark-lance"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -2510,6 +2619,22 @@
           "destructor",
           "shuriken-pistol",
           "witchblade"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Warlock with Witchblade",
+            "weapon_ids": [
+              "witchblade"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Warlock with Singing Spear",
+            "weapon_ids": [
+              "singing-spear"
+            ],
+            "max_count": 4
+          }
         ]
       }
     ],
@@ -2841,6 +2966,29 @@
         "default_weapon_ids": [
           "close-combat-weapon-windriders",
           "twin-shuriken-catapult"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Windrider with Twin Shuriken Catapult",
+            "weapon_ids": [
+              "twin-shuriken-catapult"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Windrider with Scatter Laser",
+            "weapon_ids": [
+              "scatter-laser-windriders"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Windrider with Shuriken Cannon",
+            "weapon_ids": [
+              "shuriken-cannon-windriders"
+            ],
+            "max_count": 6
+          }
         ]
       }
     ],
@@ -3258,7 +3406,37 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Player with Harlequin's Blade",
+            "weapon_ids": [
+              "shuriken-pistol",
+              "harlequins-blade"
+            ],
+            "max_count": 11
+          },
+          {
+            "name": "Player with Harlequin's Special Weapon",
+            "weapon_ids": [
+              "shuriken-pistol",
+              "harlequins-special-weapon-troupe"
+            ],
+            "max_count": 11
+          },
+          {
+            "name": "Player with Fusion Pistol",
+            "weapon_ids": [
+              "fusion-pistol"
+            ]
+          },
+          {
+            "name": "Player with Neuro Disruptor",
+            "weapon_ids": [
+              "neuro-disruptor"
+            ]
+          }
+        ]
       }
     ],
     "game_version": {

@@ -1505,6 +1505,32 @@
         "default_weapon_ids": [
           "fleshborer",
           "chitinous-claws-and-teeth-termagants"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Termagant w/ Shardlauncher",
+            "weapon_ids": [
+              "shardlauncher",
+              "chitinous-claws-and-teeth-termagants"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Termagant w/ Spike rifle",
+            "weapon_ids": [
+              "spike-rifle",
+              "chitinous-claws-and-teeth-termagants"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Termagant w/ Strangleweb",
+            "weapon_ids": [
+              "strangleweb",
+              "chitinous-claws-and-teeth-termagants"
+            ],
+            "max_count": 2
+          }
         ]
       }
     ],
@@ -1585,6 +1611,24 @@
         "default_weapon_ids": [
           "chitinous-claws-and-teeth-hive-guard",
           "shockcannon"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Hive Guard w/ shockcannon",
+            "weapon_ids": [
+              "shockcannon",
+              "chitinous-claws-and-teeth-hive-guard"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Hive Guard w/ impaler cannon",
+            "weapon_ids": [
+              "impaler-cannon",
+              "chitinous-claws-and-teeth-hive-guard"
+            ],
+            "max_count": 6
+          }
         ]
       }
     ],

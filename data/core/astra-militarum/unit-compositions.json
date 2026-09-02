@@ -345,7 +345,43 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tempestus Scion",
+            "weapon_ids": [
+              "close-combat-weapon-militarum-tempestus-command-squad"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Tempestus Scion w/ Regimental Standard",
+            "weapon_ids": [
+              "regimental-standard",
+              "hot-shot-lasgun",
+              "close-combat-weapon-militarum-tempestus-command-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Tempestus Scion w/ Master Vox",
+            "weapon_ids": [
+              "master-vox",
+              "hot-shot-laspistol",
+              "close-combat-weapon-militarum-tempestus-command-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Tempestus Scion w/ Medi-pack",
+            "weapon_ids": [
+              "medi-pack",
+              "close-combat-weapon-militarum-tempestus-command-squad",
+              "hot-shot-laspistol"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -436,7 +472,32 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tempestus Aquilon",
+            "weapon_ids": [
+              "hot-shot-lascarbine",
+              "close-combat-weapon-tempestus-aquilons"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Tempestus Aquilon w/ 1 Hot-shot laspistol",
+            "weapon_ids": [
+              "hot-shot-laspistol",
+              "close-combat-weapon-tempestus-aquilons"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Tempestus Aquilon w/ Special weapon",
+            "weapon_ids": [
+              "close-combat-weapon-tempestus-aquilons"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Gunfighter",
@@ -708,6 +769,38 @@
           "laspistol-field-ordnance-battery",
           "battery-close-combat-weapons",
           "malleus-rocket-launcher"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Ordnance Team w/ Malleus rocket launcher",
+            "weapon_ids": [
+              "malleus-rocket-launcher",
+              "lasgun",
+              "laspistol-field-ordnance-battery",
+              "battery-close-combat-weapons"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Ordnance Team w/ Bombast field gun",
+            "weapon_ids": [
+              "bombast-field-gun",
+              "lasgun",
+              "laspistol-field-ordnance-battery",
+              "battery-close-combat-weapons"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Ordnance Team w/ Heavy lascannon",
+            "weapon_ids": [
+              "heavy-lascannon",
+              "lasgun",
+              "laspistol-field-ordnance-battery",
+              "battery-close-combat-weapons"
+            ],
+            "max_count": 2
+          }
         ]
       }
     ],
@@ -993,6 +1086,53 @@
           "weapons-team-close-combat-weapons",
           "heavy-bolter-catachan-heavy-weapons-squad",
           "lasgun"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Heavy Weapons Team w/ Heavy bolter",
+            "weapon_ids": [
+              "weapons-team-close-combat-weapons",
+              "heavy-bolter-catachan-heavy-weapons-squad",
+              "lasgun"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Heavy Weapons Team w/ Mortar",
+            "weapon_ids": [
+              "mortar",
+              "weapons-team-close-combat-weapons",
+              "lasgun"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Heavy Weapons Team w/ Missile launcher",
+            "weapon_ids": [
+              "missile-launcher-catachan-heavy-weapons-squad",
+              "weapons-team-close-combat-weapons",
+              "lasgun"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Heavy Weapons Team w/ Lascannon",
+            "weapon_ids": [
+              "weapons-team-close-combat-weapons",
+              "lascannon-catachan-heavy-weapons-squad",
+              "lasgun"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Heavy Weapons Team w/ Autocannon",
+            "weapon_ids": [
+              "lasgun",
+              "weapons-team-close-combat-weapons",
+              "autocannon-catachan-heavy-weapons-squad"
+            ],
+            "max_count": 3
+          }
         ]
       }
     ],
@@ -1381,7 +1521,66 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tempestus Scion w/ Vox-caster",
+            "weapon_ids": [
+              "vox-caster",
+              "hot-shot-laspistol",
+              "close-combat-weapon-tempestus-scions"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Tempestus Scion",
+            "weapon_ids": [
+              "hot-shot-lasgun",
+              "close-combat-weapon-tempestus-scions"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Tempestus Scion w/ Flamer",
+            "weapon_ids": [
+              "close-combat-weapon-tempestus-scions",
+              "flamer"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Tempestus Scion w/ Grenade launcher",
+            "weapon_ids": [
+              "close-combat-weapon-tempestus-scions",
+              "grenade-launcher-tempestus-scions"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Tempestus Scion w/ Hot-shot volley gun",
+            "weapon_ids": [
+              "close-combat-weapon-tempestus-scions",
+              "hot-shot-volley-gun"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Tempestus Scion w/ Meltagun",
+            "weapon_ids": [
+              "close-combat-weapon-tempestus-scions",
+              "meltagun-tempestus-scions"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Tempestus Scion w/ Plasma gun",
+            "weapon_ids": [
+              "close-combat-weapon-tempestus-scions",
+              "plasma-gun-tempestus-scions"
+            ],
+            "max_count": 2
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1584,7 +1783,34 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Cadian Veteran Guardsman w/ Regimental standard",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Master vox",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun",
+              "master-vox"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Medi-pack",
+            "weapon_ids": [
+              "medi-pack",
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Cadian Veteran Guardsman with master vox",
@@ -1600,7 +1826,34 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Cadian Veteran Guardsman w/ Regimental standard",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Master vox",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun",
+              "master-vox"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Medi-pack",
+            "weapon_ids": [
+              "medi-pack",
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Cadian Veteran Guardsman with medi-pack",
@@ -1615,7 +1868,34 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Cadian Veteran Guardsman w/ Regimental standard",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Master vox",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun",
+              "master-vox"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Medi-pack",
+            "weapon_ids": [
+              "medi-pack",
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Cadian Veteran Guardsman with chainsword",
@@ -1630,7 +1910,34 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Cadian Veteran Guardsman w/ Regimental standard",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Master vox",
+            "weapon_ids": [
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun",
+              "master-vox"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Cadian Veteran Guardsman w/ Medi-pack",
+            "weapon_ids": [
+              "medi-pack",
+              "close-combat-weapon-cadian-command-squad",
+              "lasgun"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1669,7 +1976,102 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Veteran Guardsman",
+            "weapon_ids": [
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "lasgun"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Veteran Guardsman w/ Master vox",
+            "weapon_ids": [
+              "master-vox",
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "lasgun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Regimental standard",
+            "weapon_ids": [
+              "regimental-standard",
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "lasgun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Medi-pack",
+            "weapon_ids": [
+              "medi-pack",
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "lasgun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Flamer",
+            "weapon_ids": [
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "flamer"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Grenade launcher",
+            "weapon_ids": [
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "grenade-launcher"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Heavy flamer",
+            "weapon_ids": [
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "heavy-flamer"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Meltagun",
+            "weapon_ids": [
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "meltagun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Plasma gun",
+            "weapon_ids": [
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "plasma-gun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Veteran Guardsman w/ Sniper rifle",
+            "weapon_ids": [
+              "close-combat-weapon-catachan-command-squad",
+              "laspistol-catachan-command-squad",
+              "sniper-rifle-catachan-command-squad"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1985,6 +2387,28 @@
           "laspistol-attilan-rough-riders",
           "hunting-lance",
           "steeds-hooves"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Rough Rider w/ Hunting lance",
+            "weapon_ids": [
+              "laspistol-attilan-rough-riders",
+              "lasgun",
+              "hunting-lance",
+              "steeds-hooves"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Rough Rider w/ Goad lance",
+            "weapon_ids": [
+              "laspistol-attilan-rough-riders",
+              "lasgun",
+              "goad-lance",
+              "steeds-hooves"
+            ],
+            "max_count": 2
+          }
         ]
       }
     ],
@@ -2947,7 +3371,42 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Krieg Combat Engineer",
+            "weapon_ids": [
+              "autopistol",
+              "trench-club-krieg-combat-engineers"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Krieg Combat Engineer w/ Flamer",
+            "weapon_ids": [
+              "close-combat-weapon-krieg-combat-engineers",
+              "flamer"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Krieg Combat Engineer w/ Combat shotgun",
+            "weapon_ids": [
+              "close-combat-weapon-krieg-combat-engineers",
+              "combat-shotgun"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Krieg Combat Engineer w/ Remote mine",
+            "weapon_ids": [
+              "remote-mine",
+              "autopistol",
+              "close-combat-weapon-krieg-combat-engineers"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -3077,6 +3536,48 @@
         "default_weapon_ids": [
           "close-combat-weapon-cadian-recon-squad",
           "lasgun"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Recon Trooper w/ Lasgun",
+            "weapon_ids": [
+              "lasgun",
+              "close-combat-weapon-cadian-recon-squad"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Recon Trooper w/ Autostubber",
+            "weapon_ids": [
+              "autostubber",
+              "close-combat-weapon-cadian-recon-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Recon Trooper w/ Long-las",
+            "weapon_ids": [
+              "long-las",
+              "close-combat-weapon-cadian-recon-squad"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Recon Trooper w/ Plasma gun",
+            "weapon_ids": [
+              "plasma-gun",
+              "close-combat-weapon-cadian-recon-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Recon Trooper w/ Meltagun",
+            "weapon_ids": [
+              "meltagun",
+              "close-combat-weapon-cadian-recon-squad"
+            ],
+            "max_count": 1
+          }
         ]
       }
     ],

@@ -34,7 +34,36 @@
           "shape": "flying-base",
           "size": "small",
           "draft": true
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Reaver",
+            "weapon_ids": [
+              "splinter-rifle",
+              "splinter-pistol",
+              "bladevanes"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Reaver with Blaster",
+            "weapon_ids": [
+              "blaster",
+              "splinter-pistol",
+              "bladevanes"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Reaver with Heat Lance",
+            "weapon_ids": [
+              "splinter-pistol",
+              "heat-lance",
+              "bladevanes"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -294,7 +323,24 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Scourge with Special Weapon",
+            "weapon_ids": [
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Scourge",
+            "weapon_ids": [
+              "shardcarbine",
+              "close-combat-weapon"
+            ],
+            "max_count": 4
+          }
+        ]
       }
     ],
     "game_version": {
@@ -349,7 +395,49 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Kabalite Warrior with Shredder",
+            "weapon_ids": [
+              "shredder",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kabalite Warrior",
+            "weapon_ids": [
+              "splinter-rifle",
+              "close-combat-weapon"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Kabalite Warrior with Blaster",
+            "weapon_ids": [
+              "blaster",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kabalite Warrior with Splinter Cannon",
+            "weapon_ids": [
+              "splinter-cannon-kabalite-warriors",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kabalite Warrior with Dark Lance",
+            "weapon_ids": [
+              "dark-lance",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          }
+        ]
       }
     ],
     "game_version": {
@@ -616,7 +704,48 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Wrack",
+            "weapon_ids": [
+              "twin-torturers-tools"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Wrack with Hexrifle",
+            "weapon_ids": [
+              "torturers-tool",
+              "hexrifle"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Wrack with Liquifier Gun",
+            "weapon_ids": [
+              "torturers-tool",
+              "liquifier-gun"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Wrack with Ossefactor",
+            "weapon_ids": [
+              "torturers-tool",
+              "ossefactor"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Wrack with Stinger Pistol",
+            "weapon_ids": [
+              "torturers-tool",
+              "stinger-pistol"
+            ],
+            "max_count": 2
+          }
+        ]
       }
     ],
     "game_version": {
@@ -845,7 +974,24 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Wych",
+            "weapon_ids": [
+              "splinter-pistol",
+              "hekatarii-blade"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Wych w/ Gladiatorial weapons",
+            "weapon_ids": [
+              "gladiatorial-weapons"
+            ],
+            "max_count": 3
+          }
+        ]
       }
     ],
     "game_version": {

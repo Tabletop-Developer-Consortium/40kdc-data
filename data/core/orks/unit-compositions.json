@@ -94,7 +94,35 @@
           "shape": "oval",
           "width": 75,
           "length": 42
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Warbiker",
+            "weapon_ids": [
+              "twin-dakkagun",
+              "close-combat-weapon"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Warbiker w/ Slugga",
+            "weapon_ids": [
+              "twin-dakkagun",
+              "slugga",
+              "close-combat-weapon"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Warbiker w/ Choppa",
+            "weapon_ids": [
+              "twin-dakkagun",
+              "choppa-boyz",
+              "close-combat-weapon"
+            ],
+            "max_count": 5
+          }
+        ]
       },
       {
         "name": "Biker Nob",
@@ -613,6 +641,29 @@
         },
         "default_weapon_ids": [
           "smash-hammer"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Breaka Boy",
+            "weapon_ids": [
+              "smash-hammer"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Breaka Boy w/ Tankhammer",
+            "weapon_ids": [
+              "tankhammer"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Breaka Boy w/ Knucklebustas",
+            "weapon_ids": [
+              "knucklebustas"
+            ],
+            "max_count": 1
+          }
         ]
       },
       {
@@ -745,7 +796,26 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tankbusta w/ Two rokkit launchas",
+            "weapon_ids": [
+              "rokkit-launcha",
+              "close-combat-weapon-tankbustas"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Tankbusta w/ Pulsa rokkit",
+            "weapon_ids": [
+              "pulsa-rokkit",
+              "rokkit-launcha",
+              "close-combat-weapon-tankbustas"
+            ],
+            "max_count": 1
+          }
+        ]
       },
       {
         "name": "Nob",
@@ -851,7 +921,42 @@
           "shoota",
           "slugga"
         ],
-        "is_leader_model": false
+        "is_leader_model": false,
+        "loadout_variants": [
+          {
+            "name": "Boy",
+            "weapon_ids": [
+              "choppa-boyz",
+              "slugga"
+            ],
+            "max_count": 19
+          },
+          {
+            "name": "Boy w/ Shoota",
+            "weapon_ids": [
+              "shoota",
+              "choppa-boyz",
+              "slugga"
+            ],
+            "max_count": 19
+          },
+          {
+            "name": "Boy w/ Big shoota",
+            "weapon_ids": [
+              "big-shoota-boyz",
+              "close-combat-weapon"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Boy w/ Rokkit launcha",
+            "weapon_ids": [
+              "rokkit-launcha-boyz",
+              "close-combat-weapon"
+            ],
+            "max_count": 2
+          }
+        ]
       },
       {
         "name": "Nob",
@@ -1399,7 +1504,25 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Beast Snagga Boy w/ Thump gun",
+            "weapon_ids": [
+              "close-combat-weapon-beast-snagga-boyz",
+              "thump-gun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Beast Snagga Boy",
+            "weapon_ids": [
+              "slugga",
+              "choppa-boyz"
+            ],
+            "max_count": 19
+          }
+        ]
       },
       {
         "name": "Nob",
@@ -1724,6 +1847,32 @@
         "default_weapon_ids": [
           "kustom-krumpa",
           "kustom-shoota"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Nob w/ Slugga and big choppa",
+            "weapon_ids": [
+              "slugga",
+              "big-choppa-nobz"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Nob w/ Slugga and power klaw",
+            "weapon_ids": [
+              "slugga",
+              "power-klaw"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Nob w/ Kombi-weapon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "kombi-weapon"
+            ],
+            "max_count": 9
+          }
         ]
       }
     ],
@@ -1804,7 +1953,49 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Meganob w/ Kustom shoota and power klaw",
+            "weapon_ids": [
+              "kustom-shoota-meganobz",
+              "power-klaw-meganobz"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Meganob w/ Kombi-weapon and power klaw",
+            "weapon_ids": [
+              "kombi-weapon",
+              "power-klaw-meganobz"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Meganob w/ Kombi-weapon and killsaw",
+            "weapon_ids": [
+              "kombi-weapon",
+              "killsaw-meganobz"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Meganob w/ Kustom shoota and killsaw",
+            "weapon_ids": [
+              "kustom-shoota-meganobz",
+              "killsaw-meganobz"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Meganob w/ Killsaw and power klaw",
+            "weapon_ids": [
+              "power-klaw-meganobz",
+              "killsaw-meganobz"
+            ],
+            "max_count": 6
+          }
+        ]
       }
     ],
     "game_version": {

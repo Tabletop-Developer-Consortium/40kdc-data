@@ -245,7 +245,25 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Stealth Shas'ui w/ burst cannon",
+            "weapon_ids": [
+              "battlesuit-fists-stealth-battlesuits",
+              "burst-cannon"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Stealth Shas'ui w/ fusion blaster",
+            "weapon_ids": [
+              "battlesuit-fists-stealth-battlesuits",
+              "fusion-blaster"
+            ],
+            "max_count": 2
+          }
+        ]
       }
     ],
     "game_version": {
@@ -342,7 +360,43 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Kroot Farstalker",
+            "weapon_ids": [
+              "farstalker-firearm",
+              "kroot-pistol",
+              "close-combat-weapon"
+            ]
+          },
+          {
+            "name": "Kroot Farstalker w/ Farstalker firearm and Pech'ra",
+            "weapon_ids": [
+              "pechra",
+              "kroot-pistol",
+              "farstalker-firearm",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kroot Farstalker w/ Dvorgite skinner",
+            "weapon_ids": [
+              "dvorgite-skinner",
+              "kroot-pistol",
+              "close-combat-weapon"
+            ]
+          },
+          {
+            "name": "Kroot Farstalker w/ Londaxi tribalest",
+            "weapon_ids": [
+              "londaxi-tribalest",
+              "kroot-pistol",
+              "close-combat-weapon"
+            ]
+          }
+        ]
       },
       {
         "name": "Kroot Hound",
@@ -522,7 +576,27 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Fire Warrior w/ pulse carbine",
+            "weapon_ids": [
+              "pulse-carbine",
+              "pulse-pistol",
+              "close-combat-weapon-strike-team"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Fire Warrior w/ pulse rifle",
+            "weapon_ids": [
+              "pulse-pistol",
+              "close-combat-weapon-strike-team",
+              "pulse-rifle"
+            ],
+            "max_count": 9
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1000,6 +1074,26 @@
           "close-combat-weapon",
           "krootox-fists",
           "repeater-cannon"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Krootox Rider w/ repeater cannon",
+            "weapon_ids": [
+              "krootox-fists",
+              "repeater-cannon",
+              "close-combat-weapon"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Krootox Rider w/ tanglecannon",
+            "weapon_ids": [
+              "krootox-fists",
+              "tanglecannon",
+              "close-combat-weapon"
+            ],
+            "max_count": 3
+          }
         ]
       }
     ],

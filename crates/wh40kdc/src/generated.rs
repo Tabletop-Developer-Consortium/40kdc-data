@@ -25888,6 +25888,40 @@ impl ::std::convert::TryFrom<::std::string::String> for UnitAttachmentRole {
 ///            "default": false,
 ///            "type": "boolean"
 ///          },
+///          "loadout_variants": {
+///            "description": "Alternative complete loadouts for this model type, allocated across its count. Each variant states a whole loadout rather than a delta from `default_weapon_ids`, so a group whose members are peers needs no base loadout to be nominated. A squad distributes this model type's models between the variants, each variant taking at most the count its own cap allows and the remainder carrying `default_weapon_ids`. Absent means every model of this type carries `default_weapon_ids`. Use this where the choice is which models the squad fields; use `wargear-option` where the choice modifies a model already in it.",
+///            "type": "array",
+///            "items": {
+///              "type": "object",
+///              "required": [
+///                "name",
+///                "weapon_ids"
+///              ],
+///              "properties": {
+///                "max_count": {
+///                  "type": "integer",
+///                  "minimum": 1.0
+///                },
+///                "name": {
+///                  "type": "string",
+///                  "minLength": 1
+///                },
+///                "per_n_models": {
+///                  "type": "integer",
+///                  "minimum": 1.0
+///                },
+///                "weapon_ids": {
+///                  "type": "array",
+///                  "items": {
+///                    "$ref": "#/$defs/entity-id"
+///                  },
+///                  "minItems": 1
+///                }
+///              },
+///              "additionalProperties": false
+///            },
+///            "minItems": 2
+///          },
 ///          "max": {
 ///            "type": "integer",
 ///            "minimum": 1.0
@@ -26019,6 +26053,40 @@ pub struct UnitComposition {
 ///      "default": false,
 ///      "type": "boolean"
 ///    },
+///    "loadout_variants": {
+///      "description": "Alternative complete loadouts for this model type, allocated across its count. Each variant states a whole loadout rather than a delta from `default_weapon_ids`, so a group whose members are peers needs no base loadout to be nominated. A squad distributes this model type's models between the variants, each variant taking at most the count its own cap allows and the remainder carrying `default_weapon_ids`. Absent means every model of this type carries `default_weapon_ids`. Use this where the choice is which models the squad fields; use `wargear-option` where the choice modifies a model already in it.",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "name",
+///          "weapon_ids"
+///        ],
+///        "properties": {
+///          "max_count": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "name": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "per_n_models": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "weapon_ids": {
+///            "type": "array",
+///            "items": {
+///              "$ref": "#/$defs/entity-id"
+///            },
+///            "minItems": 1
+///          }
+///        },
+///        "additionalProperties": false
+///      },
+///      "minItems": 2
+///    },
 ///    "max": {
 ///      "type": "integer",
 ///      "minimum": 1.0
@@ -26060,11 +26128,136 @@ pub struct UnitCompositionModelsItem {
     pub hull_shape_id: ::std::option::Option<EntityId>,
     #[serde(default)]
     pub is_leader_model: bool,
+    ///Alternative complete loadouts for this model type, allocated across its count. Each variant states a whole loadout rather than a delta from `default_weapon_ids`, so a group whose members are peers needs no base loadout to be nominated. A squad distributes this model type's models between the variants, each variant taking at most the count its own cap allows and the remainder carrying `default_weapon_ids`. Absent means every model of this type carries `default_weapon_ids`. Use this where the choice is which models the squad fields; use `wargear-option` where the choice modifies a model already in it.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub loadout_variants: ::std::vec::Vec<UnitCompositionModelsItemLoadoutVariantsItem>,
     pub max: ::std::num::NonZeroU64,
     pub min: u64,
     pub name: UnitCompositionModelsItemName,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub profile_name: ::std::option::Option<UnitCompositionModelsItemProfileName>,
+}
+///`UnitCompositionModelsItemLoadoutVariantsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "name",
+///    "weapon_ids"
+///  ],
+///  "properties": {
+///    "max_count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "name": {
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "per_n_models": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "weapon_ids": {
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/entity-id"
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitCompositionModelsItemLoadoutVariantsItem {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_count: ::std::option::Option<::std::num::NonZeroU64>,
+    pub name: UnitCompositionModelsItemLoadoutVariantsItemName,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub per_n_models: ::std::option::Option<::std::num::NonZeroU64>,
+    pub weapon_ids: ::std::vec::Vec<EntityId>,
+}
+///`UnitCompositionModelsItemLoadoutVariantsItemName`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct UnitCompositionModelsItemLoadoutVariantsItemName(::std::string::String);
+impl ::std::ops::Deref for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<UnitCompositionModelsItemLoadoutVariantsItemName>
+for ::std::string::String {
+    fn from(value: UnitCompositionModelsItemLoadoutVariantsItemName) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///`UnitCompositionModelsItemName`
 ///

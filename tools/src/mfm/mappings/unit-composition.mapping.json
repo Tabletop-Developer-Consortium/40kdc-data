@@ -7,202 +7,1016 @@
   ],
   "fields": {
     "/unit_id": {
-      "provenance": "derived", "coverage": "partial",
-      "sources": ["data.unit_composition.datasheetId", "data.datasheet.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition.datasheetId", "direction": "parent", "purpose": "ownership" }],
-      "transforms": [{ "symbol": "tools/src/mfm/project-loadout.ts#findDatasheet", "operation": "Resolve the existing unit id to one non-Legends datasheet by normalized display name and faction directory." }],
-      "filters": ["Require one unambiguous non-Legends datasheet in the target faction directory."], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "derived",
+      "coverage": "partial",
+      "sources": [
+        "data.unit_composition.datasheetId",
+        "data.datasheet.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition.datasheetId",
+          "direction": "parent",
+          "purpose": "ownership"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/project-loadout.ts#findDatasheet",
+          "operation": "Resolve the existing unit id to one non-Legends datasheet by normalized display name and faction directory."
+        }
+      ],
+      "filters": [
+        "Require one unambiguous non-Legends datasheet in the target faction directory."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "Projection retains the selected repository unit id; the composition only applies after datasheet resolution succeeds."
     },
     "/faction_id": {
-      "provenance": "repo-authored", "coverage": "implemented", "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "The projection copies faction_id from the existing repository unit; it does not infer faction ownership for a composition."
     },
     "/models": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition.displayOrder", "data.unit_composition_miniature.min", "data.unit_composition_miniature.max", "data.miniature.displayOrder", "data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition.datasheetId", "direction": "parent", "purpose": "ownership" }, { "relation": "unit_composition_miniature.unitCompositionId", "direction": "children", "purpose": "general" }, { "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Sort composition tiers and miniature rows, omit zero-max attachments, and aggregate the model envelope." }],
-      "filters": ["Exclude unit-composition miniature rows with max at or below zero.", "Leave kill-team duplicate display-name shapes unprojected."], "precedence": ["Order compositions by displayOrder and miniatures by miniature displayOrder."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition.displayOrder",
+        "data.unit_composition_miniature.min",
+        "data.unit_composition_miniature.max",
+        "data.miniature.displayOrder",
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition.datasheetId",
+          "direction": "parent",
+          "purpose": "ownership"
+        },
+        {
+          "relation": "unit_composition_miniature.unitCompositionId",
+          "direction": "children",
+          "purpose": "general"
+        },
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Sort composition tiers and miniature rows, omit zero-max attachments, and aggregate the model envelope."
+        }
+      ],
+      "filters": [
+        "Exclude unit-composition miniature rows with max at or below zero.",
+        "Leave kill-team duplicate display-name shapes unprojected."
+      ],
+      "precedence": [
+        "Order compositions by displayOrder and miniatures by miniature displayOrder."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit",
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "Models are derived from the full composition graph rather than copied from one dump row."
     },
     "/models/*": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition_miniature.min", "data.unit_composition_miniature.max", "data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition_miniature.unitCompositionId", "direction": "children", "purpose": "general" }, { "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Construct one model row per supported miniature display name." }],
-      "filters": ["Exclude zero-max attachment rows.", "Do not project duplicate-name kill-team tiers."], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.min",
+        "data.unit_composition_miniature.max",
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.unitCompositionId",
+          "direction": "children",
+          "purpose": "general"
+        },
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Construct one model row per supported miniature display name."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max attachment rows.",
+        "Do not project duplicate-name kill-team tiers."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit",
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "Each supported output model row is a derived composition aggregate."
     },
     "/models/*/name": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.miniature.localisations.*.name", "data.miniature.displayOrder"],
-      "joins": [{ "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Use the localized miniature display name as the supported model-row key." }],
-      "filters": ["Exclude zero-max attachment rows and duplicate-name kill-team shapes."], "precedence": ["Use miniature displayOrder for output ordering."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.miniature.localisations.*.name",
+        "data.miniature.displayOrder"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Use the localized miniature display name as the supported model-row key."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max attachment rows and duplicate-name kill-team shapes."
+      ],
+      "precedence": [
+        "Use miniature displayOrder for output ordering."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit",
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "Model labels are derived display keys for the supported composition shape."
     },
     "/models/*/min": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition_miniature.min"],
-      "joins": [{ "relation": "unit_composition_miniature.unitCompositionId", "direction": "children", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Take the minimum across every buildable tier, treating an absent miniature as zero." }],
-      "filters": ["Exclude zero-max attachment rows."], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.min"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.unitCompositionId",
+          "direction": "children",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Take the minimum across every buildable tier, treating an absent miniature as zero."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max attachment rows."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit",
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "Top-level model minimum is the tier envelope, not a single source row."
     },
     "/models/*/max": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition_miniature.max"],
-      "joins": [{ "relation": "unit_composition_miniature.unitCompositionId", "direction": "children", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Take the maximum across every buildable tier." }],
-      "filters": ["Exclude zero-max attachment rows."], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.max"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.unitCompositionId",
+          "direction": "children",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Take the maximum across every buildable tier."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max attachment rows."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit",
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "Top-level model maximum is the tier envelope, not a single source row."
     },
     "/models/*/default_weapon_ids": {
-      "provenance": "derived", "coverage": "partial",
-      "sources": ["data.wargear_option.defaultValue", "data.wargear_option.inputType", "data.wargear_option.displayOrder", "data.wargear_item.localisations.*.name", "data.base_miniature_loadout_wargear_option.count"],
-      "joins": [{ "relation": "wargear_option_group.datasheetId", "direction": "children", "purpose": "ownership" }, { "relation": "wargear_option_group.miniatureId", "direction": "parent", "purpose": "applicability" }, { "relation": "wargear_option.wargearOptionGroupId", "direction": "children", "purpose": "ownership" }, { "relation": "wargear_option.wargearItemId", "direction": "parent", "purpose": "general" }, { "relation": "base_miniature_loadout.datasheetId", "direction": "children", "purpose": "ownership" }, { "relation": "base_miniature_loadout.miniatureId", "direction": "parent", "purpose": "applicability" }, { "relation": "base_miniature_loadout_wargear_option.baseMiniatureLoadoutId", "direction": "children", "purpose": "eligibility" }, { "relation": "base_miniature_loadout_wargear_option.wargearOptionId", "direction": "parent", "purpose": "eligibility" }, { "relation": "wargear_option.wargearItemId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#deriveWargear", "operation": "Resolve supported option-group defaults and use the legacy base-miniature-loadout chain as fallback." }],
-      "filters": ["Ignore datasheet-wide default groups with no miniature scope.", "Do not use loadout-choice paths as defaults.", "Leave unresolved weapon names and non-uniform model defaults unprojected or on the fallback path."],
-      "precedence": ["Use the clean wargear-option-group default first; base_miniature_loadout is only its fallback.", "Preserve multiplicity from defaultValue or base-loadout association count."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#deriveWargear", "tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "partial",
+      "sources": [
+        "data.wargear_option.defaultValue",
+        "data.wargear_option.inputType",
+        "data.wargear_option.displayOrder",
+        "data.wargear_item.localisations.*.name",
+        "data.base_miniature_loadout_wargear_option.count"
+      ],
+      "joins": [
+        {
+          "relation": "wargear_option_group.datasheetId",
+          "direction": "children",
+          "purpose": "ownership"
+        },
+        {
+          "relation": "wargear_option_group.miniatureId",
+          "direction": "parent",
+          "purpose": "applicability"
+        },
+        {
+          "relation": "wargear_option.wargearOptionGroupId",
+          "direction": "children",
+          "purpose": "ownership"
+        },
+        {
+          "relation": "wargear_option.wargearItemId",
+          "direction": "parent",
+          "purpose": "general"
+        },
+        {
+          "relation": "base_miniature_loadout.datasheetId",
+          "direction": "children",
+          "purpose": "ownership"
+        },
+        {
+          "relation": "base_miniature_loadout.miniatureId",
+          "direction": "parent",
+          "purpose": "applicability"
+        },
+        {
+          "relation": "base_miniature_loadout_wargear_option.baseMiniatureLoadoutId",
+          "direction": "children",
+          "purpose": "eligibility"
+        },
+        {
+          "relation": "base_miniature_loadout_wargear_option.wargearOptionId",
+          "direction": "parent",
+          "purpose": "eligibility"
+        },
+        {
+          "relation": "wargear_option.wargearItemId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#deriveWargear",
+          "operation": "Resolve supported option-group defaults and use the legacy base-miniature-loadout chain as fallback."
+        }
+      ],
+      "filters": [
+        "Ignore datasheet-wide default groups with no miniature scope.",
+        "Do not use loadout-choice paths as defaults.",
+        "Leave unresolved weapon names and non-uniform model defaults unprojected or on the fallback path."
+      ],
+      "precedence": [
+        "Use the clean wargear-option-group default first; base_miniature_loadout is only its fallback.",
+        "Preserve multiplicity from defaultValue or base-loadout association count."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit",
+        "tools/src/mfm/wargear.ts#deriveWargear",
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "Only current supported default paths are recorded; choice-set replacement paths belong to wargear-option projection."
     },
     "/models/*/default_weapon_ids/*": {
-      "provenance": "derived", "coverage": "partial",
-      "sources": ["data.wargear_item.localisations.*.name", "data.base_miniature_loadout_wargear_option.count"],
-      "joins": [{ "relation": "wargear_option.wargearItemId", "direction": "parent", "purpose": "general" }, { "relation": "base_miniature_loadout_wargear_option.wargearOptionId", "direction": "parent", "purpose": "eligibility" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#deriveWargear", "operation": "Resolve each supported dump item name to an existing or minted repository weapon or wargear id." }],
-      "filters": ["Drop unresolved names."], "precedence": ["Retain source multiplicity."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "partial",
+      "sources": [
+        "data.wargear_item.localisations.*.name",
+        "data.base_miniature_loadout_wargear_option.count"
+      ],
+      "joins": [
+        {
+          "relation": "wargear_option.wargearItemId",
+          "direction": "parent",
+          "purpose": "general"
+        },
+        {
+          "relation": "base_miniature_loadout_wargear_option.wargearOptionId",
+          "direction": "parent",
+          "purpose": "eligibility"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#deriveWargear",
+          "operation": "Resolve each supported dump item name to an existing or minted repository weapon or wargear id."
+        }
+      ],
+      "filters": [
+        "Drop unresolved names."
+      ],
+      "precedence": [
+        "Retain source multiplicity."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit",
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "An item id is emitted only when the current resolver can establish the repository entity id."
     },
+    "/models/*/loadout_variants": {
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/convert-bsdata-loadout-variants.ts#main",
+          "operation": "Read the BSData 11e catalogue entry named by the unit's bsdata external reference and state each model variant's loadout whole."
+        }
+      ],
+      "filters": [
+        "Skip a variant whose equipment resolves to no weapon or wargear id.",
+        "Skip a model type whose variants do not differ in loadout."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/convert-bsdata-loadout-variants.ts#main"
+      ],
+      "reason": "The MFM dump states a base loadout and its option deltas, not the alternative kinds of model a squad fields; the variants are read from BSData instead."
+    },
+    "/models/*/loadout_variants/*": {
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/convert-bsdata-loadout-variants.ts#main",
+          "operation": "Read the BSData 11e catalogue entry named by the unit's bsdata external reference and state each model variant's loadout whole."
+        }
+      ],
+      "filters": [
+        "Skip a variant whose equipment resolves to no weapon or wargear id.",
+        "Skip a model type whose variants do not differ in loadout."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/convert-bsdata-loadout-variants.ts#main"
+      ],
+      "reason": "One complete alternative loadout for this model type, taken from a BSData model entry."
+    },
+    "/models/*/loadout_variants/*/name": {
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/convert-bsdata-loadout-variants.ts#main",
+          "operation": "Read the BSData 11e catalogue entry named by the unit's bsdata external reference and state each model variant's loadout whole."
+        }
+      ],
+      "filters": [
+        "Skip a variant whose equipment resolves to no weapon or wargear id.",
+        "Skip a model type whose variants do not differ in loadout."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/convert-bsdata-loadout-variants.ts#main"
+      ],
+      "reason": "The BSData model entry's own name, kept so a variant is identifiable against the source."
+    },
+    "/models/*/loadout_variants/*/weapon_ids": {
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/convert-bsdata-loadout-variants.ts#main",
+          "operation": "Read the BSData 11e catalogue entry named by the unit's bsdata external reference and state each model variant's loadout whole."
+        }
+      ],
+      "filters": [
+        "Skip a variant whose equipment resolves to no weapon or wargear id.",
+        "Skip a model type whose variants do not differ in loadout."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/convert-bsdata-loadout-variants.ts#main"
+      ],
+      "reason": "The variant's whole loadout, resolved to this faction's weapon and wargear ids."
+    },
+    "/models/*/loadout_variants/*/weapon_ids/*": {
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/convert-bsdata-loadout-variants.ts#main",
+          "operation": "Read the BSData 11e catalogue entry named by the unit's bsdata external reference and state each model variant's loadout whole."
+        }
+      ],
+      "filters": [
+        "Skip a variant whose equipment resolves to no weapon or wargear id.",
+        "Skip a model type whose variants do not differ in loadout."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/convert-bsdata-loadout-variants.ts#main"
+      ],
+      "reason": "A weapon or wargear id, preferring this unit's own stat variant where the weapon-variants pass minted one."
+    },
+    "/models/*/loadout_variants/*/max_count": {
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/convert-bsdata-loadout-variants.ts#main",
+          "operation": "Read the BSData 11e catalogue entry named by the unit's bsdata external reference and state each model variant's loadout whole."
+        }
+      ],
+      "filters": [
+        "Skip a variant whose equipment resolves to no weapon or wargear id.",
+        "Skip a model type whose variants do not differ in loadout."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/convert-bsdata-loadout-variants.ts#main"
+      ],
+      "reason": "The BSData variant entry's own max constraint, where it states one."
+    },
+    "/models/*/loadout_variants/*/per_n_models": {
+      "provenance": "repo-authored",
+      "coverage": "unimplemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/convert-bsdata-loadout-variants.ts#main",
+          "operation": "Read the BSData 11e catalogue entry named by the unit's bsdata external reference and state each model variant's loadout whole."
+        }
+      ],
+      "filters": [
+        "Skip a variant whose equipment resolves to no weapon or wargear id.",
+        "Skip a model type whose variants do not differ in loadout."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/convert-bsdata-loadout-variants.ts#main"
+      ],
+      "reason": "Not derived: BSData states a flat cap, and recovering a per-model ratio from it is only sound where the cap divides the squad's maximum."
+    },
     "/models/*/profile_name": {
-      "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve an existing profile_name while updating supported composition fields." }],
-      "filters": [], "precedence": ["Existing repository profile_name wins."],
-      "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve an existing profile_name while updating supported composition fields."
+        }
+      ],
+      "filters": [],
+      "precedence": [
+        "Existing repository profile_name wins."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "The dump supplies miniature display labels but no implemented mapping to the optional repository profile-name convention."
     },
     "/models/*/is_leader_model": {
-      "provenance": "derived", "coverage": "partial",
-      "sources": ["data.unit_composition_miniature.max", "data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "For synthesized rows only, infer leader status when a singleton model appears beside a bulk model." }],
-      "filters": ["Apply only to newly synthesized model rows."], "precedence": [],
-      "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "derived",
+      "coverage": "partial",
+      "sources": [
+        "data.unit_composition_miniature.max",
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "For synthesized rows only, infer leader status when a singleton model appears beside a bulk model."
+        }
+      ],
+      "filters": [
+        "Apply only to newly synthesized model rows."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "The leader flag is a repository heuristic; existing authored flags are preserved."
     },
     "/models/*/base_size_mm": {
-      "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "For synthesized rows, inherit one uniform existing sibling base or the existing unit base." }],
-      "filters": ["Do not invent a base when existing repository bases disagree or are absent."], "precedence": ["Uniform sibling base precedes the existing unit base."],
-      "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "For synthesized rows, inherit one uniform existing sibling base or the existing unit base."
+        }
+      ],
+      "filters": [
+        "Do not invent a base when existing repository bases disagree or are absent."
+      ],
+      "precedence": [
+        "Uniform sibling base precedes the existing unit base."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "No MFM geometry transform produces the repository base-size object."
     },
-    "/models/*/base_size_mm/diameter": { "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [], "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM." }], "filters": [], "precedence": ["Uniform sibling base precedes the existing unit base."], "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"], "reason": "Base geometry remains repository-authored." },
-    "/models/*/base_size_mm/draft": { "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [], "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM." }], "filters": [], "precedence": ["Uniform sibling base precedes the existing unit base."], "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"], "reason": "Base geometry remains repository-authored." },
-    "/models/*/base_size_mm/length": { "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [], "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM." }], "filters": [], "precedence": ["Uniform sibling base precedes the existing unit base."], "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"], "reason": "Base geometry remains repository-authored." },
-    "/models/*/base_size_mm/shape": { "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [], "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM." }], "filters": [], "precedence": ["Uniform sibling base precedes the existing unit base."], "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"], "reason": "Base geometry remains repository-authored." },
-    "/models/*/base_size_mm/size": { "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [], "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM." }], "filters": [], "precedence": ["Uniform sibling base precedes the existing unit base."], "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"], "reason": "Base geometry remains repository-authored." },
-    "/models/*/base_size_mm/width": { "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [], "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM." }], "filters": [], "precedence": ["Uniform sibling base precedes the existing unit base."], "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"], "reason": "Base geometry remains repository-authored." },
+    "/models/*/base_size_mm/diameter": {
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM."
+        }
+      ],
+      "filters": [],
+      "precedence": [
+        "Uniform sibling base precedes the existing unit base."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
+      "reason": "Base geometry remains repository-authored."
+    },
+    "/models/*/base_size_mm/draft": {
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM."
+        }
+      ],
+      "filters": [],
+      "precedence": [
+        "Uniform sibling base precedes the existing unit base."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
+      "reason": "Base geometry remains repository-authored."
+    },
+    "/models/*/base_size_mm/length": {
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM."
+        }
+      ],
+      "filters": [],
+      "precedence": [
+        "Uniform sibling base precedes the existing unit base."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
+      "reason": "Base geometry remains repository-authored."
+    },
+    "/models/*/base_size_mm/shape": {
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM."
+        }
+      ],
+      "filters": [],
+      "precedence": [
+        "Uniform sibling base precedes the existing unit base."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
+      "reason": "Base geometry remains repository-authored."
+    },
+    "/models/*/base_size_mm/size": {
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM."
+        }
+      ],
+      "filters": [],
+      "precedence": [
+        "Uniform sibling base precedes the existing unit base."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
+      "reason": "Base geometry remains repository-authored."
+    },
+    "/models/*/base_size_mm/width": {
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve or inherit the existing base object without deriving dimensions from MFM."
+        }
+      ],
+      "filters": [],
+      "precedence": [
+        "Uniform sibling base precedes the existing unit base."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
+      "reason": "Base geometry remains repository-authored."
+    },
     "/models/*/hull_shape_id": {
-      "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve an existing hull-shape reference on matched repository model rows." }],
-      "filters": ["Synthesized model rows receive no hull shape."], "precedence": ["Existing repository hull-shape reference wins."],
-      "consumers": ["tools/src/mfm/wargear.ts#reconcileModels"],
+      "provenance": "repo-authored",
+      "coverage": "partial",
+      "sources": [],
+      "joins": [],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#reconcileModels",
+          "operation": "Preserve an existing hull-shape reference on matched repository model rows."
+        }
+      ],
+      "filters": [
+        "Synthesized model rows receive no hull shape."
+      ],
+      "precedence": [
+        "Existing repository hull-shape reference wins."
+      ],
+      "consumers": [
+        "tools/src/mfm/wargear.ts#reconcileModels"
+      ],
       "reason": "MFM contains no hull polygon entity or transform."
     },
     "/tiers": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition.displayOrder", "data.unit_composition_miniature.min", "data.unit_composition_miniature.max", "data.miniature.displayOrder", "data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition.datasheetId", "direction": "parent", "purpose": "ownership" }, { "relation": "unit_composition_miniature.unitCompositionId", "direction": "children", "purpose": "general" }, { "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Build one ordered tier for each supported composition row." }],
-      "filters": ["Emit tiers only when more than one supported buildable tier exists.", "Do not project duplicate-name kill-team shapes."], "precedence": ["Order composition tiers by displayOrder."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition.displayOrder",
+        "data.unit_composition_miniature.min",
+        "data.unit_composition_miniature.max",
+        "data.miniature.displayOrder",
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition.datasheetId",
+          "direction": "parent",
+          "purpose": "ownership"
+        },
+        {
+          "relation": "unit_composition_miniature.unitCompositionId",
+          "direction": "children",
+          "purpose": "general"
+        },
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Build one ordered tier for each supported composition row."
+        }
+      ],
+      "filters": [
+        "Emit tiers only when more than one supported buildable tier exists.",
+        "Do not project duplicate-name kill-team shapes."
+      ],
+      "precedence": [
+        "Order composition tiers by displayOrder."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "Tiers are the source composition rows rendered through the repository's one-row-per-name model shape."
     },
     "/tiers/*": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition_miniature.min", "data.unit_composition_miniature.max", "data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition_miniature.unitCompositionId", "direction": "children", "purpose": "general" }, { "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Render a supported composition row as one output tier." }],
-      "filters": ["Exclude zero-max rows and duplicate-name kill-team shapes."], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.min",
+        "data.unit_composition_miniature.max",
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.unitCompositionId",
+          "direction": "children",
+          "purpose": "general"
+        },
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Render a supported composition row as one output tier."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max rows and duplicate-name kill-team shapes."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "Each output tier is derived from a supported source composition."
     },
     "/tiers/*/models": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition_miniature.min", "data.unit_composition_miniature.max", "data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition_miniature.unitCompositionId", "direction": "children", "purpose": "general" }, { "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Render ordered per-miniature counts for one supported tier." }],
-      "filters": ["Exclude zero-max rows and duplicate-name kill-team shapes."], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.min",
+        "data.unit_composition_miniature.max",
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.unitCompositionId",
+          "direction": "children",
+          "purpose": "general"
+        },
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Render ordered per-miniature counts for one supported tier."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max rows and duplicate-name kill-team shapes."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "Tier model counts are derived from the composition-to-miniature edge rows."
     },
     "/tiers/*/models/*": {
-      "provenance": "derived", "coverage": "implemented",
-      "sources": ["data.unit_composition_miniature.min", "data.unit_composition_miniature.max", "data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Create a model count row for one miniature in its composition tier." }],
-      "filters": ["Exclude zero-max rows."], "precedence": [],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.min",
+        "data.unit_composition_miniature.max",
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Create a model count row for one miniature in its composition tier."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max rows."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "Each tier model row is a direct shaped derivation of the edge row."
     },
     "/tiers/*/models/*/name": {
-      "provenance": "derived", "coverage": "implemented", "sources": ["data.miniature.localisations.*.name"],
-      "joins": [{ "relation": "unit_composition_miniature.miniatureId", "direction": "parent", "purpose": "general" }],
-      "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#aggregateComposition", "operation": "Use the miniature display name for the tier model key." }],
-      "filters": ["Exclude zero-max rows."], "precedence": [], "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "derived",
+      "coverage": "implemented",
+      "sources": [
+        "data.miniature.localisations.*.name"
+      ],
+      "joins": [
+        {
+          "relation": "unit_composition_miniature.miniatureId",
+          "direction": "parent",
+          "purpose": "general"
+        }
+      ],
+      "transforms": [
+        {
+          "symbol": "tools/src/mfm/wargear.ts#aggregateComposition",
+          "operation": "Use the miniature display name for the tier model key."
+        }
+      ],
+      "filters": [
+        "Exclude zero-max rows."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "The tier model key is the joined miniature display name."
     },
     "/tiers/*/models/*/min": {
-      "provenance": "direct", "coverage": "implemented", "sources": ["data.unit_composition_miniature.min"],
-      "joins": [], "transforms": [], "filters": ["Exclude zero-max rows."], "precedence": [], "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "direct",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.min"
+      ],
+      "joins": [],
+      "transforms": [],
+      "filters": [
+        "Exclude zero-max rows."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "The tier minimum is copied from the supported composition-miniature row."
     },
     "/tiers/*/models/*/max": {
-      "provenance": "direct", "coverage": "implemented", "sources": ["data.unit_composition_miniature.max"],
-      "joins": [], "transforms": [], "filters": ["Exclude zero-max rows."], "precedence": [], "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"],
+      "provenance": "direct",
+      "coverage": "implemented",
+      "sources": [
+        "data.unit_composition_miniature.max"
+      ],
+      "joins": [],
+      "transforms": [],
+      "filters": [
+        "Exclude zero-max rows."
+      ],
+      "precedence": [],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
       "reason": "The tier maximum is copied from the supported composition-miniature row."
     },
     "/game_version": {
-      "provenance": "repo-authored", "coverage": "implemented", "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": ["Existing unit game_version precedes the repository launch fallback."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"], "reason": "The projection copies repository release context and never converts dump metadata into a game version."
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [
+        "Existing unit game_version precedes the repository launch fallback."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
+      "reason": "The projection copies repository release context and never converts dump metadata into a game version."
     },
     "/game_version/edition": {
-      "provenance": "repo-authored", "coverage": "implemented", "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": ["Existing unit game_version precedes the repository launch fallback."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"], "reason": "Edition is repository release context, not a dump-metadata transform."
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [
+        "Existing unit game_version precedes the repository launch fallback."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
+      "reason": "Edition is repository release context, not a dump-metadata transform."
     },
     "/game_version/dataslate": {
-      "provenance": "repo-authored", "coverage": "implemented", "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": ["Existing unit game_version precedes the repository launch fallback."],
-      "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit"], "reason": "Dataslate is repository release context, not a dump-metadata transform."
+      "provenance": "repo-authored",
+      "coverage": "implemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [
+        "Existing unit game_version precedes the repository launch fallback."
+      ],
+      "consumers": [
+        "tools/src/mfm/project-loadout.ts#projectUnit"
+      ],
+      "reason": "Dataslate is repository release context, not a dump-metadata transform."
     },
     "/game_modes": {
-      "provenance": "repo-authored", "coverage": "unimplemented", "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "provenance": "repo-authored",
+      "coverage": "unimplemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": [],
       "reason": "Current composition projection does not emit game_modes; any composition mode labels remain authored."
     },
     "/game_modes/*": {
-      "provenance": "repo-authored", "coverage": "unimplemented", "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "provenance": "repo-authored",
+      "coverage": "unimplemented",
+      "sources": [],
+      "joins": [],
+      "transforms": [],
+      "filters": [],
+      "precedence": [],
+      "consumers": [],
       "reason": "Current composition projection does not emit game_modes; any composition mode labels remain authored."
     }
   },
   "unmapped_mfm_fields": [
-    { "source": "data.miniature.canBeNonCharacterWarlord", "candidate_pointer": "/models/*/is_leader_model", "reason": "A warlord eligibility flag is not the repository leader-model heuristic." },
-    { "source": "data.miniature.cannotBeWarlord", "candidate_pointer": "/models/*/is_leader_model", "reason": "A warlord restriction is not the repository leader-model heuristic." },
-    { "source": "data.miniature.excludedFromEnhancements", "candidate_pointer": null, "reason": "Enhancement eligibility has no unit-composition destination." },
-    { "source": "data.miniature.isIndividualModels", "candidate_pointer": null, "reason": "The current composition projection does not model this source classification." },
-    { "source": "data.miniature.isSupremeCommander", "candidate_pointer": null, "reason": "The current composition projection does not model this source classification." },
-    { "source": "data.miniature.miniatureSlots", "candidate_pointer": null, "reason": "The current composition projection does not model source slot counts." },
-    { "source": "data.unit_composition.points", "candidate_pointer": null, "reason": "Composition points belong to unit points projection, not this entity schema." },
-    { "source": "data.unit_composition.referenceGroupingKeywordId", "candidate_pointer": null, "reason": "Reference grouping is applicability context for points, not a unit-composition property." },
-    { "source": "data.wargear_option.points", "candidate_pointer": null, "reason": "Per-option cost is projected by wargear-option handling, not default model loadouts." }
+    {
+      "source": "data.miniature.canBeNonCharacterWarlord",
+      "candidate_pointer": "/models/*/is_leader_model",
+      "reason": "A warlord eligibility flag is not the repository leader-model heuristic."
+    },
+    {
+      "source": "data.miniature.cannotBeWarlord",
+      "candidate_pointer": "/models/*/is_leader_model",
+      "reason": "A warlord restriction is not the repository leader-model heuristic."
+    },
+    {
+      "source": "data.miniature.excludedFromEnhancements",
+      "candidate_pointer": null,
+      "reason": "Enhancement eligibility has no unit-composition destination."
+    },
+    {
+      "source": "data.miniature.isIndividualModels",
+      "candidate_pointer": null,
+      "reason": "The current composition projection does not model this source classification."
+    },
+    {
+      "source": "data.miniature.isSupremeCommander",
+      "candidate_pointer": null,
+      "reason": "The current composition projection does not model this source classification."
+    },
+    {
+      "source": "data.miniature.miniatureSlots",
+      "candidate_pointer": null,
+      "reason": "The current composition projection does not model source slot counts."
+    },
+    {
+      "source": "data.unit_composition.points",
+      "candidate_pointer": null,
+      "reason": "Composition points belong to unit points projection, not this entity schema."
+    },
+    {
+      "source": "data.unit_composition.referenceGroupingKeywordId",
+      "candidate_pointer": null,
+      "reason": "Reference grouping is applicability context for points, not a unit-composition property."
+    },
+    {
+      "source": "data.wargear_option.points",
+      "candidate_pointer": null,
+      "reason": "Per-option cost is projected by wargear-option handling, not default model loadouts."
+    }
   ]
 }

@@ -2342,6 +2342,40 @@ export interface UnitComposition {
       min: number;
       max: number;
       default_weapon_ids?: EntityId[];
+      /**
+       * Alternative complete loadouts for this model type, allocated across its count. Each variant states a whole loadout rather than a delta from `default_weapon_ids`, so a group whose members are peers needs no base loadout to be nominated. A squad distributes this model type's models between the variants, each variant taking at most the count its own cap allows and the remainder carrying `default_weapon_ids`. Absent means every model of this type carries `default_weapon_ids`. Use this where the choice is which models the squad fields; use `wargear-option` where the choice modifies a model already in it.
+       *
+       * @minItems 2
+       */
+      loadout_variants?: [
+        {
+          name: string;
+          /**
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          per_n_models?: number;
+          max_count?: number;
+        },
+        {
+          name: string;
+          /**
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          per_n_models?: number;
+          max_count?: number;
+        },
+        ...{
+          name: string;
+          /**
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          per_n_models?: number;
+          max_count?: number;
+        }[]
+      ];
       is_leader_model?: boolean;
       base_size_mm?: BaseSize1;
       /**
@@ -2355,6 +2389,40 @@ export interface UnitComposition {
       min: number;
       max: number;
       default_weapon_ids?: EntityId[];
+      /**
+       * Alternative complete loadouts for this model type, allocated across its count. Each variant states a whole loadout rather than a delta from `default_weapon_ids`, so a group whose members are peers needs no base loadout to be nominated. A squad distributes this model type's models between the variants, each variant taking at most the count its own cap allows and the remainder carrying `default_weapon_ids`. Absent means every model of this type carries `default_weapon_ids`. Use this where the choice is which models the squad fields; use `wargear-option` where the choice modifies a model already in it.
+       *
+       * @minItems 2
+       */
+      loadout_variants?: [
+        {
+          name: string;
+          /**
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          per_n_models?: number;
+          max_count?: number;
+        },
+        {
+          name: string;
+          /**
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          per_n_models?: number;
+          max_count?: number;
+        },
+        ...{
+          name: string;
+          /**
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          per_n_models?: number;
+          max_count?: number;
+        }[]
+      ];
       is_leader_model?: boolean;
       base_size_mm?: BaseSize1;
       /**

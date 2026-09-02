@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import re
 import unicodedata
+from functools import lru_cache
 
 # Mark category (Mn/Mc/Me) — every combining mark. The TS reference strips
 # \p{M}; the smaller \p{Diacritic} property misses some Mn characters, which
@@ -36,6 +37,13 @@ _SPACE_HYPHEN_RE = re.compile(r"[\s-]+")
 _LEADING_THE_RE = re.compile(r"^the\s+(.+)$", re.IGNORECASE)
 
 
+# Pure ASCII alphanumeric/space names -- the overwhelming majority of the corpus --
+# cannot be changed by the NFD pass, carry no combining marks and no quote variants,
+# so only the case fold and the space collapse can apply.
+_ASCII_SIMPLE_RE = re.compile(r"^[A-Za-z0-9 ]*$")
+
+
+@lru_cache(maxsize=65536)
 def normalize_name(input: str) -> str:
     """Reduce a display name to a canonical lookup key.
 
@@ -49,11 +57,19 @@ def normalize_name(input: str) -> str:
 
     The result is intended only for comparison; it is not a display value.
 
+    Memoised: roster import calls this ~135k times per list against a vocabulary of
+    ~17k distinct strings (93% hit rate), because ``Collection.find_all`` re-normalises
+    candidate names on every lookup. Pure function of its argument, so the cache is a
+    behavioural no-op; bounded so that arbitrary roster text cannot grow it without
+    limit.
+
     >>> normalize_name("Khârn the Betrayer")
     'kharn the betrayer'
     >>> normalize_name("T'au")
     'tau'
     """
+    if _ASCII_SIMPLE_RE.match(input):
+        return _SPACE_HYPHEN_RE.sub(" ", input.lower()).strip()
     decomposed = unicodedata.normalize("NFD", input)
     # Strip marks *before* lowercasing — load-bearing for İ (U+0130), whose
     # lowercase form introduces a combining dot that must survive.

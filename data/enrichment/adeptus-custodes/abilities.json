@@ -2049,28 +2049,37 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "choice",
-      "choice_label": "Ka'tah Stance",
-      "options": [
-        {
-          "type": "keyword-grant",
-          "target": "unit",
-          "modifier": {
-            "keywords": [
-              "Sustained Hits 1"
-            ]
-          }
-        },
-        {
-          "type": "keyword-grant",
-          "target": "unit",
-          "modifier": {
-            "keywords": [
-              "Lethal Hits"
-            ]
-          }
+      "type": "conditional",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
         }
-      ]
+      },
+      "effect": {
+        "type": "choice",
+        "choice_label": "Ka'tah Stance",
+        "options": [
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ]
+            }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Lethal Hits"
+              ]
+            }
+          }
+        ]
+      }
     },
     "scope": {
       "range": "unit",

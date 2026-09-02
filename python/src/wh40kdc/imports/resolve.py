@@ -16,6 +16,7 @@ Python mirror of ``tools/src/import/resolve.ts``.
 from __future__ import annotations
 
 import re
+from functools import cache, lru_cache
 from typing import Any
 
 from wh40kdc.data.dataset import Dataset
@@ -532,20 +533,17 @@ def _unit_lookup_candidates(raw_name: str, faction_id: str | None, ds: Dataset) 
     return deduped
 
 
+# ``s`` at an ASCII word boundary; ``re.ASCII`` matches the un-flagged JS ``\\b``.
+_PLURAL_S_RE = re.compile(r"s\b", re.ASCII)
+
+
+@lru_cache(maxsize=65536)
 def _singular(s: str) -> str:
     """Singular/plural- and case-insensitive form for model-line matching:
     :func:`normalize_name` then drop every 's' at a word boundary — exact mirror
     of the TS ``normalizeName(s).replace(/s\\b/g, "")`` (a boundary is a
     following non-``\\w`` character or end of string)."""
-    n = normalize_name(s)
-    out = []
-    for i, ch in enumerate(n):
-        nxt = n[i + 1] if i + 1 < len(n) else ""
-        next_is_word = nxt.isascii() and (nxt.isalnum() or nxt == "_")
-        if ch == "s" and not next_is_word:
-            continue
-        out.append(ch)
-    return "".join(out)
+    return _PLURAL_S_RE.sub("", normalize_name(s))
 
 
 def _resolve_unit(
@@ -632,6 +630,9 @@ def _resolve_unit(
             if name
         }
 
+        # Called once per wargear line by is_model_line and then once more per
+        # composition model by matches_model_name; the keys depend only on the name.
+        @cache
         def model_line_keys(raw_name: str) -> set[str]:
             variants = [raw_name, *re.split(r"\s+--?\s+", raw_name)]
             if with_base := re.split(r"\s+with\s+", raw_name, flags=re.IGNORECASE)[0].strip():

@@ -60,7 +60,13 @@ class Collection(Generic[T, V]):
         self._items: list[T] = []
         self._by_id: dict[str, T] = {}
         self._by_norm: dict[str, list[T]] = {}
+        # (normalized name, item) in first-seen order, for the substring fallback in
+        # find_all: it is already computed below for _by_norm, and re-deriving it
+        # per lookup made every miss a full scan through name_of and normalize_name.
+        self._norm_names: list[tuple[str, T]] = []
         self._by_faction_id: dict[str, list[T]] = {}
+        # (faction id, item id) -> first-registered item, for get_in_faction.
+        self._by_faction_and_id: dict[tuple[str, str], T] = {}
         self._by_external_ref: dict[tuple[str, str], list[T]] = {}
         # Ids registered under >1 faction; only populated when guarding.
         self._ambiguous_ids: set[str] | None = set() if guard_unscoped else None
@@ -83,7 +89,9 @@ class Collection(Generic[T, V]):
 
             name = name_of(item) if name_of else None
             if name:
-                self._by_norm.setdefault(normalize_name(name), []).append(item)
+                norm = normalize_name(name)
+                self._by_norm.setdefault(norm, []).append(item)
+                self._norm_names.append((norm, item))
 
             # Alias names answer to the same record. Index them after the
             # canonical name and skip any alias that normalizes to the
@@ -105,6 +113,7 @@ class Collection(Generic[T, V]):
             faction = faction_of(item) if faction_of else None
             if faction:
                 self._by_faction_id.setdefault(faction, []).append(item)
+                self._by_faction_and_id.setdefault((faction, id_), item)
                 if id_factions is not None:
                     id_factions.setdefault(id_, set()).add(faction)
 
@@ -177,10 +186,8 @@ class Collection(Generic[T, V]):
         resolved = id
         if id not in self._by_id and self._id_aliases is not None:
             resolved = self._id_aliases.get(id, id)
-        for item in self._by_faction_id.get(faction_id, []):
-            if self._id_of(item) == resolved:
-                return self._wrap(item)
-        return None
+        item = self._by_faction_and_id.get((faction_id, resolved))
+        return self._wrap(item) if item is not None else None
 
     def has(self, id: str) -> bool:
         """Whether a record with this exact id (or a renamed alias of it) exists."""
@@ -223,10 +230,7 @@ class Collection(Generic[T, V]):
 
         if self._name_of is None or key == "":
             return []
-        name_of = self._name_of
-        return [
-            self._wrap(item) for item in self._items if key in normalize_name(name_of(item) or "")
-        ]
+        return [self._wrap(item) for norm, item in self._norm_names if key in norm]
 
     def by_faction(self, faction_id: str) -> list[V]:
         """All records belonging to a faction id (empty if the type has no faction)."""

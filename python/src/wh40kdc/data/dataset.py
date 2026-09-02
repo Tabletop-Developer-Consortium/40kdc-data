@@ -194,6 +194,12 @@ class Dataset:
         self.interaction_flags: list[dict[str, Any]] = raw["interaction_flags"]
         self.phase_mappings: list[dict[str, Any]] = raw["phase_mappings"]
 
+        # (unit id, faction id) → its composition row; first-wins on duplicates, as
+        # the linear search it replaces returned the first hit.
+        self._composition_by_unit: dict[tuple[Any, Any], dict[str, Any]] = {}
+        for c in self.unit_compositions:
+            self._composition_by_unit.setdefault((c.get("unit_id"), c.get("faction_id")), c)
+
         # `source_type:source_id` → unioned phases.
         self._phase_index: dict[str, list[str]] = {}
         # ability id → units that list it.
@@ -405,14 +411,7 @@ class Dataset:
         both ``unit_id`` and ``faction_id``. ``None`` when the unit has no
         recorded composition. Mirror of TS ``unitCompositionOf``.
         """
-        return next(
-            (
-                c
-                for c in self.unit_compositions
-                if c.get("unit_id") == unit["id"] and c.get("faction_id") == unit.get("faction_id")
-            ),
-            None,
-        )
+        return self._composition_by_unit.get((unit["id"], unit.get("faction_id")))
 
     def leaders_attachable_to(self, bodyguard_unit_id: str) -> list[UnitView]:
         """Leaders whose leader-attachment data lists the unit among its bodyguards.

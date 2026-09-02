@@ -26,13 +26,14 @@ Unit = dict[str, Any]
 LoadoutModel = dict[str, Any]
 
 
-def _js_locale_key(value: str) -> tuple[int, ...]:
+def _js_locale_key(value: str) -> str:
     """The ordering domain here is canonical entity ids: lowercase ASCII letters,
     digits, and hyphens. In that domain the repository's Node ``localeCompare``
-    ordering is ordinal, so this is the allocation-free equivalent for the solver's
-    multiset and candidate keys. Entity ids are schema-normalized before reaching
+    ordering is ordinal, and Python compares ``str`` by code point, so the string
+    is its own sort key. Kept as a named function to mark the ``localeCompare``
+    mirror points in the solver. Entity ids are schema-normalized before reaching
     loadout solving."""
-    return tuple(ord(char) for char in value)
+    return value
 
 
 def option_cap(

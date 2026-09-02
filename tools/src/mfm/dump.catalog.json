@@ -561,12 +561,37 @@
     },
     "army_rule_behaviour_type": {
       "description": "Associates army rules with reusable behaviour definitions.",
-      "row_shape": "unobserved",
+      "row_shape": "observed",
       "identity": {
-        "fields": [],
-        "status": "none"
+        "fields": [
+          "id"
+        ],
+        "status": "verified"
       },
-      "fields": {}
+      "fields": {
+        "armyRuleId": {
+          "description": "References the army rule receiving the behaviour definition.",
+          "ip_class": "identifier",
+          "shape_review": "observed",
+          "relation": "army_rule_behaviour_type.armyRuleId"
+        },
+        "behaviourTypeId": {
+          "description": "References the behaviour definition associated with the army rule.",
+          "ip_class": "identifier",
+          "shape_review": "observed",
+          "relation": "army_rule_behaviour_type.behaviourTypeId"
+        },
+        "displayOrder": {
+          "description": "Orders the behaviour definition within the army rule.",
+          "ip_class": "numeric",
+          "shape_review": "observed"
+        },
+        "id": {
+          "description": "Identifies the army-rule behaviour association.",
+          "ip_class": "identifier",
+          "shape_review": "observed"
+        }
+      }
     },
     "army_rule_excluded_from_command_bunker_faction_keyword": {
       "description": "Associates army rules with faction keywords excluded from command-bunker eligibility.",
@@ -1232,9 +1257,9 @@
       },
       "fields": {
         "damagedAt": {
-          "description": "Reserves the threshold at which this damage state applies.",
+          "description": "Records the threshold at which this damage state applies.",
           "ip_class": "numeric",
-          "shape_review": "null-only"
+          "shape_review": "observed"
         },
         "datasheetId": {
           "description": "Identifies the datasheet receiving this damage state.",
@@ -2634,7 +2659,7 @@
         "miniatureId": {
           "description": "Optionally identifies the model profile receiving this invulnerable save.",
           "ip_class": "identifier",
-          "shape_review": "observed",
+          "shape_review": "null-only",
           "relation": "invulnerable_save.miniatureId"
         },
         "rangedSave": {
@@ -4706,9 +4731,9 @@
           "shape_review": "observed"
         },
         "localisations.*.hunterProfileKeyword": {
-          "description": "Reserves a localized profile-keyword field that is null in the observed shape.",
+          "description": "Provides a localized profile-keyword marker.",
           "ip_class": "structural",
-          "shape_review": "null-only"
+          "shape_review": "observed"
         },
         "localisations.*.name": {
           "description": "Provides the localized display name of the profile.",
@@ -5266,6 +5291,28 @@
       "nullable": false,
       "status": "verified",
       "meaning": "ownership"
+    },
+    "army_rule_behaviour_type.armyRuleId": {
+      "source_table": "army_rule_behaviour_type",
+      "source_field": "armyRuleId",
+      "target_table": "army_rule",
+      "target_field": "id",
+      "cardinality": "many-to-many-edge",
+      "nullable": false,
+      "status": "verified",
+      "meaning": "general",
+      "edge_peer": "army_rule_behaviour_type.behaviourTypeId"
+    },
+    "army_rule_behaviour_type.behaviourTypeId": {
+      "source_table": "army_rule_behaviour_type",
+      "source_field": "behaviourTypeId",
+      "target_table": "behaviour_type",
+      "target_field": "id",
+      "cardinality": "many-to-many-edge",
+      "nullable": false,
+      "status": "verified",
+      "meaning": "general",
+      "edge_peer": "army_rule_behaviour_type.armyRuleId"
     },
     "army_rule_excluded_from_command_bunker_faction_keyword.armyRuleId": {
       "source_table": "army_rule_excluded_from_command_bunker_faction_keyword",

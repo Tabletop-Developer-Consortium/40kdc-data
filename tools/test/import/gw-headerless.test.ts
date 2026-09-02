@@ -460,7 +460,7 @@ Incursion (1000 points)
 OTHER DATASHEETS
 
 Nobz (105 points)
-• 1x Boss Nob
+• 1x Nob
 • 1x Power klaw
 • 4x Nob
 • 4x Power klaw

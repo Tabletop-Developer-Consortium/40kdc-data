@@ -841,7 +841,7 @@
     {
       "source": "data.wargear_item_profile.localisations.*.hunterProfileKeyword",
       "candidate_pointer": "/profiles/*/keywords",
-      "reason": "The observed field is null-only and the current keyword parser does not consume it."
+      "reason": "The current keyword parser does not consume this localized source field."
     },
     {
       "source": "data.wargear_item_profile_wargear_ability.displayOrder",

@@ -48,10 +48,7 @@ export interface MfmTableMap {
    */
   amendment: [];
   army_rule: ArmyRuleRow[];
-  /**
-   * @maxItems 0
-   */
-  army_rule_behaviour_type: [];
+  army_rule_behaviour_type: ArmyRuleBehaviourTypeRow[];
   army_rule_excluded_from_command_bunker_faction_keyword: ArmyRuleExcludedFromCommandBunkerFactionKeywordRow[];
   army_rule_faction_keyword: ArmyRuleFactionKeywordRow[];
   base_miniature_loadout: BaseMiniatureLoadoutRow[];
@@ -596,6 +593,30 @@ export interface ArmyRuleLocalisation {
   name: string;
 }
 /**
+ * Associates army rules with reusable behaviour definitions.
+ *
+ * This interface was referenced by `MfmDumpPayload`'s JSON-Schema
+ * via the `definition` "ArmyRuleBehaviourTypeRow".
+ */
+export interface ArmyRuleBehaviourTypeRow {
+  /**
+   * References the army rule receiving the behaviour definition.
+   */
+  armyRuleId: string;
+  /**
+   * References the behaviour definition associated with the army rule.
+   */
+  behaviourTypeId: string;
+  /**
+   * Orders the behaviour definition within the army rule.
+   */
+  displayOrder: number;
+  /**
+   * Identifies the army-rule behaviour association.
+   */
+  id: string;
+}
+/**
  * Associates army rules with faction keywords excluded from command-bunker eligibility.
  *
  * This interface was referenced by `MfmDumpPayload`'s JSON-Schema
@@ -795,7 +816,7 @@ export interface BehaviourTypeLocalisation {
   /**
    * Provides localized rule-reference text for the behaviour.
    */
-  ruleReference: string;
+  ruleReference: null | string;
   /**
    * Provides localized setup-distance parameter text.
    */
@@ -1124,9 +1145,9 @@ export interface DatasheetBodyguardGroupKeywordRow {
  */
 export interface DatasheetDamageRow {
   /**
-   * Reserves the threshold at which this damage state applies.
+   * Records the threshold at which this damage state applies.
    */
-  damagedAt: null;
+  damagedAt: null | number;
   /**
    * Identifies the datasheet receiving this damage state.
    */
@@ -1163,7 +1184,7 @@ export interface DatasheetDamageLocalisation {
   /**
    * Contains localized damage-state rule prose.
    */
-  rules: string;
+  rules: null | string;
 }
 /**
  * Associates a datasheet with an ability that applies to it.
@@ -2228,7 +2249,7 @@ export interface InvulnerableSaveRow {
   /**
    * Optionally identifies the model profile receiving this invulnerable save.
    */
-  miniatureId: null | string;
+  miniatureId: null;
   /**
    * Optionally records the invulnerable save applying at range.
    */
@@ -3932,9 +3953,9 @@ export interface WargearItemProfileRow {
  */
 export interface WargearItemProfileLocalisation {
   /**
-   * Reserves a localized profile-keyword field that is null in the observed shape.
+   * Provides a localized profile-keyword marker.
    */
-  hunterProfileKeyword: null;
+  hunterProfileKeyword: null | string;
   /**
    * Provides the localized display name of the profile.
    */
@@ -4121,7 +4142,7 @@ export interface WargearRuleLocalisation {
 
 export type MfmTableName = keyof MfmTableMap;
 export type MfmRow<N extends MfmTableName> = MfmTableMap[N][number];
-export type MfmIdTableName = "all_model_wargear_choice" | "all_model_wargear_choice_set" | "all_model_wargear_choice_wargear_item" | "allegiance_ability" | "allegiance_ability_group" | "allied_faction" | "allied_faction_keyword" | "allied_faction_keyword_slotless_keyword_group" | "army_rule" | "base_miniature_loadout" | "base_miniature_loadout_wargear_option" | "battle_size" | "behaviour_type" | "bullet_point" | "conditional_keyword" | "datasheet" | "datasheet_ability" | "datasheet_bodyguard_group" | "datasheet_damage" | "datasheet_datasheet_ability" | "datasheet_faction_keyword" | "datasheet_points_step" | "datasheet_rule" | "datasheet_sub_ability" | "detachment" | "detachment_detail" | "detachment_detail_bullet_point" | "detachment_rule" | "enhancement" | "enhancement_bodyguard_group" | "enhancement_required_keyword_group" | "faction_keyword" | "faq" | "faq_config" | "force_disposition" | "force_disposition_mission" | "invulnerable_save" | "keyword" | "keyword_restriction_group" | "limited_wargear_choice" | "limited_wargear_choice_set" | "limited_wargear_choice_wargear_item" | "loadout_choice" | "loadout_choice_set" | "loadout_choice_wargear_item" | "miniature" | "miniature_keyword" | "mission_deployment" | "mission_layout" | "mission_pack" | "mission_preset" | "mission_twist" | "primary_mission" | "primary_mission_action" | "primary_mission_objective" | "primary_mission_objective_scoring" | "publication" | "restriction_group_detachment_limit" | "rule_container" | "rule_container_component" | "rule_section" | "secondary_mission" | "secondary_mission_action" | "secondary_mission_objective" | "secondary_mission_objective_scoring" | "stratagem" | "unit_composition" | "unit_composition_miniature" | "wargear_ability" | "wargear_item" | "wargear_item_profile" | "wargear_item_profile_wargear_ability" | "wargear_limit" | "wargear_option" | "wargear_option_group" | "wargear_rule";
+export type MfmIdTableName = "all_model_wargear_choice" | "all_model_wargear_choice_set" | "all_model_wargear_choice_wargear_item" | "allegiance_ability" | "allegiance_ability_group" | "allied_faction" | "allied_faction_keyword" | "allied_faction_keyword_slotless_keyword_group" | "army_rule" | "army_rule_behaviour_type" | "base_miniature_loadout" | "base_miniature_loadout_wargear_option" | "battle_size" | "behaviour_type" | "bullet_point" | "conditional_keyword" | "datasheet" | "datasheet_ability" | "datasheet_bodyguard_group" | "datasheet_damage" | "datasheet_datasheet_ability" | "datasheet_faction_keyword" | "datasheet_points_step" | "datasheet_rule" | "datasheet_sub_ability" | "detachment" | "detachment_detail" | "detachment_detail_bullet_point" | "detachment_rule" | "enhancement" | "enhancement_bodyguard_group" | "enhancement_required_keyword_group" | "faction_keyword" | "faq" | "faq_config" | "force_disposition" | "force_disposition_mission" | "invulnerable_save" | "keyword" | "keyword_restriction_group" | "limited_wargear_choice" | "limited_wargear_choice_set" | "limited_wargear_choice_wargear_item" | "loadout_choice" | "loadout_choice_set" | "loadout_choice_wargear_item" | "miniature" | "miniature_keyword" | "mission_deployment" | "mission_layout" | "mission_pack" | "mission_preset" | "mission_twist" | "primary_mission" | "primary_mission_action" | "primary_mission_objective" | "primary_mission_objective_scoring" | "publication" | "restriction_group_detachment_limit" | "rule_container" | "rule_container_component" | "rule_section" | "secondary_mission" | "secondary_mission_action" | "secondary_mission_objective" | "secondary_mission_objective_scoring" | "stratagem" | "unit_composition" | "unit_composition_miniature" | "wargear_ability" | "wargear_item" | "wargear_item_profile" | "wargear_item_profile_wargear_ability" | "wargear_limit" | "wargear_option" | "wargear_option_group" | "wargear_rule";
 export type MfmStringKey<N extends MfmTableName> = {
   [K in keyof MfmRow<N>]-?: Exclude<MfmRow<N>[K], null | undefined> extends string ? K : never;
 }[keyof MfmRow<N>] & string;
@@ -4360,6 +4381,24 @@ export const MFM_RELATIONS = {
     "cardinality": "many-to-many-edge",
     "nullable": false,
     "meaning": "eligibility"
+  },
+  "army_rule_behaviour_type.armyRuleId": {
+    "sourceTable": "army_rule_behaviour_type",
+    "sourceField": "armyRuleId",
+    "targetTable": "army_rule",
+    "targetField": "id",
+    "cardinality": "many-to-many-edge",
+    "nullable": false,
+    "meaning": "general"
+  },
+  "army_rule_behaviour_type.behaviourTypeId": {
+    "sourceTable": "army_rule_behaviour_type",
+    "sourceField": "behaviourTypeId",
+    "targetTable": "behaviour_type",
+    "targetField": "id",
+    "cardinality": "many-to-many-edge",
+    "nullable": false,
+    "meaning": "general"
   },
   "army_rule_excluded_from_command_bunker_faction_keyword.armyRuleId": {
     "sourceTable": "army_rule_excluded_from_command_bunker_faction_keyword",

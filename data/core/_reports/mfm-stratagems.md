@@ -1,4 +1,4 @@
-# MFM stratagems — DRY RUN
+# MFM stratagems — APPLIED
 
 APPLIED (first-class dump columns): `cp_cost` ← cpCost, `player_turn` ← key,
 `type` ← category (fill-only), `category` ← detachmentId presence.
@@ -22,7 +22,7 @@ Avarice→command, Scriptural Prognosis→all-five), so authored phases win.
 | chaos-daemons | 46 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | chaos-knights | 39 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | chaos-space-marines | 96 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |
-| crimson-fists | 66 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
+| crimson-fists | 65 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | dark-angels | 106 | 0 | 0 | 0 | 0 | 0 | 3 | 0 |
 | death-guard | 48 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | deathwatch | 71 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
@@ -35,7 +35,7 @@ Avarice→command, Scriptural Prognosis→all-five), so authored phases win.
 | iron-hands | 71 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | leagues-of-votann | 54 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | necrons | 66 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| orks | 20 | 0 | 0 | 0 | 0 | 0 | 2 | 26 |
+| orks | 32 | 0 | 0 | 0 | 0 | 0 | 0 | 14 |
 | raven-guard | 71 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | salamanders | 68 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | space-wolves | 102 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
@@ -45,7 +45,7 @@ Avarice→command, Scriptural Prognosis→all-five), so authored phases win.
 | ultramarines | 77 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | white-scars | 71 | 0 | 0 | 0 | 0 | 0 | 1 | 0 |
 | world-eaters | 42 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| **TOTAL** | **2166** | **0** | **0** | **0** | **0** | **0** | **26** | **48** |
+| **TOTAL** | **2177** | **0** | **0** | **0** | **0** | **0** | **24** | **36** |
 
 ## (core)
 
@@ -126,12 +126,6 @@ Avarice→command, Scriptural Prognosis→all-five), so authored phases win.
 **Phases — authored vs prose-derived (review only, NOT applied):**
 - shock-assault-stormlance-task-force: [charge] vs [fight]
 
-## orks
-
-**Phases — authored vs prose-derived (review only, NOT applied):**
-- speediest-freeks-kult-of-speed: [shooting] vs [shooting,fight]
-- too-arrogant-to-die-bully-boyz: [fight] vs [shooting,fight]
-
 ## raven-guard
 
 **Phases — authored vs prose-derived (review only, NOT applied):**
@@ -157,5 +151,5 @@ Avarice→command, Scriptural Prognosis→all-five), so authored phases win.
 **Phases — authored vs prose-derived (review only, NOT applied):**
 - shock-assault-stormlance-task-force: [charge] vs [fight]
 
-Stratagems in dump with no repo match (author via faction-pack flow): 51
+Stratagems in dump with no repo match (author via faction-pack flow): 14
 

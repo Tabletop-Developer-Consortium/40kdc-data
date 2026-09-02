@@ -1,24 +1,9 @@
 [
   {
-    "leader_id": "wurrboy",
-    "eligible_bodyguard_ids": [
-      "beast-snagga-boyz"
-    ],
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "launch"
-    }
-  },
-  {
     "leader_id": "bannernob",
     "eligible_bodyguard_ids": [
       "boyz",
-      "breaka-boyz",
-      "burna-boyz",
-      "flash-gitz",
-      "lootas",
-      "nobz",
-      "tankbustas"
+      "nobz"
     ],
     "game_version": {
       "edition": "11th",
@@ -50,7 +35,7 @@
     "eligible_bodyguard_ids": [
       "boyz",
       "breaka-boyz",
-      "lootas",
+      "flash-gitz",
       "mek-gunz",
       "nobz",
       "tankbustas"
@@ -63,7 +48,8 @@
   {
     "leader_id": "big-mek-in-mega-armour",
     "eligible_bodyguard_ids": [
-      "meganobz"
+      "meganobz",
+      "mek-gunz"
     ],
     "game_version": {
       "edition": "11th",
@@ -74,8 +60,6 @@
     "leader_id": "big-mek-with-shokk-attack-gun",
     "eligible_bodyguard_ids": [
       "boyz",
-      "breaka-boyz",
-      "lootas",
       "mek-gunz",
       "nobz",
       "tankbustas"
@@ -134,7 +118,7 @@
     "leader_id": "mek",
     "eligible_bodyguard_ids": [
       "boyz",
-      "lootas",
+      "flash-gitz",
       "mek-gunz",
       "nobz",
       "tankbustas"
@@ -155,9 +139,20 @@
     }
   },
   {
+    "leader_id": "nazdreg",
+    "eligible_bodyguard_ids": [
+      "meganobz"
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
     "leader_id": "painboss",
     "eligible_bodyguard_ids": [
-      "beast-snagga-boyz"
+      "beast-snagga-boyz",
+      "squighog-boyz"
     ],
     "game_version": {
       "edition": "11th",
@@ -169,10 +164,19 @@
     "eligible_bodyguard_ids": [
       "boyz",
       "breaka-boyz",
-      "burna-boyz",
-      "lootas",
+      "flash-gitz",
       "nobz",
       "tankbustas"
+    ],
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "launch"
+    }
+  },
+  {
+    "leader_id": "runtherd",
+    "eligible_bodyguard_ids": [
+      "gretchin"
     ],
     "game_version": {
       "edition": "11th",
@@ -204,8 +208,8 @@
   {
     "leader_id": "weirdboy",
     "eligible_bodyguard_ids": [
-      "boyz",
-      "breaka-boyz"
+      "beast-snagga-boyz",
+      "boyz"
     ],
     "game_version": {
       "edition": "11th",

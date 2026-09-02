@@ -163,7 +163,7 @@ describe.skipIf(!fs.existsSync(DEFAULT_DUMP_PATH))("seedStratagems over the real
   });
 
   it("does not re-seed entries excluded by current Codex rosters", () => {
-    expect(report.skippedOutsideRoster).toContain("always-lookin-fer-a-fight-bully-boyz");
+    expect(report.skippedOutsideRoster).toContain("krump-em-ardmob");
   });
   it("skips coreless dump stratagems (universal core set is complete; spelling mismatches)", () => {
     // The dump's one-word "Counteroffensive" must NOT seed a duplicate of the

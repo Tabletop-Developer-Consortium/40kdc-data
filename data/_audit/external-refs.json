@@ -14,17 +14,17 @@
       }
     },
     "unit": {
-      "entities": 1097,
-      "with_external_refs": 1089,
+      "entities": 1094,
+      "with_external_refs": 1086,
       "covered_entities_by_namespace": {
-        "bsdata": 997,
-        "game-datacards": 999,
-        "mfm": 1089
+        "bsdata": 989,
+        "game-datacards": 996,
+        "mfm": 1086
       },
       "references_by_namespace": {
-        "bsdata": 1061,
-        "game-datacards": 999,
-        "mfm": 1099
+        "bsdata": 1053,
+        "game-datacards": 996,
+        "mfm": 1096
       }
     },
     "detachment": {
@@ -38,69 +38,53 @@
       }
     },
     "enhancement": {
-      "entities": 994,
-      "with_external_refs": 945,
+      "entities": 999,
+      "with_external_refs": 978,
       "covered_entities_by_namespace": {
-        "game-datacards": 899,
+        "game-datacards": 907,
         "mfm": 945
       },
       "references_by_namespace": {
-        "game-datacards": 899,
+        "game-datacards": 907,
         "mfm": 945
       }
     },
     "stratagem": {
       "entities": 1434,
-      "with_external_refs": 1385,
+      "with_external_refs": 1409,
       "covered_entities_by_namespace": {
-        "game-datacards": 1307,
+        "game-datacards": 1319,
         "mfm": 1384
       },
       "references_by_namespace": {
-        "game-datacards": 1307,
+        "game-datacards": 1319,
         "mfm": 1384
       }
     },
     "weapon": {
-      "entities": 3177,
-      "with_external_refs": 3088,
+      "entities": 3181,
+      "with_external_refs": 3107,
       "covered_entities_by_namespace": {
-        "bsdata": 2859,
-        "mfm": 3006
+        "bsdata": 2840,
+        "mfm": 3029
       },
       "references_by_namespace": {
-        "bsdata": 3393,
-        "mfm": 3189
+        "bsdata": 3370,
+        "mfm": 3210
       }
     },
     "wargear": {
-      "entities": 207,
-      "with_external_refs": 153,
+      "entities": 208,
+      "with_external_refs": 154,
       "covered_entities_by_namespace": {
-        "mfm": 153
+        "mfm": 154
       },
       "references_by_namespace": {
-        "mfm": 171
+        "mfm": 172
       }
     }
   },
   "fan_out": [
-    {
-      "namespace": "bsdata",
-      "id": "050a-60ad-b309-77f5",
-      "targets": [
-        {
-          "entity_type": "weapon",
-          "id": "close-combat-weapon",
-          "faction_id": "orks"
-        },
-        {
-          "entity_type": "weapon",
-          "id": "close-combat-weapon-burna-boyz",
-          "faction_id": "orks"
-        }
-      ]
-    },
     {
       "namespace": "bsdata",
       "id": "0e77-2630-6f58-75ce",
@@ -722,22 +706,6 @@
     },
     {
       "namespace": "bsdata",
-      "id": "32ab-c37c-b71f-8415",
-      "targets": [
-        {
-          "entity_type": "weapon",
-          "id": "kombi-rokkit",
-          "faction_id": "orks"
-        },
-        {
-          "entity_type": "weapon",
-          "id": "kombi-rokkit-boyz",
-          "faction_id": "orks"
-        }
-      ]
-    },
-    {
-      "namespace": "bsdata",
       "id": "3469-166f-44f3-51b8",
       "targets": [
         {
@@ -1066,22 +1034,6 @@
           "entity_type": "weapon",
           "id": "heavy-bolter-catachan-heavy-weapons-squad",
           "faction_id": "astra-militarum"
-        }
-      ]
-    },
-    {
-      "namespace": "bsdata",
-      "id": "44dd-ab41-a003-f560",
-      "targets": [
-        {
-          "entity_type": "weapon",
-          "id": "rokkit-launcha",
-          "faction_id": "orks"
-        },
-        {
-          "entity_type": "weapon",
-          "id": "rokkit-launcha-wartrakk",
-          "faction_id": "orks"
         }
       ]
     },
@@ -1995,22 +1947,6 @@
     },
     {
       "namespace": "bsdata",
-      "id": "8f0e-a9ba-1cfd-3106",
-      "targets": [
-        {
-          "entity_type": "weapon",
-          "id": "burna",
-          "faction_id": "orks"
-        },
-        {
-          "entity_type": "weapon",
-          "id": "burna-kommandos",
-          "faction_id": "orks"
-        }
-      ]
-    },
-    {
-      "namespace": "bsdata",
       "id": "8fca-90dd-a784-b5c0",
       "targets": [
         {
@@ -2632,11 +2568,6 @@
       "targets": [
         {
           "entity_type": "weapon",
-          "id": "saw-blades",
-          "faction_id": "orks"
-        },
-        {
-          "entity_type": "weapon",
           "id": "saw-blades-hunta-rig",
           "faction_id": "orks"
         },
@@ -3021,22 +2952,6 @@
     },
     {
       "namespace": "bsdata",
-      "id": "e17f-30cb-5a48-0ac3",
-      "targets": [
-        {
-          "entity_type": "weapon",
-          "id": "spiked-wheels",
-          "faction_id": "orks"
-        },
-        {
-          "entity_type": "weapon",
-          "id": "spiked-wheels-boomdakka-snazzwagon",
-          "faction_id": "orks"
-        }
-      ]
-    },
-    {
-      "namespace": "bsdata",
       "id": "e1c3-9162-7c4b-b7da",
       "targets": [
         {
@@ -3047,11 +2962,6 @@
         {
           "entity_type": "weapon",
           "id": "close-combat-weapon-tankbustas",
-          "faction_id": "orks"
-        },
-        {
-          "entity_type": "weapon",
-          "id": "close-combat-weapon-wurrboy",
           "faction_id": "orks"
         }
       ]

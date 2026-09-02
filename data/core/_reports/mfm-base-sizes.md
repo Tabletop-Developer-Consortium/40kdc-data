@@ -1,4 +1,4 @@
-# MFM base sizes — DRY RUN
+# MFM base sizes — APPLIED
 
 Reconciles unit `base_size_mm` from the dump's datasheet baseSize label,
 confident round/oval strings only (Hull/Flying/Unique, per-model, and
@@ -11,8 +11,8 @@ never overwritten.
 | Filled (was empty) | 0 |
 | De-drafted (dump confirmed a guess) | 0 |
 | Corrected (dump fixed a draft) | 0 |
-| Confirmed (already matched) | 863 |
-| Review (authored ≠ dump, kept) | 12 |
+| Confirmed (already matched) | 846 |
+| Review (authored ≠ dump, kept) | 19 |
 
 ## Review — authored value the dump contradicts (NOT changed)
 
@@ -28,4 +28,11 @@ never overwritten.
 - emperors-children/sorcerer: authored round 32 vs dump round 40
 - grey-knights/brotherhood-techmarine: authored round 32 vs dump round 40
 - necrons/ctan-shard-of-the-nightbringer: authored round 40 vs dump round 90
+- orks/dakkajet: authored oval 120x92 vs dump round 120
+- orks/blitza-bommer: authored oval 120x92 vs dump round 120
+- orks/burna-bommer: authored oval 120x92 vs dump round 120
+- orks/deffkoptas: authored oval 75x42 vs dump round 75
+- orks/wazbom-blastajet: authored oval 150x95 vs dump round 120
+- orks/weirdboy: authored round 40 vs dump round 50
+- orks/nobz: authored round 32 vs dump round 40
 

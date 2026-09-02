@@ -217,7 +217,7 @@
   {
     "name": "atc-exceeds-allowance-kommandos",
     "args": { "unitId": "kommandos", "factionId": "orks", "modelCount": 10, "counts": { "breacha-ram": 1, "burna": 1, "choppa": 6, "close-combat-weapon": 2, "power-klaw": 1, "rokkit-launcha-kommandos": 1, "slugga": 7 } },
-    "expected": []
+    "expected": ["below-min:slugga"]
   },
   {
     "name": "atc-exceeds-allowance-legionaries",

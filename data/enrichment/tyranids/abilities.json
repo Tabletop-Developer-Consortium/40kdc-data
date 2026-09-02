@@ -347,7 +347,11 @@
     ],
     "ability_type": "unit",
     "behavior": "activated",
-    "community_notes": "auto-generated, partial"
+    "community_notes": "auto-generated, partial",
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    }
   },
   {
     "ability_id": "deadly-demise-d6",
@@ -1026,7 +1030,7 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "[APPROX] once set up on the battlefield no units can embark within it \u2014 the embark bar is not modeled"
+    "community_notes": "[APPROX] once set up on the battlefield no units can embark within it — the embark bar is not modeled"
   },
   {
     "ability_id": "chitinous-horrors-aura",
@@ -2364,7 +2368,7 @@
   },
   {
     "ability_id": "aggressive-leader-beast",
-    "name": "Aggressive Leader\u2011beast",
+    "name": "Aggressive Leader‑beast",
     "authored_by": "40kdc-community",
     "game_version": {
       "edition": "11th",
@@ -4502,7 +4506,7 @@
       "range": "aura-6",
       "duration": "permanent"
     },
-    "community_notes": "[APPROX] In your Command phase, each HARVESTER unit can Regenerate one friendly TYRANIDS unit within 6\": either heal D3+1 lost wounds on one model, or return one destroyed INFANTRY (non-CHARACTER) model at full wounds. ENDLESS MULTITUDE units return up to 3 models instead of 1 \u2014 the 3-model variant and per-HARVESTER selection are unmodeled. Full rule in raw-text store."
+    "community_notes": "[APPROX] In your Command phase, each HARVESTER unit can Regenerate one friendly TYRANIDS unit within 6\": either heal D3+1 lost wounds on one model, or return one destroyed INFANTRY (non-CHARACTER) model at full wounds. ENDLESS MULTITUDE units return up to 3 models instead of 1 — the 3-model variant and per-HARVESTER selection are unmodeled. Full rule in raw-text store."
   },
   {
     "ability_id": "swallow-whole",

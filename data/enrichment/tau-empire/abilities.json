@@ -545,12 +545,21 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "roll-modifier",
-      "target": "attacker",
-      "modifier": {
-        "roll": "hit",
-        "operation": "subtract",
-        "value": 1
+      "type": "conditional",
+      "condition": {
+        "type": "attack-is-type",
+        "parameters": {
+          "attack_type": "ranged"
+        }
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
       }
     },
     "scope": {
@@ -2676,7 +2685,8 @@
       "type": "feel-no-pain",
       "target": "unit",
       "modifier": {
-        "threshold": 4
+        "threshold": 4,
+        "scope": "mortal"
       }
     },
     "scope": {

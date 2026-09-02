@@ -298,12 +298,37 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "roll-modifier",
-      "target": "attacker",
-      "modifier": {
-        "roll": "hit",
-        "operation": "subtract",
-        "value": 1
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "VEHICLE"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
       }
     },
     "scope": {
@@ -1361,7 +1386,11 @@
       "skorpekh-destroyers"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    }
   },
   {
     "ability_id": "reanimation-nodes-aura",
@@ -2889,7 +2918,8 @@
       "type": "feel-no-pain",
       "target": "unit",
       "modifier": {
-        "threshold": 5
+        "threshold": 5,
+        "scope": "mortal"
       }
     },
     "scope": {
@@ -3464,8 +3494,12 @@
             "modifier": {
               "range": 6,
               "eligible": {
-                "required_keywords": ["NECRONS"],
-                "excluded_keywords": ["MONSTER"]
+                "required_keywords": [
+                  "NECRONS"
+                ],
+                "excluded_keywords": [
+                  "MONSTER"
+                ]
               },
               "effect": {
                 "type": "sequence",
@@ -3473,12 +3507,18 @@
                   {
                     "type": "re-roll",
                     "target": "unit",
-                    "modifier": { "roll": "hit", "subset": "ones" }
+                    "modifier": {
+                      "roll": "hit",
+                      "subset": "ones"
+                    }
                   },
                   {
                     "type": "re-roll",
                     "target": "unit",
-                    "modifier": { "roll": "wound", "subset": "ones" }
+                    "modifier": {
+                      "roll": "wound",
+                      "subset": "ones"
+                    }
                   }
                 ]
               }
@@ -3493,8 +3533,12 @@
             "modifier": {
               "range": 6,
               "eligible": {
-                "required_keywords": ["NECRONS"],
-                "excluded_keywords": ["MONSTER"]
+                "required_keywords": [
+                  "NECRONS"
+                ],
+                "excluded_keywords": [
+                  "MONSTER"
+                ]
               },
               "effect": {
                 "type": "sequence",
@@ -3502,7 +3546,10 @@
                   {
                     "type": "re-roll",
                     "target": "unit",
-                    "modifier": { "roll": "charge", "subset": "all-failures" }
+                    "modifier": {
+                      "roll": "charge",
+                      "subset": "all-failures"
+                    }
                   },
                   {
                     "type": "stat-modifier",
@@ -3527,7 +3574,9 @@
             "modifier": {
               "range": 6,
               "eligible": {
-                "required_keywords": ["NECRONS"]
+                "required_keywords": [
+                  "NECRONS"
+                ]
               },
               "effect": {
                 "type": "stat-modifier",
@@ -6066,5 +6115,30 @@
     },
     "community_notes": "community-authored from 10e source (provisional 11e); see #21"
   },
-  {"ability_id": "hover", "name": "Hover", "authored_by": "40kdc-community", "game_version": {"edition": "11th", "dataslate": "pre-launch-provisional"}, "version": "2025-q3", "effect": {"type": "unit-keyword", "target": "self", "modifier": {"keyword_id": "hover"}}, "scope": {"range": "self", "duration": "permanent"}, "unit_ids": ["night-scythe"], "ability_type": "core", "behavior": "activated"}
+  {
+    "ability_id": "hover",
+    "name": "Hover",
+    "authored_by": "40kdc-community",
+    "game_version": {
+      "edition": "11th",
+      "dataslate": "pre-launch-provisional"
+    },
+    "version": "2025-q3",
+    "effect": {
+      "type": "unit-keyword",
+      "target": "self",
+      "modifier": {
+        "keyword_id": "hover"
+      }
+    },
+    "scope": {
+      "range": "self",
+      "duration": "permanent"
+    },
+    "unit_ids": [
+      "night-scythe"
+    ],
+    "ability_type": "core",
+    "behavior": "activated"
+  }
 ]

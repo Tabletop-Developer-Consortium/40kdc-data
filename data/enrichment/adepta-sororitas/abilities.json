@@ -643,7 +643,8 @@
       "type": "feel-no-pain",
       "target": "unit",
       "modifier": {
-        "threshold": 4
+        "threshold": 4,
+        "scope": "psychic"
       }
     },
     "scope": {
@@ -2468,7 +2469,11 @@
       "canoness"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    }
   },
   {
     "ability_id": "null-rod",
@@ -2483,7 +2488,8 @@
       "type": "feel-no-pain",
       "target": "unit",
       "modifier": {
-        "threshold": 4
+        "threshold": 4,
+        "scope": "psychic"
       }
     },
     "scope": {

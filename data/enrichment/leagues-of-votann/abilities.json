@@ -1048,12 +1048,21 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keywords": [
-          "Sustained Hits 1"
-        ]
+      "type": "conditional",
+      "condition": {
+        "type": "attack-is-type",
+        "parameters": {
+          "attack_type": "melee"
+        }
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Sustained Hits 1"
+          ]
+        }
       }
     },
     "scope": {

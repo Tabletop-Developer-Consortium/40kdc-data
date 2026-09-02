@@ -434,7 +434,11 @@
       "daemon-prince-of-chaos"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    }
   },
   {
     "ability_id": "deadly-demise-d6",
@@ -3010,7 +3014,8 @@
       "type": "feel-no-pain",
       "target": "unit",
       "modifier": {
-        "threshold": 3
+        "threshold": 3,
+        "scope": "psychic"
       }
     },
     "scope": {
@@ -4012,7 +4017,8 @@
       "type": "feel-no-pain",
       "target": "unit",
       "modifier": {
-        "threshold": 3
+        "threshold": 3,
+        "scope": "psychic"
       }
     },
     "scope": {

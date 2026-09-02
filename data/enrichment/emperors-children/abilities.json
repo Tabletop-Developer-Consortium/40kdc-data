@@ -1634,25 +1634,51 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "sequence",
-      "steps": [
-        {
-          "type": "re-roll",
-          "target": "unit",
-          "modifier": {
-            "roll": "hit",
-            "subset": "all-failures"
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "CHARACTER"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "MONSTER"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "WALKER"
+            }
           }
-        },
-        {
-          "type": "re-roll",
-          "target": "unit",
-          "modifier": {
-            "roll": "wound",
-            "subset": "all-failures"
+        ]
+      },
+      "effect": {
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "hit",
+              "subset": "all-failures"
+            }
+          },
+          {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "subset": "all-failures"
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "scope": {
       "range": "unit",

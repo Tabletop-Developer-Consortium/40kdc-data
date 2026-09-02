@@ -2612,12 +2612,21 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keywords": [
-          "Devastating Wounds"
-        ]
+      "type": "conditional",
+      "condition": {
+        "type": "attack-is-type",
+        "parameters": {
+          "attack_type": "melee"
+        }
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Devastating Wounds"
+          ]
+        }
       }
     },
     "scope": {
@@ -2866,11 +2875,31 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "re-roll",
-      "target": "unit",
-      "modifier": {
-        "roll": "hit",
-        "subset": "all-failures"
+      "type": "conditional",
+      "condition": {
+        "operator": "or",
+        "operands": [
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "MONSTER"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "VEHICLE"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "re-roll",
+        "target": "unit",
+        "modifier": {
+          "roll": "hit",
+          "subset": "all-failures"
+        }
       }
     },
     "scope": {
@@ -3774,12 +3803,37 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "roll-modifier",
-      "target": "attacker",
-      "modifier": {
-        "roll": "hit",
-        "operation": "subtract",
-        "value": 1
+      "type": "conditional",
+      "condition": {
+        "operator": "not",
+        "operands": [
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "VEHICLE"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "effect": {
+        "type": "roll-modifier",
+        "target": "attacker",
+        "modifier": {
+          "roll": "hit",
+          "operation": "subtract",
+          "value": 1
+        }
       }
     },
     "scope": {

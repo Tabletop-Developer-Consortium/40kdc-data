@@ -1793,12 +1793,18 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keywords": [
-          "Devastating Wounds"
-        ]
+      "type": "conditional",
+      "condition": {
+        "type": "charged-this-turn"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Devastating Wounds"
+          ]
+        }
       }
     },
     "scope": {
@@ -2741,7 +2747,11 @@
       "deathwing-terminator-squad"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    }
   },
   {
     "ability_id": "braziers-of-judgement",
@@ -2898,7 +2908,11 @@
       "azrael"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    }
   },
   {
     "ability_id": "storm-of-vengeance",
@@ -3311,7 +3325,8 @@
       "type": "feel-no-pain",
       "target": "unit",
       "modifier": {
-        "threshold": 3
+        "threshold": 3,
+        "scope": "psychic"
       }
     },
     "scope": {
@@ -4885,7 +4900,11 @@
       "darnath-lysander"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1
+    }
   },
   {
     "ability_id": "inspiring-commander",
@@ -6879,12 +6898,18 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keywords": [
-          "Devastating Wounds"
-        ]
+      "type": "conditional",
+      "condition": {
+        "type": "remained-stationary"
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Devastating Wounds"
+          ]
+        }
       }
     },
     "scope": {
@@ -6995,12 +7020,49 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keywords": [
-          "Sustained Hits 2"
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "attack-is-type",
+            "parameters": {
+              "attack_type": "melee"
+            }
+          },
+          {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "MONSTER"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "VEHICLE"
+                }
+              },
+              {
+                "type": "target-has-keyword",
+                "parameters": {
+                  "keyword": "FORTIFICATION"
+                }
+              }
+            ]
+          }
         ]
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Sustained Hits 2"
+          ]
+        }
       }
     },
     "scope": {
@@ -7821,12 +7883,21 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "keyword-grant",
-      "target": "unit",
-      "modifier": {
-        "keywords": [
-          "Lethal Hits"
-        ]
+      "type": "conditional",
+      "condition": {
+        "type": "attack-is-type",
+        "parameters": {
+          "attack_type": "melee"
+        }
+      },
+      "effect": {
+        "type": "keyword-grant",
+        "target": "unit",
+        "modifier": {
+          "keywords": [
+            "Lethal Hits"
+          ]
+        }
       }
     },
     "scope": {
@@ -16187,7 +16258,7 @@
     },
     "scope": {
       "range": "self",
-      "duration": "permanent"
+      "duration": "one-use"
     },
     "applies_to": {
       "required_keywords": [

@@ -612,6 +612,9 @@ jobs:
             exit 1
           fi
       - name: Generate developer changelog
+        # Registry and release-announcement failures remain fatal above; the
+        # AI-generated summary is supplementary and must not fail the release.
+        continue-on-error: true
         if: >-
           needs.publish-crate.outputs.published == 'true' ||
           needs.publish-npm.outputs.published == 'true' ||

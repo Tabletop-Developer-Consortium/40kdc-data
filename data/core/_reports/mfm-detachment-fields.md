@@ -17,10 +17,10 @@ authored separately and is untouched.
 | black-templars | 7 | 0 | 7 | 0 | 7 | 0 | 0 | 0 | 7 |
 | blood-angels | 9 | 0 | 9 | 0 | 9 | 0 | 0 | 0 | 9 |
 | chaos-daemons | 9 | 0 | 9 | 0 | 9 | 0 | 9 | 0 | 0 |
-| chaos-knights | 8 | 2 | 6 | 0 | 8 | 0 | 8 | 0 | 0 |
+| chaos-knights | 8 | 0 | 8 | 0 | 8 | 0 | 8 | 0 | 0 |
 | chaos-space-marines | 18 | 0 | 18 | 0 | 18 | 0 | 16 | 1 | 1 |
 | dark-angels | 9 | 0 | 9 | 0 | 9 | 0 | 0 | 0 | 9 |
-| death-guard | 10 | 4 | 6 | 0 | 10 | 0 | 9 | 0 | 1 |
+| death-guard | 10 | 0 | 10 | 0 | 10 | 0 | 9 | 0 | 1 |
 | deathwatch | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 |
 | drukhari | 10 | 0 | 10 | 0 | 10 | 0 | 9 | 0 | 1 |
 | emperors-children | 11 | 0 | 11 | 0 | 11 | 0 | 10 | 0 | 1 |
@@ -31,7 +31,7 @@ authored separately and is untouched.
 | iron-hands | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 |
 | leagues-of-votann | 11 | 0 | 11 | 0 | 11 | 0 | 10 | 0 | 1 |
 | necrons | 13 | 0 | 13 | 0 | 13 | 0 | 12 | 0 | 1 |
-| orks | 8 | 0 | 8 | 0 | 8 | 0 | 1 | 7 | 0 |
+| orks | 15 | 0 | 15 | 0 | 15 | 0 | 0 | 15 | 0 |
 | raven-guard | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 |
 | salamanders | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 |
 | space-wolves | 8 | 0 | 8 | 0 | 8 | 0 | 0 | 0 | 8 |
@@ -41,7 +41,7 @@ authored separately and is untouched.
 | ultramarines | 2 | 0 | 2 | 0 | 2 | 0 | 0 | 0 | 2 |
 | white-scars | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 1 |
 | world-eaters | 9 | 0 | 9 | 0 | 9 | 0 | 8 | 0 | 1 |
-| **TOTAL** | **286** | **6** | **280** | **0** | **286** | **0** | **215** | **9** | **62** |
+| **TOTAL** | **293** | **0** | **293** | **0** | **293** | **0** | **214** | **17** | **62** |
 
 ## adepta-sororitas
 - detachment_rule_ids UNAUTHORED sanctuary-guardians: dump rule(s) [blessed-believers] have no authored ability yet
@@ -87,10 +87,6 @@ authored separately and is untouched.
 - detachment_rule_ids UNAUTHORED liberator-assault-group: dump rule(s) [red-thirst] have no authored ability yet
 - detachment_rule_ids UNAUTHORED sanguinary-spearhead: dump rule(s) [rapid-manoeuvres] have no authored ability yet
 
-## chaos-knights
-- tags changed houndpack-lance: [war-dogs] -> []
-- tags changed hunting-warpack: [war-dogs] -> []
-
 ## chaos-space-marines
 - detachment_rule_ids REVIEW murdertalon-raiders: authored [prey-on-the-weak-raiders] vs dump [prey-on-the-weak]
 - detachment_rule_ids UNAUTHORED zarkans-daemonkin: dump rule(s) [abject-fear] have no authored ability yet
@@ -107,10 +103,6 @@ authored separately and is untouched.
 - detachment_rule_ids UNAUTHORED the-vengeful-brethren: dump rule(s) [honoured-knights] have no authored ability yet
 
 ## death-guard
-- tags changed flyblown-host: [flyblown] -> []
-- tags changed champions-of-contagion: [flyblown] -> []
-- tags changed mortarions-hammer: [engines] -> []
-- tags changed contagion-engines: [engines] -> []
 - detachment_rule_ids UNAUTHORED maggot-lords: dump rule(s) [creeping-rot] have no authored ability yet
 
 ## deathwatch
@@ -142,12 +134,20 @@ authored separately and is untouched.
 
 ## orks
 - detachment_rule_ids REVIEW dread-mob: authored [try-dat-button-dread-mob] vs dump [try-dat-button]
+- detachment_rule_ids REVIEW blitz-brigade: authored [eager-for-the-fight] vs dump [unstoppable-momentum]
 - detachment_rule_ids REVIEW kult-of-speed: authored [adrenaline-junkies-kult-of-speed] vs dump [adrenaline-junkies]
 - detachment_rule_ids REVIEW da-big-hunt: authored [da-hunt-is-on-da-big-hunt] vs dump [da-hunt-is-on]
 - detachment_rule_ids REVIEW war-horde: authored [get-stuck-in-war-horde] vs dump [get-stuck-in]
-- detachment_rule_ids REVIEW bully-boyz: authored [displays-of-savagery-bully-boyz] vs dump [da-boss-is-watchin]
-- detachment_rule_ids REVIEW green-tide: authored [mob-handed-brutality-green-tide] vs dump [mob-mentality]
-- detachment_rule_ids REVIEW taktikal-brigade: authored [suspiciously-well-organised-taktikal-brigade] vs dump [lissen-ere]
+- detachment_rule_ids REVIEW bully-boyz: authored [displays-of-savagery-bully-boyz] vs dump [displays-of-savagery]
+- detachment_rule_ids REVIEW green-tide: authored [mob-handed-brutality-green-tide] vs dump [mob-handed-brutality]
+- detachment_rule_ids REVIEW taktikal-brigade: authored [suspiciously-well-organised-taktikal-brigade] vs dump [suspiciously-well-organised]
+- detachment_rule_ids REVIEW brute-bosses: authored [ard-as-nails-brute-bosses] vs dump [ard-as-nails]
+- detachment_rule_ids REVIEW flyboyz: authored [skyborne-loons-flyboyz] vs dump [skyborne-loons]
+- detachment_rule_ids REVIEW madcap-meks: authored [try-dat-button-madcap-meks, unpredictable-genius-madcap-meks] vs dump [unpredictable-genius]
+- detachment_rule_ids REVIEW runt-swarm: authored [sneaky-little-gitz-runt-swarm] vs dump [sneaky-little-gitz]
+- detachment_rule_ids REVIEW shoota-boyz: authored [dakka-dakka-dakka-shoota-boyz] vs dump [dakka-dakka-dakka]
+- detachment_rule_ids REVIEW wreckas: authored [wreckin-and-lootin-wreckas] vs dump [wreckin-and-lootin]
+- detachment_rule_ids REVIEW wurrband: authored [powers-of-da-waaagh-wurrband] vs dump [powers-of-da-waaagh]
 
 ## raven-guard
 - detachment_rule_ids UNAUTHORED shadowmark-talon: dump rule(s) [masters-of-shadow, unparalleled-tactician] have no authored ability yet

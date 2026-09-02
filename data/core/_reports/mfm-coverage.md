@@ -1,4 +1,4 @@
-# MFM coverage — dump data_version 931
+# MFM coverage — dump data_version 946
 
 Dump-vs-repo coverage by faction dir. **New** = in dump, no repo entity.
 **Repo-only** = in repo, absent from the (Legends-free) dump → dropped (Legends/Forge-World; see cull-legends).
@@ -27,22 +27,22 @@ Dump-vs-repo coverage by faction dir. **New** = in dump, no repo entity.
 | imperial-knights | 23 | 0 | 0 | 0 | 8 | 0 | 0 | 26 | 0 | 2 |
 | leagues-of-votann | 26 | 0 | 0 | 0 | 11 | 0 | 0 | 36 | 0 | 1 |
 | necrons | 57 | 0 | 0 | 0 | 13 | 0 | 0 | 44 | 0 | 2 |
-| orks | 63 | 0 | 0 | 0 | 8 | 6 | 7 | 30 | 16 | 30 |
+| orks | 60 | 0 | 0 | 0 | 15 | 1 | 0 | 38 | 2 | 27 |
 | space-wolves | 0 | 0 | 25 | 0 | 8 | 0 | 0 | 24 | 0 | 1 |
 | tau-empire | 47 | 0 | 0 | 0 | 8 | 0 | 0 | 25 | 0 | 3 |
 | thousand-sons | 32 | 0 | 6 | 0 | 10 | 0 | 0 | 32 | 0 | 0 |
 | tyranids | 57 | 0 | 0 | 0 | 11 | 0 | 0 | 36 | 0 | 3 |
 | world-eaters | 29 | 0 | 5 | 0 | 9 | 0 | 0 | 28 | 0 | 0 |
-| **TOTAL** | **1011** | **0** | **118** | **0** | **279** | **13** | **7** | **917** | **44** | **49** |
+| **TOTAL** | **1008** | **0** | **118** | **0** | **286** | **8** | **0** | **925** | **30** | **46** |
 
 ## Whole-dataset categories
 
 | Category | Repo | Dump |
 |---|--:|--:|
-| Stratagems | 10 | 1438 |
+| Stratagems | 10 | 1412 |
 | Missions | 25 | 49 primary + 18 secondary |
 | Force dispositions | 5 | 5 |
-| Detachment→disposition map | — | 292 (1:1) |
+| Detachment→disposition map | — | 295 (1:1) |
 
 ## Unmapped faction keywords (own live datasheets, no repo dir)
 
@@ -92,38 +92,10 @@ Dump-vs-repo coverage by faction dir. **New** = in dump, no repo entity.
 
 ## orks
 
-**Detachments new in dump** (6):
+**Detachments new in dump** (1):
 - ’Ardmob (ardmob)
-- Freebooter Krew (freebooter-krew)
-- Speedwaaagh! (speedwaaagh)
-- More Dakka! (more-dakka)
-- Equatorial Hordes (equatorial-hordes)
-- Rollin' Deff (rollin-deff)
 
-**Detachments repo-only** (7):
-- brute-bosses
-- flyboyz
-- madcap-meks
-- runt-swarm
-- shoota-boyz
-- wreckas
-- wurrband
-
-**Enhancements new in dump** (16):
-- Da Kaptin / Freebooter Krew (da-kaptin-freebooter-krew)
-- Razgit’s Magik Map / Freebooter Krew (razgits-magik-map-freebooter-krew)
+**Enhancements new in dump** (2):
 - Rallying War Cry / ’Ardmob (rallying-war-cry-ardmob)
-- Git-Spotter Squig / Freebooter Krew (git-spotter-squig-freebooter-krew)
-- Da Gobshot Thunderbuss / More Dakka! (da-gobshot-thunderbuss-more-dakka)
-- Boarding Ramps (Upgrade) / Rollin' Deff (boarding-ramps-upgrade-rollin-deff)
-- Bionik Workshop / Freebooter Krew (bionik-workshop-freebooter-krew)
-- Dakkamek / Speedwaaagh! (dakkamek-speedwaaagh)
-- Kustom Shokk Box / Speedwaaagh! (kustom-shokk-box-speedwaaagh)
-- Master Meknologist / Speedwaaagh! (master-meknologist-speedwaaagh)
-- Supa-Burny Fuel / Speedwaaagh! (supa-burny-fuel-speedwaaagh)
-- Dead Shiny Shootas (Upgrade) / More Dakka! (dead-shiny-shootas-upgrade-more-dakka)
-- Targetin’ Gizmos (Upgrade) / Rollin' Deff (targetin-gizmos-upgrade-rollin-deff)
 - Extra Platin’ / ’Ardmob (extra-platin-ardmob)
-- Kunnin’ Hunta / Equatorial Hordes (kunnin-hunta-equatorial-hordes)
-- Unkillable Scourge / Equatorial Hordes (unkillable-scourge-equatorial-hordes)
 

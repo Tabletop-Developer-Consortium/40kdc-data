@@ -1594,6 +1594,12 @@ export async function runIngestMfmCommand(
     await runExternalRefsCmd(dump, options.write, options.onlyDir);
   else if (command === "points") await runPointsCmd(dump, options.write);
   else if (command === "cull-legends") await runCullCmd(dump, options.write);
+  else if (command === "seed-stratagems")
+    await runSeedStratagemsCmd(
+      dump,
+      options.write,
+      options.includeCombatPatrol,
+    );
   else if (command === "stratagems")
     await runStratagemsCmd(dump, options.write);
   else if (command === "points-and-composition-tiers")
@@ -1633,6 +1639,10 @@ export async function runIngestMfmCommand(
   else if (command === "allies") await runAlliesCmd(dump, options.write);
   else if (command === "weapon-variants")
     await runWeaponVariantsCmd(dump, options.write, options.onlyDir);
+  else {
+    const unsupportedCommand: never = command;
+    throw new Error(`Unsupported MFM ingest command: ${unsupportedCommand}`);
+  }
 }
 
 async function main(): Promise<void> {

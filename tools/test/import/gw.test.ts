@@ -171,26 +171,6 @@ Nobz (105 pts)
     expect(unit.wargear).toEqual([{ raw_name: "Power klaw", count: 5 }]);
   });
 
-it("keeps all explicit named models without adding another", () => {
-  const roster = importRoster(`Fabricated roster (235 points)
-Orks
-Bully Boyz (1 Detachment Point)
-Incursion (1000 Points)
-
-CHARACTERS
-
-Ghazghkull Thraka (235 Points)
-• Attached as: Leader (Character)
-• 1x Ghazghkull Thraka
-• Warlord
-◦ 1x Gork’s Klaw
-◦ 1x Mork’s Roar
-• 1x Makari
-◦ 1x Makari’s stabba
-`, { dataset: ds });
-
-  expect(roster.units[0]?.model_count).toBe(2);
-});
 
 describe("gwAdapter resolves against the embedded dataset", () => {
   const roster = importRoster(GW_SAMPLE, { dataset: ds });

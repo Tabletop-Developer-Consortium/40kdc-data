@@ -19,10 +19,6 @@
     "type": "battle-tactic",
     "external_refs": [
       {
-        "namespace": "game-datacards",
-        "id": "c66b55af-d657-5d58-8e2e-c235defb62d7"
-      },
-      {
         "namespace": "mfm",
         "id": "c0f6b966-a1c6-40a9-9eae-718c8c22c74c"
       }
@@ -47,10 +43,6 @@
       "dataslate": "pre-launch-provisional"
     },
     "external_refs": [
-      {
-        "namespace": "game-datacards",
-        "id": "257fe0a5-4ec3-5e3d-bdcf-1adb350eb7dc"
-      },
       {
         "namespace": "mfm",
         "id": "f2274ddd-3d7b-4fe8-a10a-8ca805bd29c9"
@@ -77,10 +69,6 @@
     },
     "external_refs": [
       {
-        "namespace": "game-datacards",
-        "id": "6f5d1d0a-c644-53dc-bf7d-2bf46f7c5e9e"
-      },
-      {
         "namespace": "mfm",
         "id": "8e4282b5-cfaa-4f45-b6d6-76db59ea9521"
       }
@@ -105,10 +93,6 @@
       "dataslate": "pre-launch-provisional"
     },
     "external_refs": [
-      {
-        "namespace": "game-datacards",
-        "id": "42c55e16-55dd-5438-bedf-1476ddde00ea"
-      },
       {
         "namespace": "mfm",
         "id": "30ac141a-8589-47bc-809f-7a85d39c547d"
@@ -135,10 +119,6 @@
     },
     "external_refs": [
       {
-        "namespace": "game-datacards",
-        "id": "eb670c82-ef01-5cfe-b625-eb364244e64d"
-      },
-      {
         "namespace": "mfm",
         "id": "fdfdf495-19e2-479e-a31c-0b2faeb67c6d"
       }
@@ -163,10 +143,6 @@
     },
     "type": "strategic-ploy",
     "external_refs": [
-      {
-        "namespace": "game-datacards",
-        "id": "d15e6ed1-dbc0-59f4-adf8-c69d7bfda8f0"
-      },
       {
         "namespace": "mfm",
         "id": "a336153d-b047-4159-b747-9a4097b53b2f"
@@ -193,10 +169,6 @@
     },
     "external_refs": [
       {
-        "namespace": "game-datacards",
-        "id": "a0eed945-50ee-5fca-b816-da44b7989e30"
-      },
-      {
         "namespace": "mfm",
         "id": "0bd39ff7-0073-4d87-91b4-a06887f947f0"
       }
@@ -221,10 +193,6 @@
     },
     "type": "strategic-ploy",
     "external_refs": [
-      {
-        "namespace": "game-datacards",
-        "id": "af0cf12b-8783-544b-9874-7d02b93ae5b0"
-      },
       {
         "namespace": "mfm",
         "id": "c9a7416e-faba-4aed-a860-61ed6d3bd483"
@@ -251,10 +219,6 @@
     "type": "strategic-ploy",
     "external_refs": [
       {
-        "namespace": "game-datacards",
-        "id": "84a9d113-6713-562b-9a0a-09102d79c7f4"
-      },
-      {
         "namespace": "mfm",
         "id": "f0b1ff51-55a4-440f-aeea-24a460adb7ac"
       }
@@ -279,10 +243,6 @@
     },
     "type": "strategic-ploy",
     "external_refs": [
-      {
-        "namespace": "game-datacards",
-        "id": "2e804ff0-76eb-5e4d-acd6-1369501bdd20"
-      },
       {
         "namespace": "mfm",
         "id": "0379925a-2712-40a3-bc37-d957b652fd5d"
@@ -309,10 +269,6 @@
     },
     "external_refs": [
       {
-        "namespace": "game-datacards",
-        "id": "29dc0a88-46bf-5734-8692-dbbbccf76b5c"
-      },
-      {
         "namespace": "mfm",
         "id": "a8c4f685-8c50-417f-9822-6b513ec6314c"
       }
@@ -337,10 +293,6 @@
     },
     "type": "strategic-ploy",
     "external_refs": [
-      {
-        "namespace": "game-datacards",
-        "id": "267ed987-d471-5e80-859c-85c6e7f4d3f9"
-      },
       {
         "namespace": "mfm",
         "id": "4e86ea5f-2340-4683-b30a-b25adc328bb7"
@@ -369,7 +321,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "bff4be50-baac-57c0-8d98-4ce60104f2a0"
+        "id": "39e391ed-1f31-5fe5-afe3-8e106b618663"
       },
       {
         "namespace": "mfm",
@@ -386,14 +338,20 @@
     "phases": [
       "command"
     ],
-    "player_turn": "your-turn",
+    "player_turn": "either",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "breakin-heads-war-horde",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "2958001b-cd9b-5b1f-aa8d-5c559874339a"
+      }
+    ]
   },
   {
     "id": "close-range-dakka-war-horde",
@@ -411,7 +369,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5b7101ea-0c3f-5ff5-8903-22c47423efec"
+      }
+    ]
   },
   {
     "id": "clownin-dakka-shoota-boyz",
@@ -452,7 +416,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "2f200664-6503-5140-a172-137ebff9fb8d"
+        "id": "d337041e-4d71-5763-ba90-fa0bf1f0260b"
       },
       {
         "namespace": "mfm",
@@ -476,7 +440,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0a811e3a-2536-5ef4-a0a1-a70548e7e7c1"
+      }
+    ]
   },
   {
     "id": "drive-by-bustin-wreckas",
@@ -494,7 +464,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "227384ec-4394-5bc7-9f45-90f69807a1ca"
+      }
+    ]
   },
   {
     "id": "dubious-restraint-taktikal-brigade",
@@ -512,7 +488,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "a0feb08a-588b-587d-84d7-f677aa108162"
+      }
+    ]
   },
   {
     "id": "ere-we-go-green-tide",
@@ -530,7 +512,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "7a171636-03e1-53ef-808f-0b57606c7167"
+      }
+    ]
   },
   {
     "id": "flyin-headbutt-flyboyz",
@@ -541,14 +529,20 @@
     "phases": [
       "command"
     ],
-    "player_turn": "your-turn",
+    "player_turn": "either",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "flyin-headbutt-flyboyz",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "b7560bdd-b842-549f-9924-fd0b8d0d2af2"
+      }
+    ]
   },
   {
     "id": "fungus-fuel-injection-war-horde",
@@ -566,7 +560,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "0eb6ea2d-0af1-57b5-b963-921c435a85b1"
+      }
+    ]
   },
   {
     "id": "gooped-into-action-da-big-hunt",
@@ -602,7 +602,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "5a6b576b-f4cb-5185-824e-7541a70fba7b"
+      }
+    ]
   },
   {
     "id": "grot-shields-runt-swarm",
@@ -613,14 +619,20 @@
     "phases": [
       "shooting"
     ],
-    "player_turn": "either",
+    "player_turn": "opponent-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "grot-shields-runt-swarm",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "3833e8c1-50ab-5fc9-960a-bb8e3bc46865"
+      }
+    ]
   },
   {
     "id": "gun-crazy-show-offs-wreckas",
@@ -631,14 +643,20 @@
     "phases": [
       "shooting"
     ],
-    "player_turn": "either",
+    "player_turn": "opponent-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "gun-crazy-show-offs-wreckas",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "d69da10d-e1e9-5e4e-a332-35c5a50b22cb"
+      }
+    ]
   },
   {
     "id": "hit-em-harder-war-horde",
@@ -649,14 +667,20 @@
     "phases": [
       "fight"
     ],
-    "player_turn": "your-turn",
+    "player_turn": "either",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "hit-em-harder-war-horde",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "49ee67c8-a194-5b4f-a683-1a4d5122eb9c"
+      }
+    ]
   },
   {
     "id": "hulking-brutes-bully-boyz",
@@ -679,7 +703,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "3d699042-0901-5e76-9295-3fd468d079cc"
+        "id": "dc200dd4-0262-531a-9162-d0648c20b3b9"
       },
       {
         "namespace": "mfm",
@@ -696,14 +720,20 @@
     "phases": [
       "command"
     ],
-    "player_turn": "opponent-turn",
+    "player_turn": "either",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "infested-war-zone-runt-swarm",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "3774a5d3-b29f-5595-818a-d23d0e926ee4"
+      }
+    ]
   },
   {
     "id": "instinctive-hunters-da-big-hunt",
@@ -726,7 +756,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "b08b5469-4c12-5325-b865-a0e9398b16cd"
+        "id": "7404de4f-335a-509c-8d1d-2d9986123752"
       },
       {
         "namespace": "mfm",
@@ -750,7 +780,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "037a6a32-a5d0-55f8-993a-a2acb8b26f6d"
+      }
+    ]
   },
   {
     "id": "long-uncontrolled-bursts-flyboyz",
@@ -768,7 +804,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "c055a527-66fe-5e47-9923-925169d40696"
+      }
+    ]
   },
   {
     "id": "mind-mostly-on-the-mission-taktikal-brigade",
@@ -786,7 +828,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "bb29a113-7f32-5ec0-baaf-7818f62e720b"
+      }
+    ]
   },
   {
     "id": "mob-mentality-green-tide",
@@ -804,7 +852,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "471181c0-c7ce-50bf-8cfa-2a7289185e82"
+      }
+    ]
   },
   {
     "id": "mow-em-down-war-horde",
@@ -815,14 +869,20 @@
     "phases": [
       "fight"
     ],
-    "player_turn": "your-turn",
+    "player_turn": "either",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "mow-em-down-war-horde",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "32f0d5d7-2a2b-582f-859e-491bc1266c04"
+      }
+    ]
   },
   {
     "id": "never-enough-dakka-shoota-boyz",
@@ -840,14 +900,20 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "eea70f9e-45b1-5246-a795-d2334d8093cf"
+      }
+    ]
   },
   {
     "id": "orks-is-never-beaten-war-horde",
     "name": "ORKS IS NEVER BEATEN",
     "category": "detachment",
     "detachment_id": "war-horde",
-    "cp_cost": 2,
+    "cp_cost": 1,
     "phases": [
       "fight"
     ],
@@ -863,7 +929,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "0a420a58-322c-52ed-9d07-66424f375c7b"
+        "id": "a9e9ea1c-6601-5342-8744-409e40db21b3"
       },
       {
         "namespace": "mfm",
@@ -880,14 +946,20 @@
     "phases": [
       "movement"
     ],
-    "player_turn": "either",
+    "player_turn": "opponent-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "scarper-runt-swarm",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "421da0e2-c93f-5fe0-ae5a-199809c83572"
+      }
+    ]
   },
   {
     "id": "speediest-freeks-kult-of-speed",
@@ -898,7 +970,7 @@
     "phases": [
       "shooting"
     ],
-    "player_turn": "either",
+    "player_turn": "opponent-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "speediest-freeks-kult-of-speed",
@@ -910,7 +982,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "2e8c26e4-9436-52b9-b9ba-9adabe18deda"
+        "id": "74000df5-075a-546b-aef9-e6987482afb4"
       },
       {
         "namespace": "mfm",
@@ -939,7 +1011,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "2dc2a869-2dbc-5e4c-8bf5-7c5a70ea5888"
+        "id": "83d70b70-71d8-54db-a1b2-1741a1d591f6"
       },
       {
         "namespace": "mfm",
@@ -956,14 +1028,20 @@
     "phases": [
       "fight"
     ],
-    "player_turn": "your-turn",
+    "player_turn": "either",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "unbridled-carnage-green-tide",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "e463a4a1-9639-5ff0-9276-ee30fb387905"
+      }
+    ]
   },
   {
     "id": "vindictive-artillerists-madcap-meks",
@@ -981,7 +1059,13 @@
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "4856c494-3df4-507f-b839-f921f6631363"
+      }
+    ]
   },
   {
     "id": "where-dya-fink-youre-going-da-big-hunt",
@@ -1004,7 +1088,7 @@
     "external_refs": [
       {
         "namespace": "game-datacards",
-        "id": "1bdd3479-292c-5842-9948-df598015b10b"
+        "id": "264086be-b469-56eb-9d48-a1b26e9e8476"
       },
       {
         "namespace": "mfm",
@@ -1021,14 +1105,20 @@
     "phases": [
       "movement"
     ],
-    "player_turn": "either",
+    "player_turn": "opponent-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "while-their-backs-are-turned-taktikal-brigade",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "ba28ad80-d6ee-590e-ae5e-2f49a1f353e8"
+      }
+    ]
   },
   {
     "id": "whirligig-evasion-flyboyz",
@@ -1039,13 +1129,19 @@
     "phases": [
       "movement"
     ],
-    "player_turn": "either",
+    "player_turn": "opponent-turn",
     "timing": "once-per-phase",
     "target_restrictions": null,
     "ability_id": "whirligig-evasion-flyboyz",
     "game_version": {
       "edition": "11th",
       "dataslate": "codex-orks"
-    }
+    },
+    "external_refs": [
+      {
+        "namespace": "game-datacards",
+        "id": "fdd81b9e-f985-5b93-a0a8-8e6bc3f47f45"
+      }
+    ]
   }
 ]

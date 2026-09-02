@@ -1,4 +1,4 @@
-# MFM faction fields — DRY RUN
+# MFM faction fields — APPLIED
 
 Fill-only reconcile of `faction_rule_id` (single owned army rule), `parent_faction_id`
 (dump faction hierarchy), and `aliases` (localized common name, additive). Authored
@@ -28,7 +28,7 @@ values are confirmed or surfaced for review, never overwritten. Prose untouched.
 | iron-hands | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
 | leagues-of-votann | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
 | necrons | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
-| orks | 0 | 1 | 0 | 0 | 0 | 0 | 0 |
+| orks | 0 | 0 | 1 | 0 | 0 | 0 | 0 |
 | raven-guard | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
 | salamanders | 0 | 0 | 0 | 0 | 1 | 0 | 0 |
 | space-wolves | 0 | 1 | 0 | 0 | 1 | 0 | 0 |
@@ -47,6 +47,9 @@ values are confirmed or surfaced for review, never overwritten. Prose untouched.
 
 ## deathwatch
 - faction_rule_id REVIEW: authored mission-tactics vs owned [kill-teams, oath-of-moment, space-marine-chapters]
+
+## orks
+- faction_rule_id REVIEW: authored waaagh vs owned [da-boss, unstable-energies]
 
 ## Repo faction dirs with no dump faction keyword (left as-is): 3
 

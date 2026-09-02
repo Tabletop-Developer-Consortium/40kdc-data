@@ -11,12 +11,7 @@
         "spearpoint-task-force"
       ],
       "orks": [
-        "ardmob",
-        "equatorial-hordes",
-        "freebooter-krew",
-        "more-dakka",
-        "rollin-deff",
-        "speedwaaagh"
+        "ardmob"
       ]
     },
     "enhancements": {
@@ -51,22 +46,8 @@
         "war-tempered-artifice-forgefathers-seekers"
       ],
       "orks": [
-        "bionik-workshop-freebooter-krew",
-        "boarding-ramps-upgrade-rollin-deff",
-        "da-gobshot-thunderbuss-more-dakka",
-        "da-kaptin-freebooter-krew",
-        "dakkamek-speedwaaagh",
-        "dead-shiny-shootas-upgrade-more-dakka",
         "extra-platin-ardmob",
-        "git-spotter-squig-freebooter-krew",
-        "kunnin-hunta-equatorial-hordes",
-        "kustom-shokk-box-speedwaaagh",
-        "master-meknologist-speedwaaagh",
-        "rallying-war-cry-ardmob",
-        "razgits-magik-map-freebooter-krew",
-        "supa-burny-fuel-speedwaaagh",
-        "targetin-gizmos-upgrade-rollin-deff",
-        "unkillable-scourge-equatorial-hordes"
+        "rallying-war-cry-ardmob"
       ]
     },
     "stratagems": {
@@ -120,55 +101,17 @@
         "armour-of-contempt-company-of-hunters"
       ],
       "orks": [
-        "always-lookin-fer-a-fight-bully-boyz",
-        "ard-as-nails-war-horde",
-        "bash-and-grab-freebooter-krew",
-        "blitza-fire-kult-of-speed",
-        "boardin-rush-freebooter-krew",
-        "braggin-rights-green-tide",
-        "brutal-broadside-rollin-deff",
-        "bulldozer-brutality-green-tide",
-        "call-dat-dakka-more-dakka",
-        "careen-war-horde",
-        "come-on-ladz-green-tide",
-        "competitive-streak-green-tide",
-        "concealed-krumpin-equatorial-hordes",
-        "cut-em-down-bully-boyz",
-        "dat-ones-even-bigga-da-big-hunt",
-        "deck-fraggers-freebooter-krew",
-        "ded-killy-construction-speedwaaagh",
-        "ded-sneaky-taktikal-brigade",
-        "devastating-drift-rollin-deff",
-        "deyre-over-ere-equatorial-hordes",
-        "drag-it-down-da-big-hunt",
-        "dust-trails-speedwaaagh",
-        "ere-we-go-war-horde",
-        "evasive-manoova-speedwaaagh",
-        "full-throttle-kult-of-speed",
+        "crazed-rampage-dread-mob",
+        "dread-power-dread-mob",
         "get-stuck-in-ardmob",
-        "go-get-em-green-tide",
-        "grab-and-bash-freebooter-krew",
-        "impending-crunch-rollin-deff",
-        "krump-and-run-freebooter-krew",
+        "glowin-dakka-shoota-boyz",
+        "goaded-into-action-da-big-hunt",
+        "impending-krunch-blitz-brigade",
+        "keep-it-runnin-blitz-brigade",
         "krump-em-ardmob",
-        "krushin-impact-bully-boyz",
-        "long-uncontrolled-bursts-more-dakka",
         "medi-squigs-ardmob",
-        "mob-rule-war-horde",
-        "mobile-dakkastorm-speedwaaagh",
-        "more-gitz-over-ere-kult-of-speed",
-        "on-da-move-speedwaaagh",
-        "on-to-da-next-taktikal-brigade",
-        "rolling-loot-heap-freebooter-krew",
-        "speshul-ammo-speedwaaagh",
-        "speshul-shells-more-dakka",
-        "squig-flingin-kult-of-speed",
-        "stalkin-taktiks-da-big-hunt",
-        "stragglerz-equatorial-hordes",
-        "taktikal-retreat-taktikal-brigade",
-        "tide-of-muscle-green-tide",
-        "unbridled-carnage-war-horde",
-        "unstoppable-momentum-da-big-hunt"
+        "readied-brawlers-blitz-brigade",
+        "stomping-juggernaut-dread-mob"
       ]
     },
     "unit_compositions": {
@@ -287,7 +230,13 @@
         "ardmob-gretchin",
         "ardmob-warboss",
         "ardmob-wartrakk",
-        "ardmob-weirdboy"
+        "ardmob-weirdboy",
+        "gunwagon",
+        "nazdreg",
+        "rukkatrukk-squigbuggies",
+        "runtherd",
+        "warbuggies",
+        "wartrakks"
       ],
       "tau-empire": [
         "commander-cloudspear",
@@ -615,15 +564,9 @@
         "shieldvanes"
       ],
       "orks": [
-        "ammo-runt",
-        "ard-case",
         "blastajet-force-field",
-        "bomb-squig",
-        "distraction-grot",
-        "grot-assistant",
-        "grot-oiler",
-        "grot-orderly",
         "kustom-force-field",
+        "paired-krumpas",
         "pulsa-rokkit"
       ],
       "tau-empire": [
@@ -657,7 +600,7 @@
       ]
     }
   },
-  "data_version": 931,
+  "data_version": 946,
   "modes": {
     "detachments": {
       "orks": {

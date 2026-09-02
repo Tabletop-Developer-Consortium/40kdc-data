@@ -74,7 +74,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 363,
+              "observedPresent": 394,
               "shapeReview": "observed"
             }
           }
@@ -86,7 +86,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 363,
+          "observedPresent": 394,
           "shapeReview": "observed"
         }
       },
@@ -125,8 +125,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 168,
-              "observedPresent": 168,
+              "observedNulls": 184,
+              "observedPresent": 184,
               "shapeReview": "null-only"
             }
           },
@@ -138,8 +138,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 72,
-              "observedPresent": 168,
+              "observedNulls": 80,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -151,8 +151,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 128,
-              "observedPresent": 168,
+              "observedNulls": 144,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -161,8 +161,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 168,
-              "observedPresent": 168,
+              "observedNulls": 184,
+              "observedPresent": 184,
               "shapeReview": "null-only"
             }
           },
@@ -174,8 +174,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 104,
-              "observedPresent": 168,
+              "observedNulls": 112,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -184,8 +184,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 168,
-              "observedPresent": 168,
+              "observedNulls": 184,
+              "observedPresent": 184,
               "shapeReview": "null-only"
             }
           },
@@ -195,7 +195,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 168,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -205,7 +205,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 168,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -217,8 +217,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 88,
-              "observedPresent": 168,
+              "observedNulls": 96,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -228,17 +228,20 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 168,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
           "ruleReference": {
             "description": "Provides localized rule-reference text for the behaviour.",
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 0,
-              "observedPresent": 168,
+              "observedNulls": 16,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -250,8 +253,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 136,
-              "observedPresent": 168,
+              "observedNulls": 144,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -260,8 +263,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 168,
-              "observedPresent": 168,
+              "observedNulls": 184,
+              "observedPresent": 184,
               "shapeReview": "null-only"
             }
           },
@@ -274,7 +277,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 88,
-              "observedPresent": 168,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           },
@@ -286,8 +289,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 136,
-              "observedPresent": 168,
+              "observedNulls": 152,
+              "observedPresent": 184,
               "shapeReview": "observed"
             }
           }
@@ -313,7 +316,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 168,
+          "observedPresent": 184,
           "shapeReview": "observed"
         }
       },
@@ -355,8 +358,8 @@
             ],
             "x-mfm": {
               "ipClass": "structural",
-              "observedNulls": 42,
-              "observedPresent": 1923,
+              "observedNulls": 130,
+              "observedPresent": 2394,
               "shapeReview": "observed"
             }
           },
@@ -368,8 +371,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 891,
-              "observedPresent": 1923,
+              "observedNulls": 1419,
+              "observedPresent": 2394,
               "shapeReview": "observed"
             }
           },
@@ -379,7 +382,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 1923,
+              "observedPresent": 2394,
               "shapeReview": "observed"
             }
           },
@@ -389,7 +392,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 1923,
+              "observedPresent": 2394,
               "shapeReview": "observed"
             }
           }
@@ -404,7 +407,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 1923,
+          "observedPresent": 2394,
           "shapeReview": "observed"
         }
       },
@@ -420,8 +423,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 3428,
-              "observedPresent": 3592,
+              "observedNulls": 4165,
+              "observedPresent": 4366,
               "shapeReview": "observed"
             }
           },
@@ -431,7 +434,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 3592,
+              "observedPresent": 4366,
               "shapeReview": "observed"
             }
           },
@@ -441,7 +444,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 3592,
+              "observedPresent": 4366,
               "shapeReview": "observed"
             }
           },
@@ -453,8 +456,8 @@
             ],
             "x-mfm": {
               "ipClass": "display-name",
-              "observedNulls": 3588,
-              "observedPresent": 3592,
+              "observedNulls": 4338,
+              "observedPresent": 4366,
               "shapeReview": "observed"
             }
           }
@@ -469,7 +472,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 3592,
+          "observedPresent": 4366,
           "shapeReview": "observed"
         }
       },
@@ -483,17 +486,20 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 243,
+              "observedPresent": 321,
               "shapeReview": "observed"
             }
           },
           "rules": {
             "description": "Contains localized damage-state rule prose.",
-            "type": "string",
+            "type": [
+              "null",
+              "string"
+            ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 0,
-              "observedPresent": 243,
+              "observedNulls": 88,
+              "observedPresent": 321,
               "shapeReview": "observed"
             }
           }
@@ -506,7 +512,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 243,
+          "observedPresent": 321,
           "shapeReview": "observed"
         }
       },
@@ -522,8 +528,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 4296,
-              "observedPresent": 4300,
+              "observedNulls": 4370,
+              "observedPresent": 4374,
               "shapeReview": "observed"
             }
           }
@@ -535,7 +541,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 4300,
+          "observedPresent": 4374,
           "shapeReview": "observed"
         }
       },
@@ -549,7 +555,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 544,
+              "observedPresent": 2779,
               "shapeReview": "observed"
             }
           },
@@ -559,7 +565,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 544,
+              "observedPresent": 2779,
               "shapeReview": "observed"
             }
           }
@@ -572,7 +578,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 544,
+          "observedPresent": 2779,
           "shapeReview": "observed"
         }
       },
@@ -586,7 +592,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 52,
+              "observedPresent": 108,
               "shapeReview": "observed"
             }
           },
@@ -596,7 +602,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 52,
+              "observedPresent": 108,
               "shapeReview": "observed"
             }
           }
@@ -609,7 +615,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 52,
+          "observedPresent": 108,
           "shapeReview": "observed"
         }
       },
@@ -623,7 +629,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 1027,
+              "observedPresent": 1106,
               "shapeReview": "observed"
             }
           }
@@ -635,7 +641,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 1027,
+          "observedPresent": 1106,
           "shapeReview": "observed"
         }
       },
@@ -649,7 +655,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 55,
+              "observedPresent": 54,
               "shapeReview": "observed"
             }
           }
@@ -661,7 +667,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 55,
+          "observedPresent": 54,
           "shapeReview": "observed"
         }
       },
@@ -675,7 +681,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 64,
+              "observedPresent": 63,
               "shapeReview": "observed"
             }
           }
@@ -687,7 +693,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 64,
+          "observedPresent": 63,
           "shapeReview": "observed"
         }
       },
@@ -701,7 +707,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 1043,
+              "observedPresent": 1122,
               "shapeReview": "observed"
             }
           }
@@ -713,7 +719,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 1043,
+          "observedPresent": 1122,
           "shapeReview": "observed"
         }
       },
@@ -727,7 +733,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 2438,
+              "observedPresent": 2642,
               "shapeReview": "observed"
             }
           },
@@ -737,7 +743,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 2438,
+              "observedPresent": 2642,
               "shapeReview": "observed"
             }
           },
@@ -747,7 +753,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 2438,
+              "observedPresent": 2642,
               "shapeReview": "observed"
             }
           }
@@ -761,7 +767,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 2438,
+          "observedPresent": 2642,
           "shapeReview": "observed"
         }
       },
@@ -828,8 +834,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 732,
-              "observedPresent": 1330,
+              "observedNulls": 687,
+              "observedPresent": 1278,
               "shapeReview": "observed"
             }
           },
@@ -841,8 +847,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 599,
-              "observedPresent": 1330,
+              "observedNulls": 592,
+              "observedPresent": 1278,
               "shapeReview": "observed"
             }
           },
@@ -854,8 +860,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 599,
-              "observedPresent": 1330,
+              "observedNulls": 592,
+              "observedPresent": 1278,
               "shapeReview": "observed"
             }
           },
@@ -867,8 +873,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 731,
-              "observedPresent": 1330,
+              "observedNulls": 686,
+              "observedPresent": 1278,
               "shapeReview": "observed"
             }
           }
@@ -883,7 +889,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 1330,
+          "observedPresent": 1278,
           "shapeReview": "observed"
         }
       },
@@ -925,8 +931,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 584,
-              "observedPresent": 641,
+              "observedNulls": 595,
+              "observedPresent": 651,
               "shapeReview": "observed"
             }
           }
@@ -938,7 +944,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 641,
+          "observedPresent": 651,
           "shapeReview": "observed"
         }
       },
@@ -952,7 +958,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 2028,
+              "observedPresent": 2045,
               "shapeReview": "observed"
             }
           }
@@ -964,7 +970,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 2028,
+          "observedPresent": 2045,
           "shapeReview": "observed"
         }
       },
@@ -978,7 +984,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 3128,
+              "observedPresent": 3666,
               "shapeReview": "observed"
             }
           }
@@ -990,7 +996,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 3128,
+          "observedPresent": 3666,
           "shapeReview": "observed"
         }
       },
@@ -1381,8 +1387,8 @@
             ],
             "x-mfm": {
               "ipClass": "display-name",
-              "observedNulls": 73,
-              "observedPresent": 265,
+              "observedNulls": 88,
+              "observedPresent": 280,
               "shapeReview": "observed"
             }
           },
@@ -1392,7 +1398,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 265,
+              "observedPresent": 280,
               "shapeReview": "observed"
             }
           }
@@ -1405,7 +1411,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 265,
+          "observedPresent": 280,
           "shapeReview": "observed"
         }
       },
@@ -1421,8 +1427,8 @@
             ],
             "x-mfm": {
               "ipClass": "display-name",
-              "observedNulls": 1644,
-              "observedPresent": 3261,
+              "observedNulls": 1660,
+              "observedPresent": 3285,
               "shapeReview": "observed"
             }
           },
@@ -1432,7 +1438,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 3261,
+              "observedPresent": 3285,
               "shapeReview": "observed"
             }
           }
@@ -1445,7 +1451,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 3261,
+          "observedPresent": 3285,
           "shapeReview": "observed"
         }
       },
@@ -1461,8 +1467,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 8036,
-              "observedPresent": 8067,
+              "observedNulls": 8263,
+              "observedPresent": 8293,
               "shapeReview": "observed"
             }
           },
@@ -1474,8 +1480,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 8013,
-              "observedPresent": 8067,
+              "observedNulls": 8239,
+              "observedPresent": 8293,
               "shapeReview": "observed"
             }
           },
@@ -1487,8 +1493,8 @@
             ],
             "x-mfm": {
               "ipClass": "display-name",
-              "observedNulls": 8017,
-              "observedPresent": 8067,
+              "observedNulls": 8243,
+              "observedPresent": 8293,
               "shapeReview": "observed"
             }
           },
@@ -1501,7 +1507,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 54,
-              "observedPresent": 8067,
+              "observedPresent": 8293,
               "shapeReview": "observed"
             }
           },
@@ -1513,8 +1519,8 @@
             ],
             "x-mfm": {
               "ipClass": "display-name",
-              "observedNulls": 5635,
-              "observedPresent": 8067,
+              "observedNulls": 5759,
+              "observedPresent": 8293,
               "shapeReview": "observed"
             }
           },
@@ -1526,8 +1532,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 8013,
-              "observedPresent": 8067,
+              "observedNulls": 8239,
+              "observedPresent": 8293,
               "shapeReview": "observed"
             }
           }
@@ -1544,7 +1550,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 8067,
+          "observedPresent": 8293,
           "shapeReview": "observed"
         }
       },
@@ -1558,7 +1564,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 273,
+              "observedPresent": 289,
               "shapeReview": "observed"
             }
           }
@@ -1570,7 +1576,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 273,
+          "observedPresent": 289,
           "shapeReview": "observed"
         }
       },
@@ -1790,7 +1796,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 3643,
+              "observedPresent": 3813,
               "shapeReview": "observed"
             }
           },
@@ -1800,7 +1806,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 3643,
+              "observedPresent": 3813,
               "shapeReview": "observed"
             }
           },
@@ -1810,7 +1816,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 3643,
+              "observedPresent": 3813,
               "shapeReview": "observed"
             }
           },
@@ -1822,8 +1828,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 3529,
-              "observedPresent": 3643,
+              "observedNulls": 3701,
+              "observedPresent": 3813,
               "shapeReview": "observed"
             }
           },
@@ -1835,8 +1841,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 3635,
-              "observedPresent": 3643,
+              "observedNulls": 3797,
+              "observedPresent": 3813,
               "shapeReview": "observed"
             }
           },
@@ -1846,7 +1852,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 3643,
+              "observedPresent": 3813,
               "shapeReview": "observed"
             }
           },
@@ -1856,7 +1862,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 3643,
+              "observedPresent": 3813,
               "shapeReview": "observed"
             }
           }
@@ -1874,7 +1880,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 3643,
+          "observedPresent": 3813,
           "shapeReview": "observed"
         }
       },
@@ -1891,7 +1897,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 21,
-              "observedPresent": 448,
+              "observedPresent": 544,
               "shapeReview": "observed"
             }
           },
@@ -1901,7 +1907,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 448,
+              "observedPresent": 544,
               "shapeReview": "observed"
             }
           },
@@ -1911,7 +1917,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 448,
+              "observedPresent": 544,
               "shapeReview": "observed"
             }
           }
@@ -1925,7 +1931,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 448,
+          "observedPresent": 544,
           "shapeReview": "observed"
         }
       },
@@ -1939,7 +1945,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 6111,
+              "observedPresent": 7429,
               "shapeReview": "observed"
             }
           },
@@ -1951,8 +1957,8 @@
             ],
             "x-mfm": {
               "ipClass": "prose",
-              "observedNulls": 5902,
-              "observedPresent": 6111,
+              "observedNulls": 7212,
+              "observedPresent": 7429,
               "shapeReview": "observed"
             }
           }
@@ -1965,7 +1971,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 6111,
+          "observedPresent": 7429,
           "shapeReview": "observed"
         }
       },
@@ -1974,13 +1980,16 @@
         "description": "Contains the localized payload for one locale.",
         "properties": {
           "hunterProfileKeyword": {
-            "description": "Reserves a localized profile-keyword field that is null in the observed shape.",
-            "type": "null",
+            "description": "Provides a localized profile-keyword marker.",
+            "type": [
+              "null",
+              "string"
+            ],
             "x-mfm": {
               "ipClass": "structural",
-              "observedNulls": 6546,
-              "observedPresent": 6546,
-              "shapeReview": "null-only"
+              "observedNulls": 8181,
+              "observedPresent": 8229,
+              "shapeReview": "observed"
             }
           },
           "name": {
@@ -1989,7 +1998,7 @@
             "x-mfm": {
               "ipClass": "display-name",
               "observedNulls": 0,
-              "observedPresent": 6546,
+              "observedPresent": 8229,
               "shapeReview": "observed"
             }
           }
@@ -2002,7 +2011,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 6546,
+          "observedPresent": 8229,
           "shapeReview": "observed"
         }
       },
@@ -2016,7 +2025,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 3079,
+              "observedPresent": 4116,
               "shapeReview": "observed"
             }
           }
@@ -2028,7 +2037,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 3079,
+          "observedPresent": 4116,
           "shapeReview": "observed"
         }
       },
@@ -2042,7 +2051,7 @@
             "x-mfm": {
               "ipClass": "prose",
               "observedNulls": 0,
-              "observedPresent": 1378,
+              "observedPresent": 1871,
               "shapeReview": "observed"
             }
           }
@@ -2054,7 +2063,7 @@
         "x-mfm": {
           "ipClass": "structural",
           "observedNulls": 0,
-          "observedPresent": 1378,
+          "observedPresent": 1871,
           "shapeReview": "observed"
         }
       }
@@ -2203,7 +2212,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 71,
+              "observedPresent": 70,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "all_model_wargear_choice_wargear_item.wargearItemId",
@@ -2224,7 +2233,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 71,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -2234,7 +2243,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 71,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -2244,7 +2253,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 71,
+              "observedPresent": 70,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "all_model_wargear_choice_wargear_item.allModelWargearChoiceId",
@@ -3147,7 +3156,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 97,
+              "observedPresent": 100,
               "shapeReview": "observed"
             }
           },
@@ -3157,7 +3166,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 97,
+              "observedPresent": 100,
               "shapeReview": "observed"
             }
           },
@@ -3167,7 +3176,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 97,
+              "observedPresent": 100,
               "shapeReview": "observed"
             }
           },
@@ -3193,7 +3202,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 97,
+              "observedPresent": 100,
               "shapeReview": "observed"
             }
           },
@@ -3203,7 +3212,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 97,
+              "observedPresent": 100,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -3224,6 +3233,89 @@
           "id",
           "localisations",
           "publicationId"
+        ],
+        "type": "object",
+        "x-mfm": {
+          "identity": {
+            "fields": [
+              "id"
+            ],
+            "status": "verified"
+          }
+        }
+      },
+      "army_rule_behaviour_type": {
+        "additionalProperties": false,
+        "description": "Associates army rules with reusable behaviour definitions.",
+        "properties": {
+          "armyRuleId": {
+            "description": "References the army rule receiving the behaviour definition.",
+            "type": "string",
+            "x-mfm": {
+              "ipClass": "identifier",
+              "observedNulls": 0,
+              "observedPresent": 2,
+              "relation": {
+                "cardinality": "many-to-many-edge",
+                "edge_peer": "army_rule_behaviour_type.behaviourTypeId",
+                "meaning": "general",
+                "nullable": false,
+                "source_field": "armyRuleId",
+                "source_table": "army_rule_behaviour_type",
+                "status": "verified",
+                "target_field": "id",
+                "target_table": "army_rule"
+              },
+              "shapeReview": "observed"
+            }
+          },
+          "behaviourTypeId": {
+            "description": "References the behaviour definition associated with the army rule.",
+            "type": "string",
+            "x-mfm": {
+              "ipClass": "identifier",
+              "observedNulls": 0,
+              "observedPresent": 2,
+              "relation": {
+                "cardinality": "many-to-many-edge",
+                "edge_peer": "army_rule_behaviour_type.armyRuleId",
+                "meaning": "general",
+                "nullable": false,
+                "source_field": "behaviourTypeId",
+                "source_table": "army_rule_behaviour_type",
+                "status": "verified",
+                "target_field": "id",
+                "target_table": "behaviour_type"
+              },
+              "shapeReview": "observed"
+            }
+          },
+          "displayOrder": {
+            "description": "Orders the behaviour definition within the army rule.",
+            "type": "integer",
+            "x-mfm": {
+              "ipClass": "numeric",
+              "observedNulls": 0,
+              "observedPresent": 2,
+              "shapeReview": "observed"
+            }
+          },
+          "id": {
+            "description": "Identifies the army-rule behaviour association.",
+            "type": "string",
+            "x-mfm": {
+              "ipClass": "identifier",
+              "observedNulls": 0,
+              "observedPresent": 2,
+              "shapeReview": "observed"
+            }
+          }
+        },
+        "required": [
+          "armyRuleId",
+          "behaviourTypeId",
+          "displayOrder",
+          "id"
         ],
         "type": "object",
         "x-mfm": {
@@ -3307,7 +3399,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 71,
+              "observedPresent": 72,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "army_rule_faction_keyword.factionKeywordId",
@@ -3328,7 +3420,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 71,
+              "observedPresent": 72,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "army_rule_faction_keyword.armyRuleId",
@@ -3369,7 +3461,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1304,
+              "observedPresent": 1310,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -3389,7 +3481,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1304,
+              "observedPresent": 1310,
               "shapeReview": "observed"
             }
           },
@@ -3399,7 +3491,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1304,
+              "observedPresent": 1310,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -3439,7 +3531,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3139,
+              "observedPresent": 3149,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "base_miniature_loadout_wargear_option.wargearOptionId",
@@ -3460,7 +3552,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3139,
+              "observedPresent": 3149,
               "shapeReview": "observed"
             }
           },
@@ -3470,7 +3562,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3139,
+              "observedPresent": 3149,
               "shapeReview": "observed"
             }
           },
@@ -3480,7 +3572,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3139,
+              "observedPresent": 3149,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "base_miniature_loadout_wargear_option.baseMiniatureLoadoutId",
@@ -3621,7 +3713,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 23,
               "shapeReview": "observed"
             }
           },
@@ -3647,7 +3739,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 23,
               "shapeReview": "observed"
             }
           },
@@ -3657,7 +3749,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 23,
               "shapeReview": "observed"
             }
           }
@@ -3778,7 +3870,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 385,
+              "observedPresent": 382,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -3798,7 +3890,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 385,
+              "observedPresent": 382,
               "shapeReview": "observed"
             }
           },
@@ -3808,7 +3900,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 385,
+              "observedPresent": 382,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -3830,8 +3922,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 111,
-              "observedPresent": 385,
+              "observedNulls": 108,
+              "observedPresent": 382,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -3853,8 +3945,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 308,
-              "observedPresent": 385,
+              "observedNulls": 307,
+              "observedPresent": 382,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -3876,8 +3968,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 352,
-              "observedPresent": 385,
+              "observedNulls": 349,
+              "observedPresent": 382,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -3899,8 +3991,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 383,
-              "observedPresent": 385,
+              "observedNulls": 381,
+              "observedPresent": 382,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -3946,8 +4038,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1054,
-              "observedPresent": 1146,
+              "observedNulls": 1063,
+              "observedPresent": 1155,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -3967,7 +4059,7 @@
             "x-mfm": {
               "ipClass": "artwork-reference",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -3977,7 +4069,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -3987,7 +4079,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -3997,7 +4089,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -4007,7 +4099,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -4017,7 +4109,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -4043,7 +4135,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -4055,8 +4147,8 @@
             ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 1138,
-              "observedPresent": 1146,
+              "observedNulls": 1147,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           },
@@ -4066,7 +4158,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -4086,7 +4178,7 @@
             "x-mfm": {
               "ipClass": "artwork-reference",
               "observedNulls": 0,
-              "observedPresent": 1146,
+              "observedPresent": 1155,
               "shapeReview": "observed"
             }
           }
@@ -4124,7 +4216,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2031,
+              "observedPresent": 1923,
               "shapeReview": "observed"
             }
           },
@@ -4136,8 +4228,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1962,
-              "observedPresent": 2031,
+              "observedNulls": 1852,
+              "observedPresent": 1923,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -4159,8 +4251,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 2030,
-              "observedPresent": 2031,
+              "observedNulls": 1922,
+              "observedPresent": 1923,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -4180,7 +4272,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2031,
+              "observedPresent": 1923,
               "shapeReview": "observed"
             }
           },
@@ -4190,7 +4282,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2031,
+              "observedPresent": 1923,
               "shapeReview": "observed"
             }
           },
@@ -4200,7 +4292,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2031,
+              "observedPresent": 1923,
               "shapeReview": "observed"
             }
           },
@@ -4210,7 +4302,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2031,
+              "observedPresent": 1923,
               "shapeReview": "observed"
             }
           },
@@ -4220,7 +4312,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2031,
+              "observedPresent": 1923,
               "shapeReview": "observed"
             }
           },
@@ -4246,7 +4338,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 2031,
+              "observedPresent": 1923,
               "shapeReview": "observed"
             }
           }
@@ -4282,7 +4374,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1258,
+              "observedPresent": 1261,
               "shapeReview": "observed"
             }
           },
@@ -4292,7 +4384,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1258,
+              "observedPresent": 1261,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -4314,8 +4406,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1198,
-              "observedPresent": 1258,
+              "observedNulls": 1201,
+              "observedPresent": 1261,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -4334,8 +4426,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1258,
-              "observedPresent": 1258,
+              "observedNulls": 1261,
+              "observedPresent": 1261,
               "relation": {
                 "cardinality": null,
                 "meaning": "eligibility",
@@ -4355,7 +4447,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1258,
+              "observedPresent": 1261,
               "shapeReview": "observed"
             }
           },
@@ -4367,8 +4459,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 958,
-              "observedPresent": 1258,
+              "observedNulls": 961,
+              "observedPresent": 1261,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -4390,8 +4482,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 958,
-              "observedPresent": 1258,
+              "observedNulls": 961,
+              "observedPresent": 1261,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -4435,7 +4527,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1221,
+              "observedPresent": 1224,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "datasheet_bodyguard_group_datasheet.datasheetId",
@@ -4456,7 +4548,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1221,
+              "observedPresent": 1224,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "datasheet_bodyguard_group_datasheet.datasheetBodyguardGroupId",
@@ -4554,13 +4646,16 @@
         "description": "Associates damage-state presentation with a datasheet.",
         "properties": {
           "damagedAt": {
-            "description": "Reserves the threshold at which this damage state applies.",
-            "type": "null",
+            "description": "Records the threshold at which this damage state applies.",
+            "type": [
+              "null",
+              "integer"
+            ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 243,
-              "observedPresent": 243,
-              "shapeReview": "null-only"
+              "observedNulls": 233,
+              "observedPresent": 244,
+              "shapeReview": "observed"
             }
           },
           "datasheetId": {
@@ -4569,7 +4664,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 243,
+              "observedPresent": 244,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -4589,7 +4684,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 243,
+              "observedPresent": 244,
               "shapeReview": "observed"
             }
           },
@@ -4599,7 +4694,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 243,
+              "observedPresent": 244,
               "shapeReview": "observed"
             }
           },
@@ -4615,10 +4710,17 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedLocales": [
-                "en"
+                "de",
+                "en",
+                "es",
+                "fr",
+                "it",
+                "ja",
+                "ko",
+                "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 243,
+              "observedPresent": 244,
               "shapeReview": "observed"
             }
           }
@@ -4650,7 +4752,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 4300,
+              "observedPresent": 4374,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "datasheet_datasheet_ability.datasheetId",
@@ -4671,7 +4773,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 4300,
+              "observedPresent": 4374,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "datasheet_datasheet_ability.datasheetAbilityId",
@@ -4692,7 +4794,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 4300,
+              "observedPresent": 4374,
               "shapeReview": "observed"
             }
           },
@@ -4702,7 +4804,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 4300,
+              "observedPresent": 4374,
               "shapeReview": "observed"
             }
           },
@@ -4721,7 +4823,7 @@
                 "en"
               ],
               "observedNulls": 0,
-              "observedPresent": 4300,
+              "observedPresent": 4374,
               "shapeReview": "observed"
             }
           }
@@ -4753,7 +4855,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1260,
+              "observedPresent": 1269,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "datasheet_faction_keyword.factionKeywordId",
@@ -4774,7 +4876,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1260,
+              "observedPresent": 1269,
               "shapeReview": "observed"
             }
           },
@@ -4784,7 +4886,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1260,
+              "observedPresent": 1269,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "datasheet_faction_keyword.datasheetId",
@@ -4805,7 +4907,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1260,
+              "observedPresent": 1269,
               "shapeReview": "observed"
             }
           }
@@ -4836,7 +4938,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 377,
+              "observedPresent": 390,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -4856,7 +4958,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 377,
+              "observedPresent": 390,
               "shapeReview": "observed"
             }
           },
@@ -4866,7 +4968,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 377,
+              "observedPresent": 390,
               "shapeReview": "observed"
             }
           },
@@ -4876,7 +4978,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 377,
+              "observedPresent": 390,
               "shapeReview": "observed"
             }
           }
@@ -4907,7 +5009,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 523,
+              "observedPresent": 525,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -4927,7 +5029,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 523,
+              "observedPresent": 525,
               "shapeReview": "observed"
             }
           },
@@ -4937,7 +5039,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 523,
+              "observedPresent": 525,
               "shapeReview": "observed"
             }
           },
@@ -4949,8 +5051,8 @@
             ],
             "x-mfm": {
               "ipClass": "artwork-reference",
-              "observedNulls": 522,
-              "observedPresent": 523,
+              "observedNulls": 524,
+              "observedPresent": 525,
               "shapeReview": "observed"
             }
           },
@@ -4976,7 +5078,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 523,
+              "observedPresent": 525,
               "shapeReview": "observed"
             }
           }
@@ -5008,7 +5110,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 52,
+              "observedPresent": 59,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -5028,7 +5130,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 52,
+              "observedPresent": 59,
               "shapeReview": "observed"
             }
           },
@@ -5038,7 +5140,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 52,
+              "observedPresent": 59,
               "shapeReview": "observed"
             }
           },
@@ -5054,10 +5156,17 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedLocales": [
-                "en"
+                "de",
+                "en",
+                "es",
+                "fr",
+                "it",
+                "ja",
+                "ko",
+                "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 52,
+              "observedPresent": 59,
               "shapeReview": "observed"
             }
           }
@@ -5088,7 +5197,7 @@
             "x-mfm": {
               "ipClass": "artwork-reference",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           },
@@ -5098,7 +5207,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           },
@@ -5108,7 +5217,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           },
@@ -5118,7 +5227,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           },
@@ -5128,7 +5237,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           },
@@ -5138,7 +5247,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           },
@@ -5164,7 +5273,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           },
@@ -5173,8 +5282,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "structural",
-              "observedNulls": 292,
-              "observedPresent": 292,
+              "observedNulls": 294,
+              "observedPresent": 294,
               "shapeReview": "null-only"
             }
           },
@@ -5184,7 +5293,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -5204,7 +5313,7 @@
             "x-mfm": {
               "ipClass": "artwork-reference",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 294,
               "shapeReview": "observed"
             }
           }
@@ -5241,7 +5350,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 55,
+              "observedPresent": 54,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -5261,7 +5370,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 55,
+              "observedPresent": 54,
               "shapeReview": "observed"
             }
           },
@@ -5271,7 +5380,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 55,
+              "observedPresent": 54,
               "shapeReview": "observed"
             }
           },
@@ -5290,7 +5399,7 @@
                 "en"
               ],
               "observedNulls": 0,
-              "observedPresent": 55,
+              "observedPresent": 54,
               "shapeReview": "observed"
             }
           }
@@ -5321,7 +5430,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 64,
+              "observedPresent": 63,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -5341,7 +5450,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 64,
+              "observedPresent": 63,
               "shapeReview": "observed"
             }
           },
@@ -5351,7 +5460,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 64,
+              "observedPresent": 63,
               "shapeReview": "observed"
             }
           },
@@ -5370,7 +5479,7 @@
                 "en"
               ],
               "observedNulls": 0,
-              "observedPresent": 64,
+              "observedPresent": 63,
               "shapeReview": "observed"
             }
           }
@@ -5530,7 +5639,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 470,
+              "observedPresent": 472,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "detachment_faction_keyword.factionKeywordId",
@@ -5551,7 +5660,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 470,
+              "observedPresent": 472,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "detachment_faction_keyword.detachmentId",
@@ -5589,7 +5698,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 295,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "detachment_force_disposition.forceDispositionId",
@@ -5610,7 +5719,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 292,
+              "observedPresent": 295,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "detachment_force_disposition.detachmentId",
@@ -5847,7 +5956,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 308,
+              "observedPresent": 310,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -5867,7 +5976,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 308,
+              "observedPresent": 310,
               "shapeReview": "observed"
             }
           },
@@ -5877,7 +5986,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 308,
+              "observedPresent": 310,
               "shapeReview": "observed"
             }
           },
@@ -5887,7 +5996,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 308,
+              "observedPresent": 310,
               "shapeReview": "observed"
             }
           },
@@ -5913,7 +6022,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 308,
+              "observedPresent": 310,
               "shapeReview": "observed"
             }
           }
@@ -5945,7 +6054,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 49,
+              "observedPresent": 47,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "detachment_unique_keyword.keywordId",
@@ -5966,7 +6075,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 49,
+              "observedPresent": 47,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "detachment_unique_keyword.detachmentId",
@@ -6007,7 +6116,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 48,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6017,7 +6126,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6027,7 +6136,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -6047,7 +6156,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6057,7 +6166,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6067,7 +6176,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6077,7 +6186,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6087,7 +6196,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6097,7 +6206,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6107,7 +6216,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6117,7 +6226,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6127,7 +6236,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6153,7 +6262,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "shapeReview": "observed"
             }
           },
@@ -6163,7 +6272,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 961,
+              "observedPresent": 955,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -6214,7 +6323,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 22,
               "shapeReview": "observed"
             }
           },
@@ -6224,7 +6333,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 22,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -6243,8 +6352,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 21,
-              "observedPresent": 21,
+              "observedNulls": 22,
+              "observedPresent": 22,
               "relation": {
                 "cardinality": null,
                 "meaning": "eligibility",
@@ -6264,7 +6373,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 22,
               "shapeReview": "observed"
             }
           }
@@ -6295,7 +6404,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 22,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_bodyguard_group_datasheet.enhancementBodyguardGroupId",
@@ -6316,7 +6425,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 21,
+              "observedPresent": 22,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_bodyguard_group_datasheet.datasheetId",
@@ -6413,7 +6522,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 32,
+              "observedPresent": 31,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_excluded_keyword.keywordId",
@@ -6434,7 +6543,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 32,
+              "observedPresent": 31,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_excluded_keyword.enhancementId",
@@ -6474,8 +6583,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 941,
-              "observedPresent": 1044,
+              "observedNulls": 920,
+              "observedPresent": 1042,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -6495,7 +6604,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1044,
+              "observedPresent": 1042,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -6515,7 +6624,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1044,
+              "observedPresent": 1042,
               "shapeReview": "observed"
             }
           }
@@ -6545,7 +6654,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 650,
+              "observedPresent": 643,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_required_keyword_group_faction_keyword.factionKeywordId",
@@ -6566,7 +6675,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 650,
+              "observedPresent": 643,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_required_keyword_group_faction_keyword.enhancementRequiredKeywordGroupId",
@@ -6604,7 +6713,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 655,
+              "observedPresent": 635,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_required_keyword_group_keyword.keywordId",
@@ -6625,7 +6734,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 655,
+              "observedPresent": 635,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_required_keyword_group_keyword.enhancementRequiredKeywordGroupId",
@@ -6722,7 +6831,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2,
+              "observedPresent": 5,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_wargear_item_profile.wargearItemProfileId",
@@ -6743,7 +6852,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2,
+              "observedPresent": 5,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "enhancement_wargear_item_profile.enhancementId",
@@ -7060,7 +7169,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 861,
+              "observedPresent": 809,
               "shapeReview": "observed"
             }
           },
@@ -7070,7 +7179,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 861,
+              "observedPresent": 809,
               "shapeReview": "observed"
             }
           },
@@ -7096,7 +7205,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 861,
+              "observedPresent": 809,
               "shapeReview": "observed"
             }
           },
@@ -7106,7 +7215,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 861,
+              "observedPresent": 809,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -7149,8 +7258,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1114,
-              "observedPresent": 1158,
+              "observedNulls": 1057,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -7172,8 +7281,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 458,
-              "observedPresent": 1158,
+              "observedNulls": 440,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -7195,8 +7304,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1084,
-              "observedPresent": 1158,
+              "observedNulls": 1029,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -7218,8 +7327,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1085,
-              "observedPresent": 1158,
+              "observedNulls": 1025,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -7239,7 +7348,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1158,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -7259,7 +7368,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1158,
+              "observedPresent": 1098,
               "shapeReview": "observed"
             }
           },
@@ -7269,7 +7378,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1158,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -7291,8 +7400,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1085,
-              "observedPresent": 1158,
+              "observedNulls": 1025,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -7314,8 +7423,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 965,
-              "observedPresent": 1158,
+              "observedNulls": 915,
+              "observedPresent": 1098,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -7569,7 +7678,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 641,
+              "observedPresent": 651,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -7589,7 +7698,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 641,
+              "observedPresent": 651,
               "shapeReview": "observed"
             }
           },
@@ -7608,7 +7717,7 @@
                 "en"
               ],
               "observedNulls": 0,
-              "observedPresent": 641,
+              "observedPresent": 651,
               "shapeReview": "observed"
             }
           },
@@ -7620,21 +7729,18 @@
             ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 640,
-              "observedPresent": 641,
+              "observedNulls": 650,
+              "observedPresent": 651,
               "shapeReview": "observed"
             }
           },
           "miniatureId": {
             "description": "Optionally identifies the model profile receiving this invulnerable save.",
-            "type": [
-              "null",
-              "string"
-            ],
+            "type": "null",
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 639,
-              "observedPresent": 641,
+              "observedNulls": 651,
+              "observedPresent": 651,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -7645,7 +7751,7 @@
                 "target_field": "id",
                 "target_table": "miniature"
               },
-              "shapeReview": "observed"
+              "shapeReview": "null-only"
             }
           },
           "rangedSave": {
@@ -7656,8 +7762,8 @@
             ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 640,
-              "observedPresent": 641,
+              "observedNulls": 650,
+              "observedPresent": 651,
               "shapeReview": "observed"
             }
           },
@@ -7670,7 +7776,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 1,
-              "observedPresent": 641,
+              "observedPresent": 651,
               "shapeReview": "observed"
             }
           }
@@ -7706,8 +7812,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1240,
-              "observedPresent": 1244,
+              "observedNulls": 1162,
+              "observedPresent": 1163,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -7729,8 +7835,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1240,
-              "observedPresent": 1244,
+              "observedNulls": 1162,
+              "observedPresent": 1163,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -7750,7 +7856,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1244,
+              "observedPresent": 1163,
               "shapeReview": "observed"
             }
           },
@@ -7776,7 +7882,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 1244,
+              "observedPresent": 1163,
               "shapeReview": "observed"
             }
           }
@@ -7977,7 +8083,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 571,
+              "observedPresent": 577,
               "shapeReview": "observed"
             }
           },
@@ -7987,7 +8093,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 571,
+              "observedPresent": 577,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -8026,7 +8132,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 345,
+              "observedPresent": 346,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -8046,7 +8152,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 345,
+              "observedPresent": 346,
               "shapeReview": "observed"
             }
           },
@@ -8056,7 +8162,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 345,
+              "observedPresent": 346,
               "shapeReview": "observed"
             }
           },
@@ -8068,8 +8174,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 82,
-              "observedPresent": 345,
+              "observedNulls": 80,
+              "observedPresent": 346,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -8193,7 +8299,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 5386,
+              "observedPresent": 5449,
               "shapeReview": "observed"
             }
           },
@@ -8203,7 +8309,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 5386,
+              "observedPresent": 5449,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -8242,7 +8348,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2448,
+              "observedPresent": 2458,
               "shapeReview": "observed"
             }
           },
@@ -8252,7 +8358,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2448,
+              "observedPresent": 2458,
               "shapeReview": "observed"
             }
           },
@@ -8262,7 +8368,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2448,
+              "observedPresent": 2458,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -8282,7 +8388,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2448,
+              "observedPresent": 2458,
               "shapeReview": "observed"
             }
           },
@@ -8292,7 +8398,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 2448,
+              "observedPresent": 2458,
               "shapeReview": "observed"
             }
           },
@@ -8304,8 +8410,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 20,
-              "observedPresent": 2448,
+              "observedNulls": 15,
+              "observedPresent": 2458,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -8348,7 +8454,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 8375,
+              "observedPresent": 8469,
               "shapeReview": "observed"
             }
           },
@@ -8358,7 +8464,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 8375,
+              "observedPresent": 8469,
               "shapeReview": "observed"
             }
           },
@@ -8368,7 +8474,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 8375,
+              "observedPresent": 8469,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "loadout_choice_wargear_item.wargearItemId",
@@ -8389,7 +8495,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 8375,
+              "observedPresent": 8469,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "loadout_choice_wargear_item.loadoutChoiceId",
@@ -8431,7 +8537,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8441,7 +8547,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8451,7 +8557,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -8471,7 +8577,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8481,7 +8587,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8491,7 +8597,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8501,7 +8607,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8511,7 +8617,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8521,7 +8627,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8547,7 +8653,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8557,7 +8663,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8567,7 +8673,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8577,7 +8683,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8587,7 +8693,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8597,7 +8703,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8607,7 +8713,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           },
@@ -8617,7 +8723,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1574,
+              "observedPresent": 1580,
               "shapeReview": "observed"
             }
           }
@@ -8661,7 +8767,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 8791,
+              "observedPresent": 8763,
               "shapeReview": "observed"
             }
           },
@@ -8671,7 +8777,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 8791,
+              "observedPresent": 8763,
               "shapeReview": "observed"
             }
           },
@@ -8681,7 +8787,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 8791,
+              "observedPresent": 8763,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "miniature_keyword.miniatureId",
@@ -8702,7 +8808,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 8791,
+              "observedPresent": 8763,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "miniature_keyword.keywordId",
@@ -9707,7 +9813,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9719,8 +9825,8 @@
             ],
             "x-mfm": {
               "ipClass": "structural",
-              "observedNulls": 31,
-              "observedPresent": 69,
+              "observedNulls": 33,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9730,7 +9836,7 @@
             "x-mfm": {
               "ipClass": "artwork-reference",
               "observedNulls": 0,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9743,7 +9849,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 4,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -9763,7 +9869,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9773,7 +9879,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9783,7 +9889,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9793,7 +9899,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9819,7 +9925,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 69,
+              "observedPresent": 70,
               "shapeReview": "observed"
             }
           },
@@ -9831,8 +9937,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 43,
-              "observedPresent": 69,
+              "observedNulls": 44,
+              "observedPresent": 70,
               "relation": {
                 "cardinality": null,
                 "meaning": "general",
@@ -9979,8 +10085,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 395,
-              "observedPresent": 416,
+              "observedNulls": 398,
+              "observedPresent": 419,
               "relation": {
                 "cardinality": "one-to-one",
                 "meaning": "general",
@@ -10000,7 +10106,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 416,
+              "observedPresent": 419,
               "shapeReview": "observed"
             }
           },
@@ -10010,7 +10116,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 416,
+              "observedPresent": 419,
               "shapeReview": "observed"
             }
           },
@@ -10020,7 +10126,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 416,
+              "observedPresent": 419,
               "shapeReview": "observed"
             }
           },
@@ -10046,7 +10152,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 416,
+              "observedPresent": 419,
               "shapeReview": "observed"
             }
           },
@@ -10056,7 +10162,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 416,
+              "observedPresent": 419,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -10078,8 +10184,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 406,
-              "observedPresent": 416,
+              "observedNulls": 409,
+              "observedPresent": 419,
               "relation": {
                 "cardinality": "one-to-one",
                 "meaning": "applicability",
@@ -10125,8 +10231,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1399,
-              "observedPresent": 1814,
+              "observedNulls": 1404,
+              "observedPresent": 1823,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -10148,8 +10254,8 @@
             ],
             "x-mfm": {
               "ipClass": "structural",
-              "observedNulls": 1788,
-              "observedPresent": 1814,
+              "observedNulls": 1797,
+              "observedPresent": 1823,
               "shapeReview": "observed"
             }
           },
@@ -10161,8 +10267,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1034,
-              "observedPresent": 1814,
+              "observedNulls": 1041,
+              "observedPresent": 1823,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -10182,7 +10288,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1814,
+              "observedPresent": 1823,
               "shapeReview": "observed"
             }
           },
@@ -10192,7 +10298,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1814,
+              "observedPresent": 1823,
               "shapeReview": "observed"
             }
           },
@@ -10204,8 +10310,8 @@
             ],
             "x-mfm": {
               "ipClass": "artwork-reference",
-              "observedNulls": 1689,
-              "observedPresent": 1814,
+              "observedNulls": 1699,
+              "observedPresent": 1823,
               "shapeReview": "observed"
             }
           },
@@ -10231,7 +10337,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 1814,
+              "observedPresent": 1823,
               "shapeReview": "observed"
             }
           },
@@ -10240,8 +10346,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1814,
-              "observedPresent": 1814,
+              "observedNulls": 1823,
+              "observedPresent": 1823,
               "relation": {
                 "cardinality": null,
                 "meaning": "general",
@@ -10260,8 +10366,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1814,
-              "observedPresent": 1814,
+              "observedNulls": 1823,
+              "observedPresent": 1823,
               "relation": {
                 "cardinality": null,
                 "meaning": "general",
@@ -10283,8 +10389,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1195,
-              "observedPresent": 1814,
+              "observedNulls": 1201,
+              "observedPresent": 1823,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -10303,8 +10409,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1814,
-              "observedPresent": 1814,
+              "observedNulls": 1823,
+              "observedPresent": 1823,
               "relation": {
                 "cardinality": null,
                 "meaning": "general",
@@ -10324,7 +10430,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1814,
+              "observedPresent": 1823,
               "shapeReview": "observed"
             }
           }
@@ -10363,7 +10469,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 35,
+              "observedPresent": 37,
               "shapeReview": "observed"
             }
           },
@@ -10373,7 +10479,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 35,
+              "observedPresent": 37,
               "shapeReview": "observed"
             }
           },
@@ -10399,7 +10505,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 35,
+              "observedPresent": 37,
               "shapeReview": "observed"
             }
           },
@@ -10409,7 +10515,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 35,
+              "observedPresent": 37,
               "shapeReview": "observed"
             }
           },
@@ -10418,8 +10524,8 @@
             "type": "null",
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 35,
-              "observedPresent": 35,
+              "observedNulls": 37,
+              "observedPresent": 37,
               "relation": {
                 "cardinality": null,
                 "meaning": "ownership",
@@ -10439,7 +10545,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 35,
+              "observedPresent": 37,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -10901,8 +11007,8 @@
             ],
             "x-mfm": {
               "ipClass": "structural",
-              "observedNulls": 315,
-              "observedPresent": 1438,
+              "observedNulls": 343,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           },
@@ -10912,7 +11018,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           },
@@ -10925,7 +11031,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 11,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -10945,7 +11051,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           },
@@ -10955,7 +11061,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           },
@@ -10965,7 +11071,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           },
@@ -10991,7 +11097,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           },
@@ -11001,7 +11107,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -11023,8 +11129,8 @@
             ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 1437,
-              "observedPresent": 1438,
+              "observedNulls": 1410,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           },
@@ -11034,7 +11140,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1438,
+              "observedPresent": 1412,
               "shapeReview": "observed"
             }
           }
@@ -11071,7 +11177,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 2016,
+              "observedPresent": 1995,
               "shapeReview": "observed"
             }
           },
@@ -11081,7 +11187,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2016,
+              "observedPresent": 1995,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -11118,7 +11224,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1557,
+              "observedPresent": 1568,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -11138,7 +11244,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1557,
+              "observedPresent": 1568,
               "shapeReview": "observed"
             }
           },
@@ -11148,7 +11254,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1557,
+              "observedPresent": 1568,
               "shapeReview": "observed"
             }
           },
@@ -11158,7 +11264,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 1557,
+              "observedPresent": 1568,
               "shapeReview": "observed"
             }
           },
@@ -11171,7 +11277,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 107,
-              "observedPresent": 1557,
+              "observedPresent": 1568,
               "shapeReview": "observed"
             }
           },
@@ -11183,8 +11289,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 1524,
-              "observedPresent": 1557,
+              "observedNulls": 1535,
+              "observedPresent": 1568,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -11227,7 +11333,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2320,
+              "observedPresent": 2323,
               "shapeReview": "observed"
             }
           },
@@ -11237,7 +11343,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 2320,
+              "observedPresent": 2323,
               "shapeReview": "observed"
             }
           },
@@ -11247,7 +11353,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 2320,
+              "observedPresent": 2323,
               "shapeReview": "observed"
             }
           },
@@ -11257,7 +11363,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2320,
+              "observedPresent": 2323,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "unit_composition_miniature.unitCompositionId",
@@ -11278,7 +11384,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 2320,
+              "observedPresent": 2323,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "unit_composition_miniature.miniatureId",
@@ -11381,7 +11487,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 83,
+              "observedPresent": 84,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -11401,7 +11507,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 83,
+              "observedPresent": 84,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "eligibility",
@@ -11441,7 +11547,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 126,
+              "observedPresent": 138,
               "shapeReview": "observed"
             }
           },
@@ -11467,7 +11573,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 126,
+              "observedPresent": 138,
               "shapeReview": "observed"
             }
           }
@@ -11496,7 +11602,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3543,
+              "observedPresent": 3034,
               "shapeReview": "observed"
             }
           },
@@ -11522,7 +11628,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 3543,
+              "observedPresent": 3034,
               "shapeReview": "observed"
             }
           },
@@ -11532,7 +11638,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 3543,
+              "observedPresent": 3034,
               "shapeReview": "observed"
             }
           },
@@ -11542,7 +11648,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 3543,
+              "observedPresent": 3034,
               "shapeReview": "observed"
             }
           }
@@ -11573,7 +11679,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11583,7 +11689,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11595,8 +11701,8 @@
             ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 1578,
-              "observedPresent": 3740,
+              "observedNulls": 1342,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11606,7 +11712,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11616,7 +11722,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11626,7 +11732,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11652,7 +11758,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11662,7 +11768,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11672,7 +11778,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11682,7 +11788,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           },
@@ -11692,7 +11798,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3740,
+              "observedPresent": 3246,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -11714,8 +11820,8 @@
             ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 2162,
-              "observedPresent": 3740,
+              "observedNulls": 1904,
+              "observedPresent": 3246,
               "shapeReview": "observed"
             }
           }
@@ -11754,7 +11860,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 4254,
+              "observedPresent": 3833,
               "shapeReview": "observed"
             }
           },
@@ -11764,7 +11870,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 4254,
+              "observedPresent": 3833,
               "shapeReview": "observed"
             }
           },
@@ -11774,7 +11880,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 4254,
+              "observedPresent": 3833,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "wargear_item_profile_wargear_ability.wargearItemProfileId",
@@ -11795,7 +11901,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 4254,
+              "observedPresent": 3833,
               "relation": {
                 "cardinality": "many-to-many-edge",
                 "edge_peer": "wargear_item_profile_wargear_ability.wargearAbilityId",
@@ -11837,7 +11943,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 496,
+              "observedPresent": 503,
               "shapeReview": "observed"
             }
           },
@@ -11849,8 +11955,8 @@
             ],
             "x-mfm": {
               "ipClass": "numeric",
-              "observedNulls": 479,
-              "observedPresent": 496,
+              "observedNulls": 487,
+              "observedPresent": 503,
               "shapeReview": "observed"
             }
           },
@@ -11860,7 +11966,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 496,
+              "observedPresent": 503,
               "shapeReview": "observed"
             }
           },
@@ -11870,7 +11976,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 496,
+              "observedPresent": 503,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -11890,7 +11996,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 496,
+              "observedPresent": 503,
               "shapeReview": "observed"
             }
           }
@@ -11922,7 +12028,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 6353,
+              "observedPresent": 6369,
               "shapeReview": "observed"
             }
           },
@@ -11932,7 +12038,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 6353,
+              "observedPresent": 6369,
               "shapeReview": "observed"
             }
           },
@@ -11942,7 +12048,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 6353,
+              "observedPresent": 6369,
               "shapeReview": "observed"
             }
           },
@@ -11952,7 +12058,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 6353,
+              "observedPresent": 6369,
               "shapeReview": "observed"
             }
           },
@@ -11962,7 +12068,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 6353,
+              "observedPresent": 6369,
               "shapeReview": "observed"
             }
           },
@@ -11972,7 +12078,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 6353,
+              "observedPresent": 6369,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "general",
@@ -11992,7 +12098,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 6353,
+              "observedPresent": 6369,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -12036,7 +12142,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3037,
+              "observedPresent": 3052,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -12056,7 +12162,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 3037,
+              "observedPresent": 3052,
               "shapeReview": "observed"
             }
           },
@@ -12066,7 +12172,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 3037,
+              "observedPresent": 3052,
               "shapeReview": "observed"
             }
           },
@@ -12076,7 +12182,7 @@
             "x-mfm": {
               "ipClass": "structural",
               "observedNulls": 0,
-              "observedPresent": 3037,
+              "observedPresent": 3052,
               "shapeReview": "observed"
             }
           },
@@ -12102,7 +12208,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 3037,
+              "observedPresent": 3052,
               "shapeReview": "observed"
             }
           },
@@ -12114,8 +12220,8 @@
             ],
             "x-mfm": {
               "ipClass": "identifier",
-              "observedNulls": 20,
-              "observedPresent": 3037,
+              "observedNulls": 15,
+              "observedPresent": 3052,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "applicability",
@@ -12158,7 +12264,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1371,
+              "observedPresent": 1381,
               "relation": {
                 "cardinality": "many-to-one",
                 "meaning": "ownership",
@@ -12178,7 +12284,7 @@
             "x-mfm": {
               "ipClass": "numeric",
               "observedNulls": 0,
-              "observedPresent": 1371,
+              "observedPresent": 1381,
               "shapeReview": "observed"
             }
           },
@@ -12188,7 +12294,7 @@
             "x-mfm": {
               "ipClass": "identifier",
               "observedNulls": 0,
-              "observedPresent": 1371,
+              "observedPresent": 1381,
               "shapeReview": "observed"
             }
           },
@@ -12214,7 +12320,7 @@
                 "zh"
               ],
               "observedNulls": 0,
-              "observedPresent": 1371,
+              "observedPresent": 1381,
               "shapeReview": "observed"
             }
           }
@@ -12270,7 +12376,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 71,
+            "observedRows": 70,
             "rowShape": "observed"
           }
         },
@@ -12417,17 +12523,18 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 97,
+            "observedRows": 100,
             "rowShape": "observed"
           }
         },
         "army_rule_behaviour_type": {
-          "items": {},
-          "maxItems": 0,
+          "items": {
+            "$ref": "#/$defs/tables/army_rule_behaviour_type"
+          },
           "type": "array",
           "x-mfm": {
-            "observedRows": 0,
-            "rowShape": "unobserved"
+            "observedRows": 2,
+            "rowShape": "observed"
           }
         },
         "army_rule_excluded_from_command_bunker_faction_keyword": {
@@ -12446,7 +12553,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 71,
+            "observedRows": 72,
             "rowShape": "observed"
           }
         },
@@ -12456,7 +12563,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1304,
+            "observedRows": 1310,
             "rowShape": "observed"
           }
         },
@@ -12466,7 +12573,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 3139,
+            "observedRows": 3149,
             "rowShape": "observed"
           }
         },
@@ -12486,7 +12593,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 21,
+            "observedRows": 23,
             "rowShape": "observed"
           }
         },
@@ -12506,7 +12613,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 385,
+            "observedRows": 382,
             "rowShape": "observed"
           }
         },
@@ -12516,7 +12623,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1146,
+            "observedRows": 1155,
             "rowShape": "observed"
           }
         },
@@ -12526,7 +12633,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 2031,
+            "observedRows": 1923,
             "rowShape": "observed"
           }
         },
@@ -12536,7 +12643,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1258,
+            "observedRows": 1261,
             "rowShape": "observed"
           }
         },
@@ -12546,7 +12653,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1221,
+            "observedRows": 1224,
             "rowShape": "observed"
           }
         },
@@ -12566,7 +12673,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 243,
+            "observedRows": 244,
             "rowShape": "observed"
           }
         },
@@ -12576,7 +12683,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 4300,
+            "observedRows": 4374,
             "rowShape": "observed"
           }
         },
@@ -12586,7 +12693,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1260,
+            "observedRows": 1269,
             "rowShape": "observed"
           }
         },
@@ -12596,7 +12703,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 377,
+            "observedRows": 390,
             "rowShape": "observed"
           }
         },
@@ -12606,7 +12713,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 523,
+            "observedRows": 525,
             "rowShape": "observed"
           }
         },
@@ -12616,7 +12723,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 52,
+            "observedRows": 59,
             "rowShape": "observed"
           }
         },
@@ -12626,7 +12733,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 292,
+            "observedRows": 294,
             "rowShape": "observed"
           }
         },
@@ -12636,7 +12743,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 55,
+            "observedRows": 54,
             "rowShape": "observed"
           }
         },
@@ -12646,7 +12753,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 64,
+            "observedRows": 63,
             "rowShape": "observed"
           }
         },
@@ -12676,7 +12783,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 470,
+            "observedRows": 472,
             "rowShape": "observed"
           }
         },
@@ -12686,7 +12793,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 292,
+            "observedRows": 295,
             "rowShape": "observed"
           }
         },
@@ -12735,7 +12842,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 308,
+            "observedRows": 310,
             "rowShape": "observed"
           }
         },
@@ -12745,7 +12852,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 49,
+            "observedRows": 47,
             "rowShape": "observed"
           }
         },
@@ -12755,7 +12862,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 961,
+            "observedRows": 955,
             "rowShape": "observed"
           }
         },
@@ -12765,7 +12872,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 21,
+            "observedRows": 22,
             "rowShape": "observed"
           }
         },
@@ -12775,7 +12882,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 21,
+            "observedRows": 22,
             "rowShape": "observed"
           }
         },
@@ -12804,7 +12911,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 32,
+            "observedRows": 31,
             "rowShape": "observed"
           }
         },
@@ -12823,7 +12930,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1044,
+            "observedRows": 1042,
             "rowShape": "observed"
           }
         },
@@ -12833,7 +12940,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 650,
+            "observedRows": 643,
             "rowShape": "observed"
           }
         },
@@ -12843,7 +12950,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 655,
+            "observedRows": 635,
             "rowShape": "observed"
           }
         },
@@ -12863,7 +12970,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 2,
+            "observedRows": 5,
             "rowShape": "observed"
           }
         },
@@ -12912,7 +13019,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 861,
+            "observedRows": 809,
             "rowShape": "observed"
           }
         },
@@ -12922,7 +13029,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1158,
+            "observedRows": 1098,
             "rowShape": "observed"
           }
         },
@@ -12962,7 +13069,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 641,
+            "observedRows": 651,
             "rowShape": "observed"
           }
         },
@@ -12972,7 +13079,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1244,
+            "observedRows": 1163,
             "rowShape": "observed"
           }
         },
@@ -13002,7 +13109,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 571,
+            "observedRows": 577,
             "rowShape": "observed"
           }
         },
@@ -13012,7 +13119,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 345,
+            "observedRows": 346,
             "rowShape": "observed"
           }
         },
@@ -13032,7 +13139,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 5386,
+            "observedRows": 5449,
             "rowShape": "observed"
           }
         },
@@ -13042,7 +13149,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 2448,
+            "observedRows": 2458,
             "rowShape": "observed"
           }
         },
@@ -13052,7 +13159,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 8375,
+            "observedRows": 8469,
             "rowShape": "observed"
           }
         },
@@ -13062,7 +13169,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1574,
+            "observedRows": 1580,
             "rowShape": "observed"
           }
         },
@@ -13072,7 +13179,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 8791,
+            "observedRows": 8763,
             "rowShape": "observed"
           }
         },
@@ -13264,7 +13371,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 69,
+            "observedRows": 70,
             "rowShape": "observed"
           }
         },
@@ -13284,7 +13391,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 416,
+            "observedRows": 419,
             "rowShape": "observed"
           }
         },
@@ -13294,7 +13401,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1814,
+            "observedRows": 1823,
             "rowShape": "observed"
           }
         },
@@ -13304,7 +13411,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 35,
+            "observedRows": 37,
             "rowShape": "observed"
           }
         },
@@ -13381,7 +13488,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1438,
+            "observedRows": 1412,
             "rowShape": "observed"
           }
         },
@@ -13391,7 +13498,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 2016,
+            "observedRows": 1995,
             "rowShape": "observed"
           }
         },
@@ -13401,7 +13508,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1557,
+            "observedRows": 1568,
             "rowShape": "observed"
           }
         },
@@ -13411,7 +13518,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 2320,
+            "observedRows": 2323,
             "rowShape": "observed"
           }
         },
@@ -13431,7 +13538,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 83,
+            "observedRows": 84,
             "rowShape": "observed"
           }
         },
@@ -13441,7 +13548,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 126,
+            "observedRows": 138,
             "rowShape": "observed"
           }
         },
@@ -13451,7 +13558,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 3543,
+            "observedRows": 3034,
             "rowShape": "observed"
           }
         },
@@ -13461,7 +13568,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 3740,
+            "observedRows": 3246,
             "rowShape": "observed"
           }
         },
@@ -13471,7 +13578,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 4254,
+            "observedRows": 3833,
             "rowShape": "observed"
           }
         },
@@ -13481,7 +13588,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 496,
+            "observedRows": 503,
             "rowShape": "observed"
           }
         },
@@ -13491,7 +13598,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 6353,
+            "observedRows": 6369,
             "rowShape": "observed"
           }
         },
@@ -13501,7 +13608,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 3037,
+            "observedRows": 3052,
             "rowShape": "observed"
           }
         },
@@ -13511,7 +13618,7 @@
           },
           "type": "array",
           "x-mfm": {
-            "observedRows": 1371,
+            "observedRows": 1381,
             "rowShape": "observed"
           }
         }
@@ -13689,6 +13796,6 @@
   "type": "object",
   "x-mfm": {
     "catalogVersion": 1,
-    "dataVersion": 931
+    "dataVersion": 946
   }
 }

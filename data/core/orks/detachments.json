@@ -9,7 +9,8 @@
       "supa-glowy-fing-dread-mob",
       "press-it-fasta-dread-mob",
       "gitfinder-gogglez-dread-mob",
-      "dreadherder-dread-mob"
+      "dreadherder-dread-mob",
+      "cybork-boosta-dread-mob"
     ],
     "stratagem_ids": [
       "klankin-klaws-dread-mob",
@@ -23,9 +24,9 @@
       "edition": "11th",
       "dataslate": "codex-orks"
     },
-    "detachment_points": 2,
+    "detachment_points": 1,
     "force_dispositions": [
-      "priority-assets"
+      "purge-the-foe"
     ],
     "detachment_rule_ids": [
       "try-dat-button-dread-mob"
@@ -46,7 +47,9 @@
       "runnin-boots-blitz-brigade",
       "blitzkaptin-blitz-brigade",
       "supercharged-squig-oil-blitz-brigade",
-      "tuff-git-blitz-brigade"
+      "tuff-git-blitz-brigade",
+      "boss-boomer-upgrade-blitz-brigade",
+      "targetin-gizmos-upgrade-blitz-brigade"
     ],
     "stratagem_ids": [
       "mount-up-ladz-blitz-brigade",
@@ -60,13 +63,11 @@
       "edition": "11th",
       "dataslate": "codex-orks"
     },
-    "detachment_points": 2,
+    "detachment_points": 1,
     "force_dispositions": [
-      "reconnaissance"
+      "take-and-hold"
     ],
-    "tags": [
-      "wagons"
-    ],
+    "tags": [],
     "detachment_rule_ids": [
       "eager-for-the-fight"
     ],
@@ -84,7 +85,7 @@
     "detachment_rule_id": "adrenaline-junkies-kult-of-speed",
     "enhancement_ids": [
       "competitive-streak-kult-of-speed",
-      "smoky-gubbinz-kult-of-speed",
+      "smoky-gubbinz-upgrade-kult-of-speed",
       "speed-makes-right-kult-of-speed",
       "squig-hide-tyres-kult-of-speed",
       "wazblasta-kult-of-speed",
@@ -99,9 +100,9 @@
       "edition": "11th",
       "dataslate": "codex-orks"
     },
-    "detachment_points": 2,
+    "detachment_points": 1,
     "force_dispositions": [
-      "disruption"
+      "reconnaissance"
     ],
     "detachment_rule_ids": [
       "adrenaline-junkies-kult-of-speed"
@@ -134,7 +135,7 @@
       "edition": "11th",
       "dataslate": "codex-orks"
     },
-    "detachment_points": 2,
+    "detachment_points": 1,
     "force_dispositions": [
       "purge-the-foe"
     ],
@@ -193,7 +194,7 @@
     "detachment_rule_id": "displays-of-savagery-bully-boyz",
     "enhancement_ids": [
       "tellyporta-boss-bully-boyz",
-      "wimp-kickaz-bully-boyz",
+      "wimp-kickaz-upgrade-bully-boyz",
       "tellyporta-bully-boyz",
       "big-gob-bully-boyz",
       "eadstompa-bully-boyz",
@@ -208,7 +209,7 @@
       "edition": "11th",
       "dataslate": "codex-orks"
     },
-    "detachment_points": 2,
+    "detachment_points": 1,
     "force_dispositions": [
       "purge-the-foe"
     ],
@@ -232,7 +233,8 @@
       "ferocious-show-off-green-tide",
       "brutal-but-kunnin-green-tide",
       "raucous-warcaller-green-tide",
-      "bloodthirsty-belligerence-green-tide"
+      "bloodthirsty-belligerence-green-tide",
+      "ardboyz-upgrade-green-tide"
     ],
     "stratagem_ids": [
       "ere-we-go-green-tide",
@@ -243,7 +245,7 @@
       "edition": "11th",
       "dataslate": "codex-orks"
     },
-    "detachment_points": 3,
+    "detachment_points": 1,
     "force_dispositions": [
       "take-and-hold"
     ],
@@ -266,7 +268,8 @@
       "kill-kommando-taktikal-brigade",
       "throat-slittas-upgrade-taktikal-brigade",
       "slippery-git-taktikal-brigade",
-      "morks-kunnin-taktikal-brigade"
+      "morks-kunnin-taktikal-brigade",
+      "kill-kommanda-taktikal-brigade"
     ],
     "stratagem_ids": [
       "dubious-restraint-taktikal-brigade",
@@ -279,7 +282,7 @@
     },
     "detachment_points": 1,
     "force_dispositions": [
-      "reconnaissance"
+      "take-and-hold"
     ],
     "detachment_rule_ids": [
       "suspiciously-well-organised-taktikal-brigade"
@@ -323,8 +326,8 @@
     "faction_id": "orks",
     "detachment_rule_id": "skyborne-loons-flyboyz",
     "enhancement_ids": [
-      "flyboss-flyboyz",
-      "impulsive-recon-flyboyz"
+      "flyboss-upgrade-flyboyz",
+      "impulsive-recon-upgrade-flyboyz"
     ],
     "stratagem_ids": [
       "flyin-headbutt-flyboyz",
@@ -337,7 +340,7 @@
     },
     "detachment_points": 1,
     "force_dispositions": [
-      "disruption"
+      "reconnaissance"
     ],
     "detachment_rule_ids": [
       "skyborne-loons-flyboyz"
@@ -349,9 +352,9 @@
     "faction_id": "orks",
     "detachment_rule_id": "try-dat-button-madcap-meks",
     "enhancement_ids": [
-      "enhanced-runt-maw-madcap-meks",
+      "enhanced-runt-maw-upgrade-madcap-meks",
       "mekwaaagh-mastermind-madcap-meks",
-      "temperamental-shokka-madcap-meks"
+      "temperamental-shokka-upgrade-madcap-meks"
     ],
     "stratagem_ids": [
       "vindictive-artillerists-madcap-meks"
@@ -362,7 +365,7 @@
     },
     "detachment_points": 1,
     "force_dispositions": [
-      "priority-assets"
+      "disruption"
     ],
     "detachment_rule_ids": [
       "try-dat-button-madcap-meks",
@@ -375,8 +378,8 @@
     "faction_id": "orks",
     "detachment_rule_id": "sneaky-little-gitz-runt-swarm",
     "enhancement_ids": [
-      "extra-sneaky-runt-swarm",
-      "minefield-detail-runt-swarm"
+      "extra-sneaky-upgrade-runt-swarm",
+      "minefield-detail-upgrade-runt-swarm"
     ],
     "stratagem_ids": [
       "grot-shields-runt-swarm",
@@ -389,7 +392,7 @@
     },
     "detachment_points": 1,
     "force_dispositions": [
-      "take-and-hold"
+      "priority-assets"
     ],
     "detachment_rule_ids": [
       "sneaky-little-gitz-runt-swarm"
@@ -441,7 +444,7 @@
     },
     "detachment_points": 1,
     "force_dispositions": [
-      "disruption"
+      "priority-assets"
     ],
     "detachment_rule_ids": [
       "wreckin-and-lootin-wreckas"

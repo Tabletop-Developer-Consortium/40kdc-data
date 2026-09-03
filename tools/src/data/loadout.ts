@@ -154,6 +154,33 @@ export interface LoadoutModel {
   max: number;
   default_weapon_ids?: readonly string[];
   is_leader_model?: boolean;
+  loadout_variants?: readonly LoadoutVariant[];
+  loadout_variant_budgets?: readonly LoadoutVariantBudget[];
+}
+
+export interface LoadoutVariant {
+  name?: string;
+  weapon_ids?: readonly string[];
+  max_count?: number;
+}
+
+export interface LoadoutVariantBudget {
+  variant_names?: readonly string[];
+  count?: number;
+  per_models?: number;
+  scope?: string;
+}
+
+export function variantBudgetCap(
+  budget: LoadoutVariantBudget,
+  unitModelCount: number,
+  rowModelCount: number,
+): number {
+  const count = budget.count ?? 0;
+  const perModels = budget.per_models ?? 0;
+  if (perModels === 0) return count;
+  const models = budget.scope === "unit" ? unitModelCount : rowModelCount;
+  return Math.floor((models * count) / perModels);
 }
 
 /** True when every model row records a non-empty default loadout. */
@@ -1319,8 +1346,8 @@ function encodeCandidate(
  * before truncating is what makes the truncated prefix deterministic across
  * implementations. Mirror of `crates/wh40kdc/src/data/loadout.rs`.
  *
- * This variant-free form reads `default_weapon_ids` only; `loadout_variants` are
- * not yet consulted.
+ * Rows with `loadout_variants` enumerate every legal multiset of named variants;
+ * other rows contribute their recorded defaults exactly once.
  */
 export function loadoutCandidates(
   unit: Unit,
@@ -1350,17 +1377,40 @@ export function loadoutCandidates(
   const encoded = new Set<string>();
   for (const rows of rowSets) {
     for (const allocation of allocationsFor(rows, total)) {
-      const witness: string[] = [];
-      for (let i = 0; i < rows.length; i++) {
-        if (allocation[i] === 0) continue;
-        witness.push(`${rows[i].name ?? ""}×${allocation[i]}`);
+      if (!rows.some((row) => row.loadout_variants?.length)) {
+        const witness = rows.flatMap((row, index) =>
+          allocation[index] > 0
+            ? [`${row.name ?? ""}×${allocation[index]}`]
+            : [],
+        );
+        encoded.add(
+          encodeCandidate(
+            witness,
+            allocationCounts(unit, total, options, rows, allocation),
+          ),
+        );
+        continue;
       }
-      encoded.add(
-        encodeCandidate(
-          witness,
-          allocationCounts(unit, total, options, rows, allocation),
-        ),
+      const selections = rows.map((row, index) =>
+        variantSelections(row, allocation[index], total),
       );
+      const visit = (
+        index: number,
+        witness: string[],
+        counts: Map<string, number>,
+      ) => {
+        if (index === selections.length) {
+          encoded.add(encodeCandidate(witness, counts));
+          return;
+        }
+        for (const selection of selections[index]) {
+          const next = new Map(counts);
+          for (const [id, count] of selection.counts)
+            next.set(id, (next.get(id) ?? 0) + count);
+          visit(index + 1, [...witness, ...selection.witness], next);
+        }
+      };
+      visit(0, [], new Map());
     }
   }
   // Code-point order, not localeCompare: a witness carries display names (which
@@ -1369,6 +1419,59 @@ export function loadoutCandidates(
   const out = [...encoded].sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
   if (out.length <= cap) return out;
   return [...out.slice(0, cap), LOADOUT_CANDIDATES_TRUNCATED];
+}
+
+interface VariantSelection {
+  witness: string[];
+  counts: Map<string, number>;
+}
+
+function variantSelections(
+  row: LoadoutModel,
+  rowCount: number,
+  unitCount: number,
+): VariantSelection[] {
+  if (rowCount === 0) return [{ witness: [], counts: new Map() }];
+  const variants = row.loadout_variants;
+  if (!variants?.length) {
+    const counts = new Map<string, number>();
+    for (const id of row.default_weapon_ids ?? [])
+      counts.set(id, (counts.get(id) ?? 0) + rowCount);
+    return [{ witness: [`${row.name ?? ""}×${rowCount}`], counts }];
+  }
+  const out: VariantSelection[] = [];
+  const selected = Array(variants.length).fill(0) as number[];
+  const visit = (index: number, remaining: number) => {
+    if (index === variants.length) {
+      if (remaining !== 0) return;
+      for (const budget of row.loadout_variant_budgets ?? []) {
+        const names = new Set(budget.variant_names ?? []);
+        const used = variants.reduce(
+          (sum, variant, i) =>
+            sum + (variant.name != null && names.has(variant.name) ? selected[i] : 0),
+          0,
+        );
+        if (used > variantBudgetCap(budget, unitCount, rowCount)) return;
+      }
+      const counts = new Map<string, number>();
+      const witness: string[] = [];
+      for (let i = 0; i < variants.length; i++) {
+        if (selected[i] === 0) continue;
+        witness.push(`${variants[i].name ?? ""}×${selected[i]}`);
+        for (const id of variants[i].weapon_ids ?? [])
+          counts.set(id, (counts.get(id) ?? 0) + selected[i]);
+      }
+      out.push({ witness, counts });
+      return;
+    }
+    const max = Math.min(remaining, variants[index].max_count ?? remaining);
+    for (let count = max; count >= 0; count--) {
+      selected[index] = count;
+      visit(index + 1, remaining - count);
+    }
+  };
+  visit(0, rowCount);
+  return out;
 }
 
 /**

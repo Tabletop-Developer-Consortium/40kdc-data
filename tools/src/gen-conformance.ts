@@ -806,6 +806,24 @@ const LINKED_API_QUERIES: LinkedApiQuery[] = [
     args: { unitId: "crusader-squad", modelCount: "10" },
     comparison: "ordered",
   },
+  {
+    name: "loadout_candidates boyz @10 enforces one special model",
+    query: "loadout_candidates",
+    args: { unitId: "boyz", factionId: "orks", modelCount: "10" },
+    comparison: "ordered",
+  },
+  {
+    name: "loadout_candidates boyz @18 scales the shared unit budget",
+    query: "loadout_candidates",
+    args: { unitId: "boyz", factionId: "orks", modelCount: "18" },
+    comparison: "ordered",
+  },
+  {
+    name: "loadout_candidates boyz @20 caps shared specials at two",
+    query: "loadout_candidates",
+    args: { unitId: "boyz", factionId: "orks", modelCount: "20" },
+    comparison: "ordered",
+  },
   // reactive triggers: reactiveTriggers() sorts by ability id; triggerIndex() keys are
   // event-sorted and each bucket ability-id-sorted, so all three are order-pinned.
   {

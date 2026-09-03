@@ -1028,7 +1028,7 @@ def loadout_candidates(
     tiers: list[dict[str, Any]] | None = None,
     limit: int | None = None,
 ) -> list[str]:
-    """Enumerate variant-free, tier-legal model allocations in canonical order."""
+    """Enumerate variant-aware, tier-legal model allocations in canonical order."""
     total = max(0, int(model_count))
     cap = max(0, int(limit if limit is not None else LOADOUT_CANDIDATES_DEFAULT_LIMIT))
     base = models or []
@@ -1046,6 +1046,29 @@ def loadout_candidates(
     encoded: set[str] = set()
     for rows in row_sets:
         for allocation in _candidate_row_counts(rows, total, {}):
+            if any(row.get("loadout_variants") for row in rows):
+                selections = [
+                    _variant_selections(row, allocation[index], total)
+                    for index, row in enumerate(rows)
+                ]
+
+                def combine(index: int, witness: list[str], counts: dict[str, int]) -> None:
+                    if index == len(selections):
+                        count_text = ",".join(
+                            f"{id_}:{count}"
+                            for id_, count in sorted(counts.items())
+                            if count > 0
+                        )
+                        encoded.add(f"{';'.join(witness)} => {count_text}")
+                        return
+                    for selection in selections[index]:
+                        next_counts = dict(counts)
+                        for id_, count in selection["counts"].items():
+                            next_counts[id_] = next_counts.get(id_, 0) + count
+                        combine(index + 1, [*witness, *selection["witness"]], next_counts)
+
+                combine(0, [], {})
+                continue
             witness = ";".join(
                 f"{rows[i].get('name') or ''}×{count}"
                 for i, count in enumerate(allocation)
@@ -1063,6 +1086,56 @@ def loadout_candidates(
             encoded.add(f"{witness} => {count_text}")
     out = sorted(encoded)
     return out if len(out) <= cap else [*out[:cap], LOADOUT_CANDIDATES_TRUNCATED]
+
+
+def _variant_budget_cap(budget: dict[str, Any], unit_count: int, row_count: int) -> int:
+    if budget["per_models"] == 0:
+        return budget["count"]
+    models = unit_count if budget["scope"] == "unit" else row_count
+    return math.floor(models * budget["count"] / budget["per_models"])
+
+
+def _variant_selections(row: LoadoutModel, row_count: int, unit_count: int) -> list[dict[str, Any]]:
+    if row_count == 0:
+        return [{"witness": [], "counts": {}}]
+    variants = row.get("loadout_variants") or []
+    if not variants:
+        counts: dict[str, int] = {}
+        for id_ in row.get("default_weapon_ids") or []:
+            counts[id_] = counts.get(id_, 0) + row_count
+        return [{"witness": [f"{row.get('name') or ''}×{row_count}"], "counts": counts}]
+
+    out: list[dict[str, Any]] = []
+    selected = [0] * len(variants)
+
+    def visit(index: int, remaining: int) -> None:
+        if index == len(variants):
+            if remaining:
+                return
+            for budget in row.get("loadout_variant_budgets") or []:
+                names = set(budget["variant_names"])
+                used = sum(
+                    selected[i] for i, variant in enumerate(variants) if variant["name"] in names
+                )
+                if used > _variant_budget_cap(budget, unit_count, row_count):
+                    return
+            witness: list[str] = []
+            counts: dict[str, int] = {}
+            for i, variant in enumerate(variants):
+                if selected[i] == 0:
+                    continue
+                witness.append(f"{variant['name']}×{selected[i]}")
+                for id_ in variant["weapon_ids"]:
+                    counts[id_] = counts.get(id_, 0) + selected[i]
+            out.append({"witness": witness, "counts": counts})
+            return
+        maximum = min(remaining, variants[index].get("max_count", remaining))
+        for count in range(maximum, -1, -1):
+            selected[index] = count
+            visit(index + 1, remaining - count)
+
+    visit(0, row_count)
+    return out
 
 
 def _swap_conflicts(

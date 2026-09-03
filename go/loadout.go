@@ -274,7 +274,89 @@ func maximalLoadout(unit map[string]any, modelCount int, options []any, models [
 	return counts
 }
 
-// LoadoutCandidates enumerates variant-free, tier-legal model allocations.
+type variantSelection struct {
+	witness []string
+	counts  map[string]int
+}
+
+func variantBudgetCap(budget map[string]any, unitCount, rowCount int) int {
+	perModels := asInt(budget["per_models"])
+	if perModels == 0 {
+		return asInt(budget["count"])
+	}
+	models := rowCount
+	if getStr(budget, "scope") == "unit" {
+		models = unitCount
+	}
+	return models * asInt(budget["count"]) / perModels
+}
+
+func variantSelections(row map[string]any, rowCount, unitCount int) []variantSelection {
+	if rowCount == 0 {
+		return []variantSelection{{counts: map[string]int{}}}
+	}
+	variants := getList(row, "loadout_variants")
+	if len(variants) == 0 {
+		counts := map[string]int{}
+		for _, id := range getStrList(row, "default_weapon_ids") {
+			counts[id] += rowCount
+		}
+		return []variantSelection{{witness: []string{getStr(row, "name") + "×" + itoa(rowCount)}, counts: counts}}
+	}
+	selected := make([]int, len(variants))
+	var out []variantSelection
+	var visit func(int, int)
+	visit = func(index, remaining int) {
+		if index == len(variants) {
+			if remaining != 0 {
+				return
+			}
+			for _, budgetAny := range getList(row, "loadout_variant_budgets") {
+				budget, _ := asMap(budgetAny)
+				names := map[string]bool{}
+				for _, name := range getStrList(budget, "variant_names") {
+					names[name] = true
+				}
+				used := 0
+				for i, variantAny := range variants {
+					variant, _ := asMap(variantAny)
+					if names[getStr(variant, "name")] {
+						used += selected[i]
+					}
+				}
+				if used > variantBudgetCap(budget, unitCount, rowCount) {
+					return
+				}
+			}
+			selection := variantSelection{counts: map[string]int{}}
+			for i, variantAny := range variants {
+				if selected[i] == 0 {
+					continue
+				}
+				variant, _ := asMap(variantAny)
+				selection.witness = append(selection.witness, getStr(variant, "name")+"×"+itoa(selected[i]))
+				for _, id := range getStrList(variant, "weapon_ids") {
+					selection.counts[id] += selected[i]
+				}
+			}
+			out = append(out, selection)
+			return
+		}
+		variant, _ := asMap(variants[index])
+		maximum := remaining
+		if variant["max_count"] != nil {
+			maximum = minInt(maximum, asInt(variant["max_count"]))
+		}
+		for count := maximum; count >= 0; count-- {
+			selected[index] = count
+			visit(index+1, remaining-count)
+		}
+	}
+	visit(0, rowCount)
+	return out
+}
+
+// LoadoutCandidates enumerates variant-aware, tier-legal model allocations.
 func LoadoutCandidates(unit map[string]any, modelCount int, options, models, tiers []any, limit *int) []string {
 	total := maxInt(0, modelCount)
 	capN := LoadoutCandidatesDefaultLimit
@@ -302,6 +384,45 @@ func LoadoutCandidates(unit map[string]any, modelCount int, options, models, tie
 	seen := map[string]bool{}
 	for _, rows := range rowSets {
 		for _, allocation := range candidateRowCounts(rows, total, map[string]int{}) {
+			hasVariants := false
+			selections := make([][]variantSelection, len(rows))
+			for i, rowAny := range rows {
+				row, _ := asMap(rowAny)
+				if len(getList(row, "loadout_variants")) > 0 {
+					hasVariants = true
+				}
+				selections[i] = variantSelections(row, allocation[i], total)
+			}
+			if hasVariants {
+				var combine func(int, []string, map[string]int)
+				combine = func(index int, witness []string, counts map[string]int) {
+					if index == len(selections) {
+						ids := make([]string, 0, len(counts))
+						for id, count := range counts {
+							if count > 0 {
+								ids = append(ids, id)
+							}
+						}
+						sort.Strings(ids)
+						parts := make([]string, len(ids))
+						for i, id := range ids {
+							parts[i] = id + ":" + itoa(counts[id])
+						}
+						seen[strings.Join(witness, ";")+" => "+strings.Join(parts, ",")] = true
+						return
+					}
+					for _, selection := range selections[index] {
+						nextCounts := cloneCounts(counts)
+						for id, count := range selection.counts {
+							nextCounts[id] += count
+						}
+						nextWitness := append(append([]string(nil), witness...), selection.witness...)
+						combine(index+1, nextWitness, nextCounts)
+					}
+				}
+				combine(0, nil, map[string]int{})
+				continue
+			}
 			witness := []string{}
 			counts := map[string]int{}
 			for i, count := range allocation {

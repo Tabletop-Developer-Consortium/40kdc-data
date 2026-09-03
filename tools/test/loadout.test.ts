@@ -12,6 +12,7 @@ import {
   groupLoadout,
   completeLoadout,
   loadoutCandidates,
+  variantBudgetCap,
   type LoadoutTier,
 } from "../src/data/loadout.js";
 import type { Unit, WargearOption } from "../src/generated.js";
@@ -561,6 +562,38 @@ describe("loadoutCandidates", () => {
       .map(([id, count]) => `${id}:${count}`)
       .join(",");
     expect(candidate.split(" => ")[1]).toBe(encodedBase);
+  });
+
+  it("enforces variant max counts and shared unit-scoped budgets", () => {
+    const variantModels = [
+      {
+        name: "Trooper",
+        min: 10,
+        max: 10,
+        loadout_variants: [
+          { name: "Rifle", weapon_ids: ["rifle"] },
+          { name: "Plasma", weapon_ids: ["plasma"], max_count: 2 },
+          { name: "Melta", weapon_ids: ["melta"], max_count: 2 },
+        ],
+        loadout_variant_budgets: [
+          {
+            variant_names: ["Plasma", "Melta"],
+            count: 1,
+            per_models: 5,
+            scope: "unit" as const,
+          },
+        ],
+      },
+    ];
+    const candidates = loadoutCandidates(unit, 10, [], variantModels, undefined, 100);
+    expect(candidates).toContain("Rifle×8;Plasma×1;Melta×1 => melta:1,plasma:1,rifle:8");
+    expect(candidates.some((candidate) => candidate.includes("Plasma×2;Melta×1"))).toBe(false);
+  });
+
+  it("computes flat and ratio caps at both scopes", () => {
+    expect(variantBudgetCap({ variant_names: ["A"], count: 2, per_models: 0, scope: "unit" }, 20, 5)).toBe(2);
+    expect(variantBudgetCap({ variant_names: ["A"], count: 1, per_models: 10, scope: "unit" }, 20, 5)).toBe(2);
+    expect(variantBudgetCap({ variant_names: ["A"], count: 1, per_models: 5, scope: "model-row" }, 20, 5)).toBe(1);
   });
 });
 

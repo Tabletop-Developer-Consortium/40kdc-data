@@ -93,6 +93,7 @@
     "mfm:download": "tsx src/mfm/download.ts",
     "mfm:sync": "tsx src/mfm/sync.ts",
     "mfm:bsdata": "tsx src/mfm/bsdata-backstop.ts",
+    "bsdata:loadout-variants": "tsx src/convert-bsdata-loadout-variants.ts",
     "bundle:schemas": "tsx src/bundle-schemas.ts",
     "codegen:types": "json2ts -i ../crates/wh40kdc/schemas/bundled.schema.json -o src/generated.ts --unreachableDefinitions --bannerComment \"/* Generated from crates/wh40kdc/schemas/bundled.schema.json by 'npm run codegen:types'. DO NOT EDIT BY HAND. */\"",
     "copy:schemas": "rm -rf schemas && cp -R ../schemas schemas",

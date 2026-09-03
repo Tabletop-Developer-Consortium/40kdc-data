@@ -2844,6 +2844,10 @@ export interface AbilityDSLEntry {
   name: string;
   authored_by: ContributorRef;
   game_version: GameVersionReference;
+  /**
+   * SHA-256 of the NORMALISED printed rule this annotation was authored against — one-way, so the rule text itself stays outside this repository. Normalisation (defined once in tools/src/source-digest.ts) casefolds, folds Unicode, keeps the rule-significant operators + - = < > / % and replaces other punctuation with spaces, so reprint noise and quote style leave the digest unchanged while a changed value or an added condition changes it. Optional: absent means the source was never fingerprinted, which `npm run audit:source-digest` reports as untracked rather than current. Records source-content identity, not release history — consumers must not select, order or supersede abilities by it.
+   */
+  source_digest?: string;
   version?: DataslateVersion;
   supersedes?: DataslateVersion | null;
   unit_ids?: EntityId[];

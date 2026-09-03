@@ -1337,6 +1337,7 @@ class Ability(TypedDict):
     name: str
     authored_by: ContributorRef
     game_version: GameVersionRef
+    source_digest: NotRequired[str]
     version: NotRequired[DataslateVersion]
     supersedes: NotRequired[DataslateVersion | None]
     unit_ids: NotRequired[list[EntityId]]

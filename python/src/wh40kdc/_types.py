@@ -547,6 +547,22 @@ class TerrainTemplate(TypedDict):
     game_version: GameVersionRef
 
 
+class LoadoutVariant(TypedDict):
+    name: str
+    weapon_ids: list[EntityId]
+    max_count: NotRequired[int]
+
+
+VariantName: TypeAlias = str
+
+
+class LoadoutVariantBudget(TypedDict):
+    variant_names: list[VariantName]
+    count: int
+    per_models: int
+    scope: Literal["unit", "model-row"]
+
+
 class Model(TypedDict):
     name: str
     profile_name: NotRequired[str | None]
@@ -556,6 +572,8 @@ class Model(TypedDict):
     is_leader_model: NotRequired[bool]
     base_size_mm: NotRequired[BaseSize]
     hull_shape_id: NotRequired[EntityId | None]
+    loadout_variants: NotRequired[list[LoadoutVariant]]
+    loadout_variant_budgets: NotRequired[list[LoadoutVariantBudget]]
 
 
 class Model1(TypedDict):

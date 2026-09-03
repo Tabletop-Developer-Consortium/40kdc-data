@@ -851,7 +851,53 @@
           "shoota",
           "slugga"
         ],
-        "is_leader_model": false
+        "is_leader_model": false,
+        "loadout_variants": [
+          {
+            "name": "Boy",
+            "weapon_ids": [
+              "choppa-boyz",
+              "slugga"
+            ],
+            "max_count": 19
+          },
+          {
+            "name": "Boy w/ Shoota",
+            "weapon_ids": [
+              "shoota",
+              "choppa-boyz",
+              "slugga"
+            ],
+            "max_count": 19
+          },
+          {
+            "name": "Boy w/ Big shoota",
+            "weapon_ids": [
+              "big-shoota-boyz",
+              "close-combat-weapon"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Boy w/ Rokkit launcha",
+            "weapon_ids": [
+              "rokkit-launcha-boyz",
+              "close-combat-weapon"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Boy w/ Big shoota",
+              "Boy w/ Rokkit launcha"
+            ],
+            "count": 1,
+            "per_models": 10,
+            "scope": "unit"
+          }
+        ]
       },
       {
         "name": "Nob",

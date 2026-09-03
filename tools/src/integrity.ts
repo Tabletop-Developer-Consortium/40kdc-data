@@ -119,6 +119,19 @@ interface CompModelLike {
   min?: number;
   max?: number;
   default_weapon_ids?: string[];
+  loadout_variants?: LoadoutVariantLike[];
+  loadout_variant_budgets?: VariantBudgetLike[];
+}
+interface LoadoutVariantLike {
+  name?: string;
+  weapon_ids?: string[];
+  max_count?: number;
+}
+interface VariantBudgetLike {
+  variant_names?: string[];
+  count?: number;
+  per_models?: number;
+  scope?: string;
 }
 interface CompTierLike {
   models?: CompModelLike[];
@@ -169,6 +182,119 @@ const CAPTURED_QUALIFIER = /^options-|-you-cannot-|-not-allowed$|-the-same-optio
 
 function readArray<T>(file: string): T[] {
   return JSON.parse(readFileSync(file, "utf-8")) as T[];
+}
+
+/**
+ * The unit a `<base>-<unit_id>` weapon variant belongs to, or `undefined` when
+ * the id carries no unit suffix at all.
+ *
+ * Matching must take the LONGEST unit-id suffix, not the first that fits:
+ * `choppa-beast-snagga-boyz` ends with `-boyz` as well as
+ * `-beast-snagga-boyz`, so a naive scan hands the Beast Snagga weapon to the
+ * plain Boyz unit. Whichever suffix is longest is the real owner.
+ */
+export function variantWeaponOwner(weaponId: string, unitIds: Iterable<string>): string | undefined {
+  let owner: string | undefined;
+  for (const unitId of unitIds) {
+    if (!unitId || unitId === weaponId) continue;
+    if (!weaponId.endsWith(`-${unitId}`)) continue;
+    if (owner === undefined || unitId.length > owner.length) owner = unitId;
+  }
+  return owner;
+}
+
+/**
+ * Structural checks over one composition's `loadout_variants` /
+ * `loadout_variant_budgets`.
+ *
+ * A variant states a WHOLE per-model loadout, so nothing downstream re-derives
+ * its equipment from the unit's own vocabulary — an unresolvable or misappropriated
+ * weapon id would surface only as a silently wrong candidate loadout. Scope is
+ * the faction's weapon + wargear pool rather than the owning unit's
+ * `weapon_ids`, deliberately: a variant may legitimately name equipment the
+ * unit record does not list (Boyz' `close-combat-weapon`), and keeping
+ * `units.json` untouched is a property the BSData projection relies on.
+ */
+function collectVariantErrors(
+  comp: CompLike,
+  index: number,
+  factionEquipment: ReadonlySet<string>,
+  factionUnitIds: ReadonlySet<string>,
+): Array<{ path: string; message: string }> {
+  const errs: Array<{ path: string; message: string }> = [];
+  const unitId = comp.unit_id ?? "";
+  const models = comp.models ?? [];
+
+  for (let m = 0; m < models.length; m++) {
+    const row = models[m];
+    const variants = row.loadout_variants;
+    const budgets = row.loadout_variant_budgets;
+    const where = `unit "${unitId}" model row "${row.name ?? m}"`;
+
+    if (!variants?.length) {
+      // A budget with nothing to budget cannot be enforced; the caps only
+      // mean anything relative to named variants in the same row.
+      if (budgets?.length) {
+        errs.push({
+          path: `/${index}/models/${m}/loadout_variant_budgets`,
+          message: `${where}: loadout_variant_budgets is present with no loadout_variants — a variant budget can only cap variants declared in its own row`,
+        });
+      }
+      continue;
+    }
+
+    const names = new Set<string>();
+    for (let v = 0; v < variants.length; v++) {
+      const variant = variants[v];
+      const name = variant.name ?? "";
+      if (names.has(name)) {
+        errs.push({
+          path: `/${index}/models/${m}/loadout_variants/${v}`,
+          message: `${where}: duplicate loadout_variant name "${name}" — variant names are the budget's only handle on a variant, so they must be unique within a model row`,
+        });
+      }
+      names.add(name);
+
+      for (const wid of variant.weapon_ids ?? []) {
+        if (!factionEquipment.has(wid)) {
+          errs.push({
+            path: `/${index}/models/${m}/loadout_variants/${v}`,
+            message: `${where}: loadout_variant "${name}" names equipment "${wid}" that is neither a weapon nor a wargear entry in this faction — a variant states a whole loadout, so every id must resolve`,
+          });
+          continue;
+        }
+        const owner = variantWeaponOwner(wid, factionUnitIds);
+        if (owner !== undefined && owner !== unitId) {
+          errs.push({
+            path: `/${index}/models/${m}/loadout_variants/${v}`,
+            message: `${where}: loadout_variant "${name}" names "${wid}", which is unit "${owner}"'s own weapon variant — a variant must not borrow another unit's stat-specific weapon`,
+          });
+        }
+      }
+    }
+
+    for (let b = 0; b < (budgets?.length ?? 0); b++) {
+      const budget = budgets![b];
+      for (const name of budget.variant_names ?? []) {
+        if (!names.has(name)) {
+          errs.push({
+            path: `/${index}/models/${m}/loadout_variant_budgets/${b}`,
+            message: `${where}: loadout_variant_budget names variant "${name}", which does not exist in this model row (declared: ${[...names].map((n) => `"${n}"`).join(", ")})`,
+          });
+        }
+      }
+      const perModels = budget.per_models ?? 0;
+      const count = budget.count ?? 0;
+      if (perModels > 0 && count > perModels) {
+        errs.push({
+          path: `/${index}/models/${m}/loadout_variant_budgets/${b}`,
+          message: `${where}: loadout_variant_budget allows ${count} per ${perModels} model(s) — a ratio above 1:1 caps nothing per model and is a flat limit in disguise; use per_models: 0 for a flat cap`,
+        });
+      }
+    }
+  }
+
+  return errs;
 }
 
 function loadAbilityIds(file: string, into: Set<string>): void {
@@ -613,6 +739,17 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
     }
     const weaponIdsByUnit = new Map<string, string[]>(units.map((u) => [u.id ?? "", u.weapon_ids ?? []]));
     const unitRecById = new Map<string, UnitLike>(units.map((u) => [u.id ?? "", u]));
+    // The faction's whole equipment vocabulary + unit ids, for the
+    // loadout_variant checks (see collectVariantErrors).
+    const factionUnitIds = new Set<string>(units.map((u) => u.id ?? "").filter(Boolean));
+    const factionEquipment = new Set<string>();
+    for (const name of ["weapons.json", "wargear.json"]) {
+      try {
+        for (const e of readArray<{ id?: string }>(resolve(dir, name))) if (e.id) factionEquipment.add(e.id);
+      } catch {
+        // faction has no file of this kind — the other one still constrains variants
+      }
+    }
     const reachableByUnit = new Map<string, Set<string>>();
     const optionsByUnit = new Map<string, WargearOptionLike[]>();
     try {
@@ -633,16 +770,29 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
       const c = comps[i];
       result.totalItems++;
       const models = c.models ?? [];
+      // Whole-loadout model variants and their caps are checked regardless of
+      // whether the composition is "populated" — they carry their own complete
+      // equipment and do not depend on default_weapon_ids being present.
+      const errs: Array<{ path: string; message: string }> = collectVariantErrors(
+        c,
+        i,
+        factionEquipment,
+        factionUnitIds,
+      );
       // Populated = every model row carries a non-empty default loadout.
       const populated = models.length > 0 && models.every((m) => (m.default_weapon_ids?.length ?? 0) > 0);
       if (!populated) {
-        result.passed++;
+        if (errs.length > 0) {
+          result.failed++;
+          result.errors.push({ file, index: i, errors: errs });
+        } else {
+          result.passed++;
+        }
         continue;
       }
       const defaults = new Set<string>();
       for (const m of models) for (const id of m.default_weapon_ids ?? []) defaults.add(id);
       const reachable = reachableByUnit.get(c.unit_id ?? "") ?? new Set<string>();
-      const errs: Array<{ path: string; message: string }> = [];
       for (const wid of weaponIdsByUnit.get(c.unit_id ?? "") ?? []) {
         if (defaults.has(wid) || reachable.has(wid)) continue;
         const key = `${faction}/${c.unit_id}/${wid}`;

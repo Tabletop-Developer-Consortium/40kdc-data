@@ -25888,6 +25888,81 @@ impl ::std::convert::TryFrom<::std::string::String> for UnitAttachmentRole {
 ///            "default": false,
 ///            "type": "boolean"
 ///          },
+///          "loadout_variant_budgets": {
+///            "description": "Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.",
+///            "type": "array",
+///            "items": {
+///              "type": "object",
+///              "required": [
+///                "count",
+///                "per_models",
+///                "scope",
+///                "variant_names"
+///              ],
+///              "properties": {
+///                "count": {
+///                  "type": "integer",
+///                  "minimum": 1.0
+///                },
+///                "per_models": {
+///                  "description": "Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.",
+///                  "type": "integer",
+///                  "minimum": 0.0
+///                },
+///                "scope": {
+///                  "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///                  "enum": [
+///                    "unit",
+///                    "model-row"
+///                  ]
+///                },
+///                "variant_names": {
+///                  "description": "The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.",
+///                  "type": "array",
+///                  "items": {
+///                    "type": "string",
+///                    "minLength": 1
+///                  },
+///                  "minItems": 1
+///                }
+///              },
+///              "additionalProperties": false
+///            },
+///            "minItems": 1
+///          },
+///          "loadout_variants": {
+///            "description": "The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.",
+///            "type": "array",
+///            "items": {
+///              "type": "object",
+///              "required": [
+///                "name",
+///                "weapon_ids"
+///              ],
+///              "properties": {
+///                "max_count": {
+///                  "description": "Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.",
+///                  "type": "integer",
+///                  "minimum": 1.0
+///                },
+///                "name": {
+///                  "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///                  "type": "string",
+///                  "minLength": 1
+///                },
+///                "weapon_ids": {
+///                  "description": "This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.",
+///                  "type": "array",
+///                  "items": {
+///                    "$ref": "#/$defs/entity-id"
+///                  },
+///                  "minItems": 1
+///                }
+///              },
+///              "additionalProperties": false
+///            },
+///            "minItems": 1
+///          },
 ///          "max": {
 ///            "type": "integer",
 ///            "minimum": 1.0
@@ -26019,6 +26094,81 @@ pub struct UnitComposition {
 ///      "default": false,
 ///      "type": "boolean"
 ///    },
+///    "loadout_variant_budgets": {
+///      "description": "Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "count",
+///          "per_models",
+///          "scope",
+///          "variant_names"
+///        ],
+///        "properties": {
+///          "count": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "per_models": {
+///            "description": "Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.",
+///            "type": "integer",
+///            "minimum": 0.0
+///          },
+///          "scope": {
+///            "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///            "enum": [
+///              "unit",
+///              "model-row"
+///            ]
+///          },
+///          "variant_names": {
+///            "description": "The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.",
+///            "type": "array",
+///            "items": {
+///              "type": "string",
+///              "minLength": 1
+///            },
+///            "minItems": 1
+///          }
+///        },
+///        "additionalProperties": false
+///      },
+///      "minItems": 1
+///    },
+///    "loadout_variants": {
+///      "description": "The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "name",
+///          "weapon_ids"
+///        ],
+///        "properties": {
+///          "max_count": {
+///            "description": "Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.",
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "name": {
+///            "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "weapon_ids": {
+///            "description": "This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.",
+///            "type": "array",
+///            "items": {
+///              "$ref": "#/$defs/entity-id"
+///            },
+///            "minItems": 1
+///          }
+///        },
+///        "additionalProperties": false
+///      },
+///      "minItems": 1
+///    },
 ///    "max": {
 ///      "type": "integer",
 ///      "minimum": 1.0
@@ -26060,11 +26210,362 @@ pub struct UnitCompositionModelsItem {
     pub hull_shape_id: ::std::option::Option<EntityId>,
     #[serde(default)]
     pub is_leader_model: bool,
+    ///Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub loadout_variant_budgets: ::std::vec::Vec<
+        UnitCompositionModelsItemLoadoutVariantBudgetsItem,
+    >,
+    ///The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub loadout_variants: ::std::vec::Vec<UnitCompositionModelsItemLoadoutVariantsItem>,
     pub max: ::std::num::NonZeroU64,
     pub min: u64,
     pub name: UnitCompositionModelsItemName,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub profile_name: ::std::option::Option<UnitCompositionModelsItemProfileName>,
+}
+///`UnitCompositionModelsItemLoadoutVariantBudgetsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "count",
+///    "per_models",
+///    "scope",
+///    "variant_names"
+///  ],
+///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "per_models": {
+///      "description": "Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.",
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
+///    "scope": {
+///      "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///      "enum": [
+///        "unit",
+///        "model-row"
+///      ]
+///    },
+///    "variant_names": {
+///      "description": "The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.",
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitCompositionModelsItemLoadoutVariantBudgetsItem {
+    pub count: ::std::num::NonZeroU64,
+    ///Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.
+    pub per_models: u64,
+    ///Which model count scales the allowance: the whole unit, or just this model row.
+    pub scope: UnitCompositionModelsItemLoadoutVariantBudgetsItemScope,
+    ///The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.
+    pub variant_names: ::std::vec::Vec<
+        UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem,
+    >,
+}
+///Which model count scales the allowance: the whole unit, or just this model row.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///  "enum": [
+///    "unit",
+///    "model-row"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "model-row")]
+    ModelRow,
+}
+impl ::std::fmt::Display for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Unit => f.write_str("unit"),
+            Self::ModelRow => f.write_str("model-row"),
+        }
+    }
+}
+impl ::std::str::FromStr for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "unit" => Ok(Self::Unit),
+            "model-row" => Ok(Self::ModelRow),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem(
+    ::std::string::String,
+);
+impl ::std::ops::Deref
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<
+    UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem,
+> for ::std::string::String {
+    fn from(
+        value: UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem,
+    ) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`UnitCompositionModelsItemLoadoutVariantsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "name",
+///    "weapon_ids"
+///  ],
+///  "properties": {
+///    "max_count": {
+///      "description": "Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.",
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "name": {
+///      "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "weapon_ids": {
+///      "description": "This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.",
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/entity-id"
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitCompositionModelsItemLoadoutVariantsItem {
+    ///Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_count: ::std::option::Option<::std::num::NonZeroU64>,
+    ///The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+    pub name: UnitCompositionModelsItemLoadoutVariantsItemName,
+    ///This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.
+    pub weapon_ids: ::std::vec::Vec<EntityId>,
+}
+///The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct UnitCompositionModelsItemLoadoutVariantsItemName(::std::string::String);
+impl ::std::ops::Deref for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<UnitCompositionModelsItemLoadoutVariantsItemName>
+for ::std::string::String {
+    fn from(value: UnitCompositionModelsItemLoadoutVariantsItemName) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///`UnitCompositionModelsItemName`
 ///

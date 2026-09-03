@@ -2348,6 +2348,86 @@ export interface UnitComposition {
        * Optional reference to a hull-shape entity giving this model's 2D collision polygon, used instead of the circular/oval base footprint. By convention a model carrying this should set `base_size_mm.shape` to "hull".
        */
       hull_shape_id?: EntityId | null;
+      /**
+       * The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.
+       *
+       * @minItems 1
+       */
+      loadout_variants?: [
+        {
+          /**
+           * The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+           */
+          name: string;
+          /**
+           * This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.
+           *
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          /**
+           * Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.
+           */
+          max_count?: number;
+        },
+        ...{
+          /**
+           * The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+           */
+          name: string;
+          /**
+           * This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.
+           *
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          /**
+           * Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.
+           */
+          max_count?: number;
+        }[]
+      ];
+      /**
+       * Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.
+       *
+       * @minItems 1
+       */
+      loadout_variant_budgets?: [
+        {
+          /**
+           * The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.
+           *
+           * @minItems 1
+           */
+          variant_names: [string, ...string[]];
+          count: number;
+          /**
+           * Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.
+           */
+          per_models: number;
+          /**
+           * Which model count scales the allowance: the whole unit, or just this model row.
+           */
+          scope: "unit" | "model-row";
+        },
+        ...{
+          /**
+           * The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.
+           *
+           * @minItems 1
+           */
+          variant_names: [string, ...string[]];
+          count: number;
+          /**
+           * Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.
+           */
+          per_models: number;
+          /**
+           * Which model count scales the allowance: the whole unit, or just this model row.
+           */
+          scope: "unit" | "model-row";
+        }[]
+      ];
     },
     ...{
       name: string;
@@ -2361,6 +2441,86 @@ export interface UnitComposition {
        * Optional reference to a hull-shape entity giving this model's 2D collision polygon, used instead of the circular/oval base footprint. By convention a model carrying this should set `base_size_mm.shape` to "hull".
        */
       hull_shape_id?: EntityId | null;
+      /**
+       * The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.
+       *
+       * @minItems 1
+       */
+      loadout_variants?: [
+        {
+          /**
+           * The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+           */
+          name: string;
+          /**
+           * This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.
+           *
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          /**
+           * Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.
+           */
+          max_count?: number;
+        },
+        ...{
+          /**
+           * The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+           */
+          name: string;
+          /**
+           * This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.
+           *
+           * @minItems 1
+           */
+          weapon_ids: [EntityId, ...EntityId[]];
+          /**
+           * Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.
+           */
+          max_count?: number;
+        }[]
+      ];
+      /**
+       * Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.
+       *
+       * @minItems 1
+       */
+      loadout_variant_budgets?: [
+        {
+          /**
+           * The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.
+           *
+           * @minItems 1
+           */
+          variant_names: [string, ...string[]];
+          count: number;
+          /**
+           * Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.
+           */
+          per_models: number;
+          /**
+           * Which model count scales the allowance: the whole unit, or just this model row.
+           */
+          scope: "unit" | "model-row";
+        },
+        ...{
+          /**
+           * The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.
+           *
+           * @minItems 1
+           */
+          variant_names: [string, ...string[]];
+          count: number;
+          /**
+           * Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.
+           */
+          per_models: number;
+          /**
+           * Which model count scales the allowance: the whole unit, or just this model row.
+           */
+          scope: "unit" | "model-row";
+        }[]
+      ];
     }[]
   ];
   /**

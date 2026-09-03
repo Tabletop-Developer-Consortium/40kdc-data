@@ -129,3 +129,154 @@ export function sourceDigest(source: string): string {
   }
   return createHash("sha256").update(normalized, "utf8").digest("hex");
 }
+
+/**
+ * The faction key the corpus uses for the shared `data/enrichment/_core`
+ * annotation pool, whose records deliberately carry no `faction_id` so the
+ * linked API's faction-scoped lookup can fall back to them.
+ */
+export const CORE_FACTION_ID = "_core";
+
+/** `$defs/common.schema.json#/$defs/entity-id` — the kebab-case id contract. */
+const ENTITY_ID = /^[a-z0-9][a-z0-9-]*[a-z0-9]$/;
+
+/**
+ * Order two strings by UTF-16 code unit, not by locale.
+ *
+ * `localeCompare` would make finding order depend on the runner's ICU data and
+ * would not agree on where `_core` sorts relative to a faction id; a code-unit
+ * comparison is the same everywhere, which is what "deterministic order" has to
+ * mean for output a contributor or CI diffs. Exported so every consumer of a
+ * {@link SourceDigestKey} sorts the same way.
+ */
+export function compareCodeUnits(a: string, b: string): number {
+  return a < b ? -1 : a > b ? 1 : 0;
+}
+
+/**
+ * The composite identity a source digest is recorded against. A bare
+ * `ability_id` is NOT an identity: the same id is authored in several factions
+ * (that is exactly what faction stamping and `getAny` fallback exist for), so
+ * a first-match bare-id join would fingerprint one faction's rule against
+ * another faction's annotation.
+ */
+export interface SourceDigestKey {
+  /** Owning faction directory, or {@link CORE_FACTION_ID} for shared abilities. */
+  faction_id: string;
+  ability_id: string;
+}
+
+/**
+ * The contributor-owned corpus, as read from disk:
+ * `{ "<faction-id>": { "<ability-id>": "printed rule text" } }`, with
+ * {@link CORE_FACTION_ID} for shared abilities.
+ *
+ * The nesting is the point — it makes the repository's real composite identity
+ * explicit rather than inviting an ambiguous flat `ability_id` map. The corpus
+ * lives outside this repository and is only ever read.
+ */
+export type SourceDigestCorpus = Record<string, Record<string, string>>;
+
+/** One corpus entry, already reduced to a digest — the prose is not retained. */
+export interface SourceDigestCorpusEntry extends SourceDigestKey {
+  /** `sourceDigest(<printed rule>)`; the rule text itself is discarded. */
+  digest: string;
+}
+
+/**
+ * A parsed corpus, keyed by {@link sourceIdentityKey} so callers join on the
+ * composite identity. Iteration order is sorted by faction then ability rather
+ * than by corpus file order, so every consumer renders deterministically
+ * regardless of how the corpus happened to be serialised.
+ */
+export type ParsedSourceDigestCorpus = Map<string, SourceDigestCorpusEntry>;
+
+/**
+ * The map key for a composite identity. `/` is safe as the separator because
+ * neither an entity id nor `_core` can contain one.
+ */
+export function sourceIdentityKey(key: SourceDigestKey): string {
+  return `${key.faction_id}/${key.ability_id}`;
+}
+
+/** A valid corpus faction key: any entity id, plus the shared `_core` pool. */
+function isFactionKey(value: string): boolean {
+  return value === CORE_FACTION_ID || ENTITY_ID.test(value);
+}
+
+/**
+ * Parse and validate a contributor-owned corpus, reducing every printed rule
+ * to a {@link sourceDigest} as it is read.
+ *
+ * The reduction is immediate and total: the returned entries carry identity and
+ * digest only, so no downstream audit row, report or error can retain prose
+ * even by accident.
+ *
+ * Validation is strict and whole-corpus — a malformed corpus is an invocation
+ * error, never an audit finding, because a partially-understood corpus would
+ * silently under-report drift.
+ *
+ * @throws Error on a non-object corpus or faction level, an invalid faction or
+ * ability id, a non-string value, or a value that normalises to nothing (which
+ * would otherwise reach {@link sourceDigest}'s `RangeError`).
+ *
+ * Error messages name only identifiers that have already validated as
+ * kebab-case ids. An *invalid* key is reported by its 1-based position instead,
+ * because a mis-shaped corpus can put printed rule text in a key.
+ */
+export function parseSourceDigestCorpus(
+  corpus: unknown,
+): ParsedSourceDigestCorpus {
+  if (typeof corpus !== "object" || corpus === null || Array.isArray(corpus)) {
+    throw new Error(
+      'source corpus: expected an object of the shape { "<faction-id>": { "<ability-id>": "<printed rule>" } }',
+    );
+  }
+
+  const entries: SourceDigestCorpusEntry[] = [];
+  const factions = Object.entries(corpus as Record<string, unknown>);
+  factions.forEach(([faction_id, abilities], factionIndex) => {
+    if (!isFactionKey(faction_id)) {
+      throw new Error(
+        `source corpus: faction key #${factionIndex + 1} is not a valid faction id (expected kebab-case or "${CORE_FACTION_ID}")`,
+      );
+    }
+    if (
+      typeof abilities !== "object" ||
+      abilities === null ||
+      Array.isArray(abilities)
+    ) {
+      throw new Error(
+        `source corpus["${faction_id}"]: expected an object of ability ids to printed rules`,
+      );
+    }
+    Object.entries(abilities as Record<string, unknown>).forEach(
+      ([ability_id, source], abilityIndex) => {
+        const where = `source corpus["${faction_id}"]`;
+        if (!ENTITY_ID.test(ability_id)) {
+          throw new Error(
+            `${where}: ability key #${abilityIndex + 1} is not a valid ability id (expected kebab-case)`,
+          );
+        }
+        if (typeof source !== "string") {
+          throw new Error(
+            `${where}["${ability_id}"]: expected a printed rule string`,
+          );
+        }
+        if (normalizeSourceForDigest(source) === "") {
+          throw new Error(
+            `${where}["${ability_id}"]: printed rule is empty after normalisation`,
+          );
+        }
+        entries.push({ faction_id, ability_id, digest: sourceDigest(source) });
+      },
+    );
+  });
+
+  entries.sort(
+    (a, b) =>
+      compareCodeUnits(a.faction_id, b.faction_id) ||
+      compareCodeUnits(a.ability_id, b.ability_id),
+  );
+  return new Map(entries.map((entry) => [sourceIdentityKey(entry), entry]));
+}

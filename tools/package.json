@@ -74,6 +74,7 @@
     "audit:external-refs": "tsx src/audit-external-refs.ts",
     "audit:store-coverage": "tsx src/audit-store-coverage.ts",
     "audit:source-digest": "tsx src/audit-source-digest.ts",
+    "backfill:source-digest": "tsx src/backfill-source-digests.ts",
     "audit:mfm-contract": "tsx src/audit-mfm-contract.ts",
     "audit:phrasing": "tsx src/cli.ts audit-phrasing --write",
     "scrub:defensive-flag": "tsx src/scrub-defensive-flag.ts",

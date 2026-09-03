@@ -45,8 +45,11 @@ import {
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-/** Repository root, used when the caller does not pass `--root`. */
-const DEFAULT_ROOT = resolve(__dirname, "../..");
+/**
+ * Repository root, used when the caller does not pass `--root`. Exported so the
+ * backfill command resolves the same tree rather than deriving its own.
+ */
+export const DEFAULT_ROOT = resolve(__dirname, "../..");
 
 /**
  * Enrichment directories that hold fabricated examples or scratch port audits.
@@ -118,17 +121,52 @@ export interface SourceDigestAuditReport {
 }
 
 /** Shape of a raw annotation record, before validation. */
-type RawAbility = Record<string, unknown>;
+export type RawAbility = Record<string, unknown>;
 
 /**
- * Read every live `data/enrichment/<faction>/abilities.json` under `rootDir`
- * and reduce it to composite identities plus stored digests.
+ * One live annotation file, parsed and validated but not yet reduced.
+ *
+ * The audit only needs the flat identity list {@link loadAbilityAnnotations}
+ * returns, but `backfill-source-digests.ts` has to write the same files back, so
+ * the loader that establishes identity also hands out the authored records.
+ * Keeping both behind one function is the whole point: the faction-ownership
+ * rule, the pool exclusions, the per-record validation and the
+ * duplicate-identity refusal are stated once, so the write path cannot drift
+ * from the identity model the audit gates on.
+ */
+export interface AbilityAnnotationFile {
+  /** `data/enrichment/<dir>/abilities.json` — relative, so it is safe to print. */
+  relative: string;
+  /** Absolute path, for a writer. Never printed: it may sit anywhere. */
+  path: string;
+  /**
+   * The file's exact bytes as committed.
+   *
+   * A writer must edit this text rather than re-serialise the records: the
+   * faction files do not share one JSON escape convention (some write
+   * `\uXXXX` for typographic punctuation, others the literal UTF-8), so any
+   * serialiser rewrites whichever half it does not match.
+   */
+  text: string;
+  /** The file's records in authored order, with every field untouched. */
+  records: RawAbility[];
+  /** Composite identity plus stored digest, index-aligned with {@link records}. */
+  annotations: AbilityAnnotation[];
+}
+
+/**
+ * Read every live `data/enrichment/<faction>/abilities.json` under `rootDir`,
+ * validate it, and pair each file's authored records with their composite
+ * identities.
  *
  * The effective faction is the record's authored `faction_id` when it has one,
  * otherwise the enclosing directory — the same rule `codegen-data.ts` uses to
- * stamp faction ownership at bundle time, so the audit joins on exactly the
+ * stamp faction ownership at bundle time, so the join happens on exactly the
  * identity the linked API resolves by. Records in `_`-prefixed pools stay
  * faction-less at runtime and are keyed as {@link CORE_FACTION_ID}.
+ *
+ * Files come back in directory order; each file's `annotations` stay in
+ * authored order so a caller can zip them against `records` by index.
  *
  * @throws Error on a missing enrichment tree, a non-array ability file, a
  * record with no usable `ability_id`, a non-string `source_digest`, or two
@@ -136,9 +174,9 @@ type RawAbility = Record<string, unknown>;
  * and silently fingerprint one faction's rule against another's annotation).
  * Paths in messages are relative to `rootDir`, never absolute.
  */
-export function loadAbilityAnnotations(
+export function loadAbilityAnnotationFiles(
   rootDir: string = DEFAULT_ROOT,
-): AbilityAnnotation[] {
+): AbilityAnnotationFile[] {
   const enrichment = join(rootDir, "data", "enrichment");
   if (!existsSync(enrichment)) {
     throw new Error(
@@ -146,7 +184,7 @@ export function loadAbilityAnnotations(
     );
   }
 
-  const annotations: AbilityAnnotation[] = [];
+  const files: AbilityAnnotationFile[] = [];
   const seen = new Map<string, string>();
 
   for (const dir of readdirSync(enrichment).sort()) {
@@ -157,9 +195,10 @@ export function loadAbilityAnnotations(
     if (!existsSync(file)) continue;
     const relative = `data/enrichment/${dir}/abilities.json`;
 
+    const text = readFileSync(file, "utf-8");
     let parsed: unknown;
     try {
-      parsed = JSON.parse(readFileSync(file, "utf-8")) as unknown;
+      parsed = JSON.parse(text) as unknown;
     } catch {
       throw new Error(`${relative}: not valid JSON`);
     }
@@ -167,6 +206,7 @@ export function loadAbilityAnnotations(
       throw new Error(`${relative}: expected a JSON array of annotations`);
     }
 
+    const annotations: AbilityAnnotation[] = [];
     parsed.forEach((record, index) => {
       if (typeof record !== "object" || record === null || Array.isArray(record)) {
         throw new Error(`${relative}: record #${index + 1} is not an object`);
@@ -213,8 +253,32 @@ export function loadAbilityAnnotations(
       seen.set(key, relative);
       annotations.push(annotation);
     });
+
+    files.push({
+      relative,
+      path: file,
+      text,
+      records: parsed as RawAbility[],
+      annotations,
+    });
   }
 
+  return files;
+}
+
+/**
+ * The flat identity view of {@link loadAbilityAnnotationFiles} — what the audit
+ * joins the corpus against.
+ *
+ * Sorted by faction id then ability id (by code unit, not locale), so findings
+ * and summaries never depend on directory iteration order.
+ */
+export function loadAbilityAnnotations(
+  rootDir: string = DEFAULT_ROOT,
+): AbilityAnnotation[] {
+  const annotations = loadAbilityAnnotationFiles(rootDir).flatMap(
+    (file) => file.annotations,
+  );
   annotations.sort(
     (a, b) =>
       compareCodeUnits(a.faction_id, b.faction_id) ||
@@ -337,8 +401,14 @@ export function renderSourceDigestAudit(
   return `${lines.join("\n")}\n`;
 }
 
-/** Read a corpus file without ever naming its path — the path may be private. */
-function readCorpusFile(path: string): unknown {
+/**
+ * Read a corpus file without ever naming its path — the corpus is
+ * contributor-owned and its location may itself be private.
+ *
+ * Exported so the backfill command reads the corpus under the same contract:
+ * generic failure messages, no path in either message.
+ */
+export function readSourceDigestCorpusFile(path: string): unknown {
   let text: string;
   try {
     text = readFileSync(path, "utf-8");
@@ -377,7 +447,7 @@ if (isMain) {
       );
     }
     const report = auditSourceDigests(
-      readCorpusFile(resolve(positional[0])),
+      readSourceDigestCorpusFile(resolve(positional[0])),
       loadAbilityAnnotations(rootDir === undefined ? DEFAULT_ROOT : resolve(rootDir)),
     );
     process.stdout.write(renderSourceDigestAudit(report));

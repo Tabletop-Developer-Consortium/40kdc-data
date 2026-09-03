@@ -158,3 +158,15 @@ The layout-editor workspace has no local Prettier binary, so its ordinary npx pr
 ## 2026-08-28T16:29:49Z — openai-codex
 
 The layout-editor production build emitted its bundle-size table but then hung until the 10-minute command timeout while a persistent Vite dev server was running; the same build normally exits in seconds.
+
+## 2026-09-03T19:08:57Z — codex
+
+Phase 5 names the audit as npx tsx tools/src/audit-loadout-coverage.ts, but I reflexively ran the tools-only npm script from the repository root; npm failed before regeneration and made no project changes.
+
+## 2026-09-03T19:18:39Z — codex
+
+I ran a jq probe with a literal TARGET placeholder instead of first extracting the BSData target id; it returned an empty result and provided no diagnostic value.
+
+## 2026-09-03T19:23:34Z — codex
+
+This installed jj version has no archive subcommand, so the planned whole-parent materialization failed before comparison; use jj file show per composition instead.

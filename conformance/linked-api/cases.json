@@ -950,7 +950,11 @@
     },
     "comparison": "ordered",
     "expected": [
-      "Sword Brother×1;Initiate×5;Neophyte×4 => astartes-chainsword-crusader-squad:4,bolt-pistol:9,bolt-rifle:5,close-combat-weapon:5,heavy-bolt-pistol:1,master-crafted-power-weapon-crusader-squad:1"
+      "Sword Brother×1;Initiate×5;Neophyte w/ Astartes Chainsword×4 => astartes-chainsword-crusader-squad:4,bolt-pistol:9,bolt-rifle:5,close-combat-weapon:5,heavy-bolt-pistol:1,master-crafted-power-weapon-crusader-squad:1",
+      "Sword Brother×1;Initiate×5;Neophyte w/ Firearm×1;Neophyte w/ Astartes Chainsword×3 => astartes-chainsword-crusader-squad:3,bolt-pistol:8,bolt-rifle:5,close-combat-weapon:6,heavy-bolt-pistol:1,master-crafted-power-weapon-crusader-squad:1,neophyte-firearm:1",
+      "Sword Brother×1;Initiate×5;Neophyte w/ Firearm×2;Neophyte w/ Astartes Chainsword×2 => astartes-chainsword-crusader-squad:2,bolt-pistol:7,bolt-rifle:5,close-combat-weapon:7,heavy-bolt-pistol:1,master-crafted-power-weapon-crusader-squad:1,neophyte-firearm:2",
+      "Sword Brother×1;Initiate×5;Neophyte w/ Firearm×3;Neophyte w/ Astartes Chainsword×1 => astartes-chainsword-crusader-squad:1,bolt-pistol:6,bolt-rifle:5,close-combat-weapon:8,heavy-bolt-pistol:1,master-crafted-power-weapon-crusader-squad:1,neophyte-firearm:3",
+      "Sword Brother×1;Initiate×5;Neophyte w/ Firearm×4 => bolt-pistol:5,bolt-rifle:5,close-combat-weapon:9,heavy-bolt-pistol:1,master-crafted-power-weapon-crusader-squad:1,neophyte-firearm:4"
     ]
   },
   {

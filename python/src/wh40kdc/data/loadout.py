@@ -1036,8 +1036,10 @@ def loadout_candidates(
     if tiers:
         for tier in tiers:
             rows = _tier_models(tier, base)
-            if sum(max(0, m.get("min") or 0) for m in rows) <= total <= sum(
-                max(m.get("min") or 0, m.get("max") or 0) for m in rows
+            if (
+                sum(max(0, m.get("min") or 0) for m in rows)
+                <= total
+                <= sum(max(m.get("min") or 0, m.get("max") or 0) for m in rows)
             ):
                 row_sets.append(rows)
     elif base:
@@ -1052,22 +1054,30 @@ def loadout_candidates(
                     for index, row in enumerate(rows)
                 ]
 
-                def combine(index: int, witness: list[str], counts: dict[str, int]) -> None:
-                    if index == len(selections):
+                def combine(
+                    index: int,
+                    witness: list[str],
+                    counts: dict[str, int],
+                    row_selections: list[list[dict[str, Any]]],
+                ) -> None:
+                    if index == len(row_selections):
                         count_text = ",".join(
-                            f"{id_}:{count}"
-                            for id_, count in sorted(counts.items())
-                            if count > 0
+                            f"{id_}:{count}" for id_, count in sorted(counts.items()) if count > 0
                         )
                         encoded.add(f"{';'.join(witness)} => {count_text}")
                         return
-                    for selection in selections[index]:
+                    for selection in row_selections[index]:
                         next_counts = dict(counts)
                         for id_, count in selection["counts"].items():
                             next_counts[id_] = next_counts.get(id_, 0) + count
-                        combine(index + 1, [*witness, *selection["witness"]], next_counts)
+                        combine(
+                            index + 1,
+                            [*witness, *selection["witness"]],
+                            next_counts,
+                            row_selections,
+                        )
 
-                combine(0, [], {})
+                combine(0, [], {}, selections)
                 continue
             witness = ";".join(
                 f"{rows[i].get('name') or ''}×{count}"
@@ -1082,7 +1092,9 @@ def loadout_candidates(
             else:
                 for id_ in _base_weapon_ids(unit, options):
                     counts[id_] = counts.get(id_, 0) + total
-            count_text = ",".join(f"{id_}:{count}" for id_, count in sorted(counts.items()) if count > 0)
+            count_text = ",".join(
+                f"{id_}:{count}" for id_, count in sorted(counts.items()) if count > 0
+            )
             encoded.add(f"{witness} => {count_text}")
     out = sorted(encoded)
     return out if len(out) <= cap else [*out[:cap], LOADOUT_CANDIDATES_TRUNCATED]

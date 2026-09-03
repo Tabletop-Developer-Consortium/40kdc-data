@@ -17,12 +17,21 @@ const arr = (value: unknown): JsonNode[] => Array.isArray(value) ? value.filter(
 const str = (value: unknown): string | undefined => typeof value === "string" && value.trim() ? value.trim() : undefined;
 const constraints = (node: JsonNode, type: string): JsonNode[] => arr(node.constraints).filter((c) => c.type === type && c.field === "selections");
 const constraint = (node: JsonNode, type: string): number | undefined => constraints(node, type).map((c) => c.value).find((v): v is number => typeof v === "number");
-const children = (node: JsonNode): JsonNode[] => [...arr(node.selectionEntries), ...arr(node.selectionEntryGroups), ...arr(node.entryLinks)];
+const children = (node: JsonNode): JsonNode[] => [
+  ...arr(node.selectionEntries),
+  ...arr(node.sharedSelectionEntries),
+  ...arr(node.selectionEntryGroups),
+  ...arr(node.sharedSelectionEntryGroups),
+  ...arr(node.entryLinks),
+];
 
 export function collectPeerGroups(unit: JsonNode): JsonNode[] {
   const found: JsonNode[] = [];
   const visit = (node: JsonNode): void => {
-    if (arr(node.selectionEntries).filter((entry) => entry.type === "model").length >= 2) found.push(node);
+    const peers = arr(node.selectionEntries).filter((entry) => entry.type === "model");
+    const sameModel = new Set(peers.map((entry) => normModelName(str(entry.name) ?? ""))).size === 1;
+    const allOptional = peers.every((entry) => (constraint(entry, "min") ?? 0) === 0);
+    if (peers.length >= 2 && (sameModel || allOptional)) found.push(node);
     for (const child of [...arr(node.selectionEntries), ...arr(node.selectionEntryGroups)]) visit(child);
   };
   visit(unit);
@@ -33,18 +42,29 @@ function externalId(entity: JsonNode): string | undefined {
   return arr(entity.external_refs).find((ref) => ref.namespace === "bsdata")?.id as string | undefined;
 }
 
-export function makeEquipmentResolver(entities: JsonNode[], unitId: string): (link: JsonNode) => string | undefined {
-  const byExternal = new Map(entities.map((entity) => [externalId(entity), str(entity.id)]).filter((pair): pair is [string, string] => !!pair[0] && !!pair[1]));
+export function makeEquipmentResolver(entities: JsonNode[], unitId: string, factionUnitIds: readonly string[] = []): (link: JsonNode) => string | undefined {
+  const byExternal = new Map<string, string[]>();
+  for (const entity of entities) {
+    const sourceId = externalId(entity);
+    const entityId = str(entity.id);
+    if (sourceId && entityId) byExternal.set(sourceId, [...(byExternal.get(sourceId) ?? []), entityId]);
+  }
   const ids = new Set(entities.map((entity) => str(entity.id)).filter((id): id is string => !!id));
+  const owner = (id: string): string | undefined => factionUnitIds
+    .filter((candidate) => id.endsWith(`-${candidate}`))
+    .sort((left, right) => right.length - left.length)[0];
   return (link) => {
-    const exact = str(link.targetId) ? byExternal.get(str(link.targetId)!) : undefined;
+    const sourceId = str(link.targetId) ?? str(link.id);
+    const exactCandidates = sourceId ? byExternal.get(sourceId) ?? [] : [];
+    const exact = exactCandidates.find((id) => owner(id) === unitId)
+      ?? exactCandidates.find((id) => owner(id) === undefined);
     if (exact) return exact;
     const name = str(link.name);
     if (!name) return undefined;
     let slug: string;
     try { slug = nameToId(name); } catch { return undefined; }
     if (ids.has(`${slug}-${unitId}`)) return `${slug}-${unitId}`;
-    return ids.has(slug) ? slug : undefined;
+    return ids.has(slug) && owner(slug) === undefined ? slug : undefined;
   };
 }
 
@@ -53,9 +73,13 @@ function fixedEquipment(peer: JsonNode): JsonNode[] {
   const visit = (node: JsonNode): void => {
     for (const link of arr(node.entryLinks)) {
       const min = constraint(link, "min");
-      if (link.type === "selectionEntry" && (min === undefined || min > 0)) result.push(link);
+      if (link.type === "selectionEntry" && (min === undefined || min > 0) && !/ upgrade$/i.test(str(link.name) ?? "")) result.push(link);
     }
-    for (const entry of arr(node.selectionEntries)) if ((constraint(entry, "min") ?? 1) > 0) visit(entry);
+    for (const entry of arr(node.selectionEntries)) {
+      if ((constraint(entry, "min") ?? 1) <= 0) continue;
+      if (arr(entry.profiles).some((profile) => / weapons$/i.test(str(profile.typeName) ?? ""))) result.push(entry);
+      visit(entry);
+    }
     for (const group of arr(node.selectionEntryGroups)) {
       const defaultId = str(group.defaultSelectionEntryId);
       const selected = defaultId ? children(group).find((item) => item.id === defaultId) : undefined;
@@ -80,14 +104,14 @@ export function projectBudget(group: JsonNode, names: string[]): LoadoutVariantB
   return { variant_names: names, count, per_models: perModels, scope: "unit" };
 }
 
-export function projectUnit(unit: JsonNode, rows: JsonNode[], equipment: JsonNode[], unitId: string): VariantIssue[] {
+export function projectUnit(unit: JsonNode, rows: JsonNode[], equipment: JsonNode[], unitId: string, factionUnitIds: readonly string[] = []): VariantIssue[] {
   const issues: VariantIssue[] = [];
-  const resolve = makeEquipmentResolver(equipment, unitId);
-  const grouped = new Map<string, { variants: LoadoutVariant[]; budgets: LoadoutVariantBudget[] }>();
+  const resolve = makeEquipmentResolver(equipment, unitId, factionUnitIds);
+  const grouped = new Map<string, { rowName: string; variants: LoadoutVariant[]; budgets: LoadoutVariantBudget[] }>();
   for (const group of collectPeerGroups(unit)) {
     const peers = arr(group.selectionEntries).filter((entry) => entry.type === "model");
     const base = normModelName(str(peers[0]?.name) ?? "");
-    const bucket = grouped.get(base) ?? { variants: [], budgets: [] };
+    const bucket = grouped.get(base) ?? { rowName: str(peers[0]?.name) ?? "", variants: [], budgets: [] };
     const names: string[] = [];
     for (const peer of peers) {
       const name = str(peer.name) ?? "unnamed";
@@ -99,16 +123,26 @@ export function projectUnit(unit: JsonNode, rows: JsonNode[], equipment: JsonNod
         continue;
       }
       const max = constraint(peer, "max");
-      bucket.variants.push({ name, weapon_ids: ids as string[], ...(max ? { max_count: max } : {}) });
+      const variant = { name, weapon_ids: ids as string[], ...(max ? { max_count: max } : {}) };
+      const existing = bucket.variants.find((item) => item.name === name);
+      if (!existing) bucket.variants.push(variant);
+      else if (JSON.stringify(existing.weapon_ids) === JSON.stringify(variant.weapon_ids)) {
+        const mergedMax = Math.max(existing.max_count ?? 0, variant.max_count ?? 0);
+        if (mergedMax > 0) existing.max_count = mergedMax;
+      } else {
+        issues.push({ unit: unitId, model_row: base, variant: name, item: name, reason: "conflicting duplicate variant" });
+      }
       names.push(name);
     }
     const budget = projectBudget(group, names);
     if (budget) bucket.budgets.push(budget);
     grouped.set(base, bucket);
   }
-  for (const row of rows) {
-    const projected = grouped.get(normModelName(str(row.name) ?? ""));
-    if (!projected?.variants.length) continue;
+  for (const projected of grouped.values()) {
+    if (!projected.variants.length) continue;
+    const row = rows.find((candidate) => str(candidate.name)?.toLocaleLowerCase("en") === projected.rowName.toLocaleLowerCase("en"))
+      ?? rows.find((candidate) => normModelName(str(candidate.name) ?? "") === normModelName(projected.rowName));
+    if (!row) continue;
     row.loadout_variants = projected.variants;
     if (projected.budgets.length) row.loadout_variant_budgets = projected.budgets;
     else delete row.loadout_variant_budgets;
@@ -117,6 +151,16 @@ export function projectUnit(unit: JsonNode, rows: JsonNode[], equipment: JsonNod
 }
 
 function walk(root: JsonNode, visitor: (node: JsonNode) => void): void { visitor(root); for (const child of children(root)) walk(child, visitor); }
+export function collectSourceNodes(catalogues: JsonNode[]): Map<string, JsonNode> {
+  const nodes = new Map<string, JsonNode>();
+  for (const doc of catalogues) {
+    walk((doc.catalogue ?? doc.gameSystem) as JsonNode, (node) => {
+      const id = str(node.id);
+      if (id) nodes.set(id, node);
+    });
+  }
+  return nodes;
+}
 function readJson(file: string): unknown { return JSON.parse(fs.readFileSync(file, "utf8")); }
 
 export async function run(argv: readonly string[]): Promise<void> {
@@ -135,21 +179,47 @@ export async function run(argv: readonly string[]): Promise<void> {
   } else {
     catalogues = fs.readdirSync(opts.bsdata).filter((name) => name.endsWith(".json")).map((name) => readJson(path.join(opts.bsdata, name)) as JsonNode);
   }
-  const allNodes = new Map<string, JsonNode>();
-  for (const doc of catalogues) walk((doc.catalogue ?? doc.gameSystem) as JsonNode, (node) => { const id = str(node.id); if (id) allNodes.set(id, node); });
+  const allNodes = collectSourceNodes(catalogues);
   const staged: StagedWrite[] = [];
+  let projectedUnits = 0;
+  let projectedVariants = 0;
+  let discoveredUnits = 0;
+  let discoveredVariants = 0;
+  let unresolvedVariants = 0;
   for (const faction of factions) {
     const dir = path.join(core, faction);
     const units = readJson(path.join(dir, "units.json")) as JsonNode[];
     const compositionsPath = path.join(dir, "unit-compositions.json");
     if (!fs.existsSync(compositionsPath)) continue;
     const compositions = readJson(compositionsPath) as JsonNode[];
+    for (const composition of compositions) {
+      for (const row of arr(composition.models)) {
+        delete row.loadout_variants;
+        delete row.loadout_variant_budgets;
+      }
+    }
     const equipment = ["weapons.json", "wargear.json"].flatMap((file) => fs.existsSync(path.join(dir, file)) ? readJson(path.join(dir, file)) as JsonNode[] : []);
     const issues: VariantIssue[] = [];
     for (const repoUnit of units) {
       const source = externalId(repoUnit) ? allNodes.get(externalId(repoUnit)!) : undefined;
       const composition = compositions.find((item) => item.unit_id === repoUnit.id);
-      if (source && composition) issues.push(...projectUnit(source, arr(composition.models), equipment, str(repoUnit.id)!));
+      if (source && composition) {
+        const rows = arr(composition.models);
+        const peerGroups = collectPeerGroups(source).filter((group) => {
+          const firstPeer = arr(group.selectionEntries).find((entry) => entry.type === "model");
+          return rows.some((row) => normModelName(str(row.name) ?? "") === normModelName(str(firstPeer?.name) ?? ""));
+        });
+        const sourceVariantCount = peerGroups.reduce(
+          (sum, group) => sum + arr(group.selectionEntries).filter((entry) => entry.type === "model").length,
+          0,
+        );
+        if (sourceVariantCount > 0) discoveredUnits += 1;
+        discoveredVariants += sourceVariantCount;
+        issues.push(...projectUnit(source, rows, equipment, str(repoUnit.id)!, units.map((item) => str(item.id)).filter((id): id is string => !!id)));
+        const variantCount = rows.reduce((sum, row) => sum + arr(row.loadout_variants).length, 0);
+        if (variantCount > 0) projectedUnits += 1;
+        projectedVariants += variantCount;
+      }
     }
     const original = fs.readFileSync(compositionsPath, "utf8");
     const text = `${JSON.stringify(compositions, null, 2)}\n`;
@@ -159,7 +229,9 @@ export async function run(argv: readonly string[]): Promise<void> {
       value: issues,
     });
     console.log(`[bsdata-loadout-variants] ${faction}: ${issues.length} unresolved`);
+    unresolvedVariants += issues.length;
   }
+  console.log(`[bsdata-loadout-variants] discovered ${discoveredVariants} source variants across ${discoveredUnits} units; projected ${projectedVariants} variants across ${projectedUnits} units; ${unresolvedVariants} unresolved`);
   await applyWrites(staged, { write: !!opts.write, label: "bsdata-loadout-variants" });
 }
 

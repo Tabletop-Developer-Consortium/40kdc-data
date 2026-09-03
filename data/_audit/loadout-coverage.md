@@ -6,36 +6,205 @@ the `wargear`/`composition-tiers` reconcile passes never back-filled. Some entri
 intentionally weaponless (terrain, tokens); the rest want a loadout-authoring follow-up
 (re-run `ingest-mfm wargear` + `composition-tiers` once the unit exists in the repo).
 
-**Total skeletons: 8**
+**Total skeletons: 113**
 
 | faction | skeletons |
 |---|--:|
-| adeptus-astartes | 1 |
-| astra-militarum | 2 |
+| adepta-sororitas | 4 |
+| adeptus-astartes | 21 |
+| adeptus-custodes | 4 |
+| adeptus-mechanicus | 3 |
+| aeldari | 8 |
+| agents-of-the-imperium | 4 |
+| astra-militarum | 5 |
 | chaos-daemons | 2 |
-| tau-empire | 1 |
-| tyranids | 2 |
+| chaos-space-marines | 4 |
+| death-guard | 5 |
+| drukhari | 4 |
+| emperors-children | 3 |
+| genestealer-cults | 4 |
+| grey-knights | 4 |
+| leagues-of-votann | 4 |
+| necrons | 5 |
+| orks | 9 |
+| tau-empire | 5 |
+| thousand-sons | 4 |
+| tyranids | 7 |
+| world-eaters | 4 |
 
-## adeptus-astartes (1)
+## adepta-sororitas (4)
 
+- `sanctuary-canoness-adalya` — missing: weapons, wargear-options, composition, abilities
+- `sanctuary-guardians-arco-flagellants` — missing: weapons, wargear-options, composition, abilities
+- `sanctuary-guardians-battle-sisters-squad` — missing: weapons, wargear-options, composition, abilities
+- `sanctuary-guardians-celestian-sacresants` — missing: weapons, wargear-options, composition, abilities
+
+## adeptus-astartes (21)
+
+- `askars-wolfpack-blood-claws` — missing: weapons, wargear-options, composition, abilities
+- `askars-wolfpack-wolf-guard-terminators` — missing: weapons, wargear-options, composition, abilities
+- `askars-wolfpack-wulfen` — missing: weapons, wargear-options, composition, abilities
+- `assault-force-captain` — missing: weapons, wargear-options, composition
+- `assault-force-intercessor-squad` — missing: weapons, wargear-options, composition
+- `assault-force-land-speeder` — missing: weapons, wargear-options, composition, abilities
+- `assault-force-librarian` — missing: weapons, wargear-options, composition
+- `assault-force-vanguard-veteran-squad-with-jump-packs` — missing: weapons, wargear-options, composition
+- `captain-raldeo` — missing: weapons, wargear-options, composition
 - `drop-pod` — missing: weapons, wargear-options
+- `emperors-champion-vedrenn` — missing: weapons, wargear-options, composition, abilities
+- `fyrri-askar` — missing: weapons, wargear-options, composition, abilities
+- `master-zacharial` — missing: weapons, wargear-options, composition, abilities
+- `sanguinary-spearhead-assault-intercessor-squad` — missing: weapons, wargear-options, composition
+- `sanguinary-spearhead-sanguinary-guard` — missing: weapons, wargear-options, composition
+- `vengeful-brethren-bladeguard-veteran-squad` — missing: weapons, wargear-options, composition, abilities
+- `vengeful-brethren-hellblaster-squad` — missing: weapons, wargear-options, composition, abilities
+- `vengeful-brethren-intercessor-squad` — missing: weapons, wargear-options, composition, abilities
+- `vow-sworn-bladeguard-veteran-squad` — missing: weapons, wargear-options, composition, abilities
+- `vow-sworn-crusader-squad` — missing: weapons, wargear-options, composition, abilities
+- `vow-sworn-sword-brethren-squad` — missing: weapons, wargear-options, composition, abilities
 
-## astra-militarum (2)
+## adeptus-custodes (4)
+
+- `gilded-blades-allarus-custodians` — missing: weapons, wargear-options, composition, abilities
+- `gilded-blades-custodian-guard` — missing: weapons, wargear-options, composition, abilities
+- `gilded-blades-custodian-wardens` — missing: weapons, wargear-options, composition, abilities
+- `tristraen-of-the-gilded-blades` — missing: weapons, wargear-options, composition, abilities
+
+## adeptus-mechanicus (3)
+
+- `manipulus-skand` — missing: weapons, wargear-options, composition, abilities
+- `purge-corps-pteraxii-sterylizors` — missing: weapons, wargear-options, composition, abilities
+- `purge-corps-skitarii-vanguard` — missing: weapons, wargear-options, composition, abilities
+
+## aeldari (8)
+
+- `clanblade` — missing: weapons, wargear-options, composition, abilities
+- `dragon-knights` — missing: weapons, composition, abilities
+- `kygharils-protectors-dire-avengers` — missing: weapons, wargear-options, composition, abilities
+- `kygharils-protectors-warp-spiders` — missing: weapons, wargear-options, composition, abilities
+- `kygharils-protectors-wraithblades` — missing: weapons, wargear-options, composition, abilities
+- `leystalker` — missing: weapons, wargear-options, composition, abilities
+- `spiritseer-kygharil` — missing: weapons, wargear-options, composition, abilities
+- `stonesinger` — missing: weapons, wargear-options, composition, abilities
+
+## agents-of-the-imperium (4)
+
+- `inquisitors-hand-eversor-assassin` — missing: weapons, wargear-options, composition, abilities
+- `inquisitors-hand-inquisitorial-agents` — missing: weapons, wargear-options, composition, abilities
+- `inquisitors-hand-vigilant-squad` — missing: weapons, wargear-options, composition, abilities
+- `preacher-teguen` — missing: weapons, wargear-options, composition, abilities
+
+## astra-militarum (5)
 
 - `aegis-defence-line` — missing: weapons, wargear-options
 - `cyclops-demolition-vehicle` — missing: weapons, wargear-options
+- `draydens-lance-attilan-rough-riders` — missing: weapons, wargear-options, composition, abilities
+- `draydens-lance-command-squad` — missing: weapons, wargear-options, composition, abilities
+- `draydens-lance-kasrkin` — missing: weapons, wargear-options, composition, abilities
 
 ## chaos-daemons (2)
 
 - `feculent-gnarlmaw` — missing: weapons, wargear-options
 - `skull-altar` — missing: weapons, wargear-options
 
-## tau-empire (1)
+## chaos-space-marines (4)
 
+- `aranis-zarkan` — missing: weapons, wargear-options, composition, abilities
+- `zarkans-daemonkin-cultist-mob` — missing: weapons, wargear-options, composition, abilities
+- `zarkans-daemonkin-legionaries` — missing: weapons, wargear-options, composition, abilities
+- `zarkans-daemonkin-possessed` — missing: weapons, wargear-options, composition, abilities
+
+## death-guard (5)
+
+- `maggot-lords-chaos-rhino` — missing: weapons, wargear-options, composition, abilities
+- `maggot-lords-deathshroud-terminators` — missing: weapons, wargear-options, composition, abilities
+- `maggot-lords-plague-marines` — missing: weapons, wargear-options, composition, abilities
+- `septimol-fulg-maggot-lords-tallyman` — missing: weapons, wargear-options, composition, abilities
+- `sholgor-the-putrid` — missing: weapons, wargear-options, composition, abilities
+
+## drukhari (4)
+
+- `coven-of-agonies-cronos` — missing: weapons, wargear-options, composition, abilities
+- `coven-of-agonies-talos` — missing: weapons, wargear-options, composition, abilities
+- `coven-of-agonies-wracks` — missing: weapons, wargear-options, composition, abilities
+- `xatrophos-nuul` — missing: weapons, wargear-options, composition, abilities
+
+## emperors-children (3)
+
+- `callous-blades-flawless-blades` — missing: weapons, wargear-options, composition, abilities
+- `callous-blades-infractors` — missing: weapons, wargear-options, composition, abilities
+- `lord-kaphrael-of-the-callous-blades` — missing: weapons, wargear-options, composition, abilities
+
+## genestealer-cults (4)
+
+- `claw-of-ascension-achilles-ridgerunner` — missing: weapons, wargear-options, composition, abilities
+- `claw-of-ascension-atalan-jackals` — missing: weapons, wargear-options, composition, abilities
+- `claw-of-ascension-hybrid-metamorphs` — missing: weapons, wargear-options, composition, abilities
+- `shanus-daskovian` — missing: weapons, wargear-options, composition, abilities
+
+## grey-knights (4)
+
+- `crowes-sanctifiers-brotherhood-terminator-squad` — missing: weapons, wargear-options, composition, abilities
+- `crowes-sanctifiers-strike-squad` — missing: weapons, wargear-options, composition, abilities
+- `crowes-sanctifiers-venerable-dreadnought` — missing: weapons, wargear-options, composition, abilities
+- `sanctifiers-castellan-crowe` — missing: weapons, wargear-options, composition, abilities
+
+## leagues-of-votann (4)
+
+- `bane-slayers-bulwark-brokhyr-thunderkyn` — missing: weapons, wargear-options, composition, abilities
+- `bane-slayers-bulwark-einhyr-hearthguard` — missing: weapons, wargear-options, composition, abilities
+- `bane-slayers-bulwark-hearthkyn-warriors` — missing: weapons, wargear-options, composition, abilities
+- `vynn-bane-slayer` — missing: weapons, wargear-options, composition, abilities
+
+## necrons (5)
+
+- `amonhotekhs-guard-canoptek-doomstalker` — missing: weapons, wargear-options, composition, abilities
+- `amonhotekhs-guard-canoptek-scarab-swarms` — missing: weapons, wargear-options, composition, abilities
+- `amonhotekhs-guard-necron-warriors` — missing: weapons, wargear-options, composition, abilities
+- `amonhotekhs-guard-skorpekh-destroyers` — missing: weapons, wargear-options, composition, abilities
+- `overlord-amonhotekh` — missing: weapons, wargear-options, composition, abilities
+
+## orks (9)
+
+- `ardmob-boyz` — missing: weapons, wargear-options, composition, abilities
+- `ardmob-gretchin` — missing: weapons, wargear-options, composition, abilities
+- `ardmob-warboss` — missing: weapons, wargear-options, composition, abilities
+- `ardmob-wartrakk` — missing: weapons, wargear-options, composition, abilities
+- `ardmob-weirdboy` — missing: weapons, wargear-options, composition, abilities
+- `nazdreg` — missing: weapons, wargear-options, composition, abilities
+- `rukkatrukk-squigbuggies` — missing: weapons, wargear-options, composition, abilities
+- `runtherd` — missing: weapons, wargear-options, composition, abilities
+- `wartrakks` — missing: weapons, wargear-options, composition, abilities
+
+## tau-empire (5)
+
+- `commander-cloudspear` — missing: weapons, wargear-options, composition, abilities
+- `sudden-dawn-cadre-breacher-team` — missing: weapons, wargear-options, composition, abilities
+- `sudden-dawn-cadre-devilfish` — missing: weapons, wargear-options, composition, abilities
+- `sudden-dawn-cadre-pathfinder-team` — missing: weapons, wargear-options, composition, abilities
 - `tidewall-shieldline` — missing: weapons, wargear-options
 
-## tyranids (2)
+## thousand-sons (4)
+
+- `kaaskrek` — missing: weapons, wargear-options, composition, abilities
+- `prism-of-zadophon-rubric-marines` — missing: weapons, wargear-options, composition, abilities
+- `prism-of-zadophon-tzaangor-enlightened` — missing: weapons, wargear-options, composition, abilities
+- `zadophon-the-soul-eater` — missing: weapons, wargear-options, composition, abilities
+
+## tyranids (7)
 
 - `mucolid-spores` — missing: weapons, wargear-options
 - `spore-mines` — missing: weapons, wargear-options
+- `terror-of-vardenghast` — missing: weapons, wargear-options, composition, abilities
+- `vardenghast-swarm-barbgaunts` — missing: weapons, wargear-options, composition, abilities
+- `vardenghast-swarm-psychophage` — missing: weapons, wargear-options, composition, abilities
+- `vardenghast-swarm-termagants` — missing: weapons, wargear-options, composition, abilities
+- `vardenghast-swarm-von-ryans-leapers` — missing: weapons, wargear-options, composition, abilities
+
+## world-eaters (4)
+
+- `frenzied-reavers-jakhals` — missing: weapons, wargear-options, composition, abilities
+- `frenzied-reavers-khorne-berzerkers` — missing: weapons, wargear-options, composition, abilities
+- `frenzied-reavers-master-of-executions` — missing: weapons, wargear-options, composition, abilities
+- `vorrakh-lord-of-the-frenzied-reavers` — missing: weapons, wargear-options, composition, abilities
 

@@ -211,7 +211,48 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Purifier w/ incinerator",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "incinerator",
+              "purifying-flame"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purifier w/ psilencer",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "psilencer-purifier-squad",
+              "purifying-flame"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purifier w/ psycannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "psycannon-purifier-squad",
+              "purifying-flame"
+            ],
+            "max_count": 4
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Purifier w/ incinerator",
+              "Purifier w/ psilencer",
+              "Purifier w/ psycannon"
+            ],
+            "count": 2,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -499,7 +540,34 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Grey Knight",
+            "weapon_ids": [
+              "nemesis-force-weapon-strike-squad",
+              "storm-bolter"
+            ]
+          },
+          {
+            "name": "Grey Knight with Heavy Weapon",
+            "weapon_ids": [
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Grey Knight",
+              "Grey Knight with Heavy Weapon"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -674,7 +742,45 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Purgator w/ incinerator",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "incinerator"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purgator w/ psilencer",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "psilencer-purgation-squad"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Purgator w/ psycannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "psycannon-purgation-squad"
+            ],
+            "max_count": 4
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Purgator w/ incinerator",
+              "Purgator w/ psilencer",
+              "Purgator w/ psycannon"
+            ],
+            "count": 4,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -779,7 +885,45 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Interceptor w/ incinerator",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "incinerator"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Interceptor w/ psilencer",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "psilencer-interceptor-squad"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Interceptor w/ psycannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "psycannon-interceptor-squad"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Interceptor w/ incinerator",
+              "Interceptor w/ psilencer",
+              "Interceptor w/ psycannon"
+            ],
+            "count": 1,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -883,7 +1027,51 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Paladin",
+            "weapon_ids": [
+              "nemesis-force-weapon-paladin-squad",
+              "storm-bolter-paladin-squad"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Paladin with Ancient's Banner",
+            "weapon_ids": [
+              "nemesis-force-weapon-paladin-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Paladin with Heavy Weapon",
+            "weapon_ids": [
+              "nemesis-force-weapon-paladin-squad"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Paladin with Narthecium",
+            "weapon_ids": [
+              "nemesis-force-weapon-paladin-squad"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Paladin",
+              "Paladin with Ancient's Banner",
+              "Paladin with Heavy Weapon",
+              "Paladin with Narthecium"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       },
       {
         "name": "Paladin Ancient",
@@ -1143,7 +1331,51 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Terminator",
+            "weapon_ids": [
+              "nemesis-force-weapon-brotherhood-terminator-squad",
+              "storm-bolter"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Terminator with Ancient's Banner",
+            "weapon_ids": [
+              "nemesis-force-weapon-brotherhood-terminator-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Terminator with Narthecium",
+            "weapon_ids": [
+              "nemesis-force-weapon-brotherhood-terminator-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Terminator with Heavy Weapon",
+            "weapon_ids": [
+              "nemesis-force-weapon-brotherhood-terminator-squad"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Terminator",
+              "Terminator with Ancient's Banner",
+              "Terminator with Narthecium",
+              "Terminator with Heavy Weapon"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       },
       {
         "name": "Ancient",

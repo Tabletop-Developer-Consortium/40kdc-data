@@ -88,6 +88,19 @@
     },
     "disputed": { "type": "boolean", "default": false },
     "dispute_notes": { "type": "string" },
+    "source_digest": {
+      "description": "Fingerprint of the printed rules text this annotation was authored against. Stores a hash, never the text: lets a consumer detect that a dataslate reworded an ability, so the DSL below may no longer describe it.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["algo", "value", "normalisation", "source"],
+      "properties": {
+        "algo": { "const": "sha256" },
+        "value": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "normalisation": { "const": "v1", "description": "casefold, collapse whitespace, strip punctuation; defined in tools/src/source-digest.ts" },
+        "source": { "type": "string", "description": "which corpus the text came from, e.g. a dataslate id; not a URL to rules text" },
+        "checked_at": { "type": "string", "format": "date" }
+      }
+    },
     "community_notes": { "type": "string" }
   },
   "required": ["ability_id", "name", "authored_by", "game_version", "effect", "scope"],

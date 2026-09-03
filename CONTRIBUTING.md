@@ -54,6 +54,38 @@ Then PR the resulting `data/enrichment/<faction>/abilities.json` diffs.
 never GW rules text. The verifier checks fidelity to mechanics; don't paste prose
 into `community_notes` (the audit flags it as `gw-leak`).
 
+### Recording what an annotation was authored against
+
+An annotation is a claim about a printed rule, so it goes stale when a dataslate rewords
+that rule — and `version` alone cannot tell you which ones: it records the dataslate an
+ability was authored for, not whether *this* ability's text actually changed. That makes
+"reviewed and still correct" indistinguishable from "never revisited since".
+
+`source_digest` closes the gap without the repo ever holding rules text. It stores a
+SHA-256 of the *normalised* source text (casefold, collapsed whitespace, punctuation
+stripped) — a one-way fingerprint, so IP safety is unchanged and `gw-leak` stays at zero:
+
+```json
+"source_digest": {
+  "algo": "sha256",
+  "value": "9f2b…",
+  "normalisation": "v1",
+  "source": "mfm-2026-09",
+  "checked_at": "2026-09-03"
+}
+```
+
+Point the audit at your own datasource — the same one `ARMY_ASSIST_JSON` refers to, as a
+`{ability_id: "printed text"}` map — and it reports every annotation whose source has
+changed since it was authored:
+
+```bash
+npm run audit:source-digest -- /path/to/your/rules.json
+```
+
+The corpus is read, never copied. The field is optional, so existing entries validate
+unchanged; add it as you touch an ability.
+
 ### Coverage report — what needs authoring
 
 `npm run audit:coverage` runs the real `effectToBuffs` translator over every

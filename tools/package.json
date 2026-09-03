@@ -100,7 +100,8 @@
     "pretest": "npm run codegen:data",
     "test": "vitest run",
     "demo:rube-goldberg": "tsx src/rube-goldberg.ts",
-    "derive:keystones": "tsx src/derive-keystones.ts"
+    "derive:keystones": "tsx src/derive-keystones.ts",
+    "audit:source-digest": "tsx src/audit-source-digest.ts"
   },
   "dependencies": {
     "ajv": "^8.17.0",

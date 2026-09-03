@@ -17,6 +17,9 @@ use crate::generated::{
     WargearOptionModelConstraint,
 };
 
+pub const LOADOUT_CANDIDATES_DEFAULT_LIMIT: usize = 256;
+pub const LOADOUT_CANDIDATES_TRUNCATED: &str = "…truncated";
+
 /// Inclusive count range a single weapon/wargear id may take in a loadout.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct WeaponBound {
@@ -214,6 +217,127 @@ impl From<&UnitCompositionModelsItem> for LoadoutModel {
 /// loadout maths consumes.
 pub fn loadout_models(models: &[UnitCompositionModelsItem]) -> Vec<LoadoutModel> {
     models.iter().map(LoadoutModel::from).collect()
+}
+
+fn allocations_for(rows: &[LoadoutModel], total: u64) -> Vec<Vec<u64>> {
+    fn visit(
+        i: usize,
+        remaining: u64,
+        mins: &[u64],
+        maxs: &[u64],
+        suffix_min: &[u64],
+        suffix_max: &[u64],
+        current: &mut [u64],
+        out: &mut Vec<Vec<u64>>,
+    ) {
+        if i == mins.len() {
+            if remaining == 0 {
+                out.push(current.to_vec());
+            }
+            return;
+        }
+        if remaining < suffix_min[i] || remaining > suffix_max[i] {
+            return;
+        }
+        let lo = mins[i].max(remaining.saturating_sub(suffix_max[i + 1]));
+        let hi = maxs[i].min(remaining - suffix_min[i + 1]);
+        for count in (lo..=hi).rev() {
+            current[i] = count;
+            visit(
+                i + 1,
+                remaining - count,
+                mins,
+                maxs,
+                suffix_min,
+                suffix_max,
+                current,
+                out,
+            );
+        }
+    }
+    let mins: Vec<u64> = rows.iter().map(|r| r.min).collect();
+    let maxs: Vec<u64> = rows.iter().map(|r| r.max.max(r.min)).collect();
+    let mut suffix_min = vec![0; rows.len() + 1];
+    let mut suffix_max = vec![0; rows.len() + 1];
+    for i in (0..rows.len()).rev() {
+        suffix_min[i] = suffix_min[i + 1] + mins[i];
+        suffix_max[i] = suffix_max[i + 1] + maxs[i];
+    }
+    let mut out = Vec::new();
+    visit(
+        0,
+        total,
+        &mins,
+        &maxs,
+        &suffix_min,
+        &suffix_max,
+        &mut vec![0; rows.len()],
+        &mut out,
+    );
+    out
+}
+
+/// Enumerate variant-free, tier-legal model allocations in canonical order.
+pub fn loadout_candidates(
+    unit: &Unit,
+    model_count: u64,
+    options: &[&WargearOption],
+    models: Option<&[LoadoutModel]>,
+    tiers: Option<&[LoadoutTier]>,
+    limit: Option<usize>,
+) -> Vec<String> {
+    let base = models.unwrap_or_default();
+    let mut row_sets = Vec::new();
+    if let Some(ts) = tiers.filter(|ts| !ts.is_empty()) {
+        for tier in ts {
+            let rows = tier_models(tier, base);
+            let min: u64 = rows.iter().map(|r| r.min).sum();
+            let max: u64 = rows.iter().map(|r| r.max.max(r.min)).sum();
+            if model_count >= min && model_count <= max {
+                row_sets.push(rows);
+            }
+        }
+    } else if !base.is_empty() {
+        row_sets.push(base.to_vec());
+    }
+    let mut encoded = std::collections::BTreeSet::new();
+    for rows in row_sets {
+        for allocation in allocations_for(&rows, model_count) {
+            let witness = rows
+                .iter()
+                .zip(&allocation)
+                .filter(|(_, c)| **c > 0)
+                .map(|(r, c)| format!("{}×{}", r.name.as_deref().unwrap_or(""), c))
+                .collect::<Vec<_>>()
+                .join(";");
+            let mut counts = BTreeMap::<String, i64>::new();
+            if has_recorded_defaults(Some(&rows)) {
+                for (row, count) in rows.iter().zip(&allocation) {
+                    for id in &row.default_weapon_ids {
+                        *counts.entry(id.clone()).or_insert(0) += *count as i64;
+                    }
+                }
+            } else {
+                for id in base_weapon_ids(unit, options) {
+                    *counts.entry(id).or_insert(0) += model_count as i64;
+                }
+            }
+            let counts = counts
+                .iter()
+                .filter(|(_, n)| **n > 0)
+                .map(|(id, n)| format!("{id}:{n}"))
+                .collect::<Vec<_>>()
+                .join(",");
+            encoded.insert(format!("{witness} => {counts}"));
+        }
+    }
+    let cap = limit.unwrap_or(LOADOUT_CANDIDATES_DEFAULT_LIMIT);
+    let truncated = encoded.len() > cap;
+    let mut out: Vec<String> = encoded.into_iter().take(cap).collect();
+    if truncated {
+        out.push(LOADOUT_CANDIDATES_TRUNCATED.to_owned());
+    }
+    out
 }
 
 /// True when every model row records a non-empty default loadout.

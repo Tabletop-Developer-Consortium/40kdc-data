@@ -24,6 +24,8 @@ Unit = dict[str, Any]
 # optional ``default_weapon_ids`` (list, may be empty/absent), and
 # ``is_leader_model`` (bool). Pass the unit's ``unit_composition.models`` here.
 LoadoutModel = dict[str, Any]
+LOADOUT_CANDIDATES_DEFAULT_LIMIT = 256
+LOADOUT_CANDIDATES_TRUNCATED = "…truncated"
 
 
 def _js_locale_key(value: str) -> str:
@@ -1016,6 +1018,51 @@ def check_unit_legality(
         if first is None:
             first = violations
     return first or []
+
+
+def loadout_candidates(
+    unit: Unit,
+    model_count: int,
+    options: list[WargearOption],
+    models: list[LoadoutModel] | None = None,
+    tiers: list[dict[str, Any]] | None = None,
+    limit: int | None = None,
+) -> list[str]:
+    """Enumerate variant-free, tier-legal model allocations in canonical order."""
+    total = max(0, int(model_count))
+    cap = max(0, int(limit if limit is not None else LOADOUT_CANDIDATES_DEFAULT_LIMIT))
+    base = models or []
+    row_sets: list[list[LoadoutModel]] = []
+    if tiers:
+        for tier in tiers:
+            rows = _tier_models(tier, base)
+            if sum(max(0, m.get("min") or 0) for m in rows) <= total <= sum(
+                max(m.get("min") or 0, m.get("max") or 0) for m in rows
+            ):
+                row_sets.append(rows)
+    elif base:
+        row_sets.append(base)
+
+    encoded: set[str] = set()
+    for rows in row_sets:
+        for allocation in _candidate_row_counts(rows, total, {}):
+            witness = ";".join(
+                f"{rows[i].get('name') or ''}×{count}"
+                for i, count in enumerate(allocation)
+                if count
+            )
+            counts: dict[str, int] = {}
+            if _has_recorded_defaults(rows):
+                for i, count in enumerate(allocation):
+                    for id_ in rows[i].get("default_weapon_ids") or []:
+                        counts[id_] = counts.get(id_, 0) + count
+            else:
+                for id_ in _base_weapon_ids(unit, options):
+                    counts[id_] = counts.get(id_, 0) + total
+            count_text = ",".join(f"{id_}:{count}" for id_, count in sorted(counts.items()) if count > 0)
+            encoded.add(f"{witness} => {count_text}")
+    out = sorted(encoded)
+    return out if len(out) <= cap else [*out[:cap], LOADOUT_CANDIDATES_TRUNCATED]
 
 
 def _swap_conflicts(

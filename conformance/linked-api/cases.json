@@ -929,6 +929,31 @@
     ]
   },
   {
+    "name": "loadout_candidates chaos-terminators @5 matches the base allocation",
+    "query": "loadout_candidates",
+    "args": {
+      "unitId": "chaos-terminators",
+      "factionId": "world-eaters",
+      "modelCount": "5"
+    },
+    "comparison": "ordered",
+    "expected": [
+      "World Eaters Terminator Champion×1;World Eaters Terminator×4 => accursed-weapon:5,combi-bolter:5"
+    ]
+  },
+  {
+    "name": "loadout_candidates crusader-squad @10 enumerates legal allocations",
+    "query": "loadout_candidates",
+    "args": {
+      "unitId": "crusader-squad",
+      "modelCount": "10"
+    },
+    "comparison": "ordered",
+    "expected": [
+      "Sword Brother×1;Initiate×5;Neophyte×4 => astartes-chainsword-crusader-squad:4,bolt-pistol:9,bolt-rifle:5,close-combat-weapon:5,heavy-bolt-pistol:1,master-crafted-power-weapon-crusader-squad:1"
+    ]
+  },
+  {
     "name": "reactive_trigger_ability_ids (all triggered abilities)",
     "query": "reactive_trigger_ability_ids",
     "args": {},

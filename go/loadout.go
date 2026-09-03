@@ -7,6 +7,9 @@ import (
 	"strings"
 )
 
+const LoadoutCandidatesDefaultLimit = 256
+const LoadoutCandidatesTruncated = "…truncated"
+
 // Wargear-loadout maths shared by every consumer of the dataset. Go mirror of
 // python .../data/loadout.py.
 
@@ -269,6 +272,79 @@ func maximalLoadout(unit map[string]any, modelCount int, options []any, models [
 		}
 	}
 	return counts
+}
+
+// LoadoutCandidates enumerates variant-free, tier-legal model allocations.
+func LoadoutCandidates(unit map[string]any, modelCount int, options, models, tiers []any, limit *int) []string {
+	total := maxInt(0, modelCount)
+	capN := LoadoutCandidatesDefaultLimit
+	if limit != nil {
+		capN = maxInt(0, *limit)
+	}
+	var rowSets [][]any
+	if len(tiers) > 0 {
+		for _, tierAny := range tiers {
+			tier, _ := asMap(tierAny)
+			rows := tierModels(tier, models)
+			lo, hi := 0, 0
+			for _, rowAny := range rows {
+				row, _ := asMap(rowAny)
+				lo += maxInt(0, asInt(row["min"]))
+				hi += maxInt(asInt(row["min"]), asInt(row["max"]))
+			}
+			if total >= lo && total <= hi {
+				rowSets = append(rowSets, rows)
+			}
+		}
+	} else if len(models) > 0 {
+		rowSets = append(rowSets, models)
+	}
+	seen := map[string]bool{}
+	for _, rows := range rowSets {
+		for _, allocation := range candidateRowCounts(rows, total, map[string]int{}) {
+			witness := []string{}
+			counts := map[string]int{}
+			for i, count := range allocation {
+				if count > 0 {
+					row, _ := asMap(rows[i])
+					witness = append(witness, getStr(row, "name")+"×"+itoa(count))
+				}
+			}
+			if hasRecordedDefaults(rows) {
+				for i, count := range allocation {
+					row, _ := asMap(rows[i])
+					for _, id := range getStrList(row, "default_weapon_ids") {
+						counts[id] += count
+					}
+				}
+			} else {
+				for _, id := range baseWeaponIDs(unit, options) {
+					counts[id] += total
+				}
+			}
+			ids := make([]string, 0, len(counts))
+			for id, count := range counts {
+				if count > 0 {
+					ids = append(ids, id)
+				}
+			}
+			sort.Strings(ids)
+			parts := make([]string, len(ids))
+			for i, id := range ids {
+				parts[i] = id + ":" + itoa(counts[id])
+			}
+			seen[strings.Join(witness, ";")+" => "+strings.Join(parts, ",")] = true
+		}
+	}
+	out := make([]string, 0, len(seen))
+	for value := range seen {
+		out = append(out, value)
+	}
+	sort.Strings(out)
+	if len(out) > capN {
+		return append(out[:capN], LoadoutCandidatesTruncated)
+	}
+	return out
 }
 
 func toMultiset(ids []string) map[string]int {

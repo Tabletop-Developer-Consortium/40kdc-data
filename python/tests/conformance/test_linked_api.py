@@ -20,7 +20,7 @@ def _cases() -> list[dict[str, Any]]:
 
 def run_linked_query(ds: Any, query: str, args: dict[str, Any]) -> Any:
     from wh40kdc.data.base import encode_base
-    from wh40kdc.data.loadout import base_loadout, maximal_loadout
+    from wh40kdc.data.loadout import base_loadout, loadout_candidates, maximal_loadout
 
     if query == "find_unit":
         u = ds.units.find(args.get("query", ""))
@@ -57,6 +57,29 @@ def run_linked_query(ds: Any, query: str, args: dict[str, Any]) -> Any:
         unit = ds.units.get_any(args["unitId"])
         lo = maximal_loadout(unit.raw, int(args["modelCount"]), ds.wargear_options_of(unit.raw))
         return sorted(f"{id_}:{n}" for id_, n in lo.items())
+    if query == "loadout_candidates":
+        unit = (
+            ds.units.get_in_faction(args["unitId"], args["factionId"])
+            if args.get("factionId")
+            else ds.units.get_any(args["unitId"])
+        )
+        comp = next(
+            (
+                c
+                for c in ds.unit_compositions
+                if c.get("unit_id") == args["unitId"]
+                and c.get("faction_id") == unit.raw.get("faction_id")
+            ),
+            None,
+        )
+        return loadout_candidates(
+            unit.raw,
+            int(args["modelCount"]),
+            ds.wargear_options_of(unit.raw),
+            (comp or {}).get("models"),
+            (comp or {}).get("tiers"),
+            int(args["limit"]) if args.get("limit") is not None else None,
+        )
     if query == "phases_of":
         return list(ds.abilities.get(args["abilityId"]).phases)
     if query == "faction_of":

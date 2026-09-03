@@ -99,6 +99,7 @@ The `query` enum covers the read paths on `Dataset`:
 | `wargear_options_of`     | `{"unitId":"<id>"}`                  | ordered list of wargear-option ids |
 | `base_loadout`           | `{"unitId":"<id>","modelCount":"<n>"}` | sorted list of `"id:count"` strings |
 | `maximal_loadout`        | `{"unitId":"<id>","modelCount":"<n>"}` | sorted list of `"id:count"` strings |
+| `loadout_candidates`     | `{"unitId":"<id>","factionId"?:"<id>","modelCount":"<n>","limit"?:"<n>"}` | ordered list of encoded candidates |
 | `phases_of`              | `{"abilityId":"<id>"}`               | ordered list of phase enum values |
 | `faction_of`             | `{"unitId":"<id>"}`                  | faction id or null |
 | `abilities_of_faction`   | `{"factionId":"<id>"}`               | ordered list of ability ids |
@@ -106,6 +107,8 @@ The `query` enum covers the read paths on `Dataset`:
 | `eligible_abilities`     | `{"input":…,"phase":"<phase>"}`      | ordered list of `{kind, abilityId}` |
 
 Ordering semantics for each query are documented per-area in `CONFORMANCE.md`. The runner protocol itself is opaque to whether the order is load-bearing — it simply emits whatever the implementation's public API returns.
+
+`loadout_candidates` selects every composition tier whose summed model-row range contains `modelCount` (or the top-level model rows when there are no tiers), enumerates every bounded row allocation, and emits `"<witness> => <counts>"`. A variant-free witness is the nonzero model rows in declaration order as `<name>×<count>`, separated by `;`; counts are ascending `id:count` pairs separated by `,`. Results are deduplicated, sorted by ordinal/code-point order, and truncated to `limit` (default 256). If truncation drops any candidate, the final result entry is exactly `"…truncated"`; this marker is additional to the requested candidate limit. A missing composition or model count admitted by no tier returns an empty list.
 
 ### `check_unit_legality`
 

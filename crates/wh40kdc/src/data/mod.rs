@@ -39,9 +39,10 @@ pub use collection::Collection;
 pub use dataset::{Dataset, RawData, ReactiveTrigger};
 pub use loadout::{
     base_loadout, check_unit_legality, clamp_weapon_count, complete_loadout, group_loadout,
-    loadout_models, loadout_tiers, maximal_loadout, option_cap, validate_loadout, CompletedLoadout,
-    Loadout, LoadoutGroup, LoadoutGroupWeapon, LoadoutModel, LoadoutTier, Violation, ViolationCode,
-    WeaponBound,
+    loadout_candidates, loadout_models, loadout_tiers, maximal_loadout, option_cap,
+    validate_loadout, CompletedLoadout, Loadout, LoadoutGroup, LoadoutGroupWeapon, LoadoutModel,
+    LoadoutTier, Violation, ViolationCode, WeaponBound, LOADOUT_CANDIDATES_DEFAULT_LIMIT,
+    LOADOUT_CANDIDATES_TRUNCATED,
 };
 pub use normalize::{normalize_name, strip_leading_the};
 pub use pricing::{base_unit_points, points_tier_missing};

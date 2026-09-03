@@ -30,7 +30,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { Dataset } from "./data/dataset.js";
-import { baseLoadout } from "./data/loadout.js";
+import { baseLoadout, loadoutCandidates } from "./data/loadout.js";
 import { normalizeName } from "./data/normalize.js";
 import {
   describeScoringCard,
@@ -417,6 +417,17 @@ type LinkedApiQuery =
     }
   | {
       name: string;
+      query: "loadout_candidates";
+      args: {
+        unitId: string;
+        factionId?: string;
+        modelCount: string;
+        limit?: string;
+      };
+      comparison: "ordered";
+    }
+  | {
+      name: string;
       query: "units_with_keyword";
       args: { keyword: string };
       comparison: "set";
@@ -779,6 +790,22 @@ const LINKED_API_QUERIES: LinkedApiQuery[] = [
     args: { unitId: "crusader-squad", modelCount: "10" },
     comparison: "set",
   },
+  {
+    name: "loadout_candidates chaos-terminators @5 matches the base allocation",
+    query: "loadout_candidates",
+    args: {
+      unitId: "chaos-terminators",
+      factionId: "world-eaters",
+      modelCount: "5",
+    },
+    comparison: "ordered",
+  },
+  {
+    name: "loadout_candidates crusader-squad @10 enumerates legal allocations",
+    query: "loadout_candidates",
+    args: { unitId: "crusader-squad", modelCount: "10" },
+    comparison: "ordered",
+  },
   // reactive triggers: reactiveTriggers() sorts by ability id; triggerIndex() keys are
   // event-sorted and each bucket ability-id-sorted, so all three are order-pinned.
   {
@@ -903,6 +930,22 @@ function runLinkedQuery(
         comp?.models,
       );
       return [...lo.counts].map(([id, n]) => `${id}:${n}`).sort();
+    }
+    case "loadout_candidates": {
+      const u = q.args.factionId
+        ? ds.units.getInFaction(q.args.unitId, q.args.factionId)
+        : ds.units.getAny(q.args.unitId);
+      if (!u)
+        throw new Error(`loadout_candidates: unknown unit ${q.args.unitId}`);
+      const comp = ds.unitCompositionOf(u.raw);
+      return loadoutCandidates(
+        u.raw,
+        Number(q.args.modelCount),
+        ds.wargearOptionsOf(u.raw),
+        comp?.models,
+        comp?.tiers,
+        q.args.limit == null ? undefined : Number(q.args.limit),
+      );
     }
     case "units_with_keyword":
       return ds
@@ -2774,7 +2817,11 @@ function genEffectTranslation(): void {
           type: "sequence",
           steps: [
             { type: "heal-wounds", target: "unit", modifier: { amount: "D3" } },
-            { type: "stat-modifier", target: "unit", modifier: { stat: "hit", operation: "add", value: 1 } },
+            {
+              type: "stat-modifier",
+              target: "unit",
+              modifier: { stat: "hit", operation: "add", value: 1 },
+            },
           ],
         },
       },
@@ -2807,7 +2854,11 @@ function genEffectTranslation(): void {
       id: "psychic-model-bundle",
       effect: {
         type: "for-each-unit",
-        selector: { owner: "friendly", keywords: ["ORKS", "PSYKER"], target_kind: "model" },
+        selector: {
+          owner: "friendly",
+          keywords: ["ORKS", "PSYKER"],
+          target_kind: "model",
+        },
         effect: {
           type: "named-effect",
           name: "Roar of Mork",
@@ -2822,7 +2873,11 @@ function genEffectTranslation(): void {
                 dice: "D6",
                 threshold: 1,
                 comparison: "eq",
-                on_success: { type: "set-battle-shock", target: "selected-models-unit", modifier: {} },
+                on_success: {
+                  type: "set-battle-shock",
+                  target: "selected-models-unit",
+                  modifier: {},
+                },
               },
               {
                 type: "select-units",
@@ -2831,7 +2886,11 @@ function genEffectTranslation(): void {
                   type: "battle-shock-test",
                   target: "unit",
                   modifier: { operation: "subtract", value: 1 },
-                  scaling: { per: 10, of: "models-in-bearer-unit", round: "down" },
+                  scaling: {
+                    per: 10,
+                    of: "models-in-bearer-unit",
+                    round: "down",
+                  },
                 },
               },
             ],
@@ -2861,7 +2920,12 @@ function genEffectTranslation(): void {
               {
                 type: "stat-modifier",
                 target: "unit",
-                modifier: { stat: "AP", operation: "add", value: 1, attack_type: "ranged" },
+                modifier: {
+                  stat: "AP",
+                  operation: "add",
+                  value: 1,
+                  attack_type: "ranged",
+                },
               },
               {
                 type: "keyword-grant",

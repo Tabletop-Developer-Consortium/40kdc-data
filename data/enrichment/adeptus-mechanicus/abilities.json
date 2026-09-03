@@ -114,7 +114,9 @@
       "archaeopter-stratoraptor"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "command-uplink",

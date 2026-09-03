@@ -578,7 +578,9 @@
       "callidus-assassin"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "shadow-assignment",
@@ -720,7 +722,9 @@
       "inquisitor-greyfax"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "purge-and-cleanse",
@@ -1801,7 +1805,9 @@
       "vigilant-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "dedication-to-duty",

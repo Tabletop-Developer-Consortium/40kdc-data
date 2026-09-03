@@ -111,7 +111,9 @@
       "memnyr-strategist"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "decisive-destruction",
@@ -1090,7 +1092,9 @@
       "berehk-stornbrow"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "merciless-eradication",

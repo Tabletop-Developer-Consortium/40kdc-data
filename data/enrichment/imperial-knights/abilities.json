@@ -845,7 +845,9 @@
       "armiger-moirax"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "gallant-s-duty-bondsman",
@@ -1900,7 +1902,9 @@
         "Armiger"
       ]
     },
-    "community_notes": "-1 CP when targeting bearer with Fire Overwatch/Heroic Intervention stratagem"
+    "community_notes": "-1 CP when targeting bearer with Fire Overwatch/Heroic Intervention stratagem",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "neural-lash-throne-bonded-outriders",

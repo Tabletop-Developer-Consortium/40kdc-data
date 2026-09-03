@@ -643,7 +643,9 @@
       "hierophant"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "stalking-forward",
@@ -734,7 +736,9 @@
       "the-swarmlord"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "domination-of-the-hive-mind-aura",
@@ -1352,7 +1356,9 @@
       "hyperadapted-raveners"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "harpoon-barbs",
@@ -1446,7 +1452,9 @@
       "sporocyst"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "resilient-organism",
@@ -1685,7 +1693,9 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated, partial"
+    "community_notes": "auto-generated, partial",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "spirit-leech-aura-psychic",
@@ -2657,7 +2667,9 @@
       "hive-crone"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "spawn-termagants",

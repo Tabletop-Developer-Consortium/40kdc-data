@@ -1111,7 +1111,9 @@
       "repulsor-executioner"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "priority-target-acquisition",
@@ -3255,7 +3257,9 @@
       "ravenwing-command-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "intractable-will",
@@ -3926,7 +3930,9 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated, partial"
+    "community_notes": "auto-generated, partial",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "infiltrators",
@@ -4663,7 +4669,9 @@
       "aethon-shaan"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "chapter-master-of-the-raven-guard",
@@ -5916,7 +5924,9 @@
       "hammerfall-bunker"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "suppression-fire",
@@ -6668,7 +6678,9 @@
       "fire-raptor-gunship"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "press-the-attack",
@@ -7983,7 +7995,9 @@
       "xiphon-interceptor"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "annihilator",
@@ -8536,7 +8550,9 @@
       "ballistus-dreadnought"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "incendiary-terror",
@@ -8680,7 +8696,9 @@
       "uriel-ventris"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "master-of-the-fleet",
@@ -9224,7 +9242,9 @@
       "mortis-dreadnought"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "guidance-of-the-ancients-psychic",
@@ -9369,7 +9389,9 @@
       "tarantula-air-defence-battery"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "deadly-demise-2d6",
@@ -9570,7 +9592,9 @@
       "deredeo-dreadnought"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "death-hold",
@@ -10924,7 +10948,9 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated, partial"
+    "community_notes": "auto-generated, partial",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "high-king-of-fenris",
@@ -10987,7 +11013,9 @@
       "logan-grimnar"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "embarking-within-transports",

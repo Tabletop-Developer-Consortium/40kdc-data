@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
-import { toJson, toMarkdown, type FlaggedRecord } from "./export.js";
+import { afterEach, describe, expect, it, vi } from "vitest";
+import { download, toJson, toMarkdown, type FlaggedRecord } from "./export.js";
 
 const records: FlaggedRecord[] = [
   {
@@ -28,6 +28,59 @@ const records: FlaggedRecord[] = [
     stale: false,
   },
 ];
+
+afterEach(() => {
+  vi.useRealTimers();
+  vi.unstubAllGlobals();
+});
+
+describe("download", () => {
+  it("keeps consecutive Blob URLs alive until deferred cleanup", () => {
+    vi.useFakeTimers();
+    const anchors = Array.from({ length: 2 }, () => ({
+      href: "",
+      download: "",
+      click: vi.fn(),
+      remove: vi.fn(),
+    }));
+    const appendChild = vi.fn();
+    vi.stubGlobal("document", {
+      createElement: vi
+        .fn()
+        .mockReturnValueOnce(anchors[0])
+        .mockReturnValueOnce(anchors[1]),
+      body: { appendChild },
+    });
+    const createObjectURL = vi
+      .fn()
+      .mockReturnValueOnce("blob:review-1")
+      .mockReturnValueOnce("blob:review-2");
+    const revokeObjectURL = vi.fn();
+    vi.stubGlobal("URL", { createObjectURL, revokeObjectURL });
+
+    download("ability-dsl-review.md", "first");
+    download("ability-dsl-review.md", "second");
+
+    expect(appendChild).toHaveBeenNthCalledWith(1, anchors[0]);
+    expect(appendChild).toHaveBeenNthCalledWith(2, anchors[1]);
+    expect(anchors.map((anchor) => anchor.href)).toEqual(["blob:review-1", "blob:review-2"]);
+    expect(anchors.map((anchor) => anchor.download)).toEqual([
+      "ability-dsl-review.md",
+      "ability-dsl-review.md",
+    ]);
+    for (const anchor of anchors) {
+      expect(anchor.click).toHaveBeenCalledOnce();
+      expect(anchor.remove).toHaveBeenCalledOnce();
+    }
+    expect(revokeObjectURL).not.toHaveBeenCalled();
+
+    vi.advanceTimersByTime(1_000);
+
+    expect(revokeObjectURL).toHaveBeenNthCalledWith(1, "blob:review-1");
+    expect(revokeObjectURL).toHaveBeenNthCalledWith(2, "blob:review-2");
+    expect(revokeObjectURL).toHaveBeenCalledTimes(2);
+  });
+});
 
 describe("toJson", () => {
   it("wraps records with a count and kind tag", () => {

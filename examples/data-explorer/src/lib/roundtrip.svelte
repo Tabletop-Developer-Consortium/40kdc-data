@@ -204,7 +204,9 @@
   function buildRecords(): FlaggedRecord[] {
     const out: FlaggedRecord[] = [];
     for (const id of notes.exportableIds()) {
-      const a = abilities.get(id);
+      const a =
+        (explorer.factionId ? abilities.getInFaction(id, explorer.factionId) : undefined) ??
+        abilities.getAny(id);
       const n = notes.get(id);
       let desc = "";
       try {

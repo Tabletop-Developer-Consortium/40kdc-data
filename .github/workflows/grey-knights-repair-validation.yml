@@ -1,29 +1,39 @@
 name: Grey Knights repair validation workspace
-
 on:
   push:
-    branches:
-      - repair/grey-knights-dsl-fidelity-20260904
-    paths:
-      - .github/workflows/grey-knights-repair-validation.yml
-
+    branches: [repair/grey-knights-dsl-fidelity-20260904]
+    paths: [.github/workflows/grey-knights-repair-validation.yml]
 permissions:
   contents: read
-
 jobs:
-  source:
+  toolchains:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     steps:
-      - name: Fetch source snapshots outside repository
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - name: Stage offline validation dependencies
         shell: bash
         run: |
-          mkdir -p /tmp/gk-source
-          curl --fail --location --retry 2 https://pub-6443f136c6fc4c60a15cc7935463d637.r2.dev/dump.json -o /tmp/gk-source/dump.json
-          curl --fail --location --retry 2 https://raw.githubusercontent.com/wn-mitch/40kdc-abilities/main/grey-knights.json -o /tmp/gk-source/grey-knights.json
-          sha256sum /tmp/gk-source/*.json > /tmp/gk-source/checksums.txt
+          mkdir -p /tmp/gk-tools/wheels
+          cargo fetch --locked
+          (cd go && go mod download)
+          python -m pip wheel --wheel-dir /tmp/gk-tools/wheels './python[dev]'
+          tar --exclude='share/doc' -C "$(rustc --print sysroot)" -czf /tmp/gk-tools/rust-toolchain.tar.gz bin lib etc
+          tar -C "$HOME/.cargo" -czf /tmp/gk-tools/cargo-registry.tar.gz registry
+          tar -C "$(go env GOPATH)" -czf /tmp/gk-tools/go-modules.tar.gz pkg/mod
       - uses: actions/upload-artifact@v4
         with:
-          name: grey-knights-source-snapshot
-          path: /tmp/gk-source/
+          name: grey-knights-offline-toolchains
+          path: /tmp/gk-tools/
           retention-days: 1

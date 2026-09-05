@@ -10,15 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Fetch source snapshots outside repository
+      - name: Fetch source snapshot outside repository
         shell: bash
         run: |
           mkdir -p /tmp/gk-source
-          curl --fail --location --retry 2 'https://assets.warhammer-community.com/eng_22-07_warhammer_40%2C000_faction_pack_grey_knights-dlzvusufhy-uialb3pko4.pdf' -o /tmp/gk-source/current-grey-knights.pdf
-          curl --fail --location --retry 2 'https://raw.githubusercontent.com/wn-mitch/40kdc-abilities/main/grey-knights.json' -o /tmp/gk-source/grey-knights.json
+          curl --fail --location --retry 2 'https://pub-6443f136c6fc4c60a15cc7935463d637.r2.dev/dump.json' -o /tmp/gk-source/dump.json
           sha256sum /tmp/gk-source/* > /tmp/gk-source/SHA256SUMS
       - uses: actions/upload-artifact@v4
         with:
-          name: gk-fidelity-current-source
+          name: gk-fidelity-datasheet-source
           path: /tmp/gk-source/
-          retention-days: 3
+          retention-days: 1

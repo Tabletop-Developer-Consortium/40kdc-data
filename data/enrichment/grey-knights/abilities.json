@@ -151,51 +151,64 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "fight"
-        }
+        "operator": "or",
+        "operands": [
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "MONSTER"
+            }
+          },
+          {
+            "type": "target-has-keyword",
+            "parameters": {
+              "keyword": "VEHICLE"
+            }
+          }
+        ]
       },
       "effect": {
         "type": "sequence",
         "steps": [
           {
             "type": "re-roll",
-            "target": "unit",
+            "target": "self",
             "modifier": {
               "roll": "hit",
-              "subset": "all-failures"
+              "result_scope": "any-result",
+              "weapon_type": "melee"
             }
           },
           {
             "type": "re-roll",
-            "target": "unit",
+            "target": "self",
             "modifier": {
               "roll": "wound",
-              "subset": "all-failures"
+              "result_scope": "any-result",
+              "weapon_type": "melee"
             }
           },
           {
             "type": "re-roll",
-            "target": "unit",
+            "target": "self",
             "modifier": {
               "roll": "damage",
-              "subset": "all-failures"
+              "result_scope": "any-result",
+              "weapon_type": "melee"
             }
           }
         ]
       }
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
       "grand-master-in-nemesis-dreadknight"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "auto-generated, partial"
+    "behavior": "passive"
   },
   {
     "ability_id": "warrior-strategist",
@@ -207,21 +220,33 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "cp-refund",
-      "target": "self",
+      "type": "stratagem-cost-modifier",
+      "target": "unit",
       "modifier": {
-        "amount": 1
+        "operation": "decrease",
+        "amount": 1,
+        "applies_to": "triggering-stratagem-use"
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "one-use"
+      "duration": "resolution"
     },
     "unit_ids": [
+      "grand-master",
       "grand-master-in-nemesis-dreadknight"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "stratagem-targeted",
+      "subject": "self",
+      "optional": true
+    },
+    "usage": {
+      "frequency": "once-per-battle-round",
+      "per": "army"
+    }
   },
   {
     "ability_id": "legacy-of-jerulas",
@@ -309,32 +334,55 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "fight"
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "A",
+            "operation": "add",
+            "value": 3,
+            "weapon_type": "melee"
+          }
+        },
+        {
+          "type": "stat-modifier",
+          "target": "self",
+          "modifier": {
+            "stat": "S",
+            "operation": "add",
+            "value": 3,
+            "weapon_type": "melee"
+          }
         }
-      },
-      "effect": {
-        "type": "stat-modifier",
-        "target": "unit",
-        "modifier": {
-          "stat": "S",
-          "operation": "add",
-          "value": 3
-        }
-      }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "phase"
     },
     "unit_ids": [
       "grand-master"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self",
+      "condition": {
+        "type": "phase-is",
+        "parameters": {
+          "phase": "fight"
+        }
+      },
+      "optional": true
+    },
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1,
+      "per": "model"
+    }
   },
   {
     "ability_id": "fire-focus",
@@ -420,12 +468,49 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "re-roll",
-      "target": "unit",
-      "modifier": {
-        "roll": "wound",
-        "subset": "ones"
-      }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "conditional",
+          "condition": {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "within-range-of-objective",
+                "parameters": {
+                  "subject": "target"
+                }
+              }
+            ]
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "subset": "ones",
+              "optional": false
+            }
+          }
+        },
+        {
+          "type": "conditional",
+          "condition": {
+            "type": "within-range-of-objective",
+            "parameters": {
+              "subject": "target"
+            }
+          },
+          "effect": {
+            "type": "re-roll",
+            "target": "unit",
+            "modifier": {
+              "roll": "wound",
+              "result_scope": "any-result"
+            }
+          }
+        }
+      ]
     },
     "scope": {
       "range": "unit",
@@ -447,12 +532,33 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "fallback-and-act",
-      "target": "unit",
-      "modifier": {}
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "fallback-and-act",
+          "target": "self",
+          "modifier": {
+            "can_charge": true
+          }
+        },
+        {
+          "type": "ability-grant",
+          "target": "self",
+          "modifier": {
+            "grant_type": "shoot-after-advance"
+          }
+        },
+        {
+          "type": "ability-grant",
+          "target": "self",
+          "modifier": {
+            "grant_type": "charge-after-advance"
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "unit",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
@@ -779,22 +885,39 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
+      "type": "designate-target",
+      "designation": "guidance-of-the-ancients",
+      "select": {
+        "scope": "enemy-unit",
+        "count": 1,
+        "eligibility": {
+          "type": "was-hit-by-attack",
+          "parameters": {
+            "subject": "target",
+            "attack_type": "ranged",
+            "source": {
+              "event_var": "guidance-shooting"
+            },
+            "window": "just-finished-shooting-sequence"
+          }
         }
       },
-      "effect": {
-        "type": "roll-modifier",
-        "target": "unit",
-        "modifier": {
-          "roll": "hit",
-          "operation": "add",
-          "value": 1
+      "applies": {
+        "to": "attackers-of-target",
+        "attacker_keywords": [
+          "GREY KNIGHTS"
+        ],
+        "effect": {
+          "type": "roll-modifier",
+          "target": "attacker",
+          "modifier": {
+            "roll": "hit",
+            "operation": "add",
+            "value": 1
+          }
         }
-      }
+      },
+      "duration": "phase"
     },
     "scope": {
       "range": "unit",
@@ -804,36 +927,29 @@
       "venerable-dreadnought"
     ],
     "ability_type": "unit",
-    "behavior": "passive",
-    "community_notes": "defensive ability (skipped for damage calc)"
-  },
-  {
-    "ability_id": "wisdom-of-the-ancients-aura",
-    "name": "Wisdom of the Ancients (Aura)",
-    "authored_by": "40kdc-community",
-    "game_version": {
-      "edition": "11th",
-      "dataslate": "pre-launch-provisional"
-    },
-    "version": "2025-q3",
-    "effect": {
-      "type": "re-roll",
-      "target": "unit",
-      "modifier": {
-        "roll": "hit",
-        "subset": "ones"
-      }
-    },
-    "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
-    },
-    "unit_ids": [
-      "venerable-dreadnought",
-      "grey-knights-dreadnought"
-    ],
-    "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "after-unit-resolves-attacks",
+      "subject": "self",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "binds_event_variable": "guidance-shooting"
+    }
   },
   {
     "ability_id": "fervour-of-the-ancients-aura",
@@ -909,7 +1025,8 @@
         "modifier": {
           "stat": "A",
           "operation": "add",
-          "value": 1
+          "value": 1,
+          "weapon_name": "Purifying Flame"
         }
       }
     },
@@ -996,10 +1113,21 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "objective-control-modifier",
-      "target": "unit",
-      "modifier": {
-        "sticky": true
+      "type": "conditional",
+      "condition": {
+        "type": "within-range-of-objective",
+        "parameters": {
+          "subject": "unit",
+          "controlled_by": "your-army"
+        }
+      },
+      "effect": {
+        "type": "objective-control-modifier",
+        "target": "unit",
+        "modifier": {
+          "sticky": true,
+          "retake": "opponent-control-greater-at-phase-end"
+        }
       }
     },
     "scope": {
@@ -1010,7 +1138,28 @@
       "strike-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "end-of-phase",
+      "subject": "self",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      }
+    }
   },
   {
     "ability_id": "techmarine",
@@ -1022,14 +1171,29 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "ability-grant",
-      "target": "self",
-      "modifier": {
-        "ability_id": "lone-operative"
+      "type": "conditional",
+      "condition": {
+        "type": "unit-within-range-of",
+        "parameters": {
+          "subject": "self",
+          "target_type": "friendly-keyword",
+          "keywords": [
+            "GREY KNIGHTS",
+            "VEHICLE"
+          ],
+          "range": 3
+        }
+      },
+      "effect": {
+        "type": "ability-grant",
+        "target": "self",
+        "modifier": {
+          "grant_type": "lone-operative"
+        }
       }
     },
     "scope": {
-      "range": "aura-6",
+      "range": "self",
       "duration": "permanent"
     },
     "unit_ids": [
@@ -1048,23 +1212,76 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "roll-modifier",
-      "target": "unit",
-      "modifier": {
-        "roll": "hit",
-        "operation": "add",
-        "value": 1
+      "type": "conditional",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "command"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "effect": {
+        "type": "select-units",
+        "selector": {
+          "owner": "friendly",
+          "max_count": 1,
+          "target_kind": "model",
+          "keywords": [
+            "GREY KNIGHTS",
+            "VEHICLE"
+          ],
+          "range_inches": 3,
+          "selection_limit": {
+            "count": 1,
+            "period": "turn"
+          }
+        },
+        "effect": {
+          "type": "sequence",
+          "steps": [
+            {
+              "type": "heal-wounds",
+              "target": "unit",
+              "modifier": {
+                "amount": "D3"
+              }
+            },
+            {
+              "type": "roll-modifier",
+              "target": "unit",
+              "modifier": {
+                "roll": "hit",
+                "operation": "add",
+                "value": 1
+              }
+            }
+          ]
+        }
       }
     },
     "scope": {
-      "range": "aura-6",
+      "range": "self",
       "duration": "until-next-command-phase"
     },
     "unit_ids": [
       "brotherhood-techmarine"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "activated",
+    "usage": {
+      "frequency": "once-per-command-phase",
+      "per": "model"
+    }
   },
   {
     "ability_id": "guardians-of-the-machine",
@@ -1076,21 +1293,66 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "cp-refund",
-      "target": "self",
-      "modifier": {
-        "stratagem": "fire-overwatch-or-heroic"
-      }
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "stratagem-cost-modifier",
+          "target": "unit",
+          "modifier": {
+            "operation": "decrease",
+            "amount": 1,
+            "applies_to": "stratagems-targeting-bearer",
+            "stratagem": "heroic-intervention"
+          }
+        },
+        {
+          "type": "stratagem-targeting-permission",
+          "target": "unit",
+          "modifier": {
+            "exception": "already-targeted-different-unit-this-phase",
+            "stratagem": "heroic-intervention"
+          }
+        },
+        {
+          "type": "stratagem-targeting-permission",
+          "target": "unit",
+          "modifier": {
+            "exception": "does-not-prevent-targeting-different-unit-this-phase",
+            "stratagem": "heroic-intervention"
+          }
+        }
+      ]
     },
     "scope": {
-      "range": "aura-6",
-      "duration": "permanent"
+      "range": "unit",
+      "duration": "resolution"
     },
     "unit_ids": [
       "brotherhood-techmarine"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "end-of-charge-move",
+      "subject": "enemy-unit",
+      "condition": {
+        "type": "unit-within-range-of",
+        "parameters": {
+          "subject": "triggering-unit",
+          "target_type": "friendly-keyword",
+          "keywords": [
+            "GREY KNIGHTS",
+            "VEHICLE"
+          ],
+          "range": "engagement"
+        }
+      },
+      "optional": true,
+      "proximity": {
+        "of": "bearer-unit",
+        "range": 6
+      }
+    }
   },
   {
     "ability_id": "sanctic-hood",
@@ -1238,30 +1500,117 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
+      "type": "select-units",
+      "selector": {
+        "owner": "enemy",
+        "min_count": 1,
+        "max_count": 1,
+        "eligibility": {
+          "operator": "and",
+          "operands": [
+            {
+              "type": "was-hit-by-attack",
+              "parameters": {
+                "subject": "target",
+                "attack_type": "ranged",
+                "source": {
+                  "event_var": "persecution-shooting"
+                },
+                "window": "just-finished-shooting-sequence"
+              }
+            },
+            {
+              "operator": "and",
+              "operands": [
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "target-has-keyword",
+                      "parameters": {
+                        "keyword": "MONSTER"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "operator": "not",
+                  "operands": [
+                    {
+                      "type": "target-has-keyword",
+                      "parameters": {
+                        "keyword": "VEHICLE"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
       },
       "effect": {
-        "type": "ability-grant",
-        "target": "defender",
-        "modifier": {
-          "ability_id": "post-attack-debuff"
-        }
+        "type": "sequence",
+        "steps": [
+          {
+            "type": "unit-tag",
+            "target": "unit",
+            "modifier": {
+              "tag": "pinned"
+            }
+          },
+          {
+            "type": "stat-modifier",
+            "target": "unit",
+            "modifier": {
+              "stat": "M",
+              "operation": "add",
+              "value": -2
+            }
+          },
+          {
+            "type": "roll-modifier",
+            "target": "unit",
+            "modifier": {
+              "roll": "charge",
+              "operation": "add",
+              "value": -2
+            }
+          }
+        ]
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "until-start-next-turn"
     },
     "unit_ids": [
       "purgation-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "after-unit-resolves-attacks",
+      "subject": "self",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "type": "phase-is",
+            "parameters": {
+              "phase": "shooting"
+            }
+          },
+          {
+            "type": "player-turn-is",
+            "parameters": {
+              "turn": "your-turn"
+            }
+          }
+        ]
+      },
+      "binds_event_variable": "persecution-shooting"
+    }
   },
   {
     "ability_id": "strafing-run",
@@ -1321,18 +1670,17 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "shooting"
-        }
+      "type": "movement-modifier",
+      "target": "unit",
+      "modifier": {
+        "move_type": "normal",
+        "distance": 6
       },
-      "effect": {
-        "type": "movement-modifier",
+      "after_move": {
+        "type": "attack-restriction",
         "target": "unit",
         "modifier": {
-          "move_type": "shoot-and-scoot"
+          "restriction": "no-charge"
         }
       }
     },
@@ -1344,7 +1692,53 @@
       "interceptor-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "after-unit-resolves-attacks",
+      "subject": "self",
+      "condition": {
+        "operator": "and",
+        "operands": [
+          {
+            "operator": "and",
+            "operands": [
+              {
+                "type": "phase-is",
+                "parameters": {
+                  "phase": "shooting"
+                }
+              },
+              {
+                "type": "player-turn-is",
+                "parameters": {
+                  "turn": "your-turn"
+                }
+              }
+            ]
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "engagement-state",
+                "parameters": {
+                  "state": "engaged"
+                }
+              }
+            ]
+          },
+          {
+            "operator": "not",
+            "operands": [
+              {
+                "type": "made-ingress-move-this-turn"
+              }
+            ]
+          }
+        ]
+      },
+      "optional": true
+    }
   },
   {
     "ability_id": "zealous-path",
@@ -1389,21 +1783,43 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "ability-grant",
-      "target": "unit",
-      "modifier": {
-        "ability_id": "once-per-battle-special"
+      "type": "select-units",
+      "selector": {
+        "owner": "friendly",
+        "min_count": 1,
+        "max_count": 1,
+        "keywords": [
+          "GREY KNIGHTS"
+        ],
+        "range_inches": 12,
+        "eligibility": {
+          "type": "is-battle-shocked"
+        }
+      },
+      "effect": {
+        "type": "remove-battle-shock",
+        "target": "unit"
       }
     },
     "scope": {
-      "range": "aura-12",
-      "duration": "one-use"
+      "range": "self",
+      "duration": "resolution"
     },
     "unit_ids": [
       "brotherhood-chaplain"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "trigger": {
+      "event": "start-of-phase",
+      "subject": "self",
+      "optional": true
+    },
+    "usage": {
+      "frequency": "n-per-battle",
+      "count": 1,
+      "per": "model"
+    }
   },
   {
     "ability_id": "attuned-onslaught-psychic",
@@ -1415,12 +1831,24 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "stat-modifier",
-      "target": "unit",
-      "modifier": {
-        "stat": "D",
-        "operation": "add",
-        "value": 1
+      "type": "for-each-unit",
+      "selector": {
+        "owner": "friendly",
+        "target_kind": "model",
+        "keywords": [
+          "PALADIN SQUAD"
+        ],
+        "member_of": "bearer-unit"
+      },
+      "effect": {
+        "type": "stat-modifier",
+        "target": "unit",
+        "modifier": {
+          "stat": "D",
+          "operation": "add",
+          "value": 1,
+          "weapon_type": "melee"
+        }
       }
     },
     "scope": {
@@ -1431,11 +1859,15 @@
       "paladin-squad"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "end-of-charge-move",
+      "subject": "self"
+    }
   },
   {
     "ability_id": "apothecary-s-narthecium",
-    "name": "Apothecary\u2019s Narthecium",
+    "name": "Apothecary’s Narthecium",
     "authored_by": "40kdc-community",
     "game_version": {
       "edition": "11th",
@@ -1461,7 +1893,7 @@
   },
   {
     "ability_id": "ancient-s-banner",
-    "name": "Ancient\u2019s Banner",
+    "name": "Ancient’s Banner",
     "authored_by": "40kdc-community",
     "game_version": {
       "edition": "11th",
@@ -1496,19 +1928,26 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "is-attached"
-      },
-      "effect": {
-        "type": "roll-modifier",
-        "target": "attacker",
-        "modifier": {
-          "roll": "hit",
-          "operation": "subtract",
-          "value": 1
+      "type": "sequence",
+      "steps": [
+        {
+          "type": "ability-grant",
+          "target": "unit",
+          "modifier": {
+            "grant_type": "stealth"
+          }
+        },
+        {
+          "type": "roll-modifier",
+          "target": "attacker",
+          "modifier": {
+            "roll": "hit",
+            "operation": "add",
+            "value": -1,
+            "weapon_type": "melee"
+          }
         }
-      }
+      ]
     },
     "scope": {
       "range": "unit",
@@ -1530,21 +1969,81 @@
     },
     "version": "2025-q3",
     "effect": {
-      "type": "mortal-wounds",
-      "target": "defender",
-      "modifier": {
-        "count": "1"
+      "type": "select-units",
+      "selector": {
+        "owner": "enemy",
+        "min_count": 1,
+        "max_count": 1,
+        "engagement_relation": "engaged-with-bearer",
+        "reference": "bearer-unit"
+      },
+      "effect": {
+        "type": "dice-table",
+        "dice": "D6",
+        "outcomes": [
+          {
+            "results": [
+              1
+            ],
+            "effect": {
+              "type": "no-effect"
+            }
+          },
+          {
+            "results": [
+              2,
+              3
+            ],
+            "effect": {
+              "type": "mortal-wounds",
+              "target": "unit",
+              "modifier": {
+                "count": 1
+              }
+            }
+          },
+          {
+            "results": [
+              4,
+              5
+            ],
+            "effect": {
+              "type": "mortal-wounds",
+              "target": "unit",
+              "modifier": {
+                "count": "D3"
+              }
+            }
+          },
+          {
+            "results": [
+              6
+            ],
+            "effect": {
+              "type": "mortal-wounds",
+              "target": "unit",
+              "modifier": {
+                "count": "D3+3"
+              }
+            }
+          }
+        ]
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "resolution"
     },
     "unit_ids": [
       "grand-master-voldus"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "reactive",
+    "trigger": {
+      "event": "selected-to-fight",
+      "subject": "self",
+      "optional": true
+    }
   },
   {
     "ability_id": "force-edge-psychic",
@@ -1561,16 +2060,18 @@
         "operator": "and",
         "operands": [
           {
-            "type": "phase-is",
+            "type": "target-has-keyword",
             "parameters": {
-              "phase": "fight"
-            }
+              "keyword": "MONSTER"
+            },
+            "negated": true
           },
           {
             "type": "target-has-keyword",
             "parameters": {
-              "keyword": "A"
-            }
+              "keyword": "VEHICLE"
+            },
+            "negated": true
           }
         ]
       },
@@ -1580,7 +2081,8 @@
         "modifier": {
           "stat": "AP",
           "operation": "add",
-          "value": -1
+          "value": -1,
+          "weapon_type": "melee"
         }
       }
     },
@@ -1784,52 +2286,57 @@
     "ability_type": "detachment",
     "behavior": "reactive",
     "effect": {
-      "type": "conditional",
-      "condition": {
-        "type": "phase-is",
-        "parameters": {
-          "phase": "fight"
-        }
+      "type": "dice-gated",
+      "dice": "2D6",
+      "threshold": "leadership",
+      "comparison": "gte",
+      "test": {
+        "kind": "leadership",
+        "subject": "unit"
       },
-      "effect": {
-        "type": "dice-gated",
-        "dice": "2D6",
-        "threshold": 6,
-        "comparison": "lte",
-        "on_success": {
-          "type": "choice",
-          "options": [
-            {
-              "type": "keyword-grant",
-              "target": "self",
-              "modifier": {
-                "keywords": [
-                  "Sustained Hits 1"
-                ],
-                "weapon_type": "melee",
-                "weapon_keyword": "Psychic"
-              }
-            },
-            {
-              "type": "keyword-grant",
-              "target": "self",
-              "modifier": {
-                "keywords": [
-                  "Lethal Hits"
-                ],
-                "weapon_type": "melee",
-                "weapon_keyword": "Psychic"
-              }
+      "on_success": {
+        "type": "choice",
+        "options": [
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Sustained Hits 1"
+              ],
+              "weapon_type": "melee",
+              "weapon_keyword": "Psychic"
             }
-          ]
-        }
+          },
+          {
+            "type": "keyword-grant",
+            "target": "unit",
+            "modifier": {
+              "keywords": [
+                "Lethal Hits"
+              ],
+              "weapon_type": "melee",
+              "weapon_keyword": "Psychic"
+            }
+          }
+        ]
       }
     },
     "scope": {
       "range": "unit",
       "duration": "phase"
     },
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "trigger": {
+      "event": "selected-to-fight",
+      "subject": "friendly-unit",
+      "condition": {
+        "type": "unit-has-keyword",
+        "parameters": {
+          "keyword": "GREY KNIGHTS"
+        }
+      },
+      "optional": true
+    }
   },
   {
     "ability_id": "hallowed-ground",
@@ -1847,121 +2354,219 @@
     "ability_type": "detachment",
     "behavior": "passive",
     "effect": {
-      "type": "sequence",
-      "steps": [
-        {
-          "type": "terrain-area-tag",
-          "target": "self",
-          "modifier": {}
+      "type": "named-region-state",
+      "target": "all-friendly",
+      "modifier": {
+        "region_ref": {
+          "region_id": "hallowed-ground",
+          "owner_faction": "grey-knights"
         },
-        {
-          "type": "conditional",
-          "condition": {
-            "type": "unit-has-keyword",
-            "parameters": {
-              "keyword": "Purifier Squad"
+        "producer": {
+          "region_ref": {
+            "region_id": "hallowed-ground",
+            "owner_faction": "grey-knights"
+          },
+          "mode": "complete",
+          "parent_ref": null,
+          "baseline": [
+            {
+              "kind": "fixed-zone",
+              "zone": "own-deployment-zone",
+              "activation": {
+                "event": "always-active"
+              },
+              "expiry": {
+                "event": "never"
+              }
             }
-          },
-          "effect": {
-            "type": "terrain-area-tag",
-            "target": "self",
-            "modifier": {}
-          }
-        },
-        {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "timing-is",
-                "parameters": {
-                  "timing": "start"
+          ],
+          "phase_extensions": [
+            {
+              "kind": "objective-majority-zone",
+              "zone": "no-mans-land",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
                 }
               },
-              {
-                "type": "objective-majority",
-                "parameters": {
-                  "zone": "no-mans-land"
-                }
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
-            ]
-          },
-          "effect": {
-            "type": "terrain-area-tag",
-            "target": "self",
-            "modifier": {}
-          }
-        },
-        {
-          "type": "conditional",
-          "condition": {
-            "operator": "and",
-            "operands": [
-              {
-                "type": "timing-is",
-                "parameters": {
-                  "timing": "start"
+            },
+            {
+              "kind": "objective-majority-zone",
+              "zone": "opponent-deployment-zone",
+              "control_gate": {
+                "marker_scope": "markers-in-zone",
+                "controlled_by": "owner-army",
+                "threshold": {
+                  "comparison": "at-least",
+                  "fraction": 0.5
                 }
               },
-              {
-                "type": "objective-majority",
-                "parameters": {
-                  "zone": "opponent-deployment-zone"
-                }
+              "activation": {
+                "event": "phase-start",
+                "evaluation": "snapshot-once",
+                "canonical_condition_ids": [
+                  "timing-is",
+                  "objective-majority"
+                ]
+              },
+              "expiry": {
+                "event": "phase-end"
               }
+            }
+          ],
+          "additive_extensions": [
+            {
+              "kind": "unit-proximity",
+              "source_gate": {
+                "gate_ref": "purifier-sources",
+                "owner": "owner-army",
+                "unit_predicate": {
+                  "faction": "grey-knights",
+                  "keywords": [
+                    "PURIFIER SQUAD"
+                  ]
+                }
+              },
+              "radius_inches": 6,
+              "activation": {
+                "event": "continuous"
+              }
+            }
+          ]
+        },
+        "consumer": {
+          "state_ref": {
+            "region_id": "hallowed-ground",
+            "owner_faction": "grey-knights"
+          },
+          "beneficiary_gate": {
+            "owner": "owner-army",
+            "operator": "and",
+            "keywords": [
+              "GREY KNIGHTS"
             ]
           },
-          "effect": {
-            "type": "terrain-area-tag",
-            "target": "self",
-            "modifier": {}
-          }
-        },
-        {
-          "type": "re-roll",
-          "target": "self",
-          "modifier": {
-            "roll": "hit",
-            "subset": "ones"
-          }
-        },
-        {
-          "type": "conditional",
-          "condition": {
+          "membership": {
+            "unit_scope": "whole-unit",
+            "relation": "wholly-within"
+          },
+          "qualified_condition": {
             "operator": "or",
             "operands": [
               {
                 "type": "unit-has-keyword",
                 "parameters": {
-                  "keyword": "Purifier Squad"
+                  "keyword": "PURIFIER SQUAD"
                 }
               },
               {
-                "type": "terrain-area-control",
+                "type": "region-membership",
                 "parameters": {
-                  "area": "hallowed-ground",
+                  "state_ref": {
+                    "region_id": "hallowed-ground",
+                    "owner_faction": "grey-knights"
+                  },
+                  "unit_scope": "whole-unit",
                   "relation": "wholly-within"
                 }
               }
             ]
           },
-          "effect": {
-            "type": "re-roll",
-            "target": "self",
-            "modifier": {
-              "roll": "hit",
-              "subset": "all-failures"
-            }
+          "default_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "subset": "ones"
+              }
+            },
+            "optional": false
+          },
+          "qualified_branch": {
+            "source": {
+              "role": "eligible-source",
+              "gate_ref": "beneficiary_gate"
+            },
+            "beneficiary": {
+              "role": "eligible-beneficiary",
+              "gate_ref": "beneficiary_gate"
+            },
+            "target": "attacker",
+            "timing": {
+              "event": "each-attack"
+            },
+            "duration": "attack-resolution",
+            "effect": {
+              "type": "re-roll",
+              "target": "attacker",
+              "modifier": {
+                "roll": "hit",
+                "result_scope": "any-result"
+              }
+            },
+            "optional": true
+          },
+          "attack_condition": {
+            "operator": "or",
+            "operands": [
+              {
+                "type": "attack-is-type",
+                "parameters": {
+                  "attack_type": "melee"
+                }
+              },
+              {
+                "operator": "and",
+                "operands": [
+                  {
+                    "type": "attack-is-type",
+                    "parameters": {
+                      "attack_type": "ranged"
+                    }
+                  },
+                  {
+                    "type": "target-is-visible"
+                  }
+                ]
+              }
+            ]
           }
-        }
-      ]
+        },
+        "branch_precedence": "qualified-replaces-default"
+      }
     },
     "scope": {
-      "range": "aura-6",
-      "duration": "battle"
-    },
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+      "range": "any-on-battlefield",
+      "duration": "permanent"
+    }
   },
   {
     "ability_id": "fury-of-titan",
@@ -1977,7 +2582,7 @@
     "faction_id": "grey-knights",
     "detachment_id": "brotherhood-strike",
     "ability_type": "detachment",
-    "behavior": "passive",
+    "behavior": "reactive",
     "effect": {
       "type": "sequence",
       "steps": [
@@ -1986,7 +2591,8 @@
           "target": "unit",
           "modifier": {
             "roll": "hit",
-            "subset": "ones"
+            "subset": "ones",
+            "optional": false
           }
         },
         {
@@ -1994,7 +2600,8 @@
           "target": "unit",
           "modifier": {
             "roll": "wound",
-            "subset": "ones"
+            "subset": "ones",
+            "optional": false
           }
         }
       ]
@@ -2003,7 +2610,10 @@
       "range": "unit",
       "duration": "turn"
     },
-    "community_notes": "[APPROX] Applies only to a unit set up by the Deep Strike ability this turn; the arrival gate is not encoded (no deep-strike-arrival condition in the DSL). Full rule in raw-text store."
+    "trigger": {
+      "event": "deep-strike-setup",
+      "subject": "friendly-unit"
+    }
   },
   {
     "ability_id": "duty-before-all",
@@ -2126,40 +2736,38 @@
     "effect": {
       "type": "conditional",
       "condition": {
-        "operator": "and",
-        "operands": [
-          {
-            "type": "phase-is",
-            "parameters": {
-              "phase": "fight"
-            }
-          },
-          {
-            "type": "attack-stat-compare",
-            "parameters": {
-              "attacker_stat": "S",
-              "comparison": "less-than",
-              "target_stat": "T"
-            }
-          }
-        ]
+        "type": "attack-stat-compare",
+        "parameters": {
+          "attacker_stat": "S",
+          "comparison": "less-than",
+          "target_stat": "T"
+        }
       },
       "effect": {
         "type": "roll-modifier",
-        "target": "self",
+        "target": "unit",
         "modifier": {
           "roll": "wound",
           "operation": "add",
           "value": 1,
-          "attack_type": "melee"
+          "weapon_type": "melee"
         }
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "phase"
+      "duration": "attack-sequence"
     },
-    "community_notes": "community-authored from 10e source (provisional 11e); see #21"
+    "trigger": {
+      "event": "selected-to-fight",
+      "subject": "friendly-unit",
+      "condition": {
+        "type": "unit-has-keyword",
+        "parameters": {
+          "keyword": "PALADIN SQUAD"
+        }
+      }
+    }
   },
   {
     "ability_id": "searing-soulflame",
@@ -2177,19 +2785,27 @@
     "ability_type": "detachment",
     "behavior": "reactive",
     "effect": {
-      "type": "leadership-modifier",
-      "target": "defender",
+      "type": "battle-shock-test",
+      "target": "target",
       "modifier": {
-        "test": "battle-shock",
-        "operation": "subtract",
-        "value": 1
+        "roll_modifier": -1
       }
     },
     "scope": {
       "range": "unit",
-      "duration": "permanent"
+      "duration": "resolution"
     },
-    "community_notes": "[APPROX] Triggered when a friendly PURGATION SQUAD pins an enemy unit via Righteous Persecution; the trigger linkage to that ability is not encoded. Full rule in raw-text store."
+    "trigger": {
+      "event": "ability-target-selected",
+      "subject": "enemy-unit",
+      "source_ability": {
+        "ability_id": "righteous-persecution",
+        "owner": "friendly",
+        "keywords": [
+          "PURGATION SQUAD"
+        ]
+      }
+    }
   },
   {
     "ability_id": "echojump",

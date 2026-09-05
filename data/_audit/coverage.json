@@ -15,8 +15,8 @@
       "faction": "adepta-sororitas",
       "total": 155,
       "offensive": 46,
-      "defensive": 16,
-      "inert": 96,
+      "defensive": 14,
+      "inert": 98,
       "stub": 7,
       "stubStructural": 2,
       "gwTextLeak": 0,
@@ -25,9 +25,9 @@
     {
       "faction": "adeptus-astartes",
       "total": 489,
-      "offensive": 144,
-      "defensive": 44,
-      "inert": 317,
+      "offensive": 143,
+      "defensive": 43,
+      "inert": 319,
       "stub": 16,
       "stubStructural": 6,
       "gwTextLeak": 0,
@@ -36,9 +36,9 @@
     {
       "faction": "adeptus-custodes",
       "total": 155,
-      "offensive": 43,
+      "offensive": 41,
       "defensive": 18,
-      "inert": 99,
+      "inert": 101,
       "stub": 3,
       "stubStructural": 4,
       "gwTextLeak": 0,
@@ -70,8 +70,8 @@
       "faction": "agents-of-the-imperium",
       "total": 133,
       "offensive": 34,
-      "defensive": 13,
-      "inert": 89,
+      "defensive": 12,
+      "inert": 90,
       "stub": 0,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -80,9 +80,9 @@
     {
       "faction": "astra-militarum",
       "total": 205,
-      "offensive": 44,
+      "offensive": 43,
       "defensive": 16,
-      "inert": 147,
+      "inert": 148,
       "stub": 3,
       "stubStructural": 1,
       "gwTextLeak": 0,
@@ -103,8 +103,8 @@
       "faction": "chaos-daemons",
       "total": 157,
       "offensive": 39,
-      "defensive": 15,
-      "inert": 110,
+      "defensive": 13,
+      "inert": 112,
       "stub": 7,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -113,9 +113,9 @@
     {
       "faction": "chaos-knights",
       "total": 115,
-      "offensive": 28,
+      "offensive": 27,
       "defensive": 9,
-      "inert": 79,
+      "inert": 80,
       "stub": 2,
       "stubStructural": 0,
       "gwTextLeak": 0,
@@ -168,9 +168,9 @@
     {
       "faction": "emperors-children",
       "total": 162,
-      "offensive": 39,
+      "offensive": 38,
       "defensive": 5,
-      "inert": 119,
+      "inert": 120,
       "stub": 8,
       "stubStructural": 3,
       "gwTextLeak": 0,
@@ -189,14 +189,14 @@
     },
     {
       "faction": "grey-knights",
-      "total": 61,
-      "offensive": 16,
+      "total": 60,
+      "offensive": 9,
       "defensive": 5,
-      "inert": 41,
-      "stub": 2,
-      "stubStructural": 1,
+      "inert": 47,
+      "stub": 1,
+      "stubStructural": 0,
       "gwTextLeak": 0,
-      "defensiveSkipped": 1
+      "defensiveSkipped": 0
     },
     {
       "faction": "imperial-knights",
@@ -234,9 +234,9 @@
     {
       "faction": "orks",
       "total": 290,
-      "offensive": 51,
+      "offensive": 49,
       "defensive": 13,
-      "inert": 230,
+      "inert": 232,
       "stub": 3,
       "stubStructural": 4,
       "gwTextLeak": 0,
@@ -288,23 +288,23 @@
     }
   ],
   "totals": {
-    "total": 3834,
-    "offensive": 946,
-    "defensive": 297,
-    "inert": 2682,
-    "stub": 115,
-    "stubStructural": 46,
+    "total": 3833,
+    "offensive": 931,
+    "defensive": 291,
+    "inert": 2702,
+    "stub": 114,
+    "stubStructural": 45,
     "gwTextLeak": 0,
-    "defensiveSkipped": 56
+    "defensiveSkipped": 55
   },
   "unsupportedReasons": [
     {
       "reason": "effect type \"ability-grant\" is not modelled by the buff layer",
-      "count": 573
+      "count": 572
     },
     {
       "reason": "effect type \"movement-modifier\" is not modelled by the buff layer",
-      "count": 225
+      "count": 224
     },
     {
       "reason": "conditional: cannot evaluate condition \"undefined\" against current context",
@@ -312,11 +312,11 @@
     },
     {
       "reason": "effect type \"mortal-wounds\" is not modelled by the buff layer",
-      "count": 127
+      "count": 126
     },
     {
       "reason": "effect type \"leadership-modifier\" is not modelled by the buff layer",
-      "count": 84
+      "count": 82
     },
     {
       "reason": "effect type \"attack-restriction\" is not modelled by the buff layer",
@@ -324,7 +324,7 @@
     },
     {
       "reason": "effect type \"objective-control-modifier\" is not modelled by the buff layer",
-      "count": 65
+      "count": 64
     },
     {
       "reason": "effect type \"resurrection\" is not modelled by the buff layer",
@@ -332,7 +332,7 @@
     },
     {
       "reason": "effect type \"cp-refund\" is not modelled by the buff layer",
-      "count": 56
+      "count": 54
     },
     {
       "reason": "effect type \"rule-state\" is not modelled by the buff layer",
@@ -347,12 +347,12 @@
       "count": 39
     },
     {
-      "reason": "stat-modifier: operation \"set\" not supported",
+      "reason": "effect type \"fallback-and-act\" is not modelled by the buff layer",
       "count": 38
     },
     {
-      "reason": "effect type \"fallback-and-act\" is not modelled by the buff layer",
-      "count": 38
+      "reason": "stat-modifier: operation \"set\" not supported",
+      "count": 35
     },
     {
       "reason": "effect type \"unit-keyword\" is not modelled by the buff layer",
@@ -376,7 +376,7 @@
     },
     {
       "reason": "stat-modifier on \"D\" is outside the damage path",
-      "count": 28
+      "count": 27
     },
     {
       "reason": "effect type \"fight-first\" is not modelled by the buff layer",
@@ -404,7 +404,7 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"unit-below-starting-strength\" against current context",
-      "count": 19
+      "count": 20
     },
     {
       "reason": "roll-modifier: operation \"set\" not supported",
@@ -412,7 +412,7 @@
     },
     {
       "reason": "conditional: cannot evaluate condition \"unit-within-range-of\" against current context",
-      "count": 18
+      "count": 19
     },
     {
       "reason": "roll-modifier on \"charge\" is outside the damage path",
@@ -431,19 +431,19 @@
       "count": 12
     },
     {
+      "reason": "conditional: cannot evaluate condition \"unit-below-half-strength\" against current context",
+      "count": 12
+    },
+    {
+      "reason": "conditional: cannot evaluate condition \"attack-stat-compare\" against current context",
+      "count": 12
+    },
+    {
       "reason": "stat-modifier T: defender-side stat; applies when the buffed unit is the target",
       "count": 12
     },
     {
-      "reason": "conditional: cannot evaluate condition \"unit-below-half-strength\" against current context",
-      "count": 11
-    },
-    {
       "reason": "re-roll on \"advance\" (subset …) is outside the damage path",
-      "count": 11
-    },
-    {
-      "reason": "conditional: cannot evaluate condition \"attack-stat-compare\" against current context",
       "count": 11
     },
     {
@@ -451,15 +451,23 @@
       "count": 11
     },
     {
+      "reason": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context",
+      "count": 11
+    },
+    {
       "reason": "effect type \"unit-attachment\" is not modelled by the buff layer",
       "count": 10
+    },
+    {
+      "reason": "stat-modifier on \"W\" is outside the damage path",
+      "count": 9
     },
     {
       "reason": "conditional: cannot evaluate condition \"advanced-this-turn\" against current context",
       "count": 9
     },
     {
-      "reason": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context",
+      "reason": "selection/history/model/attack predicates are not resolved by the buff engine",
       "count": 9
     },
     {
@@ -487,7 +495,7 @@
       "count": 7
     },
     {
-      "reason": "stat-modifier on \"W\" is outside the damage path",
+      "reason": "effect type \"battle-shock-test\" is not modelled by the buff layer",
       "count": 7
     },
     {
@@ -511,16 +519,20 @@
       "count": 6
     },
     {
-      "reason": "effect type \"battle-shock-test\" is not modelled by the buff layer",
-      "count": 6
-    },
-    {
       "reason": "effect type \"objective-tag\" is not modelled by the buff layer",
       "count": 6
     },
     {
       "reason": "conditional: cannot evaluate condition \"faction-rule-active\" against current context",
       "count": 6
+    },
+    {
+      "reason": "effect type \"stratagem-cost-modifier\" is not modelled by the buff layer",
+      "count": 6
+    },
+    {
+      "reason": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here",
+      "count": 5
     },
     {
       "reason": "conditional: cannot evaluate condition \"units-destroyed\" against current context",
@@ -551,19 +563,7 @@
       "count": 4
     },
     {
-      "reason": "effect type \"stratagem-cost-modifier\" is not modelled by the buff layer",
-      "count": 4
-    },
-    {
       "reason": "conditional: cannot evaluate condition \"engagement-state\" against current context",
-      "count": 4
-    },
-    {
-      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
-      "count": 4
-    },
-    {
-      "reason": "effect type \"terrain-area-tag\" is not modelled by the buff layer",
       "count": 4
     },
     {
@@ -572,10 +572,6 @@
     },
     {
       "reason": "stat-modifier on \"WS\" is outside the damage path",
-      "count": 4
-    },
-    {
-      "reason": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here",
       "count": 4
     },
     {
@@ -599,6 +595,10 @@
       "count": 3
     },
     {
+      "reason": "effect type \"remove-battle-shock\" is not modelled by the buff layer",
+      "count": 3
+    },
+    {
       "reason": "conditional: cannot evaluate condition \"battle-round\" against current context",
       "count": 3
     },
@@ -607,7 +607,7 @@
       "count": 3
     },
     {
-      "reason": "effect type \"dice-table\" is not modelled by the buff layer",
+      "reason": "effect type \"terrain-area-tag\" is not modelled by the buff layer",
       "count": 3
     },
     {
@@ -687,7 +687,15 @@
       "count": 2
     },
     {
-      "reason": "conditional: cannot evaluate condition \"disposition-matches\" against current context",
+      "reason": "effect type \"stratagem-targeting-permission\" is not modelled by the buff layer",
+      "count": 2
+    },
+    {
+      "reason": "effect type \"for-each-unit\" is not modelled by the buff layer",
+      "count": 2
+    },
+    {
+      "reason": "effect type \"dice-table\" is not modelled by the buff layer",
       "count": 2
     },
     {
@@ -775,10 +783,6 @@
       "count": 1
     },
     {
-      "reason": "effect type \"stratagem-targeting-permission\" is not modelled by the buff layer",
-      "count": 1
-    },
-    {
       "reason": "roll-modifier on \"reanimation-protocols\" is outside the damage path",
       "count": 1
     },
@@ -795,7 +799,7 @@
       "count": 1
     },
     {
-      "reason": "effect type \"for-each-unit\" is not modelled by the buff layer",
+      "reason": "conditional: cannot evaluate condition \"disposition-matches\" against current context",
       "count": 1
     },
     {
@@ -1121,7 +1125,7 @@
       "shape": "feel-no-pain",
       "stub": false,
       "offensive": false,
-      "defensive": true,
+      "defensive": false,
       "gap": null
     },
     {
@@ -1631,7 +1635,7 @@
       "shape": "feel-no-pain",
       "stub": false,
       "offensive": false,
-      "defensive": true,
+      "defensive": false,
       "gap": null
     },
     {
@@ -2958,7 +2962,7 @@
       "faction": "adeptus-astartes",
       "ability_id": "mass-of-doom",
       "name": "Mass of Doom",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -3411,7 +3415,7 @@
       "shape": "feel-no-pain",
       "stub": false,
       "offensive": false,
-      "defensive": true,
+      "defensive": false,
       "gap": null
     },
     {
@@ -4102,7 +4106,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "stat-modifier on \"W\" is outside the damage path"
     },
     {
       "faction": "adeptus-astartes",
@@ -4448,7 +4452,7 @@
       "faction": "adeptus-astartes",
       "ability_id": "mark-the-target",
       "name": "Mark the Target",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -4478,9 +4482,9 @@
       "faction": "adeptus-astartes",
       "ability_id": "annihilator-protocols",
       "name": "Annihilator Protocols",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -4738,7 +4742,7 @@
       "faction": "adeptus-astartes",
       "ability_id": "vanguard-assault",
       "name": "Vanguard Assault",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -7498,9 +7502,9 @@
       "faction": "adeptus-custodes",
       "ability_id": "slayers-of-tyrants",
       "name": "Slayers of Tyrants",
-      "shape": "re-roll",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -8018,7 +8022,7 @@
       "faction": "adeptus-custodes",
       "ability_id": "martial-ka-tah",
       "name": "Martial Ka’tah",
-      "shape": "choice",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -8038,11 +8042,11 @@
       "faction": "adeptus-custodes",
       "ability_id": "interred-expertise-might-of-the-moritoi",
       "name": "Interred Expertise",
-      "shape": "sequence",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"unit-below-half-strength\" against current context"
     },
     {
       "faction": "adeptus-custodes",
@@ -10078,11 +10082,11 @@
       "faction": "aeldari",
       "ability_id": "support-weapon",
       "name": "Support Weapon",
-      "shape": "stat-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "conditional: cannot evaluate condition \"unit-below-starting-strength\" against current context"
     },
     {
       "faction": "aeldari",
@@ -11848,7 +11852,7 @@
       "faction": "agents-of-the-imperium",
       "ability_id": "ministorum-sermon",
       "name": "Ministorum Sermon",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -12391,7 +12395,7 @@
       "shape": "feel-no-pain",
       "stub": false,
       "offensive": false,
-      "defensive": true,
+      "defensive": false,
       "gap": null
     },
     {
@@ -13308,7 +13312,7 @@
       "faction": "astra-militarum",
       "ability_id": "tempestor-prime",
       "name": "Tempestor Prime",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -13632,7 +13636,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier: operation \"set\" not supported"
+      "gap": "stat-modifier on \"W\" is outside the damage path"
     },
     {
       "faction": "astra-militarum",
@@ -13758,9 +13762,9 @@
       "faction": "astra-militarum",
       "ability_id": "mobile-hunter-killers",
       "name": "Mobile Hunter-killers",
-      "shape": "re-roll",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -14158,7 +14162,7 @@
       "faction": "astra-militarum",
       "ability_id": "leading-the-charge",
       "name": "Leading The Charge",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -16721,7 +16725,7 @@
       "shape": "feel-no-pain",
       "stub": false,
       "offensive": false,
-      "defensive": true,
+      "defensive": false,
       "gap": null
     },
     {
@@ -17011,7 +17015,7 @@
       "shape": "feel-no-pain",
       "stub": false,
       "offensive": false,
-      "defensive": true,
+      "defensive": false,
       "gap": null
     },
     {
@@ -17488,9 +17492,9 @@
       "faction": "chaos-knights",
       "ability_id": "huntsman",
       "name": "Huntsman",
-      "shape": "re-roll",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -20148,7 +20152,7 @@
       "faction": "chaos-space-marines",
       "ability_id": "bloodlust",
       "name": "Bloodlust",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -24348,9 +24352,9 @@
       "faction": "emperors-children",
       "ability_id": "a-challenge-worthy-of-skill",
       "name": "A Challenge Worthy of Skill",
-      "shape": "sequence",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -26420,7 +26424,7 @@
       "name": "Surge of Wrath (Psychic)",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -26428,11 +26432,11 @@
       "faction": "grey-knights",
       "ability_id": "warrior-strategist",
       "name": "Warrior Strategist",
-      "shape": "cp-refund",
+      "shape": "stratagem-cost-modifier",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"cp-refund\" is not modelled by the buff layer"
+      "gap": "effect type \"stratagem-cost-modifier\" is not modelled by the buff layer"
     },
     {
       "faction": "grey-knights",
@@ -26458,7 +26462,7 @@
       "faction": "grey-knights",
       "ability_id": "might-of-titan-psychic",
       "name": "Might of Titan (Psychic)",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -26488,17 +26492,17 @@
       "faction": "grey-knights",
       "ability_id": "sanctity-of-purpose",
       "name": "Sanctity of Purpose",
-      "shape": "re-roll",
+      "shape": "sequence",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "grey-knights",
       "ability_id": "indomitable-spirit-psychic",
       "name": "Indomitable Spirit (Psychic)",
-      "shape": "fallback-and-act",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -26608,21 +26612,11 @@
       "faction": "grey-knights",
       "ability_id": "guidance-of-the-ancients-psychic",
       "name": "Guidance of the Ancients (Psychic)",
-      "shape": "conditional",
+      "shape": "designate-target",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
-    },
-    {
-      "faction": "grey-knights",
-      "ability_id": "wisdom-of-the-ancients-aura",
-      "name": "Wisdom of the Ancients (Aura)",
-      "shape": "re-roll",
-      "stub": false,
-      "offensive": true,
-      "defensive": false,
-      "gap": null
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "grey-knights",
@@ -26650,9 +26644,9 @@
       "name": "Champion of the Order of Purifiers (Psychic)",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "stat-modifier: narrows by \"weapon_name\" which the cruncher can't resolve here"
     },
     {
       "faction": "grey-knights",
@@ -26678,41 +26672,41 @@
       "faction": "grey-knights",
       "ability_id": "sanctifying-ritual-psychic",
       "name": "Sanctifying Ritual (Psychic)",
-      "shape": "objective-control-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"objective-control-modifier\" is not modelled by the buff layer"
+      "gap": "conditional: cannot evaluate condition \"within-range-of-objective\" against current context"
     },
     {
       "faction": "grey-knights",
       "ability_id": "techmarine",
       "name": "Techmarine",
-      "shape": "ability-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "conditional: cannot evaluate condition \"unit-within-range-of\" against current context"
     },
     {
       "faction": "grey-knights",
       "ability_id": "blessing-of-the-omnissiah",
       "name": "Blessing of the Omnissiah",
-      "shape": "roll-modifier",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
-      "gap": null
+      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
     },
     {
       "faction": "grey-knights",
       "ability_id": "guardians-of-the-machine",
       "name": "Guardians of the Machine",
-      "shape": "cp-refund",
+      "shape": "sequence",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"cp-refund\" is not modelled by the buff layer"
+      "gap": "effect type \"stratagem-cost-modifier\" is not modelled by the buff layer"
     },
     {
       "faction": "grey-knights",
@@ -26758,11 +26752,11 @@
       "faction": "grey-knights",
       "ability_id": "righteous-persecution",
       "name": "Righteous Persecution",
-      "shape": "conditional",
+      "shape": "select-units",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "grey-knights",
@@ -26778,7 +26772,7 @@
       "faction": "grey-knights",
       "ability_id": "personal-teleporters",
       "name": "Personal Teleporters",
-      "shape": "conditional",
+      "shape": "movement-modifier",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -26798,21 +26792,21 @@
       "faction": "grey-knights",
       "ability_id": "litanies-of-sanctity",
       "name": "Litanies of Sanctity",
-      "shape": "ability-grant",
+      "shape": "select-units",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "grey-knights",
       "ability_id": "attuned-onslaught-psychic",
       "name": "Attuned Onslaught (Psychic)",
-      "shape": "stat-modifier",
+      "shape": "for-each-unit",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "stat-modifier on \"D\" is outside the damage path"
+      "gap": "effect type \"for-each-unit\" is not modelled by the buff layer"
     },
     {
       "faction": "grey-knights",
@@ -26838,21 +26832,21 @@
       "faction": "grey-knights",
       "ability_id": "sanctuary-psychic",
       "name": "Sanctuary (Psychic)",
-      "shape": "conditional",
+      "shape": "sequence",
       "stub": false,
       "offensive": true,
       "defensive": true,
-      "gap": null
+      "gap": "effect type \"ability-grant\" is not modelled by the buff layer"
     },
     {
       "faction": "grey-knights",
       "ability_id": "hammer-aflame-psychic",
       "name": "Hammer Aflame (Psychic)",
-      "shape": "mortal-wounds",
+      "shape": "select-units",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"mortal-wounds\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "grey-knights",
@@ -26908,7 +26902,7 @@
       "faction": "grey-knights",
       "ability_id": "channelled-force",
       "name": "Channelled Force",
-      "shape": "conditional",
+      "shape": "dice-gated",
       "stub": false,
       "offensive": false,
       "defensive": false,
@@ -26918,11 +26912,11 @@
       "faction": "grey-knights",
       "ability_id": "hallowed-ground",
       "name": "Hallowed Ground",
-      "shape": "sequence",
-      "stub": true,
-      "offensive": true,
+      "shape": "named-region-state",
+      "stub": false,
+      "offensive": false,
       "defensive": false,
-      "gap": "effect type \"terrain-area-tag\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "grey-knights",
@@ -26962,17 +26956,17 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "conditional: cannot evaluate condition \"undefined\" against current context"
+      "gap": "conditional: cannot evaluate condition \"attack-stat-compare\" against current context"
     },
     {
       "faction": "grey-knights",
       "ability_id": "searing-soulflame",
       "name": "SEARING SOULFLAME",
-      "shape": "leadership-modifier",
+      "shape": "battle-shock-test",
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
+      "gap": "effect type \"battle-shock-test\" is not modelled by the buff layer"
     },
     {
       "faction": "grey-knights",
@@ -27148,7 +27142,7 @@
       "faction": "imperial-knights",
       "ability_id": "punishing-salvoes",
       "name": "Punishing Salvoes",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -28068,7 +28062,7 @@
       "faction": "leagues-of-votann",
       "ability_id": "break-the-foe",
       "name": "Break the Foe",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -28618,7 +28612,7 @@
       "faction": "necrons",
       "ability_id": "harassment-swarm-aura",
       "name": "Harassment Swarm (Aura)",
-      "shape": "roll-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": true,
@@ -28742,7 +28736,7 @@
       "stub": true,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"remove-battle-shock\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "necrons",
@@ -30692,7 +30686,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"dice-table\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "orks",
@@ -30748,7 +30742,7 @@
       "faction": "orks",
       "ability_id": "ferocious-rage",
       "name": "Ferocious Rage",
-      "shape": "keyword-grant",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": false,
@@ -30818,9 +30812,9 @@
       "faction": "orks",
       "ability_id": "monster-hunters",
       "name": "Monster Hunters",
-      "shape": "re-roll",
+      "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -31018,7 +31012,7 @@
       "faction": "orks",
       "ability_id": "billowing-fumes-aura",
       "name": "Billowing Fumes (Aura)",
-      "shape": "roll-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": true,
@@ -31640,7 +31634,7 @@
       "name": "Clever Know-wots",
       "shape": "conditional",
       "stub": false,
-      "offensive": true,
+      "offensive": false,
       "defensive": false,
       "gap": null
     },
@@ -32342,7 +32336,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"leadership-modifier\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "orks",
@@ -32442,7 +32436,7 @@
       "stub": false,
       "offensive": false,
       "defensive": false,
-      "gap": "effect type \"movement-modifier\" is not modelled by the buff layer"
+      "gap": "selection/history/model/attack predicates are not resolved by the buff engine"
     },
     {
       "faction": "orks",
@@ -33168,7 +33162,7 @@
       "faction": "tau-empire",
       "ability_id": "stealth",
       "name": "Stealth",
-      "shape": "roll-modifier",
+      "shape": "conditional",
       "stub": false,
       "offensive": true,
       "defensive": true,

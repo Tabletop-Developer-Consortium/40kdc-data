@@ -16,11 +16,12 @@ const WRAPPER_CHILDREN = Object.freeze({
   'dice-table': [{ path: ['outcomes'], child: ['effect'], role: 'members', array: true }],
   conditional: [{ path: ['condition'], role: 'condition', condition: true }, { path: ['effect'], role: 'members' }],
   'dice-pool-allocation': [{ path: ['options'], child: ['effect'], role: 'members', array: true }],
-  'select-units': [{ path: ['effect'], role: 'members' }],
-  'movement-modifier': [{ path: ['modifier', 'condition'], role: 'condition', condition: true }],
+  'select-units': [{ path: ['effect'], role: 'members' }, { path: ['selector', 'eligibility'], role: 'condition', condition: true }],
+  'for-each-unit': [{ path: ['effect'], role: 'members' }],
+  'movement-modifier': [{ path: ['modifier', 'condition'], role: 'condition', condition: true }, { path: ['after_move'], role: 'after-move' }],
   aura: [{ path: ['modifier', 'effect'], role: 'members' }],
   'leader-model-ability-grant': [{ path: ['grant', 'effect'], role: 'members' }],
-  'designate-target': [{ path: ['applies', 'effect'], role: 'members' }],
+  'designate-target': [{ path: ['applies', 'effect'], role: 'members' }, { path: ['select', 'eligibility'], role: 'condition', condition: true }],
   'persistent-designation': [{ path: ['consumer', 'effect'], role: 'members' }],
   'stance-select': [{ path: ['options'], child: ['effect'], role: 'members', array: true }],
   'risk-reward': [{ path: ['reward'], role: 'on-success' }, { path: ['risk', 'on_fail'], role: 'on-failure' }],
@@ -121,6 +122,8 @@ function namedRegionCandidate(node, pointer, context, out) {
   }
   const args = []
   if (node.target !== undefined) args.push(argument('affected-entity', node.target))
+  const attackCondition = consumer.attack_condition && mapCondition(consumer.attack_condition, pointerJoin(pointer, 'modifier', 'consumer', 'attack_condition'), context, out)
+  if (attackCondition) args.push(argument('attack-condition', attackCondition))
   const condition = mapCondition(consumer.qualified_condition, pointerJoin(pointer, 'modifier', 'consumer', 'qualified_condition'), context, out)
   const defaultBranch = mapEffect(consumer.default_branch?.effect, pointerJoin(pointer, 'modifier', 'consumer', 'default_branch', 'effect'), context, out)
   const qualifiedBranch = mapEffect(consumer.qualified_branch?.effect, pointerJoin(pointer, 'modifier', 'consumer', 'qualified_branch', 'effect'), context, out)
@@ -130,6 +133,7 @@ function namedRegionCandidate(node, pointer, context, out) {
   const controls = structuredClone(node)
   delete controls.type
   delete controls.target
+  delete controls.modifier.consumer.attack_condition
   delete controls.modifier.consumer.qualified_condition
   delete controls.modifier.consumer.default_branch.effect
   delete controls.modifier.consumer.qualified_branch.effect
@@ -240,7 +244,7 @@ function ontologyGap(pointer, focus, origin_id) {
 
 function triggerCandidate(trigger, pointer, context) {
   const args = [argument('event', trigger.event)]
-  for (const [field, role] of [['subject', 'actor'], ['proximity', 'scope'], ['move_types', 'parameters'], ['optional', 'optional'], ['cost', 'cost'], ['window', 'window']]) {
+  for (const [field, role] of [['subject', 'actor'], ['source_ability', 'source-ability'], ['binds_event_variable', 'event-binding'], ['proximity', 'scope'], ['move_types', 'parameters'], ['optional', 'optional'], ['cost', 'cost'], ['window', 'window']]) {
     if (trigger[field] !== undefined) args.push(argument(role, trigger[field]))
   }
   return makeAssertion(claimValue('mechanic.trigger', args), pointer, context)

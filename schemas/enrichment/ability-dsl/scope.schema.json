@@ -4,9 +4,46 @@
   "title": "Ability Scope",
   "type": "object",
   "properties": {
-    "range": { "type": "string", "enum": ["self", "unit", "attached", "aura-6", "aura-9", "aura-12", "aura-custom", "engagement-range", "any-visible", "any-on-battlefield", "terrain-within-range"] },
-    "duration": { "type": "string", "enum": ["phase", "turn", "battle-round", "battle", "until-next-command-phase", "until-next-movement-phase", "until-next-battle-round", "until-start-next-turn", "one-use", "permanent"] },
-    "range_inches": { "type": "number" }
+    "range": {
+      "type": "string",
+      "enum": [
+        "self",
+        "unit",
+        "attached",
+        "aura-6",
+        "aura-9",
+        "aura-12",
+        "aura-custom",
+        "engagement-range",
+        "any-visible",
+        "any-on-battlefield",
+        "terrain-within-range"
+      ]
+    },
+    "duration": {
+      "type": "string",
+      "enum": [
+        "phase",
+        "turn",
+        "battle-round",
+        "battle",
+        "until-next-command-phase",
+        "until-next-movement-phase",
+        "until-next-battle-round",
+        "until-start-next-turn",
+        "one-use",
+        "permanent",
+        "attack-sequence",
+        "resolution"
+      ],
+      "description": "attack-sequence expires when the currently selected unit finishes resolving its shooting or fighting attacks; resolution lasts only while resolving this activation and is not a battle/phase usage limit."
+    },
+    "range_inches": {
+      "type": "number"
+    }
   },
-  "required": ["range", "duration"]
+  "required": [
+    "range",
+    "duration"
+  ]
 }

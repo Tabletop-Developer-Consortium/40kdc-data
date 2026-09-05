@@ -191,6 +191,39 @@ describe("lintCanonical", () => {
     expect(lintCanonical(eff)).toEqual({ canonical: true, issues: [] });
   });
 
+  it("rejects non-canonical leaves beneath every nested wrapper shape", () => {
+    const invalidLeaf = {
+      type: "stat-modifier",
+      target: "unit",
+      modifier: { stat: "A", operation: "add", value: 1, model_filter: "not-character" },
+    };
+    const wrappers = [
+      { name: "aura", effect: { type: "aura", modifier: { effect: invalidLeaf } } },
+      { name: "risk reward", effect: { type: "risk-reward", reward: invalidLeaf } },
+      { name: "risk failure", effect: { type: "risk-reward", risk: { on_fail: invalidLeaf } } },
+      { name: "resource action", effect: { type: "resource-action-menu", actions: [{ effect: invalidLeaf }] } },
+      { name: "region default", effect: { type: "named-region-state", modifier: { consumer: { default_branch: { effect: invalidLeaf } } } } },
+      { name: "region qualified", effect: { type: "named-region-state", modifier: { consumer: { qualified_branch: { effect: invalidLeaf } } } } },
+    ];
+    for (const wrapper of wrappers) {
+      const result = lintCanonical(wrapper.effect);
+      expect(result.canonical, wrapper.name).toBe(false);
+      expect(result.issues.join(), wrapper.name).toContain("model_filter");
+    }
+  });
+
+  it("rejects non-canonical conditions beneath action eligibility", () => {
+    const result = lintCanonical({
+      type: "resource-action-menu",
+      actions: [{
+        eligibility: { requires: [{ type: "unit-has-keyword", keyword: "FABRICATED" }] },
+        effect: { type: "no-effect" },
+      }],
+    });
+    expect(result.canonical).toBe(false);
+    expect(result.issues.join()).toContain("parameters");
+  });
+
   it("accepts any-result rerolls and rejects ambiguous or unknown result scopes", () => {
     expect(lintCanonical({ type: "re-roll", target: "self", modifier: { roll: "advance", result_scope: "any-result" } }).canonical).toBe(true);
     expect(lintCanonical({ type: "re-roll", target: "self", modifier: { roll: "advance", result_scope: "all-results" } }).canonical).toBe(false);

@@ -8,6 +8,7 @@ export const MECHANIC_ONTOLOGY_VERSION = 1
 export const MECHANIC_IDENTITY_ONTOLOGY_VERSION = 1
 export const MECHANIC_PROPOSITION_SCHEMA_ID = '40k.mechanic-claim'
 export const MECHANIC_PROPOSITION_SCHEMA_VERSION = '1'
+export const MECHANIC_TERMINAL_EFFECT_TYPES = Object.freeze(['no-effect'])
 
 const IDENTIFIER = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:\.[a-z][a-z0-9]*(?:-[a-z0-9]+)*)+$/
 const ROLE_IDENTIFIER = /^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/
@@ -18,7 +19,7 @@ const ARGUMENT_ROLES = [
   'source-unit', 'target', 'trigger', 'threshold', 'scope', 'parameters', 'members',
   'condition', 'default-branch', 'qualified-branch', 'on-success', 'on-failure', 'operator',
   'frequency', 'count', 'per', 'required-keywords', 'excluded-keywords', 'optional', 'window',
-  'cost', 'lineage-root',
+  'cost', 'lineage-root', 'after-move', 'attack-condition', 'source-ability', 'event-binding',
 ]
 
 const QUALIFIER_KINDS = [
@@ -39,10 +40,13 @@ export const MECHANIC_CHILD_DESCRIPTORS = Object.freeze([
   { container_type: 'conditional', path: 'effect', child_kind: 'effect', role: 'members', ordered: true },
   { container_type: 'dice-pool-allocation', path: 'options/*/effect', child_kind: 'effect', role: 'members', ordered: false },
   { container_type: 'select-units', path: 'effect', child_kind: 'effect', role: 'members', ordered: true },
+  { container_type: 'select-units', path: 'selector/eligibility', child_kind: 'condition', role: 'condition', ordered: true },
   { container_type: 'movement-modifier', path: 'modifier/condition', child_kind: 'condition', role: 'condition', ordered: true },
+  { container_type: 'movement-modifier', path: 'after_move', child_kind: 'effect', role: 'after-move', ordered: true },
   { container_type: 'aura', path: 'modifier/effect', child_kind: 'effect', role: 'members', ordered: true },
   { container_type: 'leader-model-ability-grant', path: 'grant/effect', child_kind: 'effect', role: 'members', ordered: true },
   { container_type: 'designate-target', path: 'applies/effect', child_kind: 'effect', role: 'members', ordered: true },
+  { container_type: 'designate-target', path: 'select/eligibility', child_kind: 'condition', role: 'condition', ordered: true },
   { container_type: 'persistent-designation', path: 'consumer/effect', child_kind: 'effect', role: 'members', ordered: true },
   { container_type: 'stance-select', path: 'options/*/effect', child_kind: 'effect', role: 'members', ordered: false },
   { container_type: 'risk-reward', path: 'reward', child_kind: 'effect', role: 'on-success', ordered: true },
@@ -52,6 +56,7 @@ export const MECHANIC_CHILD_DESCRIPTORS = Object.freeze([
   { container_type: 'resource-action-menu', path: 'actions/*/when', child_kind: 'trigger', role: 'trigger', ordered: false },
   { container_type: 'resource-action-menu', path: 'actions/*/eligibility/requires/*', child_kind: 'condition', role: 'condition', ordered: false },
   { container_type: 'for-each-unit', path: 'effect', child_kind: 'effect', role: 'members', ordered: true },
+  { container_type: 'named-region-state', path: 'modifier/consumer/attack_condition', child_kind: 'condition', role: 'attack-condition', ordered: true },
   { container_type: 'named-region-state', path: 'modifier/consumer/qualified_condition', child_kind: 'condition', role: 'condition', ordered: true },
   { container_type: 'named-region-state', path: 'modifier/consumer/default_branch/effect', child_kind: 'effect', role: 'default-branch', ordered: true },
   { container_type: 'named-region-state', path: 'modifier/consumer/qualified_branch/effect', child_kind: 'effect', role: 'qualified-branch', ordered: true },
@@ -90,9 +95,15 @@ export function buildMechanicRegistry({
   conditionSchema = loadSchema('condition'),
   scopeSchema = loadSchema('scope'),
 } = {}) {
-  const effectTypes = effectSchema.$defs['single-effect'].properties.type.enum
-  const wrapperDefs = effectSchema.$defs['effect-node'].oneOf.slice(1).map(entry => referencedDef(entry.$ref))
-  const wrapperTypes = wrapperDefs.map(name => effectSchema.$defs[name].properties.type.const)
+  const singleEffectTypes = effectSchema.$defs['single-effect'].properties.type.enum
+  const effectNodeDefs = effectSchema.$defs['effect-node'].oneOf.slice(1).map(entry => referencedDef(entry.$ref))
+  const effectNodeTypes = effectNodeDefs.map(name => effectSchema.$defs[name].properties.type.const)
+  const terminalEffectTypes = effectNodeTypes.filter(type => MECHANIC_TERMINAL_EFFECT_TYPES.includes(type))
+  if (terminalEffectTypes.length !== MECHANIC_TERMINAL_EFFECT_TYPES.length) {
+    throw new TypeError('declared terminal effect type is absent from the effect-node schema')
+  }
+  const effectTypes = [...singleEffectTypes, ...terminalEffectTypes]
+  const wrapperTypes = effectNodeTypes.filter(type => !MECHANIC_TERMINAL_EFFECT_TYPES.includes(type))
   const conditionTypes = conditionSchema.$defs['simple-condition'].properties.type.enum
   assertChildDescriptors(wrapperTypes)
   const compoundTypes = conditionSchema.$defs['compound-condition'].properties.operator.enum

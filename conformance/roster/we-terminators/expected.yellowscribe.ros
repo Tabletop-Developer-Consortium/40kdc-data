@@ -28,12 +28,12 @@
             </profile>
             <profile name="Devastating Assault" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">Before a Hit roll is made, if the unit charged this turn, until the end of the turn, this model's hellforged weapons gains [DEVASTATING WOUNDS].</characteristic>
+                <characteristic name="Description">Before a Hit roll is made, if the unit charged this turn, until the end of the turn, melee hellforged weapons weapons equipped by this model gain [DEVASTATING WOUNDS].</characteristic>
               </characteristics>
             </profile>
             <profile name="Direct the Slaughter" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">At the start of the phase, if within 12" of a friendly unit, until the end of the battle round, you can use one Stratagem on this model for 0CP.</characteristic>
+                <characteristic name="Description">At the start of the phase, you may use this ability, if within 12" of a friendly unit, until the end of the battle round, you can use one Stratagem on this model for 0CP.</characteristic>
               </characteristics>
             </profile>
             <profile name="Lord of Murder" typeName="Abilities">
@@ -118,14 +118,14 @@
             </profile>
             <profile name="Bloody Fury" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">Before a Hit roll is made:
-While making ranged attacks, if the target is the closest eligible target, you can re-roll the Hit roll for ranged attacks.
-If the target is the closest eligible target, you can re-roll the Charge roll.</characteristic>
+                <characteristic name="Description">Before a Hit roll is made, you may use this ability:
+While making ranged attacks, if the target is the closest eligible target, you can re-roll the Hit roll for attacks made by this model for ranged attacks.
+If the target is the closest eligible target, you can re-roll the Charge roll for this model.</characteristic>
               </characteristics>
             </profile>
             <profile name="Deep Strike" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">At the start of the phase, the unit has the Deep Strike ability.</characteristic>
+                <characteristic name="Description">At the start of the phase, you may use this ability, the unit has the Deep Strike ability.</characteristic>
               </characteristics>
             </profile>
           </profiles>
@@ -314,14 +314,14 @@ If the target is the closest eligible target, you can re-roll the Charge roll.</
             </profile>
             <profile name="Bloody Fury" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">Before a Hit roll is made:
-While making ranged attacks, if the target is the closest eligible target, you can re-roll the Hit roll for ranged attacks.
-If the target is the closest eligible target, you can re-roll the Charge roll.</characteristic>
+                <characteristic name="Description">Before a Hit roll is made, you may use this ability:
+While making ranged attacks, if the target is the closest eligible target, you can re-roll the Hit roll for attacks made by this model for ranged attacks.
+If the target is the closest eligible target, you can re-roll the Charge roll for this model.</characteristic>
               </characteristics>
             </profile>
             <profile name="Deep Strike" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">At the start of the phase, the unit has the Deep Strike ability.</characteristic>
+                <characteristic name="Description">At the start of the phase, you may use this ability, the unit has the Deep Strike ability.</characteristic>
               </characteristics>
             </profile>
           </profiles>

@@ -3174,6 +3174,44 @@ function genEffectTranslation(): void {
       }),
     },
   });
+  // Faction-scoped worklist pins: the global by-id index can resolve another
+  // faction's copy of shared names such as Blessing of the Omnissiah.
+  const greyKnightsFidelityIds = new Set(["surge-of-wrath-psychic", "warrior-strategist", "might-of-titan-psychic", "sanctity-of-purpose", "indomitable-spirit-psychic", "guidance-of-the-ancients-psychic", "champion-of-the-order-of-purifiers-psychic", "sanctifying-ritual-psychic", "techmarine", "blessing-of-the-omnissiah", "guardians-of-the-machine", "righteous-persecution", "personal-teleporters", "litanies-of-sanctity", "attuned-onslaught-psychic", "sanctuary-psychic", "hammer-aflame-psychic", "force-edge-psychic", "channelled-force", "hallowed-ground", "fury-of-titan", "dauntless-champions", "searing-soulflame"]);
+  const greyKnightsFidelity = JSON.parse(readFileSync(join(REPO_ROOT, "data/enrichment/grey-knights/abilities.json"), "utf8")) as Array<Record<string, unknown>>;
+  for (const raw of greyKnightsFidelity) {
+    if (!greyKnightsFidelityIds.has(String(raw.ability_id))) continue;
+    cases.push({
+      caseId: `grey-knights-fidelity/${raw.ability_id}`,
+      effect: raw.effect, scope: raw.scope,
+      ...(raw.trigger ? { trigger: raw.trigger } : {}),
+      ...(raw.usage ? { usage: raw.usage } : {}),
+      expected: { text: describeAbility(raw as Parameters<typeof describeAbility>[0]) },
+    });
+  }
+  const fidelityBoundaryCases = [
+    { caseId: "fidelity/no-effect", effect: { type: "no-effect" } },
+    { caseId: "fidelity/leadership-model-with-failure", effect: {
+      type: "dice-gated", dice: "2D6", threshold: "leadership", comparison: "gte",
+      test: { kind: "leadership", subject: "self" },
+      on_success: { type: "no-effect" }, on_fail: { type: "no-effect" },
+    } },
+    { caseId: "fidelity/friendly-selected-target", trigger: {
+      event: "ability-target-selected", subject: "friendly-unit",
+      source_ability: { ability_id: "example-selection", owner: "friendly", keywords: ["SOURCE"] },
+    }, effect: { type: "no-effect" } },
+    { caseId: "fidelity/non-numeric-weapon-characteristic", effect: {
+      type: "stat-modifier", target: "self", modifier: {
+        stat: "A", operation: "add", value: "D3", weapon_type: "melee", weapon_name: "Example blade", weapon_keyword: "Psychic",
+      },
+    } },
+    { caseId: "fidelity/model-advance-reroll", effect: {
+      type: "re-roll", target: "self", modifier: { roll: "advance", result_scope: "any-result" },
+    } },
+  ];
+  for (const example of fidelityBoundaryCases) {
+    const scope = { range: "unit", duration: "resolution" };
+    cases.push({ ...example, scope, expected: { text: describeAbility({ ...example, scope } as Parameters<typeof describeAbility>[0]) } });
+  }
   writeJson(join(CONFORMANCE, "effect-translation", "cases.json"), cases);
   console.log(
     `effect-translation/cases.json: ${cases.length} cases (${seen.size} node types)`,

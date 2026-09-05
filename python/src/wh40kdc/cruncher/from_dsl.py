@@ -91,6 +91,9 @@ def _walk(node: Any, source: BuffSource, opts: dict[str, Any], out: EffectTransl
         return
     if opts.get("defaultTarget") is not None and "target" not in node:
         node = {**node, "target": opts["defaultTarget"]}
+    if _has_unresolved_fidelity_binding(node):
+        out["unsupported"].append({"reason": _FIDELITY_BINDING_REASON, "effectFragment": node})
+        return
     node_type = node.get("type")
     if node_type == "re-roll":
         _translate_reroll(node, source, opts, out)
@@ -1432,3 +1435,39 @@ def _to_kebab_case(s: str) -> str:
     import re
 
     return re.sub(r"[^a-z0-9-]", "", re.sub(r"[\s_]+", "-", s.lower()))
+
+
+_FIDELITY_BINDING_REASON = (
+    "selection/history/model/attack predicates are not resolved by the buff engine"
+)
+
+
+def _has_unresolved_fidelity_binding(node: dict[str, Any]) -> bool:
+    selector = node.get("selector") or {}
+    select = node.get("select") or {}
+    applies = node.get("applies") or {}
+    modifier = node.get("modifier") or {}
+    consumer = modifier.get("consumer") or {}
+    return (
+        (
+            node.get("type") == "select-units"
+            and (
+                selector.get("target_kind") == "model"
+                or any(
+                    selector.get(k) is not None
+                    for k in ("eligibility", "reference", "selection_limit")
+                )
+            )
+        )
+        or (
+            node.get("type") == "designate-target"
+            and (
+                select.get("eligibility") is not None
+                or applies.get("attacker_keywords") is not None
+            )
+        )
+        or (
+            node.get("type") == "named-region-state"
+            and consumer.get("attack_condition") is not None
+        )
+    )

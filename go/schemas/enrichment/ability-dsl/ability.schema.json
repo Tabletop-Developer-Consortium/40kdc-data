@@ -5,59 +5,134 @@
   "description": "Community-authored structured representation of what a game ability does. NOT GW text.",
   "type": "object",
   "properties": {
-    "ability_id": { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
-    "name": { "type": "string" },
-    "authored_by": { "$ref": "../../defs/common.schema.json#/$defs/contributor-ref" },
-    "game_version": { "$ref": "../../defs/game-version-ref.schema.json" },
-    "version": { "$ref": "../../defs/common.schema.json#/$defs/dataslate-version" },
+    "ability_id": {
+      "$ref": "../../defs/common.schema.json#/$defs/entity-id"
+    },
+    "name": {
+      "type": "string"
+    },
+    "authored_by": {
+      "$ref": "../../defs/common.schema.json#/$defs/contributor-ref"
+    },
+    "game_version": {
+      "$ref": "../../defs/game-version-ref.schema.json"
+    },
+    "version": {
+      "$ref": "../../defs/common.schema.json#/$defs/dataslate-version"
+    },
     "supersedes": {
       "oneOf": [
-        { "$ref": "../../defs/common.schema.json#/$defs/dataslate-version" },
-        { "type": "null" }
+        {
+          "$ref": "../../defs/common.schema.json#/$defs/dataslate-version"
+        },
+        {
+          "type": "null"
+        }
       ]
     },
-    "unit_ids": { "type": "array", "items": { "$ref": "../../defs/common.schema.json#/$defs/entity-id" } },
+    "unit_ids": {
+      "type": "array",
+      "items": {
+        "$ref": "../../defs/common.schema.json#/$defs/entity-id"
+      }
+    },
     "faction_id": {
       "oneOf": [
-        { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
-        { "type": "null" }
+        {
+          "$ref": "../../defs/common.schema.json#/$defs/entity-id"
+        },
+        {
+          "type": "null"
+        }
       ],
       "description": "Owning faction. Authored explicitly on faction/detachment-scoped abilities; otherwise stamped at bundle time from the ability's data/enrichment/<faction>/ directory (records in the shared _core pool stay null). Enables faction-scoped resolution of a unit's ability_ids so an ability_id shared across factions resolves to the unit's own faction's copy rather than whichever faction bundled first."
     },
     "detachment_id": {
       "oneOf": [
-        { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
-        { "type": "null" }
+        {
+          "$ref": "../../defs/common.schema.json#/$defs/entity-id"
+        },
+        {
+          "type": "null"
+        }
       ],
       "description": "For detachment/enhancement/stratagem-type abilities, the associated detachment"
     },
-    "ability_type": { "type": "string", "enum": ["core", "faction", "detachment", "unit", "enhancement", "stratagem"] },
+    "ability_type": {
+      "type": "string",
+      "enum": [
+        "core",
+        "faction",
+        "detachment",
+        "unit",
+        "enhancement",
+        "stratagem"
+      ]
+    },
     "behavior": {
       "type": "string",
-      "enum": ["passive", "activated", "reactive", "aura"],
+      "enum": [
+        "passive",
+        "activated",
+        "reactive",
+        "aura"
+      ],
       "description": "How this ability interacts with the game flow — not a runtime predicate"
     },
-    "effect": { "$ref": "effect.schema.json" },
+    "effect": {
+      "$ref": "effect.schema.json"
+    },
     "trigger": {
       "description": "For reactive abilities: the game event(s) this ability fires on, plus structured guards. One trigger object, OR an array of trigger objects — the ability fires on ANY listed trigger (models multi-event reactions like 'set up OR ends a move'). See `$defs/trigger`.",
       "oneOf": [
-        { "$ref": "#/$defs/trigger" },
-        { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/trigger" } }
+        {
+          "$ref": "#/$defs/trigger"
+        },
+        {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/trigger"
+          }
+        }
       ]
     },
-    "scope": { "$ref": "scope.schema.json" },
+    "scope": {
+      "$ref": "scope.schema.json"
+    },
     "usage": {
       "description": "How often the ability may be used, beyond what scope.duration captures. `scope.duration: one-use` already models 'once per battle'; this models finer limits (once per turn/phase, N per battle) and an optional per-army/unit/model granularity.",
       "type": "object",
       "properties": {
         "frequency": {
           "type": "string",
-          "enum": ["once-per-turn", "once-per-phase", "once-per-battle-round", "once-per-command-phase", "once-per-opponent-turn", "n-per-battle", "first-this-battle", "first-time-this-phase"]
+          "enum": [
+            "once-per-turn",
+            "once-per-phase",
+            "once-per-battle-round",
+            "once-per-command-phase",
+            "once-per-opponent-turn",
+            "n-per-battle",
+            "first-this-battle",
+            "first-time-this-phase"
+          ]
         },
-        "count": { "type": "integer", "minimum": 1 },
-        "per": { "type": "string", "enum": ["army", "unit", "model"] }
+        "count": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "per": {
+          "type": "string",
+          "enum": [
+            "army",
+            "unit",
+            "model"
+          ]
+        }
       },
-      "required": ["frequency"],
+      "required": [
+        "frequency"
+      ],
       "additionalProperties": false
     },
     "applies_to": {
@@ -66,12 +141,18 @@
         {
           "type": "object",
           "properties": {
-            "required_keywords": { "$ref": "../../defs/common.schema.json#/$defs/keyword-list" },
-            "excluded_keywords": { "$ref": "../../defs/common.schema.json#/$defs/keyword-list" }
+            "required_keywords": {
+              "$ref": "../../defs/common.schema.json#/$defs/keyword-list"
+            },
+            "excluded_keywords": {
+              "$ref": "../../defs/common.schema.json#/$defs/keyword-list"
+            }
           },
           "additionalProperties": false
         },
-        { "type": "null" }
+        {
+          "type": "null"
+        }
       ]
     },
     "interactions": {
@@ -79,60 +160,200 @@
       "items": {
         "type": "object",
         "properties": {
-          "ability_ref": { "$ref": "../../defs/common.schema.json#/$defs/entity-id" },
-          "type": { "type": "string", "enum": ["conflicts-with", "combos-with", "superseded-by", "requires", "replaces"] },
-          "notes": { "type": "string" }
+          "ability_ref": {
+            "$ref": "../../defs/common.schema.json#/$defs/entity-id"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "conflicts-with",
+              "combos-with",
+              "superseded-by",
+              "requires",
+              "replaces"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
         },
-        "required": ["ability_ref", "type"]
+        "required": [
+          "ability_ref",
+          "type"
+        ]
       }
     },
-    "disputed": { "type": "boolean", "default": false },
-    "dispute_notes": { "type": "string" },
-    "community_notes": { "type": "string" }
+    "disputed": {
+      "type": "boolean",
+      "default": false
+    },
+    "dispute_notes": {
+      "type": "string"
+    },
+    "community_notes": {
+      "type": "string"
+    }
   },
-  "required": ["ability_id", "name", "authored_by", "game_version", "effect", "scope"],
+  "required": [
+    "ability_id",
+    "name",
+    "authored_by",
+    "game_version",
+    "effect",
+    "scope"
+  ],
   "additionalProperties": false,
   "$defs": {
     "trigger": {
       "description": "A single reactive trigger: the game `event` (closed dispatch key), `subject` (whose action triggered it), `proximity` (spatial gate in inches), optional `move_types` (restricts a move event to given move kinds), `condition` (extra gate reusing the condition tree), `optional` ('you can' reactions), `cost` (stratagem-style CP), and `window` (how long the granted reaction stays open).",
       "type": "object",
       "properties": {
-        "event": { "$ref": "../../defs/common.schema.json#/$defs/game-event" },
+        "event": {
+          "$ref": "../../defs/common.schema.json#/$defs/game-event"
+        },
         "subject": {
           "type": "string",
-          "enum": ["self", "bearer", "friendly-unit", "enemy-unit", "any-unit", "model-in-bearer"]
+          "enum": [
+            "self",
+            "bearer",
+            "friendly-unit",
+            "enemy-unit",
+            "any-unit",
+            "model-in-bearer"
+          ]
         },
         "proximity": {
           "type": "object",
           "properties": {
-            "of": { "type": "string", "enum": ["self", "bearer", "attached-unit"] },
-            "range": { "type": "number", "exclusiveMinimum": 0 }
+            "of": {
+              "type": "string",
+              "enum": [
+                "self",
+                "bearer",
+                "attached-unit",
+                "bearer-unit"
+              ]
+            },
+            "range": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
           },
-          "required": ["range"],
+          "required": [
+            "range"
+          ],
           "additionalProperties": false
         },
         "move_types": {
           "type": "array",
           "minItems": 1,
-          "items": { "type": "string", "enum": ["normal", "advance", "fall-back", "charge"] },
+          "items": {
+            "type": "string",
+            "enum": [
+              "normal",
+              "advance",
+              "fall-back",
+              "charge"
+            ]
+          },
           "description": "Restricts a move-related event (e.g. enemy-unit-ended-move) to these move kinds — e.g. [normal, advance, fall-back] for 'a Normal, Advance or Fall Back move'."
         },
-        "condition": { "$ref": "condition.schema.json" },
-        "optional": { "type": "boolean", "default": false },
+        "condition": {
+          "$ref": "condition.schema.json"
+        },
+        "optional": {
+          "type": "boolean",
+          "default": false
+        },
         "cost": {
           "type": "object",
-          "properties": { "cp": { "type": "integer", "minimum": 0 } },
+          "properties": {
+            "cp": {
+              "type": "integer",
+              "minimum": 0
+            }
+          },
           "additionalProperties": false
         },
-        "window": { "type": "string" },
+        "window": {
+          "type": "string"
+        },
         "binds_event_variable": {
           "type": "string",
           "minLength": 1,
           "$comment": "Names the triggering event's bound object for later reference by a condition in the same reactive action. Internal only; never rendered."
+        },
+        "source_ability": {
+          "type": "object",
+          "properties": {
+            "ability_id": {
+              "$ref": "../../defs/common.schema.json#/$defs/entity-id"
+            },
+            "owner": {
+              "type": "string",
+              "enum": [
+                "friendly",
+                "enemy"
+              ]
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "description": "All keywords required on the unit using the named source ability, not on the selected target."
+            }
+          },
+          "required": [
+            "ability_id",
+            "owner",
+            "keywords"
+          ],
+          "additionalProperties": false,
+          "description": "Filter an ability-target-selected event by its source ability and source unit. The trigger subject is the selected unit. This does not infer that the source ability was used from a tag or phase."
         }
       },
-      "required": ["event"],
-      "additionalProperties": false
+      "required": [
+        "event"
+      ],
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "source_ability"
+            ]
+          },
+          "then": {
+            "properties": {
+              "event": {
+                "const": "ability-target-selected"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "event": {
+                "const": "ability-target-selected"
+              }
+            },
+            "required": [
+              "event"
+            ]
+          },
+          "then": {
+            "required": [
+              "source_ability",
+              "subject"
+            ]
+          }
+        }
+      ]
     }
   }
 }

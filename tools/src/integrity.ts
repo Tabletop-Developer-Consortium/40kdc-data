@@ -387,6 +387,20 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
     }
   };
 
+  /** A named selection event references its source ability, not a display label. */
+  const collectSourceAbilityRefs = (node: unknown, out: Array<{ abilityId: string; owner: string }>): void => {
+    if (Array.isArray(node)) {
+      node.forEach((value) => collectSourceAbilityRefs(value, out));
+    } else if (node !== null && typeof node === "object") {
+      const rec = node as Record<string, unknown>;
+      if (rec.source_ability !== null && typeof rec.source_ability === "object") {
+        const source = rec.source_ability as Record<string, unknown>;
+        if (typeof source.ability_id === "string") out.push({ abilityId: source.ability_id, owner: String(source.owner) });
+      }
+      Object.values(rec).forEach((value) => collectSourceAbilityRefs(value, out));
+    }
+  };
+
   /** Collect entity-backed ability grants, including reusable rules bundles. */
   const collectAbilityGrantRefs = (node: unknown, out: string[]): void => {
     if (Array.isArray(node)) {
@@ -416,6 +430,8 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
 
     for (let i = 0; i < abilities.length; i++) {
       const a = abilities[i];
+      const sourceAbilityRefs: Array<{ abilityId: string; owner: string }> = [];
+      collectSourceAbilityRefs(a, sourceAbilityRefs);
       const refs: Array<{ kind: string; rule: string }> = [];
       collectRuleStateRefs(a.effect, refs);
       const abilityGrantRefs: string[] = [];
@@ -425,7 +441,7 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
       // Only abilities carrying an entity reference or dice-table invariant
       // have anything to resolve here; skip the rest so this check does not
       // inflate unrelated counts.
-      if (refs.length === 0 && abilityGrantRefs.length === 0 && diceTableErrors.length === 0) continue;
+      if (refs.length === 0 && abilityGrantRefs.length === 0 && diceTableErrors.length === 0 && sourceAbilityRefs.length === 0) continue;
       result.totalItems++;
       const errs: Array<{ path: string; message: string }> = [];
       for (const message of diceTableErrors) {
@@ -448,6 +464,15 @@ export async function checkReferentialIntegrity(dataRoot?: string): Promise<Vali
         }
       }
       const factionAbilityRecords = abilityRecordsByFaction.get(faction);
+      for (const { abilityId, owner } of sourceAbilityRefs) {
+        const resolves = owner === "enemy" ? allAbilityIds.has(abilityId) :
+          factionAbilityRecords?.has(abilityId) || coreAbilityById.has(abilityId);
+        if (!resolves) errs.push({
+          path: `/${i}/trigger/source_ability/ability_id`,
+          message: `ability "${a.id ?? a.ability_id}": source_ability "${abilityId}" does not resolve for ${owner} source in ${faction}`,
+        });
+      }
+
       for (const abilityId of abilityGrantRefs) {
         const grantedAbility = factionAbilityRecords?.get(abilityId) ?? coreAbilityById.get(abilityId);
         if (!grantedAbility) {

@@ -264,7 +264,7 @@ func describeCondition(c map[string]any) string {
 	switch c["operator"] {
 	case "and":
 		if len(operands) > 0 {
-			return joinConds(operands, " and ")
+			return joinCompoundConds(operands, " and ", "or")
 		}
 	case "or":
 		if len(operands) > 0 {
@@ -272,7 +272,7 @@ func describeCondition(c map[string]any) string {
 			for _, operand := range operands {
 				condition, _ := asMap(operand)
 				if condition["negated"] == true || condition["type"] != "unit-has-keyword" {
-					return joinConds(operands, " or ")
+					return joinCompoundConds(operands, " or ", "and")
 				}
 				parameters, _ := getMap(condition, "parameters")
 				keywords = append(keywords, cstr(parameters["keyword"]))
@@ -297,6 +297,9 @@ func describeCondition(c map[string]any) string {
 
 	switch ctype {
 	case "phase-is":
+		if p["phase"] == "command" || p["phase"] == "command-phase" {
+			return negate + "during the Command phase"
+		}
 		return negate + "during the " + cstr(p["phase"]) + " phase"
 	case "timing-is":
 		if c["negated"] == true {
@@ -387,7 +390,7 @@ func describeCondition(c map[string]any) string {
 		}
 		boundSource := ""
 		if source, ok := p["source"].(map[string]any); ok && source["event_var"] != nil {
-			boundSource = " from that enemy unit"
+			boundSource = " from the triggering unit"
 		} else if p["source"] != nil {
 			boundSource = " from " + cstr(p["source"])
 		}
@@ -444,6 +447,23 @@ func describeCondition(c map[string]any) string {
 		}
 		return negate + "an enemy unit is within " + within
 	case "unit-within-range-of":
+		if keywords := getStrList(p, "keywords"); len(keywords) > 0 {
+			who := "the unit"
+			if p["subject"] == "self" {
+				who = "this model"
+			} else if p["subject"] == "triggering-unit" {
+				who = "the triggering unit"
+			}
+			distance := cstr(p["range"]) + "\""
+			if p["range"] == "engagement" {
+				distance = "Engagement Range"
+			}
+			owner := "enemy"
+			if p["target_type"] == "friendly-keyword" {
+				owner = "friendly"
+			}
+			return negate + who + " is within " + distance + " of one or more " + owner + " units with all of " + strings.Join(keywords, " and ")
+		}
 		tt := "target"
 		if p["target_type"] != nil {
 			tt = cstr(p["target_type"])
@@ -472,7 +492,24 @@ func describeCondition(c map[string]any) string {
 		}
 		return negate + "within " + dist + " of " + who
 	case "within-range-of-objective":
-		return negate + "within range of an objective"
+		if p["subject"] == nil && p["controlled_by"] == nil {
+			return negate + "within range of an objective"
+		}
+		who := "the unit"
+		if p["subject"] == "target" {
+			who = "the target unit"
+		} else if p["subject"] == "attacker" {
+			who = "the attacking unit"
+		}
+		control := ""
+		if p["controlled_by"] == "your-army" {
+			control = " you control"
+		} else if p["controlled_by"] == "opponent" {
+			control = " your opponent controls"
+		}
+		return negate + who + " is within range of an objective marker" + control
+	case "target-is-visible":
+		return negate + "the target is visible to the attacking model"
 	case "has-fought-this-phase":
 		return negate + "has fought this phase"
 	case "destroyed-by-attack-type":
@@ -490,7 +527,7 @@ func describeCondition(c map[string]any) string {
 		}
 		return negate + "the attack's " + sv(p["attacker_stat"]) + " is " + dekebab(sv(p["comparison"])) + " the target's " + sv(p["target_stat"])
 	case "made-ingress-move-this-turn":
-		return negate + "the unit made an ingress move this turn"
+		return negate + "the unit made an ingress move (including a Deep Strike setup) this turn"
 	case "engagement-state":
 		if p["state"] == nil {
 			return negate + "the unit is within Engagement Range"
@@ -765,4 +802,17 @@ func countMinOr1(p map[string]any) any {
 		return p["count_min"]
 	}
 	return float64(1)
+}
+
+func joinCompoundConds(operands []any, separator, opposite string) string {
+	parts := []string{}
+	for _, raw := range operands {
+		condition, _ := asMap(raw)
+		phrase := describeCondition(condition)
+		if condition["operator"] == opposite {
+			phrase = "(" + phrase + ")"
+		}
+		parts = append(parts, phrase)
+	}
+	return strings.Join(parts, separator)
 }

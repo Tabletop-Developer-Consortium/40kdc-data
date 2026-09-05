@@ -67,7 +67,10 @@
           "description": "Identifier exactly as assigned by the external source."
         }
       },
-      "required": ["namespace", "id"],
+      "required": [
+        "namespace",
+        "id"
+      ],
       "additionalProperties": false
     },
     "external-reference-list": {
@@ -80,8 +83,14 @@
     },
     "phase": {
       "type": "string",
-      "enum": ["command", "movement", "shooting", "charge", "fight"],
-      "description": "The five official game phases. Unchanged between 10th and 11th edition \u2014 11e reorders Pile In timing within the Fight phase but adds no top-level phase."
+      "enum": [
+        "command",
+        "movement",
+        "shooting",
+        "charge",
+        "fight"
+      ],
+      "description": "The five official game phases. Unchanged between 10th and 11th edition — 11e reorders Pile In timing within the Fight phase but adds no top-level phase."
     },
     "phase-list": {
       "type": "array",
@@ -104,7 +113,11 @@
     },
     "player-turn": {
       "type": "string",
-      "enum": ["your-turn", "opponent-turn", "either"],
+      "enum": [
+        "your-turn",
+        "opponent-turn",
+        "either"
+      ],
       "description": "Which player's turn this applies during"
     },
     "game-event": {
@@ -169,12 +182,17 @@
         "on-damage-allocated",
         "battle-shock-test",
         "leadership-test",
-        "desperate-escape-test"
+        "desperate-escape-test",
+        "stratagem-targeted",
+        "ability-target-selected"
       ]
     },
     "battle-size": {
       "type": "string",
-      "enum": ["incursion", "strike-force"],
+      "enum": [
+        "incursion",
+        "strike-force"
+      ],
       "description": "11e battle size, which sets the army's points limit and detachment-point budget: 'incursion' = 1000 pts / 2 detachment points; 'strike-force' = 2000 pts / 3 detachment points."
     },
     "force-disposition-id": {
@@ -190,7 +208,12 @@
     },
     "game-mode-id": {
       "type": "string",
-      "enum": ["matched-play", "combat-patrol", "boarding-actions", "crusade"],
+      "enum": [
+        "matched-play",
+        "combat-patrol",
+        "boarding-actions",
+        "crusade"
+      ],
       "description": "The game mode an army-construction entity is legal or authored for, parallel to the game_version edition axis. 'matched-play' is the competitive default: when an entity omits `game_modes`, treat it as matched-play only. 'combat-patrol', 'boarding-actions', and 'crusade' are non-competitive modes; of these only combat-patrol currently has an ingest source and coverage measurement (the others are schema-homed for hand-authoring)."
     },
     "game-modes": {
@@ -213,11 +236,14 @@
           "type": "number"
         }
       },
-      "required": ["x", "y"],
+      "required": [
+        "x",
+        "y"
+      ],
       "additionalProperties": false
     },
     "footprint": {
-      "description": "A terrain piece's 2D footprint in local inches (y-down): an axis-aligned rectangle with its min corner at the local origin, a right triangle with the right angle at the local origin and legs along +x/+y, or an explicit polygon (>= 3 points). The placement resolver re-centers the footprint on its polygon area centroid, so the local-origin convention does not affect where the piece lands \u2014 only its shape matters.",
+      "description": "A terrain piece's 2D footprint in local inches (y-down): an axis-aligned rectangle with its min corner at the local origin, a right triangle with the right angle at the local origin and legs along +x/+y, or an explicit polygon (>= 3 points). The placement resolver re-centers the footprint on its polygon area centroid, so the local-origin convention does not affect where the piece lands — only its shape matters.",
       "oneOf": [
         {
           "type": "object",
@@ -234,7 +260,11 @@
               "exclusiveMinimum": 0
             }
           },
-          "required": ["type", "width", "height"],
+          "required": [
+            "type",
+            "width",
+            "height"
+          ],
           "additionalProperties": false
         },
         {
@@ -252,7 +282,11 @@
               "exclusiveMinimum": 0
             }
           },
-          "required": ["type", "width", "height"],
+          "required": [
+            "type",
+            "width",
+            "height"
+          ],
           "additionalProperties": false
         },
         {
@@ -269,7 +303,10 @@
               "minItems": 3
             }
           },
-          "required": ["type", "points"],
+          "required": [
+            "type",
+            "points"
+          ],
           "additionalProperties": false
         }
       ]
@@ -280,7 +317,9 @@
       "properties": {
         "points": {
           "type": "array",
-          "items": { "$ref": "#/$defs/vec2" },
+          "items": {
+            "$ref": "#/$defs/vec2"
+          },
           "minItems": 2
         },
         "thickness": {
@@ -289,12 +328,18 @@
           "description": "Wall thickness in inches. Omit for thin walls."
         }
       },
-      "required": ["points"],
+      "required": [
+        "points"
+      ],
       "additionalProperties": false
     },
     "terrain-area-keyword": {
       "type": "string",
-      "enum": ["obscuring", "hidden", "plunging-fire"],
+      "enum": [
+        "obscuring",
+        "hidden",
+        "plunging-fire"
+      ],
       "description": "An 11e terrain-area keyword. Confirmed launch set; extend as further keywords publish on dataslate."
     },
     "base-size": {
@@ -302,7 +347,13 @@
       "description": "A model's base. 'round' carries 'diameter'; 'oval' carries 'width'+'length'. 'flying-base' (with 'size': small/large), 'hull', and 'unique' are categories the GW base-size guide gives without standard millimetre dimensions; entries carrying such a category, or any millimetre value not taken from an authoritative source, set 'draft': true to mark them for later hand-authoring.",
       "properties": {
         "shape": {
-          "enum": ["round", "oval", "flying-base", "hull", "unique"]
+          "enum": [
+            "round",
+            "oval",
+            "flying-base",
+            "hull",
+            "unique"
+          ]
         },
         "diameter": {
           "type": "number",
@@ -317,7 +368,10 @@
           "exclusiveMinimum": 0
         },
         "size": {
-          "enum": ["small", "large"],
+          "enum": [
+            "small",
+            "large"
+          ],
           "description": "Flying-base size class, when 'shape' is 'flying-base'."
         },
         "draft": {
@@ -326,7 +380,9 @@
           "description": "True when the entry is provisional/guessed (e.g. a category without authoritative dimensions) and should be revisited."
         }
       },
-      "required": ["shape"],
+      "required": [
+        "shape"
+      ],
       "additionalProperties": false
     }
   }

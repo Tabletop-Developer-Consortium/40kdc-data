@@ -5,7 +5,7 @@ structural stub — an effect carrying an empty-modifier placeholder node that s
 DSL authored. This is the actionable counterpart to the per-faction `stub*` counts in
 [`CONTRIBUTING.md`](../../CONTRIBUTING.md) and [`summary.md`](summary.md).
 
-Total: 46 stub abilities.
+Total: 45 stub abilities.
 
 | faction | ability | shape | needs |
 |---|---|---|---|
@@ -39,8 +39,7 @@ Total: 46 stub abilities.
 | emperors-children | reactive-disembarkation-rapid-evisceration | disembark | effect type "disembark" is not modelled by the buff layer |
 | emperors-children | the-scent-of-blood | stat-modifier | stat-modifier: operation "undefined" not supported |
 | genestealer-cults | hordes-of-the-faithful | stat-modifier | stat-modifier: operation "undefined" not supported |
-| grey-knights | hallowed-ground | sequence | effect type "terrain-area-tag" is not modelled by the buff layer |
-| necrons | engrammatic-logic | select-units | effect type "remove-battle-shock" is not modelled by the buff layer |
+| necrons | engrammatic-logic | select-units | selection/history/model/attack predicates are not resolved by the buff engine |
 | orks | da-grand-warlords-ladz | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | makari-hoist-dat-banner | stat-modifier | stat-modifier: operation "undefined" not supported |
 | orks | nazdregs-know-wotz | stat-modifier | stat-modifier: operation "undefined" not supported |

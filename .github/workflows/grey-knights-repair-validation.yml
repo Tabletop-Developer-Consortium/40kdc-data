@@ -1,0 +1,40 @@
+name: Grey Knights repair validation workspace
+
+on:
+  push:
+    branches:
+      - repair/grey-knights-dsl-fidelity-20260904
+    paths:
+      - .github/workflows/grey-knights-repair-validation.yml
+
+permissions:
+  contents: read
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: cd tools && npm ci && npm run build
+      - name: Archive tracked sources and validation dependencies
+        shell: bash
+        run: |
+          mkdir -p /tmp/gk-repair-artifacts
+          git rev-parse HEAD > /tmp/gk-repair-artifacts/commit.txt
+          git archive --format=tar HEAD | gzip > /tmp/gk-repair-artifacts/source.tar.gz
+          paths=(tools/dist)
+          for p in node_modules tools/node_modules; do
+            if test -d "$p"; then paths+=("$p"); fi
+          done
+          tar -czf /tmp/gk-repair-artifacts/validation-dependencies.tar.gz "${paths[@]}"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: grey-knights-repair-workspace
+          path: /tmp/gk-repair-artifacts/
+          retention-days: 3

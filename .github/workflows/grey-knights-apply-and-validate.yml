@@ -53,13 +53,8 @@ jobs:
           python /tmp/gk-apply.py .github/gk-repair-payload-{1,2,3,4}.b64
           python .github/gk-repair-followup.py
           python /tmp/gk-apply.py .github/gk-repair-supplement.b64
-          python - <<'PY'
-          from pathlib import Path
-          p = Path('docs/grey-knights-dsl-fidelity-2026-09-04.md')
-          with p.open('a') as f:
-              f.write('\n## Current snapshot cross-check\n\nThe MFM snapshot version 946 (retrieved 2026-09-05 UTC) was inspected directly. Sanctuary is record `ed3e0117-7cc4-40ba-99b1-81214859f748`; Warrior Strategist is `869d3ffc-71c1-42a0-9c65-99d1a2865f27`, joined to both Grand Master datasheets; Personal Teleporters is `af1d2b93-4a43-4a22-8ba0-f038d26635bc`. Grey Knights Venerable Dreadnought datasheet `2546f875-62df-48b7-b91e-6bd4cdf5805e` references Guidance and Fervour, not Wisdom. These checks establish current relationships rather than relying on the raw store\'s provisional-edition metadata.\n')
-          PY
-          rm .github/gk-repair-payload-*.b64 .github/gk-repair-followup.py .github/gk-repair-supplement.b64
+          python .github/gk-repair-finalize.py
+          rm .github/gk-repair-payload-*.b64 .github/gk-repair-followup.py .github/gk-repair-supplement.b64 .github/gk-repair-finalize.py
           git add -A
       - name: Install validation tools
         shell: bash
@@ -75,17 +70,24 @@ jobs:
           just fmt 2>&1 | tee /tmp/gk-validation/fmt.log
           git add -A
       - name: Run complete preflight and prove regeneration stability
+        id: preflight
+        continue-on-error: true
         shell: bash
         run: |
           set -o pipefail
           just preflight 2>&1 | tee /tmp/gk-validation/preflight.log
       - name: Build parity runners
+        id: runners
+        continue-on-error: true
         shell: bash
         run: |
           set -o pipefail
           cargo build --release --bin wh40kdc-runner 2>&1 | tee /tmp/gk-validation/rust-runner.log
           (cd go && go build -o wh40kdc-runner ./cmd/wh40kdc-runner) 2>&1 | tee /tmp/gk-validation/go-runner.log
       - name: Replay corpus across all six language pairs
+        id: parity
+        if: steps.runners.outcome == 'success'
+        continue-on-error: true
         shell: bash
         run: |
           set -o pipefail
@@ -95,6 +97,9 @@ jobs:
           done
           exit "$status"
       - name: Run normal deterministic parity fuzzing
+        id: fuzz
+        if: steps.runners.outcome == 'success'
+        continue-on-error: true
         shell: bash
         run: |
           set -o pipefail
@@ -106,6 +111,16 @@ jobs:
             python3 tooling/parity/differ.py --pair "$pair" --mode fuzz --fuzz-target crunch --fuzz-seed 1 --fuzz-count 200 2>&1 | tee "/tmp/gk-validation/fuzz-crunch-${pair/,/-}.log" || status=1
           done
           exit "$status"
+      - name: Require every verification gate before committing
+        shell: bash
+        env:
+          PREFLIGHT: ${{ steps.preflight.outcome }}
+          RUNNERS: ${{ steps.runners.outcome }}
+          PARITY: ${{ steps.parity.outcome }}
+          FUZZ: ${{ steps.fuzz.outcome }}
+        run: |
+          printf 'preflight=%s runners=%s parity=%s fuzz=%s\n' "$PREFLIGHT" "$RUNNERS" "$PARITY" "$FUZZ" | tee /tmp/gk-validation/gates.txt
+          test "$PREFLIGHT" = success && test "$RUNNERS" = success && test "$PARITY" = success && test "$FUZZ" = success
       - name: Commit verified repair to the isolated branch
         shell: bash
         run: |

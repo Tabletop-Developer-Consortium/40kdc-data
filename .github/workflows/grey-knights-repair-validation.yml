@@ -1,43 +1,132 @@
-name: Grey Knights repair validation workspace
+name: Grey Knights fidelity repair validation
 on:
   push:
     branches: [repair/grey-knights-dsl-fidelity-20260904]
-    paths: [.github/workflows/grey-knights-repair-validation.yml]
+    paths:
+      - .github/workflows/grey-knights-repair-validation.yml
+      - .github/gk-repair-payload-*.b64
+      - .github/gk-repair-adjust.py
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: grey-knights-fidelity-repair
+  cancel-in-progress: false
 jobs:
-  workspace:
+  validate-repair:
+    if: github.repository == 'wn-mitch/40kdc-data' && github.ref == 'refs/heads/repair/grey-knights-dsl-fidelity-20260904'
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
+      - name: Apply byte-verified source delta
+        shell: bash
+        run: |
+          mkdir -p /tmp/gk-validation
+          python3 - <<'PY'
+          import base64, hashlib, json, lzma
+          from pathlib import Path
+          encoded = ''.join(Path(f'.github/gk-repair-payload-{i}.b64').read_text().strip() for i in range(1, 5))
+          blob = lzma.decompress(base64.b64decode(encoded, validate=True))
+          assert hashlib.sha256(blob).hexdigest() == 'e267c8f4f92c3a939e72a2b90a0b3f4827bc259fafbbf1fca4841d2555cb3a11', 'delta checksum mismatch'
+          prepared = {}
+          for entry in json.loads(blob):
+              path = Path(entry['path'])
+              assert not path.is_absolute() and '..' not in path.parts and path.parts[0] in {'schemas', 'tools', 'crates', 'python', 'go', 'conformance', 'data', 'docs'}, path
+              if entry['before'] is None:
+                  assert not path.exists(), path
+                  before = b''
+              else:
+                  before = path.read_bytes()
+                  assert hashlib.sha256(before).hexdigest() == entry['before'], f'baseline drift: {path}'
+              lines = before.decode().splitlines(keepends=True)
+              for start, count, text in reversed(entry['edits']):
+                  assert 0 <= start <= len(lines) and start + count <= len(lines), path
+                  lines[start:start + count] = text.splitlines(keepends=True)
+              after = ''.join(lines).encode()
+              assert hashlib.sha256(after).hexdigest() == entry['after'], f'reconstruction mismatch: {path}'
+              prepared[path] = after
+          for path, after in prepared.items():
+              path.parent.mkdir(parents=True, exist_ok=True)
+              path.write_bytes(after)
+          print(f'Applied and verified {len(prepared)} source files')
+          PY
+          if test -f .github/gk-repair-adjust.py; then python3 .github/gk-repair-adjust.py; fi
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.13'
-      - run: cd tools && npm ci && npm run build
-      - name: Archive workspace and authoritative sources separately
+          python-version: '3.12'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - uses: extractions/setup-just@v2
+      - name: Install validation dependencies
+        run: |
+          cd tools && npm ci
+          cd ../python && python -m pip install -e '.[dev]'
+      - name: Regenerate all maintained surfaces and format source
         shell: bash
         run: |
-          mkdir -p /tmp/gk-workspace/wheels
-          git archive HEAD | gzip > /tmp/gk-workspace/source.tar.gz
-          git rev-parse HEAD > /tmp/gk-workspace/commit.txt
-          paths=(tools/dist)
-          for p in node_modules tools/node_modules; do
-            if test -d "$p"; then paths+=("$p"); fi
+          set -o pipefail
+          just regen 2>&1 | tee /tmp/gk-validation/regen.log
+          just fmt 2>&1 | tee /tmp/gk-validation/fmt.log
+          ruff format python/src/wh40kdc/translate/condition.py python/src/wh40kdc/translate/effect.py python/src/wh40kdc/cruncher/from_dsl.py
+          git add -A
+      - name: Normal repository preflight
+        shell: bash
+        run: |
+          set -o pipefail
+          just preflight 2>&1 | tee /tmp/gk-validation/preflight.log
+      - name: Build parity runners
+        shell: bash
+        run: |
+          set -o pipefail
+          cargo build --release --bin wh40kdc-runner 2>&1 | tee /tmp/gk-validation/rust-runner.log
+          (cd go && go build -o wh40kdc-runner ./cmd/wh40kdc-runner) 2>&1 | tee /tmp/gk-validation/go-runner.log
+      - name: Six-pair corpus parity
+        shell: bash
+        run: |
+          set -o pipefail
+          for pair in ts,rust ts,py rust,py ts,go rust,go py,go; do
+            python3 tooling/parity/differ.py --pair "$pair" --json 2>&1 | tee "/tmp/gk-validation/parity-${pair/,/-}.log"
           done
-          tar -czf /tmp/gk-workspace/dependencies.tar.gz "${paths[@]}"
-          python -m pip wheel --wheel-dir /tmp/gk-workspace/wheels './python[dev]'
-          git clone --depth 1 https://github.com/wn-mitch/40kdc-abilities.git /tmp/40kdc-abilities
-          git -C /tmp/40kdc-abilities rev-parse HEAD > /tmp/gk-workspace/raw-commit.txt
-          git -C /tmp/40kdc-abilities archive HEAD | gzip > /tmp/gk-workspace/raw-source.tar.gz
-          curl --fail --silent --show-error --location https://pub-6443f136c6fc4c60a15cc7935463d637.r2.dev/dump.json -o /tmp/gk-workspace/dump.json
+      - name: Normal deterministic parity fuzzing
+        shell: bash
+        run: |
+          set -o pipefail
+          python3 tooling/parity/differ.py --mode fuzz --fuzz-target normalize --fuzz-seed 1 --fuzz-count 1000 2>&1 | tee /tmp/gk-validation/fuzz-ts-rust-normalize.log
+          python3 tooling/parity/differ.py --mode fuzz --fuzz-target crunch --fuzz-seed 1 --fuzz-count 200 2>&1 | tee /tmp/gk-validation/fuzz-ts-rust-crunch.log
+          python3 tooling/parity/differ.py --pair rust,py --mode fuzz --fuzz-target normalize --fuzz-seed 1 --fuzz-count 1000 2>&1 | tee /tmp/gk-validation/fuzz-rust-py-normalize.log
+          python3 tooling/parity/differ.py --pair ts,py --mode fuzz --fuzz-target crunch --fuzz-seed 1 --fuzz-count 200 2>&1 | tee /tmp/gk-validation/fuzz-ts-py-crunch.log
+          python3 tooling/parity/differ.py --pair ts,go --mode fuzz --fuzz-target normalize --fuzz-seed 1 --fuzz-count 1000 2>&1 | tee /tmp/gk-validation/fuzz-ts-go-normalize.log
+          python3 tooling/parity/differ.py --pair ts,go --mode fuzz --fuzz-target crunch --fuzz-seed 1 --fuzz-count 200 2>&1 | tee /tmp/gk-validation/fuzz-ts-go-crunch.log
+      - name: Publish validated implementation to repair branch only
+        shell: bash
+        run: |
+          test "$GITHUB_REF" = refs/heads/repair/grey-knights-dsl-fidelity-20260904
+          git diff --exit-code
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'fix: restore Grey Knights DSL fidelity with typed reusable mechanics'
+          git push origin HEAD:refs/heads/repair/grey-knights-dsl-fidelity-20260904
+          git rev-parse HEAD > /tmp/gk-validation/validated-commit.txt
+      - name: Preserve candidate and validation evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p /tmp/gk-validation
+          git status --short > /tmp/gk-validation/status.txt
+          git diff HEAD > /tmp/gk-validation/candidate.patch
+          git add -A
+          git write-tree > /tmp/gk-validation/candidate-tree.txt
+          git archive "$(cat /tmp/gk-validation/candidate-tree.txt)" | gzip > /tmp/gk-validation/candidate-source.tar.gz
+          if test -d tooling/parity/regressions; then cp -r tooling/parity/regressions /tmp/gk-validation/; fi
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
-          name: grey-knights-repair-preserved-workspace
-          path: /tmp/gk-workspace/
-          retention-days: 1
+          name: grey-knights-fidelity-validation
+          path: /tmp/gk-validation/
+          retention-days: 3

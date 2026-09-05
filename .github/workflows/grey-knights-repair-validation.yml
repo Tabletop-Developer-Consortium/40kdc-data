@@ -6,27 +6,38 @@ on:
 permissions:
   contents: read
 jobs:
-  runtimes:
+  workspace:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - uses: actions/setup-go@v5
-        with:
-          go-version: '1.24'
-      - name: Stage matching offline runtimes
+      - run: cd tools && npm ci && npm run build
+      - name: Archive workspace and authoritative sources separately
         shell: bash
         run: |
-          mkdir -p /tmp/gk-runtimes/wheels
-          python -m pip wheel --wheel-dir /tmp/gk-runtimes/wheels './python[dev]'
-          tar -C "$(go env GOROOT)" -czf /tmp/gk-runtimes/go-toolchain.tar.gz .
+          mkdir -p /tmp/gk-workspace/wheels
+          git archive HEAD | gzip > /tmp/gk-workspace/source.tar.gz
+          git rev-parse HEAD > /tmp/gk-workspace/commit.txt
+          paths=(tools/dist)
+          for p in node_modules tools/node_modules; do
+            if test -d "$p"; then paths+=("$p"); fi
+          done
+          tar -czf /tmp/gk-workspace/dependencies.tar.gz "${paths[@]}"
+          python -m pip wheel --wheel-dir /tmp/gk-workspace/wheels './python[dev]'
+          git clone --depth 1 https://github.com/wn-mitch/40kdc-abilities.git /tmp/40kdc-abilities
+          git -C /tmp/40kdc-abilities rev-parse HEAD > /tmp/gk-workspace/raw-commit.txt
+          git -C /tmp/40kdc-abilities archive HEAD | gzip > /tmp/gk-workspace/raw-source.tar.gz
+          curl --fail --silent --show-error --location https://pub-6443f136c6fc4c60a15cc7935463d637.r2.dev/dump.json -o /tmp/gk-workspace/dump.json
       - uses: actions/upload-artifact@v4
         with:
-          name: grey-knights-offline-runtimes
-          path: /tmp/gk-runtimes/
+          name: grey-knights-repair-preserved-workspace
+          path: /tmp/gk-workspace/
           retention-days: 1

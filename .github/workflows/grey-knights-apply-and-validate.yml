@@ -1,0 +1,136 @@
+name: Apply and validate Grey Knights fidelity repair
+on:
+  push:
+    branches: [repair/grey-knights-dsl-fidelity-20260904]
+    paths: [.github/workflows/grey-knights-apply-and-validate.yml]
+permissions:
+  contents: write
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: repair/grey-knights-dsl-fidelity-20260904
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.24'
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Apply hash-checked repair delta
+        shell: bash
+        run: |
+          mkdir -p /tmp/gk-validation
+          python - <<'PY'
+          import base64, hashlib, json, lzma
+          from pathlib import Path
+          encoded = ''.join(Path(f'.github/gk-repair-payload-{n}.b64').read_text().strip() for n in range(1, 5))
+          changes = json.loads(lzma.decompress(base64.b64decode(encoded)))
+          for change in changes:
+              p = Path(change['path'])
+              assert not p.is_absolute() and '..' not in p.parts
+              before = p.read_bytes() if p.exists() else b''
+              digest = hashlib.sha256(before).hexdigest()
+              if digest == change['after']:
+                  continue
+              assert (change['before'] is None and not p.exists()) or digest == change['before'], str(p)
+              lines = before.decode().splitlines(keepends=True)
+              for start, count, replacement in reversed(change['edits']):
+                  lines[start:start + count] = [replacement]
+              after = ''.join(lines).encode()
+              assert hashlib.sha256(after).hexdigest() == change['after'], str(p)
+              p.parent.mkdir(parents=True, exist_ok=True)
+              p.write_bytes(after)
+              print('APPLIED', p)
+          PY
+          python .github/gk-repair-followup.py
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('docs/grey-knights-dsl-fidelity-2026-09-04.md')
+          with p.open('a') as f:
+              f.write('\n## Current snapshot cross-check\n\nThe MFM snapshot version 946 (retrieved 2026-09-05 UTC) was inspected directly. Sanctuary is record `ed3e0117-7cc4-40ba-99b1-81214859f748`; Warrior Strategist is `869d3ffc-71c1-42a0-9c65-99d1a2865f27`, joined to both Grand Master datasheets; Personal Teleporters is `af1d2b93-4a43-4a22-8ba0-f038d26635bc`. Grey Knights Venerable Dreadnought datasheet `2546f875-62df-48b7-b91e-6bd4cdf5805e` references Guidance and Fervour, not Wisdom. These checks establish current relationships rather than relying on the raw store\'s provisional-edition metadata.\n')
+          PY
+          rm .github/gk-repair-payload-*.b64 .github/gk-repair-followup.py
+          git add -A
+      - name: Install validation tools
+        shell: bash
+        run: |
+          cd tools && npm ci && cd ..
+          python -m pip install -e './python[dev]'
+          cargo install just --locked
+      - name: Regenerate and format every maintained language
+        shell: bash
+        run: |
+          set -o pipefail
+          just regen 2>&1 | tee /tmp/gk-validation/regen.log
+          just fmt 2>&1 | tee /tmp/gk-validation/fmt.log
+          git add -A
+      - name: Run complete preflight and prove regeneration stability
+        shell: bash
+        run: |
+          set -o pipefail
+          just preflight 2>&1 | tee /tmp/gk-validation/preflight.log
+      - name: Build parity runners
+        shell: bash
+        run: |
+          set -o pipefail
+          cargo build --release --bin wh40kdc-runner 2>&1 | tee /tmp/gk-validation/rust-runner.log
+          (cd go && go build -o wh40kdc-runner ./cmd/wh40kdc-runner) 2>&1 | tee /tmp/gk-validation/go-runner.log
+      - name: Replay corpus across all six language pairs
+        shell: bash
+        run: |
+          set -o pipefail
+          status=0
+          for pair in ts,rust ts,py rust,py ts,go rust,go py,go; do
+            python3 tooling/parity/differ.py --pair "$pair" --json 2>&1 | tee "/tmp/gk-validation/parity-${pair/,/-}.log" || status=1
+          done
+          exit "$status"
+      - name: Run normal deterministic parity fuzzing
+        shell: bash
+        run: |
+          set -o pipefail
+          status=0
+          for pair in ts,rust rust,py ts,go; do
+            python3 tooling/parity/differ.py --pair "$pair" --mode fuzz --fuzz-target normalize --fuzz-seed 1 --fuzz-count 1000 2>&1 | tee "/tmp/gk-validation/fuzz-normalize-${pair/,/-}.log" || status=1
+          done
+          for pair in ts,rust ts,py ts,go; do
+            python3 tooling/parity/differ.py --pair "$pair" --mode fuzz --fuzz-target crunch --fuzz-seed 1 --fuzz-count 200 2>&1 | tee "/tmp/gk-validation/fuzz-crunch-${pair/,/-}.log" || status=1
+          done
+          exit "$status"
+      - name: Commit verified repair to the isolated branch
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A
+          git commit -m 'fix: preserve Grey Knights ability mechanics across the DSL'
+          git push origin HEAD:repair/grey-knights-dsl-fidelity-20260904
+          git rev-parse HEAD | tee /tmp/gk-validation/verified-commit.txt
+      - name: Preserve source, patch and validation evidence
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p /tmp/gk-validation
+          git diff --binary HEAD > /tmp/gk-validation/uncommitted.patch
+          git rev-parse HEAD > /tmp/gk-validation/head.txt
+          python - <<'PY'
+          import subprocess
+          from pathlib import Path
+          paths = subprocess.check_output(['git', 'ls-files', '-z']).split(b'\0')
+          paths = [p for p in paths if p and Path(p.decode()).is_file()]
+          Path('/tmp/gk-files').write_bytes(b'\0'.join(paths) + b'\0')
+          PY
+          tar -czf /tmp/gk-validation/source.tar.gz --null -T /tmp/gk-files
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: grey-knights-fidelity-validation
+          path: /tmp/gk-validation/
+          retention-days: 7

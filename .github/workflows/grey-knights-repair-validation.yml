@@ -11,30 +11,19 @@ permissions:
   contents: read
 
 jobs:
-  prepare:
+  source:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-      - run: cd tools && npm ci && npm run build
-      - name: Archive tracked sources and validation dependencies
+      - name: Fetch source snapshots outside repository
         shell: bash
         run: |
-          mkdir -p /tmp/gk-repair-artifacts
-          git rev-parse HEAD > /tmp/gk-repair-artifacts/commit.txt
-          git archive --format=tar HEAD | gzip > /tmp/gk-repair-artifacts/source.tar.gz
-          paths=(tools/dist)
-          for p in node_modules tools/node_modules; do
-            if test -d "$p"; then paths+=("$p"); fi
-          done
-          tar -czf /tmp/gk-repair-artifacts/validation-dependencies.tar.gz "${paths[@]}"
+          mkdir -p /tmp/gk-source
+          curl --fail --location --retry 2 https://pub-6443f136c6fc4c60a15cc7935463d637.r2.dev/dump.json -o /tmp/gk-source/dump.json
+          curl --fail --location --retry 2 https://raw.githubusercontent.com/wn-mitch/40kdc-abilities/main/grey-knights.json -o /tmp/gk-source/grey-knights.json
+          sha256sum /tmp/gk-source/*.json > /tmp/gk-source/checksums.txt
       - uses: actions/upload-artifact@v4
         with:
-          name: grey-knights-repair-workspace
-          path: /tmp/gk-repair-artifacts/
-          retention-days: 3
+          name: grey-knights-source-snapshot
+          path: /tmp/gk-source/
+          retention-days: 1

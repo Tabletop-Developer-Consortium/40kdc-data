@@ -6,34 +6,27 @@ on:
 permissions:
   contents: read
 jobs:
-  toolchains:
+  runtimes:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
         with:
           persist-credentials: false
-      - uses: dtolnay/rust-toolchain@stable
-        with:
-          components: rustfmt
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.11'
+          python-version: '3.13'
       - uses: actions/setup-go@v5
         with:
           go-version: '1.24'
-      - name: Stage offline validation dependencies
+      - name: Stage matching offline runtimes
         shell: bash
         run: |
-          mkdir -p /tmp/gk-tools/wheels
-          cargo fetch --locked
-          (cd go && go mod download)
-          python -m pip wheel --wheel-dir /tmp/gk-tools/wheels './python[dev]'
-          tar --exclude='share/doc' -C "$(rustc --print sysroot)" -czf /tmp/gk-tools/rust-toolchain.tar.gz bin lib etc
-          tar -C "$HOME/.cargo" -czf /tmp/gk-tools/cargo-registry.tar.gz registry
-          tar -C "$(go env GOPATH)" -czf /tmp/gk-tools/go-modules.tar.gz pkg/mod
+          mkdir -p /tmp/gk-runtimes/wheels
+          python -m pip wheel --wheel-dir /tmp/gk-runtimes/wheels './python[dev]'
+          tar -C "$(go env GOROOT)" -czf /tmp/gk-runtimes/go-toolchain.tar.gz .
       - uses: actions/upload-artifact@v4
         with:
-          name: grey-knights-offline-toolchains
-          path: /tmp/gk-tools/
+          name: grey-knights-offline-runtimes
+          path: /tmp/gk-runtimes/
           retention-days: 1

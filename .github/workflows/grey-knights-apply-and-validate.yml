@@ -24,14 +24,14 @@ jobs:
           go-version: '1.24'
       - uses: dtolnay/rust-toolchain@stable
       - uses: Swatinem/rust-cache@v2
-      - name: Apply hash-checked repair delta
+      - name: Apply hash-checked repair and integration deltas
         shell: bash
         run: |
           mkdir -p /tmp/gk-validation
-          python - <<'PY'
-          import base64, hashlib, json, lzma
+          cat > /tmp/gk-apply.py <<'PY'
+          import base64, hashlib, json, lzma, sys
           from pathlib import Path
-          encoded = ''.join(Path(f'.github/gk-repair-payload-{n}.b64').read_text().strip() for n in range(1, 5))
+          encoded = ''.join(Path(p).read_text().strip() for p in sys.argv[1:])
           changes = json.loads(lzma.decompress(base64.b64decode(encoded)))
           for change in changes:
               p = Path(change['path'])
@@ -50,14 +50,16 @@ jobs:
               p.write_bytes(after)
               print('APPLIED', p)
           PY
+          python /tmp/gk-apply.py .github/gk-repair-payload-{1,2,3,4}.b64
           python .github/gk-repair-followup.py
+          python /tmp/gk-apply.py .github/gk-repair-supplement.b64
           python - <<'PY'
           from pathlib import Path
           p = Path('docs/grey-knights-dsl-fidelity-2026-09-04.md')
           with p.open('a') as f:
               f.write('\n## Current snapshot cross-check\n\nThe MFM snapshot version 946 (retrieved 2026-09-05 UTC) was inspected directly. Sanctuary is record `ed3e0117-7cc4-40ba-99b1-81214859f748`; Warrior Strategist is `869d3ffc-71c1-42a0-9c65-99d1a2865f27`, joined to both Grand Master datasheets; Personal Teleporters is `af1d2b93-4a43-4a22-8ba0-f038d26635bc`. Grey Knights Venerable Dreadnought datasheet `2546f875-62df-48b7-b91e-6bd4cdf5805e` references Guidance and Fervour, not Wisdom. These checks establish current relationships rather than relying on the raw store\'s provisional-edition metadata.\n')
           PY
-          rm .github/gk-repair-payload-*.b64 .github/gk-repair-followup.py
+          rm .github/gk-repair-payload-*.b64 .github/gk-repair-followup.py .github/gk-repair-supplement.b64
           git add -A
       - name: Install validation tools
         shell: bash

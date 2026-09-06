@@ -461,6 +461,18 @@ fn handle_check_unit_legality(state: &mut RunnerState, args: &Value) -> Value {
     ok_value(Value::Array(encoded))
 }
 
+/// Read a count argument that the protocol writes as a decimal string but that
+/// the TS/Python/Go runners also accept as a JSON number (`Number(...)`,
+/// `int(...)`, `asInt(...)`). Accepting both keeps the four runners
+/// interchangeable for the same corpus case.
+fn json_u64(value: &Value) -> Option<u64> {
+    match value {
+        Value::String(s) => s.parse().ok(),
+        Value::Number(n) => n.as_u64(),
+        _ => None,
+    }
+}
+
 /// Parse a battle-size label into the importer's [`BattleSize`]; `None` for an
 /// absent or unrecognised value (matches the TS `battleSize as BattleSize | null`).
 fn parse_battle_size(args: &Value, key: &str) -> Option<wh40kdc::import::BattleSize> {
@@ -811,11 +823,11 @@ fn handle_linked_query(state: &mut RunnerState, args: &Value) -> Value {
             let tiers = composition.map(|c| wh40kdc::loadout_tiers(&c.tiers));
             let limit = input
                 .get("limit")
-                .and_then(Value::as_str)
-                .and_then(|v| v.parse().ok());
+                .and_then(json_u64)
+                .and_then(|n| usize::try_from(n).ok());
             ok_value(json!(wh40kdc::loadout_candidates(
                 unit,
-                str_arg("modelCount").parse().unwrap_or(0),
+                input.get("modelCount").and_then(json_u64).unwrap_or(0),
                 &ds.wargear_options_of(unit),
                 models.as_deref(),
                 tiers.as_deref(),
@@ -1760,5 +1772,19 @@ mod self_tests {
     fn spec_version_loads() {
         let v = load_spec_version();
         assert!(v >= 1, "spec version: {v}");
+    }
+
+    /// The protocol writes counts as decimal strings, but the TS/Python/Go
+    /// runners also accept a bare JSON number for the same corpus case; a
+    /// number must not fall through to the caller's default.
+    #[test]
+    fn json_u64_accepts_string_and_number() {
+        assert_eq!(json_u64(&json!("32")), Some(32));
+        assert_eq!(json_u64(&json!(32)), Some(32));
+        assert_eq!(json_u64(&json!(0)), Some(0));
+        assert_eq!(json_u64(&json!("abc")), None);
+        assert_eq!(json_u64(&json!(-1)), None);
+        assert_eq!(json_u64(&json!(1.5)), None);
+        assert_eq!(json_u64(&Value::Null), None);
     }
 }

@@ -363,7 +363,7 @@ pub(super) fn describe_node(n: &ConditionNode) -> String {
             CompoundConditionOperator::And => c
                 .operands
                 .iter()
-                .map(describe_node)
+                .map(|node| describe_compound_operand(node, CompoundConditionOperator::Or))
                 .collect::<Vec<_>>()
                 .join(" and "),
             CompoundConditionOperator::Or => {
@@ -395,7 +395,7 @@ pub(super) fn describe_node(n: &ConditionNode) -> String {
                 } else {
                     c.operands
                         .iter()
-                        .map(describe_node)
+                        .map(|node| describe_compound_operand(node, CompoundConditionOperator::And))
                         .collect::<Vec<_>>()
                         .join(" or ")
                 }
@@ -453,7 +453,17 @@ fn describe_simple(s: &SimpleCondition) -> String {
     use SimpleConditionType as T;
     match s.type_ {
         // ── Ability-DSL conditions ──────────────────────────────────────────
-        T::PhaseIs => format!("{negate}during the {} phase", pj(p, "phase")),
+        T::PhaseIs => {
+            let phase = pj(p, "phase");
+            format!(
+                "{negate}during the {} phase",
+                if phase == "command" || phase == "command-phase" {
+                    "Command"
+                } else {
+                    &phase
+                }
+            )
+        }
         T::TimingIs => {
             let timing = ps(p, "timing").unwrap_or("?");
             if s.negated {
@@ -563,7 +573,7 @@ fn describe_simple(s: &SimpleCondition) -> String {
             };
             let bound_source = match p.get("source") {
                 Some(Value::Object(source)) if source.get("event_var").is_some() => {
-                    " from that enemy unit".to_string()
+                    " from the triggering unit".to_string()
                 }
                 Some(v) if !v.is_null() => format!(" from {}", effect::jval(v)),
                 _ => String::new(),
@@ -620,6 +630,29 @@ fn describe_simple(s: &SimpleCondition) -> String {
             format!("{negate}an enemy unit is within {r}")
         }
         T::UnitWithinRangeOf => {
+            if let Some(keywords) = p.get("keywords").and_then(Value::as_array) {
+                let who = match ps(p, "subject") {
+                    Some("self") => "this model",
+                    Some("triggering-unit") => "the triggering unit",
+                    _ => "the unit",
+                };
+                let distance = if ps(p, "range") == Some("engagement") {
+                    "Engagement Range".to_string()
+                } else {
+                    format!("{}\"", pj(p, "range"))
+                };
+                let owner = if ps(p, "target_type") == Some("friendly-keyword") {
+                    "friendly"
+                } else {
+                    "enemy"
+                };
+                let keywords = keywords
+                    .iter()
+                    .map(effect::jval)
+                    .collect::<Vec<_>>()
+                    .join(" and ");
+                return format!("{negate}{who} is within {distance} of one or more {owner} units with all of {keywords}");
+            }
             let tt = ps(p, "target_type").unwrap_or("target");
             if tt == "closest-eligible" {
                 let within = if pnn(p, "range") {
@@ -646,7 +679,23 @@ fn describe_simple(s: &SimpleCondition) -> String {
                 format!("{negate}within {dist} of {who}")
             }
         }
-        T::WithinRangeOfObjective => format!("{negate}within range of an objective"),
+        T::WithinRangeOfObjective => {
+            if !pnn(p, "subject") && !pnn(p, "controlled_by") {
+                return format!("{negate}within range of an objective");
+            }
+            let who = match ps(p, "subject") {
+                Some("target") => "the target unit",
+                Some("attacker") => "the attacking unit",
+                _ => "the unit",
+            };
+            let control = match ps(p, "controlled_by") {
+                Some("your-army") => " you control",
+                Some("opponent") => " your opponent controls",
+                _ => "",
+            };
+            format!("{negate}{who} is within range of an objective marker{control}")
+        }
+        T::TargetIsVisible => format!("{negate}the target is visible to the attacking model"),
         T::HasFoughtThisPhase => format!("{negate}has fought this phase"),
         T::DestroyedByAttackType => {
             if pj(p, "attack_type") == "any" {
@@ -915,7 +964,9 @@ fn describe_simple(s: &SimpleCondition) -> String {
             dekebab(ps(p, "comparison").unwrap_or("")),
             ps(p, "target_stat").unwrap_or(""),
         ),
-        T::MadeIngressMoveThisTurn => format!("{negate}the unit made an ingress move this turn"),
+        T::MadeIngressMoveThisTurn => format!(
+            "{negate}the unit made an ingress move (including a Deep Strike setup) this turn"
+        ),
     }
 }
 
@@ -991,5 +1042,14 @@ mod tests {
             )),
             "1+ enemy units destroyed this turn"
         );
+    }
+}
+
+fn describe_compound_operand(node: &ConditionNode, opposite: CompoundConditionOperator) -> String {
+    let text = describe_node(node);
+    if matches!(node, ConditionNode::CompoundCondition(c) if c.operator == opposite) {
+        format!("({text})")
+    } else {
+        text
     }
 }

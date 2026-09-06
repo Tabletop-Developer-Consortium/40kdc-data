@@ -136,7 +136,33 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Khorne Berzerker w/ eviscerator and bolt pistol",
+            "weapon_ids": [
+              "khornate-eviscerator",
+              "bolt-pistol-khorne-berzerkers"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Khorne Berzerker w/ eviscerator and plasma pistol",
+            "weapon_ids": [
+              "khornate-eviscerator",
+              "plasma-pistol-khorne-berzerkers"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Khorne Berzerker w/ chainblade and plasma pistol",
+            "weapon_ids": [
+              "chainblade",
+              "plasma-pistol-khorne-berzerkers"
+            ],
+            "max_count": 4
+          }
+        ]
       }
     ],
     "game_version": {
@@ -205,7 +231,34 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Dishonoured w/ skullsmasher and mangler",
+            "weapon_ids": [
+              "skullsmasher-and-mangler"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Dishonoured w/ paired manglers",
+            "weapon_ids": [
+              "paired-manglers"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Dishonoured w/ skullsmasher and mangler",
+              "Dishonoured w/ paired manglers"
+            ],
+            "count": 1,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       },
       {
         "name": "Jakhal",

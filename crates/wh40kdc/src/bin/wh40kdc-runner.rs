@@ -791,6 +791,37 @@ fn handle_linked_query(state: &mut RunnerState, args: &Value) -> Value {
             encoded.sort_by(|a, b| a.as_str().unwrap_or("").cmp(b.as_str().unwrap_or("")));
             ok_value(Value::Array(encoded))
         }
+        "loadout_candidates" => {
+            let id = str_arg("unitId");
+            let unit = if str_arg("factionId").is_empty() {
+                ds.units.get_any(id)
+            } else {
+                ds.units.get_in_faction(id, str_arg("factionId"))
+            };
+            let Some(unit) = unit else {
+                return err_value(
+                    ErrorKind::UnknownEntity,
+                    Some(json!({ "kind": "unit", "id": id })),
+                );
+            };
+            let composition = ds.unit_compositions.iter().find(|c| {
+                c.unit_id.as_str() == id && c.faction_id.as_str() == unit.faction_id.as_str()
+            });
+            let models = composition.map(|c| wh40kdc::loadout_models(&c.models));
+            let tiers = composition.map(|c| wh40kdc::loadout_tiers(&c.tiers));
+            let limit = input
+                .get("limit")
+                .and_then(Value::as_str)
+                .and_then(|v| v.parse().ok());
+            ok_value(json!(wh40kdc::loadout_candidates(
+                unit,
+                str_arg("modelCount").parse().unwrap_or(0),
+                &ds.wargear_options_of(unit),
+                models.as_deref(),
+                tiers.as_deref(),
+                limit
+            )))
+        }
         "phases_of" => {
             let id = str_arg("abilityId");
             let Some(ability) = ds.abilities.get_any(id) else {

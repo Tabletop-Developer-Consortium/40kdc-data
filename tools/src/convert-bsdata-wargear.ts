@@ -50,7 +50,7 @@
  */
 import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { resolve, join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import { XMLParser } from "fast-xml-parser";
 import { nameToId } from "./converters/id-generator.js";
 
@@ -75,10 +75,10 @@ function cleanText(s: string): string {
 }
 /** Normalize a model name for matching BSData models ↔ unit-composition rows:
  *  lowercased, with a "w/ <loadout>" / "with <loadout>" suffix stripped. */
-function normModelName(s: string): string {
+export function normModelName(s: string): string {
   return cleanText(s)
     .toLowerCase()
-    .replace(/\s+(w\/|with)\b.*$/, "")
+    .replace(/\s+(?:w\/(?=\s)|with\b).*$/, "")
     .trim();
 }
 function collectByKey(node: unknown, key: string, out: Node[] = []): Node[] {
@@ -1229,4 +1229,4 @@ function main(): void {
   }
 }
 
-main();
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) main();

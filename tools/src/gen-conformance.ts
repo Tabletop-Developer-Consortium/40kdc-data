@@ -30,7 +30,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { Dataset } from "./data/dataset.js";
-import { baseLoadout } from "./data/loadout.js";
+import { baseLoadout, loadoutCandidates } from "./data/loadout.js";
 import { normalizeName } from "./data/normalize.js";
 import {
   describeScoringCard,
@@ -417,6 +417,17 @@ type LinkedApiQuery =
     }
   | {
       name: string;
+      query: "loadout_candidates";
+      args: {
+        unitId: string;
+        factionId?: string;
+        modelCount: string;
+        limit?: string;
+      };
+      comparison: "ordered";
+    }
+  | {
+      name: string;
       query: "units_with_keyword";
       args: { keyword: string };
       comparison: "set";
@@ -779,6 +790,40 @@ const LINKED_API_QUERIES: LinkedApiQuery[] = [
     args: { unitId: "crusader-squad", modelCount: "10" },
     comparison: "set",
   },
+  {
+    name: "loadout_candidates chaos-terminators @5 matches the base allocation",
+    query: "loadout_candidates",
+    args: {
+      unitId: "chaos-terminators",
+      factionId: "world-eaters",
+      modelCount: "5",
+    },
+    comparison: "ordered",
+  },
+  {
+    name: "loadout_candidates crusader-squad @10 enumerates legal allocations",
+    query: "loadout_candidates",
+    args: { unitId: "crusader-squad", modelCount: "10" },
+    comparison: "ordered",
+  },
+  {
+    name: "loadout_candidates boyz @10 enforces one special model",
+    query: "loadout_candidates",
+    args: { unitId: "boyz", factionId: "orks", modelCount: "10" },
+    comparison: "ordered",
+  },
+  {
+    name: "loadout_candidates boyz @18 scales the shared unit budget",
+    query: "loadout_candidates",
+    args: { unitId: "boyz", factionId: "orks", modelCount: "18" },
+    comparison: "ordered",
+  },
+  {
+    name: "loadout_candidates boyz @20 caps shared specials at two",
+    query: "loadout_candidates",
+    args: { unitId: "boyz", factionId: "orks", modelCount: "20" },
+    comparison: "ordered",
+  },
   // reactive triggers: reactiveTriggers() sorts by ability id; triggerIndex() keys are
   // event-sorted and each bucket ability-id-sorted, so all three are order-pinned.
   {
@@ -903,6 +948,22 @@ function runLinkedQuery(
         comp?.models,
       );
       return [...lo.counts].map(([id, n]) => `${id}:${n}`).sort();
+    }
+    case "loadout_candidates": {
+      const u = q.args.factionId
+        ? ds.units.getInFaction(q.args.unitId, q.args.factionId)
+        : ds.units.getAny(q.args.unitId);
+      if (!u)
+        throw new Error(`loadout_candidates: unknown unit ${q.args.unitId}`);
+      const comp = ds.unitCompositionOf(u.raw);
+      return loadoutCandidates(
+        u.raw,
+        Number(q.args.modelCount),
+        ds.wargearOptionsOf(u.raw),
+        comp?.models,
+        comp?.tiers,
+        q.args.limit == null ? undefined : Number(q.args.limit),
+      );
     }
     case "units_with_keyword":
       return ds
@@ -2774,7 +2835,11 @@ function genEffectTranslation(): void {
           type: "sequence",
           steps: [
             { type: "heal-wounds", target: "unit", modifier: { amount: "D3" } },
-            { type: "stat-modifier", target: "unit", modifier: { stat: "hit", operation: "add", value: 1 } },
+            {
+              type: "stat-modifier",
+              target: "unit",
+              modifier: { stat: "hit", operation: "add", value: 1 },
+            },
           ],
         },
       },
@@ -2807,7 +2872,11 @@ function genEffectTranslation(): void {
       id: "psychic-model-bundle",
       effect: {
         type: "for-each-unit",
-        selector: { owner: "friendly", keywords: ["ORKS", "PSYKER"], target_kind: "model" },
+        selector: {
+          owner: "friendly",
+          keywords: ["ORKS", "PSYKER"],
+          target_kind: "model",
+        },
         effect: {
           type: "named-effect",
           name: "Roar of Mork",
@@ -2822,7 +2891,11 @@ function genEffectTranslation(): void {
                 dice: "D6",
                 threshold: 1,
                 comparison: "eq",
-                on_success: { type: "set-battle-shock", target: "selected-models-unit", modifier: {} },
+                on_success: {
+                  type: "set-battle-shock",
+                  target: "selected-models-unit",
+                  modifier: {},
+                },
               },
               {
                 type: "select-units",
@@ -2831,7 +2904,11 @@ function genEffectTranslation(): void {
                   type: "battle-shock-test",
                   target: "unit",
                   modifier: { operation: "subtract", value: 1 },
-                  scaling: { per: 10, of: "models-in-bearer-unit", round: "down" },
+                  scaling: {
+                    per: 10,
+                    of: "models-in-bearer-unit",
+                    round: "down",
+                  },
                 },
               },
             ],
@@ -2861,7 +2938,12 @@ function genEffectTranslation(): void {
               {
                 type: "stat-modifier",
                 target: "unit",
-                modifier: { stat: "AP", operation: "add", value: 1, attack_type: "ranged" },
+                modifier: {
+                  stat: "AP",
+                  operation: "add",
+                  value: 1,
+                  attack_type: "ranged",
+                },
               },
               {
                 type: "keyword-grant",
@@ -3174,6 +3256,44 @@ function genEffectTranslation(): void {
       }),
     },
   });
+  // Faction-scoped worklist pins: the global by-id index can resolve another
+  // faction's copy of shared names such as Blessing of the Omnissiah.
+  const greyKnightsFidelityIds = new Set(["surge-of-wrath-psychic", "warrior-strategist", "might-of-titan-psychic", "sanctity-of-purpose", "indomitable-spirit-psychic", "guidance-of-the-ancients-psychic", "champion-of-the-order-of-purifiers-psychic", "sanctifying-ritual-psychic", "techmarine", "blessing-of-the-omnissiah", "guardians-of-the-machine", "righteous-persecution", "personal-teleporters", "litanies-of-sanctity", "attuned-onslaught-psychic", "sanctuary-psychic", "hammer-aflame-psychic", "force-edge-psychic", "channelled-force", "hallowed-ground", "fury-of-titan", "dauntless-champions", "searing-soulflame"]);
+  const greyKnightsFidelity = JSON.parse(readFileSync(join(REPO_ROOT, "data/enrichment/grey-knights/abilities.json"), "utf8")) as Array<Record<string, unknown>>;
+  for (const raw of greyKnightsFidelity) {
+    if (!greyKnightsFidelityIds.has(String(raw.ability_id))) continue;
+    cases.push({
+      caseId: `grey-knights-fidelity/${raw.ability_id}`,
+      effect: raw.effect, scope: raw.scope,
+      ...(raw.trigger ? { trigger: raw.trigger } : {}),
+      ...(raw.usage ? { usage: raw.usage } : {}),
+      expected: { text: describeAbility(raw as Parameters<typeof describeAbility>[0]) },
+    });
+  }
+  const fidelityBoundaryCases = [
+    { caseId: "fidelity/no-effect", effect: { type: "no-effect" } },
+    { caseId: "fidelity/leadership-model-with-failure", effect: {
+      type: "dice-gated", dice: "2D6", threshold: "leadership", comparison: "gte",
+      test: { kind: "leadership", subject: "self" },
+      on_success: { type: "no-effect" }, on_fail: { type: "no-effect" },
+    } },
+    { caseId: "fidelity/friendly-selected-target", trigger: {
+      event: "ability-target-selected", subject: "friendly-unit",
+      source_ability: { ability_id: "example-selection", owner: "friendly", keywords: ["SOURCE"] },
+    }, effect: { type: "no-effect" } },
+    { caseId: "fidelity/non-numeric-weapon-characteristic", effect: {
+      type: "stat-modifier", target: "self", modifier: {
+        stat: "A", operation: "add", value: "D3", weapon_type: "melee", weapon_name: "Example blade", weapon_keyword: "Psychic",
+      },
+    } },
+    { caseId: "fidelity/model-advance-reroll", effect: {
+      type: "re-roll", target: "self", modifier: { roll: "advance", result_scope: "any-result" },
+    } },
+  ];
+  for (const example of fidelityBoundaryCases) {
+    const scope = { range: "unit", duration: "resolution" };
+    cases.push({ ...example, scope, expected: { text: describeAbility({ ...example, scope } as Parameters<typeof describeAbility>[0]) } });
+  }
   writeJson(join(CONFORMANCE, "effect-translation", "cases.json"), cases);
   console.log(
     `effect-translation/cases.json: ${cases.length} cases (${seen.size} node types)`,

@@ -136,6 +136,95 @@
           "bolt-pistol",
           "boltgun",
           "close-combat-weapon"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Legionary w/ boltgun",
+            "weapon_ids": [
+              "boltgun",
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Legionary w/ chainsword",
+            "weapon_ids": [
+              "astartes-chainsword",
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Legionary w/ heavy weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Legionary w/ special weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Legionary w/ accursed weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "accursed-weapon",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Legionary w/ Nostraman chainglaive",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "nostraman-chainglaive"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Legionary w/ paired accursed weapons",
+            "weapon_ids": [
+              "bolt-pistol",
+              "paired-accursed-weapons",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Legionary w/ voice eater",
+            "weapon_ids": [
+              "astartes-chainsword",
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Legionary w/ boltgun",
+              "Legionary w/ chainsword",
+              "Legionary w/ heavy weapon",
+              "Legionary w/ special weapon",
+              "Legionary w/ accursed weapon",
+              "Legionary w/ Nostraman chainglaive",
+              "Legionary w/ paired accursed weapons",
+              "Legionary w/ voice eater"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       }
     ],
@@ -864,7 +953,63 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Havoc w/ autocannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "havoc-autocannon"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Havoc w/ lascannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "havoc-lascannon"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Havoc w/ missile launcher",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "havoc-missile-launcher"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Havoc w/ reaper chaincannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "havoc-reaper-chaincannon"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Havoc w/ heavy bolter",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "havoc-heavy-bolter"
+            ],
+            "max_count": 4
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Havoc w/ autocannon",
+              "Havoc w/ lascannon",
+              "Havoc w/ missile launcher",
+              "Havoc w/ reaper chaincannon",
+              "Havoc w/ heavy bolter"
+            ],
+            "count": 4,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -953,7 +1098,89 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Raptor",
+            "weapon_ids": [
+              "bolt-pistol",
+              "astartes-chainsword"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Raptor w/ plasma pistol",
+            "weapon_ids": [
+              "astartes-chainsword",
+              "plasma-pistol"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Raptor w/ heavy melee weapon",
+            "weapon_ids": [
+              "heavy-melee-weapon",
+              "bolt-pistol"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Raptor w/ mutations",
+            "weapon_ids": [
+              "bolt-pistol",
+              "mutations"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Raptor w/ meltagun",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "bolt-pistol",
+              "meltagun"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Raptor w/ plasma gun",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "bolt-pistol"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Raptor w/ flamer",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "bolt-pistol"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Raptor",
+              "Raptor w/ plasma pistol",
+              "Raptor w/ heavy melee weapon",
+              "Raptor w/ mutations"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          },
+          {
+            "variant_names": [
+              "Raptor w/ meltagun",
+              "Raptor w/ plasma gun",
+              "Raptor w/ flamer"
+            ],
+            "count": 4,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1059,7 +1286,96 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Chosen w/ boltgun",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun",
+              "accursed-weapon"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Chosen w/ boltgun and plasma pistol",
+            "weapon_ids": [
+              "plasma-pistol",
+              "accursed-weapon",
+              "boltgun"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Chosen w/ combi-weapon and bolt pistol",
+            "weapon_ids": [
+              "accursed-weapon",
+              "bolt-pistol",
+              "combi-weapon"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Chosen w/ paired accursed weapons and plasma pistol",
+            "weapon_ids": [
+              "plasma-pistol",
+              "paired-accursed-weapons-chosen"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Chosen w/ power fist and bolt pistol",
+            "weapon_ids": [
+              "boltgun",
+              "bolt-pistol",
+              "power-fist-chosen"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Chosen w/ combi-weapon and plasma pistol",
+            "weapon_ids": [
+              "accursed-weapon",
+              "plasma-pistol",
+              "combi-weapon"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Chosen w/ paired accursed weapons and bolt pistol",
+            "weapon_ids": [
+              "bolt-pistol",
+              "paired-accursed-weapons-chosen"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Chosen w/ power fist and plasma pistol",
+            "weapon_ids": [
+              "boltgun",
+              "plasma-pistol",
+              "power-fist-chosen"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Chosen w/ boltgun",
+              "Chosen w/ boltgun and plasma pistol",
+              "Chosen w/ combi-weapon and bolt pistol",
+              "Chosen w/ paired accursed weapons and plasma pistol",
+              "Chosen w/ power fist and bolt pistol",
+              "Chosen w/ combi-weapon and plasma pistol",
+              "Chosen w/ paired accursed weapons and bolt pistol",
+              "Chosen w/ power fist and plasma pistol"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1365,6 +1681,47 @@
           "boltgun",
           "bolt-pistol",
           "reavers-blade"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Red Corsairs Raider w/ meltagun",
+            "weapon_ids": [
+              "meltagun",
+              "bolt-pistol",
+              "reavers-blade"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Red Corsairs Raider w/ power fist",
+            "weapon_ids": [
+              "boltgun",
+              "bolt-pistol",
+              "power-fist"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Red Corsairs Raider w/ power fist and meltagun",
+            "weapon_ids": [
+              "meltagun",
+              "bolt-pistol",
+              "power-fist"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Red Corsairs Raider w/ meltagun",
+              "Red Corsairs Raider w/ power fist",
+              "Red Corsairs Raider w/ power fist and meltagun"
+            ],
+            "count": 4,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       }
     ],
@@ -1992,7 +2349,66 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Legionary w/ boltgun",
+            "weapon_ids": [
+              "boltgun",
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Legionary w/ chainsword",
+            "weapon_ids": [
+              "astartes-chainsword",
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Legionary w/ heavy melee weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Legionary w/ balefire tome",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "balefire-tome"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Legionary w/ other weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Legionary w/ boltgun",
+              "Legionary w/ chainsword",
+              "Legionary w/ heavy melee weapon",
+              "Legionary w/ balefire tome",
+              "Legionary w/ other weapon"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {

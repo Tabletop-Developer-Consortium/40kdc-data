@@ -22,18 +22,54 @@ import process from "node:process";
 
 import { Dataset } from "./data/dataset.js";
 import { normalizeName } from "./data/normalize.js";
-import { baseLoadout, maximalLoadout, checkUnitLegality } from "./data/loadout.js";
+import {
+  baseLoadout,
+  maximalLoadout,
+  checkUnitLegality,
+  loadoutCandidates,
+} from "./data/loadout.js";
 import { validateRosterCore, type NormRoster } from "./data/roster-resolve.js";
-import { candidateAffordability, type AffordabilitySpec } from "./data/affordability.js";
+import {
+  candidateAffordability,
+  type AffordabilitySpec,
+} from "./data/affordability.js";
 import type { BattleSize } from "./import/types.js";
 import { exportRoster, type ExportFormat } from "./export/index.js";
-import { decodeShareToken, encodeShareToken, type ShareList } from "./share/index.js";
-import { importRoster, tryImportRoster, REGISTERED_ADAPTERS } from "./import/import-roster.js";
+import {
+  decodeShareToken,
+  encodeShareToken,
+  type ShareList,
+} from "./share/index.js";
+import {
+  importRoster,
+  tryImportRoster,
+  REGISTERED_ADAPTERS,
+} from "./import/import-roster.js";
 import { selectAdapter } from "./import/adapter.js";
 import { createValidator } from "./schema-loader.js";
-import { attributeStages, crunch, type Buff, type EngineContext, type EngineInput } from "./cruncher/index.js";
-import { compareCell, loadoutCell, type ComparePhase, type LoadoutLine } from "./compare.js";
-import { describeScoringCard, describeAbility, type ScoringMode, type Effect, type AbilityScope, type AbilityAppliesTo, type AbilityUsage, type AbilityTrigger } from "./translate/index.js";
+import {
+  attributeStages,
+  crunch,
+  type Buff,
+  type EngineContext,
+  type EngineInput,
+} from "./cruncher/index.js";
+import {
+  compareCell,
+  loadoutCell,
+  type ComparePhase,
+  type LoadoutLine,
+} from "./compare.js";
+import {
+  describeScoringCard,
+  describeAbility,
+  type ScoringMode,
+  type Effect,
+  type AbilityScope,
+  type AbilityAppliesTo,
+  type AbilityUsage,
+  type AbilityTrigger,
+} from "./translate/index.js";
 import { unitMatchesAppliesTo } from "./scope.js";
 import {
   awardsOf,
@@ -92,7 +128,9 @@ function loadImplVersion(): string {
     join(__dirname, "../../package.json"),
   ]) {
     try {
-      return (JSON.parse(readFileSync(candidate, "utf8")) as { version: string }).version;
+      return (
+        JSON.parse(readFileSync(candidate, "utf8")) as { version: string }
+      ).version;
     } catch {
       // try next
     }
@@ -172,17 +210,26 @@ function handleInit(state: RunnerState, args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
     return err("INVALID_INPUT", { detail: "init args must be an object" });
   }
-  const a = args as { spec_version?: unknown; locale?: unknown; tz?: unknown; seed?: unknown };
+  const a = args as {
+    spec_version?: unknown;
+    locale?: unknown;
+    tz?: unknown;
+    seed?: unknown;
+  };
   if (a.spec_version !== SPEC_VERSION) {
     return err("INVALID_INPUT", {
       detail: `spec_version mismatch: runner=${SPEC_VERSION}, request=${String(a.spec_version)}`,
     });
   }
   if (a.locale !== "C") {
-    return err("INVALID_INPUT", { detail: `unsupported locale: ${String(a.locale)} (only "C")` });
+    return err("INVALID_INPUT", {
+      detail: `unsupported locale: ${String(a.locale)} (only "C")`,
+    });
   }
   if (a.tz !== "UTC") {
-    return err("INVALID_INPUT", { detail: `unsupported tz: ${String(a.tz)} (only "UTC")` });
+    return err("INVALID_INPUT", {
+      detail: `unsupported tz: ${String(a.tz)} (only "UTC")`,
+    });
   }
   if (typeof a.seed !== "number") {
     return err("INVALID_INPUT", { detail: "seed must be a number" });
@@ -191,7 +238,11 @@ function handleInit(state: RunnerState, args: unknown): RunnerResponse {
   state.locale = a.locale;
   state.tz = a.tz;
   state.seed = a.seed;
-  return ok({ impl: IMPL_NAME, spec_version: SPEC_VERSION, impl_version: IMPL_VERSION });
+  return ok({
+    impl: IMPL_NAME,
+    spec_version: SPEC_VERSION,
+    impl_version: IMPL_VERSION,
+  });
 }
 
 function handleNormalize(args: unknown): RunnerResponse {
@@ -231,21 +282,31 @@ function handleImport(state: RunnerState, args: unknown): RunnerResponse {
     const roster = importRoster(decoded, { dataset: getDataset(state) });
     return ok(roster);
   } catch (e) {
-    return err("IMPORT_FAILED", { detail: (e as Error).message, format: a.format ?? null });
+    return err("IMPORT_FAILED", {
+      detail: (e as Error).message,
+      format: a.format ?? null,
+    });
   }
 }
 
 function handleTryImport(state: RunnerState, args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "try_import args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "try_import args must be an object",
+    });
   }
   const a = args as { input?: unknown };
   if (typeof a.input !== "string") {
-    return err("INVALID_INPUT", { detail: "try_import.input must be a string" });
+    return err("INVALID_INPUT", {
+      detail: "try_import.input must be a string",
+    });
   }
   const result = tryImportRoster(a.input, { dataset: getDataset(state) });
   if (!result.ok) {
-    return err("IMPORT_FAILED", { reason: result.reason, message: result.message });
+    return err("IMPORT_FAILED", {
+      reason: result.reason,
+      message: result.message,
+    });
   }
   return ok({ format: result.format, roster: result.roster });
 }
@@ -267,8 +328,13 @@ function handleExport(state: RunnerState, args: unknown): RunnerResponse {
     return err("INVALID_INPUT", { detail: "export args must be an object" });
   }
   const a = args as { format?: unknown; roster?: unknown };
-  if (typeof a.format !== "string" || !EXPORT_FORMATS.includes(a.format as ExportFormat)) {
-    return err("INVALID_INPUT", { detail: `unknown export format: ${String(a.format)}` });
+  if (
+    typeof a.format !== "string" ||
+    !EXPORT_FORMATS.includes(a.format as ExportFormat)
+  ) {
+    return err("INVALID_INPUT", {
+      detail: `unknown export format: ${String(a.format)}`,
+    });
   }
   if (typeof a.roster !== "object" || a.roster === null) {
     return err("INVALID_INPUT", { detail: "export.roster must be an object" });
@@ -278,7 +344,13 @@ function handleExport(state: RunnerState, args: unknown): RunnerResponse {
     // pass something the serializer can't handle, this throws. Dataset-backed
     // formats (yellowscribe) get the embedded dataset; the others ignore it.
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return ok(exportRoster(a.roster as any, a.format as ExportFormat, getDataset(state)));
+    return ok(
+      exportRoster(
+        a.roster as any,
+        a.format as ExportFormat,
+        getDataset(state),
+      ),
+    );
   } catch (e) {
     return err("EXPORT_FAILED", { detail: (e as Error).message });
   }
@@ -286,11 +358,15 @@ function handleExport(state: RunnerState, args: unknown): RunnerResponse {
 
 function handleShareEncode(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "share_encode args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "share_encode args must be an object",
+    });
   }
   const a = args as { list?: unknown };
   if (typeof a.list !== "object" || a.list === null) {
-    return err("INVALID_INPUT", { detail: "share_encode.list must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "share_encode.list must be an object",
+    });
   }
   try {
     return ok(encodeShareToken(a.list as ShareList));
@@ -302,11 +378,15 @@ function handleShareEncode(args: unknown): RunnerResponse {
 
 function handleShareDecode(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "share_decode args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "share_decode args must be an object",
+    });
   }
   const a = args as { token?: unknown };
   if (typeof a.token !== "string") {
-    return err("INVALID_INPUT", { detail: "share_decode.token must be a string" });
+    return err("INVALID_INPUT", {
+      detail: "share_decode.token must be a string",
+    });
   }
   // The DecodeResult ({ ok, list } | { ok, reason }) is the compared value;
   // a malformed/stale token is a normal result, not a protocol error.
@@ -323,14 +403,22 @@ function handleShareDecode(args: unknown): RunnerResponse {
  */
 export function encodeBase(
   b:
-    | { shape: string; diameter?: number; width?: number; length?: number; size?: string; draft?: boolean }
+    | {
+        shape: string;
+        diameter?: number;
+        width?: number;
+        length?: number;
+        size?: string;
+        draft?: boolean;
+      }
     | null
     | undefined,
 ): string | null {
   if (!b) return null;
   const parts: string[] = [b.shape];
   if (b.shape === "round" && b.diameter != null) parts.push(String(b.diameter));
-  else if (b.shape === "oval" && b.width != null && b.length != null) parts.push(`${b.width}x${b.length}`);
+  else if (b.shape === "oval" && b.width != null && b.length != null)
+    parts.push(`${b.width}x${b.length}`);
   else if (b.shape === "flying-base" && b.size) parts.push(b.size);
   if (b.draft) parts.push("draft");
   return parts.join(":");
@@ -343,9 +431,14 @@ export function encodeBase(
  * sorted `"code:id"` strings (the maths already sorts deterministically; the
  * extra sort keeps the wire result stable across the small encoding).
  */
-function handleCheckUnitLegality(state: RunnerState, args: unknown): RunnerResponse {
+function handleCheckUnitLegality(
+  state: RunnerState,
+  args: unknown,
+): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "check_unit_legality args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "check_unit_legality args must be an object",
+    });
   }
   const a = args as {
     unitId?: unknown;
@@ -354,7 +447,9 @@ function handleCheckUnitLegality(state: RunnerState, args: unknown): RunnerRespo
     counts?: Record<string, number>;
   };
   if (typeof a.unitId !== "string" || typeof a.modelCount !== "number") {
-    return err("INVALID_INPUT", { detail: "check_unit_legality.unitId/modelCount required" });
+    return err("INVALID_INPUT", {
+      detail: "check_unit_legality.unitId/modelCount required",
+    });
   }
   const ds = getDataset(state);
   const unit =
@@ -384,9 +479,14 @@ function handleCheckUnitLegality(state: RunnerState, args: unknown): RunnerRespo
  * and army violations as `"<scope>|<severity>|<code>:<id>"` strings, where
  * `scope` is `army` or `u<index>` and `severity` is `error|warn`.
  */
-function handleCheckRosterLegality(state: RunnerState, args: unknown): RunnerResponse {
+function handleCheckRosterLegality(
+  state: RunnerState,
+  args: unknown,
+): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "check_roster_legality args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "check_roster_legality args must be an object",
+    });
   }
   const a = args as {
     factionId?: unknown;
@@ -403,12 +503,16 @@ function handleCheckRosterLegality(state: RunnerState, args: unknown): RunnerRes
     }[];
   };
   if (!Array.isArray(a.units)) {
-    return err("INVALID_INPUT", { detail: "check_roster_legality.units must be an array" });
+    return err("INVALID_INPUT", {
+      detail: "check_roster_legality.units must be an array",
+    });
   }
   const spec: NormRoster = {
     factionId: typeof a.factionId === "string" ? a.factionId : null,
-    battleSize: typeof a.battleSize === "string" ? (a.battleSize as BattleSize) : null,
-    forceDisposition: typeof a.forceDisposition === "string" ? a.forceDisposition : null,
+    battleSize:
+      typeof a.battleSize === "string" ? (a.battleSize as BattleSize) : null,
+    forceDisposition:
+      typeof a.forceDisposition === "string" ? a.forceDisposition : null,
     detachmentIds: (a.detachments ?? [])
       .map((d) => d.id)
       .filter((id): id is string => typeof id === "string"),
@@ -416,8 +520,10 @@ function handleCheckRosterLegality(state: RunnerState, args: unknown): RunnerRes
       unitId: typeof u.unitId === "string" ? u.unitId : "",
       modelCount: typeof u.modelCount === "number" ? u.modelCount : 0,
       isWarlord: u.isWarlord === true,
-      enhancementId: typeof u.enhancementId === "string" ? u.enhancementId : null,
-      leaderBodyguardId: typeof u.leaderBodyguardId === "string" ? u.leaderBodyguardId : null,
+      enhancementId:
+        typeof u.enhancementId === "string" ? u.enhancementId : null,
+      leaderBodyguardId:
+        typeof u.leaderBodyguardId === "string" ? u.leaderBodyguardId : null,
       counts: new Map<string, number>(Object.entries(u.counts ?? {})),
     })),
   };
@@ -427,7 +533,8 @@ function handleCheckRosterLegality(state: RunnerState, args: unknown): RunnerRes
       u.violations.map((v) => `u${u.unitIndex}|error|${v.code}:${v.id}`),
     ),
     ...result.army.map(
-      (v) => `${v.unitIndex === null ? "army" : `u${v.unitIndex}`}|${v.severity}|${v.code}:${v.id}`,
+      (v) =>
+        `${v.unitIndex === null ? "army" : `u${v.unitIndex}`}|${v.severity}|${v.code}:${v.id}`,
     ),
   ];
   return ok(lines.sort());
@@ -438,28 +545,42 @@ function handleCheckRosterLegality(state: RunnerState, args: unknown): RunnerRes
  * {@link candidateAffordability}. Returns `[{ unitId, nextCopyCost, affordable }]`
  * sorted ascending by `(nextCopyCost, unitId)`.
  */
-function handleCandidateAffordability(state: RunnerState, args: unknown): RunnerResponse {
+function handleCandidateAffordability(
+  state: RunnerState,
+  args: unknown,
+): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "candidate_affordability args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "candidate_affordability args must be an object",
+    });
   }
   const a = args as {
     factionId?: unknown;
     battleSize?: unknown;
     pointsLimitOverride?: unknown;
-    units?: { unitId?: unknown; modelCount?: unknown; enhancementId?: unknown }[];
+    units?: {
+      unitId?: unknown;
+      modelCount?: unknown;
+      enhancementId?: unknown;
+    }[];
     candidateUnitIds?: unknown;
   };
   if (!Array.isArray(a.units)) {
-    return err("INVALID_INPUT", { detail: "candidate_affordability.units must be an array" });
+    return err("INVALID_INPUT", {
+      detail: "candidate_affordability.units must be an array",
+    });
   }
   const spec: AffordabilitySpec = {
     factionId: typeof a.factionId === "string" ? a.factionId : null,
-    battleSize: typeof a.battleSize === "string" ? (a.battleSize as BattleSize) : null,
-    pointsLimitOverride: typeof a.pointsLimitOverride === "number" ? a.pointsLimitOverride : null,
+    battleSize:
+      typeof a.battleSize === "string" ? (a.battleSize as BattleSize) : null,
+    pointsLimitOverride:
+      typeof a.pointsLimitOverride === "number" ? a.pointsLimitOverride : null,
     units: a.units.map((u) => ({
       unitId: typeof u.unitId === "string" ? u.unitId : "",
       modelCount: typeof u.modelCount === "number" ? u.modelCount : 0,
-      enhancementId: typeof u.enhancementId === "string" ? u.enhancementId : null,
+      enhancementId:
+        typeof u.enhancementId === "string" ? u.enhancementId : null,
     })),
     candidateUnitIds: Array.isArray(a.candidateUnitIds)
       ? a.candidateUnitIds.filter((id): id is string => typeof id === "string")
@@ -470,11 +591,15 @@ function handleCandidateAffordability(state: RunnerState, args: unknown): Runner
 
 function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "linked_query args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "linked_query args must be an object",
+    });
   }
   const a = args as { query?: unknown; input?: unknown };
   if (typeof a.query !== "string") {
-    return err("INVALID_INPUT", { detail: "linked_query.query must be a string" });
+    return err("INVALID_INPUT", {
+      detail: "linked_query.query must be a string",
+    });
   }
   const ds = getDataset(state);
   const input = (a.input ?? {}) as Record<string, string>;
@@ -482,7 +607,9 @@ function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
   // its options/composition/profiles; when the case pins `factionId`, resolve
   // that faction's copy, else fall back to first-wins `getAny` (back-compat).
   const resolveUnit = (id: string) =>
-    input.factionId ? ds.units.getInFaction(id, input.factionId) : ds.units.getAny(id);
+    input.factionId
+      ? ds.units.getInFaction(id, input.factionId)
+      : ds.units.getAny(id);
   try {
     switch (a.query) {
       case "find_unit":
@@ -495,69 +622,119 @@ function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
         return ok(ds.abilities.find(input.query ?? "")?.id ?? null);
       case "abilities_of": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         return ok(u.abilities.map((x) => x.id));
       }
       case "weapons_of": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         return ok(u.weapons.map((x) => x.id));
       }
       case "wargear_options_of": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         return ok(u.wargearOptions.map((x) => x.id));
       }
       case "base_loadout": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         const modelCount = Number(input.modelCount);
         const comp = ds.unitCompositionOf(u.raw);
-        const lo = baseLoadout(u.raw, modelCount, ds.wargearOptionsOf(u.raw), comp?.models);
+        const lo = baseLoadout(
+          u.raw,
+          modelCount,
+          ds.wargearOptionsOf(u.raw),
+          comp?.models,
+        );
         // Encode the id→count map as sorted "id:count" strings for set compare.
         return ok([...lo.counts].map(([id, n]) => `${id}:${n}`).sort());
       }
       case "maximal_loadout": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         const modelCount = Number(input.modelCount);
         const comp = ds.unitCompositionOf(u.raw);
-        const lo = maximalLoadout(u.raw, modelCount, ds.wargearOptionsOf(u.raw), comp?.models);
+        const lo = maximalLoadout(
+          u.raw,
+          modelCount,
+          ds.wargearOptionsOf(u.raw),
+          comp?.models,
+        );
         // Encode the id→count map as sorted "id:count" strings for set compare.
         return ok([...lo.counts].map(([id, n]) => `${id}:${n}`).sort());
       }
+      case "loadout_candidates": {
+        const u = resolveUnit(input.unitId);
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        const comp = ds.unitCompositionOf(u.raw);
+        return ok(
+          loadoutCandidates(
+            u.raw,
+            Number(input.modelCount),
+            ds.wargearOptionsOf(u.raw),
+            comp?.models,
+            comp?.tiers,
+            input.limit == null ? undefined : Number(input.limit),
+          ),
+        );
+      }
       case "phases_of": {
         const ab = ds.abilities.getAny(input.abilityId);
-        if (!ab) return err("UNKNOWN_ENTITY", { kind: "ability", id: input.abilityId });
+        if (!ab)
+          return err("UNKNOWN_ENTITY", {
+            kind: "ability",
+            id: input.abilityId,
+          });
         return ok([...ab.phases]);
       }
       case "faction_of": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         return ok(u.faction?.id ?? null);
       }
       case "base_size_of": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         return ok(encodeBase(u.raw.base_size_mm));
       }
       case "model_bases_of": {
         const u = resolveUnit(input.unitId);
-        if (!u) return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
+        if (!u)
+          return err("UNKNOWN_ENTITY", { kind: "unit", id: input.unitId });
         const comp = ds.unitCompositionOf(u.raw);
         // Ordered "modelName=encodedBase" pairs in declared model order.
-        return ok((comp?.models ?? []).map((m) => `${m.name}=${encodeBase(m.base_size_mm) ?? "none"}`));
+        return ok(
+          (comp?.models ?? []).map(
+            (m) => `${m.name}=${encodeBase(m.base_size_mm) ?? "none"}`,
+          ),
+        );
       }
       case "abilities_of_faction":
         return ok(ds.abilities.byFaction(input.factionId).map((x) => x.id));
       case "weapons_of_faction": {
         const f = ds.factions.get(input.factionId);
-        if (!f) return err("UNKNOWN_ENTITY", { kind: "faction", id: input.factionId });
+        if (!f)
+          return err("UNKNOWN_ENTITY", {
+            kind: "faction",
+            id: input.factionId,
+          });
         return ok(f.weapons.map((x) => x.id));
       }
       case "logo_url_of_faction": {
         const f = ds.factions.get(input.factionId);
-        if (!f) return err("UNKNOWN_ENTITY", { kind: "faction", id: input.factionId });
+        if (!f)
+          return err("UNKNOWN_ENTITY", {
+            kind: "faction",
+            id: input.factionId,
+          });
         return ok(f.logoUrl ?? null);
       }
       case "units_with_keyword":
@@ -565,26 +742,38 @@ function handleLinkedQuery(state: RunnerState, args: unknown): RunnerResponse {
       case "allies_for": {
         const raw = (input as Record<string, unknown>).detachmentIds;
         const detachmentIds = Array.isArray(raw) ? (raw as string[]) : [];
-        return ok(ds.alliesFor(input.factionId ?? "", detachmentIds).map((r) => r.id));
+        return ok(
+          ds.alliesFor(input.factionId ?? "", detachmentIds).map((r) => r.id),
+        );
       }
       case "ally_units_for":
         return ok(ds.allyUnitsFor(input.ruleId ?? "").map((u) => u.id));
       case "leaders_attachable_to":
-        return ok(ds.leadersAttachableTo(input.bodyguardId ?? "").map((u) => u.id));
+        return ok(
+          ds.leadersAttachableTo(input.bodyguardId ?? "").map((u) => u.id),
+        );
       case "bodyguards_attachable_from":
-        return ok(ds.bodyguardsAttachableFrom(input.leaderId ?? "").map((u) => u.id));
+        return ok(
+          ds.bodyguardsAttachableFrom(input.leaderId ?? "").map((u) => u.id),
+        );
       case "reactive_trigger_ability_ids":
         return ok(ds.reactiveTriggers().map((rt) => rt.abilityId));
       case "events_with_triggers":
         return ok([...ds.triggerIndex().keys()]);
       case "triggers_for_event":
-        return ok((ds.triggerIndex().get((input.event ?? "") as GameEvent) ?? []).map((rt) => rt.abilityId));
+        return ok(
+          (ds.triggerIndex().get((input.event ?? "") as GameEvent) ?? []).map(
+            (rt) => rt.abilityId,
+          ),
+        );
       case "get_enhancement":
         // Returns the resolved enhancement's current id (or null). Exercises
         // renamed-id resolution: a since-renamed id resolves to its new record.
         return ok(ds.enhancements.get(input.id ?? "")?.id ?? null);
       default:
-        return err("INVALID_INPUT", { detail: `unknown linked_query: ${a.query}` });
+        return err("INVALID_INPUT", {
+          detail: `unknown linked_query: ${a.query}`,
+        });
     }
   } catch (e) {
     return err("INTERNAL_ERROR", { detail: (e as Error).message });
@@ -595,7 +784,8 @@ const VALIDATOR_TARGETS: Record<string, string> = {
   unit: "https://40kdc.dev/schemas/core/unit.schema.json",
   weapon: "https://40kdc.dev/schemas/core/weapon.schema.json",
   faction: "https://40kdc.dev/schemas/core/faction.schema.json",
-  ability: "https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json",
+  ability:
+    "https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json",
   wargear: "https://40kdc.dev/schemas/core/wargear.schema.json",
   "wargear-option": "https://40kdc.dev/schemas/core/wargear-option.schema.json",
 };
@@ -636,7 +826,9 @@ function handleValidate(state: RunnerState, args: unknown): RunnerResponse {
   }
   const a = args as { target?: unknown; value?: unknown };
   if (typeof a.target !== "string" || !(a.target in VALIDATOR_TARGETS)) {
-    return err("INVALID_INPUT", { detail: `unknown validator target: ${String(a.target)}` });
+    return err("INVALID_INPUT", {
+      detail: `unknown validator target: ${String(a.target)}`,
+    });
   }
   let validate;
   try {
@@ -645,7 +837,9 @@ function handleValidate(state: RunnerState, args: unknown): RunnerResponse {
     return err("VALIDATION_ERROR", { detail: (e as Error).message });
   }
   if (!validate) {
-    return err("VALIDATION_ERROR", { detail: `schema not loaded: ${a.target}` });
+    return err("VALIDATION_ERROR", {
+      detail: `schema not loaded: ${a.target}`,
+    });
   }
   validate(a.value);
   const raw = validate.errors ?? [];
@@ -686,28 +880,59 @@ function buildEngineInput(
   opName: string,
 ): { ok: true; input: EngineInput } | { ok: false; response: RunnerResponse } {
   if (!a.attacker?.weaponId || typeof a.attacker.profileIndex !== "number") {
-    return { ok: false, response: err("INVALID_INPUT", { detail: `${opName}.attacker.weaponId/profileIndex required` }) };
+    return {
+      ok: false,
+      response: err("INVALID_INPUT", {
+        detail: `${opName}.attacker.weaponId/profileIndex required`,
+      }),
+    };
   }
   if (!a.target?.unitId || typeof a.target.profileIndex !== "number") {
-    return { ok: false, response: err("INVALID_INPUT", { detail: `${opName}.target.unitId/profileIndex required` }) };
+    return {
+      ok: false,
+      response: err("INVALID_INPUT", {
+        detail: `${opName}.target.unitId/profileIndex required`,
+      }),
+    };
   }
   if (typeof a.modelsFiring !== "number") {
-    return { ok: false, response: err("INVALID_INPUT", { detail: `${opName}.modelsFiring required` }) };
+    return {
+      ok: false,
+      response: err("INVALID_INPUT", {
+        detail: `${opName}.modelsFiring required`,
+      }),
+    };
   }
   if (!a.context) {
-    return { ok: false, response: err("INVALID_INPUT", { detail: `${opName}.context required` }) };
+    return {
+      ok: false,
+      response: err("INVALID_INPUT", { detail: `${opName}.context required` }),
+    };
   }
   const ds = getDataset(state);
   const weapon = ds.weapons.getAny(a.attacker.weaponId);
-  if (!weapon) return { ok: false, response: err("UNKNOWN_ENTITY", { kind: "weapon", id: a.attacker.weaponId }) };
+  if (!weapon)
+    return {
+      ok: false,
+      response: err("UNKNOWN_ENTITY", {
+        kind: "weapon",
+        id: a.attacker.weaponId,
+      }),
+    };
   const unit = ds.units.getAny(a.target.unitId);
-  if (!unit) return { ok: false, response: err("UNKNOWN_ENTITY", { kind: "unit", id: a.target.unitId }) };
+  if (!unit)
+    return {
+      ok: false,
+      response: err("UNKNOWN_ENTITY", { kind: "unit", id: a.target.unitId }),
+    };
   const input: EngineInput = {
     attacker: { weapon: weapon.raw, profileIndex: a.attacker.profileIndex },
     target: {
       unit: unit.raw,
       profileIndex: a.target.profileIndex,
-      ...(a.target.modelCount !== undefined ? { modelCount: a.target.modelCount } : {}),
+      ...(a.target.modelCount !== undefined
+        ? { modelCount: a.target.modelCount }
+        : {}),
     },
     modelsFiring: a.modelsFiring,
     buffs: a.buffs ?? [],
@@ -728,7 +953,9 @@ function handleCrunch(state: RunnerState, args: unknown): RunnerResponse {
     // across impls. The differ compares per-stage `expected` with 5e-4
     // tolerance — that's the cross-impl contract.
     const out = crunch(built.input, getDataset(state));
-    return ok({ stages: out.stages.map((s) => ({ name: s.name, expected: s.expected })) });
+    return ok({
+      stages: out.stages.map((s) => ({ name: s.name, expected: s.expected })),
+    });
   } catch (e) {
     return err("CRUNCH_ERROR", { detail: (e as Error).message });
   }
@@ -736,13 +963,16 @@ function handleCrunch(state: RunnerState, args: unknown): RunnerResponse {
 
 function handleAttribution(state: RunnerState, args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "attribution args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "attribution args must be an object",
+    });
   }
   const a = args as CrunchArgs & { epsilon?: number };
   const built = buildEngineInput(state, a, "attribution");
   if (!built.ok) return built.response;
   try {
-    const opts = typeof a.epsilon === "number" ? { epsilon: a.epsilon } : undefined;
+    const opts =
+      typeof a.epsilon === "number" ? { epsilon: a.epsilon } : undefined;
     // Drop `detail` from the wire (impl-specific formatting). Keep all
     // numeric fields and the kind-tagged BuffSource shape that's already
     // serde-compatible.
@@ -788,7 +1018,9 @@ function handleCompare(state: RunnerState, args: unknown): RunnerResponse {
     typeof a.distance !== "number" ||
     (a.phase !== "shooting" && a.phase !== "fight")
   ) {
-    return err("INVALID_INPUT", { detail: "compare: malformed attacker/target/distance/phase" });
+    return err("INVALID_INPUT", {
+      detail: "compare: malformed attacker/target/distance/phase",
+    });
   }
   try {
     const cell = compareCell(getDataset(state), {
@@ -823,7 +1055,9 @@ function handleLoadout(state: RunnerState, args: unknown): RunnerResponse {
     typeof a.distance !== "number" ||
     (a.phase !== "shooting" && a.phase !== "fight")
   ) {
-    return err("INVALID_INPUT", { detail: "loadout: malformed lines/target/distance/phase" });
+    return err("INVALID_INPUT", {
+      detail: "loadout: malformed lines/target/distance/phase",
+    });
   }
   try {
     const cell = loadoutCell(getDataset(state), {
@@ -838,33 +1072,57 @@ function handleLoadout(state: RunnerState, args: unknown): RunnerResponse {
   }
 }
 
-function handleTranslateScoring(state: RunnerState, args: unknown): RunnerResponse {
+function handleTranslateScoring(
+  state: RunnerState,
+  args: unknown,
+): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "translate_scoring args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "translate_scoring args must be an object",
+    });
   }
   const a = args as { cardId?: unknown };
   if (typeof a.cardId !== "string") {
-    return err("INVALID_INPUT", { detail: "translate_scoring.cardId must be a string" });
+    return err("INVALID_INPUT", {
+      detail: "translate_scoring.cardId must be a string",
+    });
   }
   const card = getDataset(state).missionCards.get(a.cardId);
-  if (!card) return err("UNKNOWN_ENTITY", { kind: "secondary-card", id: a.cardId });
+  if (!card)
+    return err("UNKNOWN_ENTITY", { kind: "secondary-card", id: a.cardId });
   return ok({ awards: describeScoringCard(card) });
 }
 
 function handleTranslateEffect(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "translate_effect args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "translate_effect args must be an object",
+    });
   }
-  const a = args as { effect?: unknown; scope?: unknown; usage?: unknown; trigger?: unknown; applies_to?: unknown };
+  const a = args as {
+    effect?: unknown;
+    scope?: unknown;
+    usage?: unknown;
+    trigger?: unknown;
+    applies_to?: unknown;
+  };
   if (typeof a.effect !== "object" || a.effect === null) {
-    return err("INVALID_INPUT", { detail: "translate_effect.effect must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "translate_effect.effect must be an object",
+    });
   }
   const scope =
-    typeof a.scope === "object" && a.scope !== null ? (a.scope as AbilityScope) : undefined;
+    typeof a.scope === "object" && a.scope !== null
+      ? (a.scope as AbilityScope)
+      : undefined;
   const usage =
-    typeof a.usage === "object" && a.usage !== null ? (a.usage as AbilityUsage) : undefined;
+    typeof a.usage === "object" && a.usage !== null
+      ? (a.usage as AbilityUsage)
+      : undefined;
   const trigger =
-    typeof a.trigger === "object" && a.trigger !== null ? (a.trigger as AbilityTrigger) : undefined;
+    typeof a.trigger === "object" && a.trigger !== null
+      ? (a.trigger as AbilityTrigger)
+      : undefined;
   const appliesTo =
     typeof a.applies_to === "object" && a.applies_to !== null
       ? (a.applies_to as AbilityAppliesTo)
@@ -882,22 +1140,36 @@ function handleTranslateEffect(args: unknown): RunnerResponse {
 
 function handleMatchAppliesTo(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "match_applies_to args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "match_applies_to args must be an object",
+    });
   }
   const a = args as { applies_to?: unknown; units?: unknown };
   if (!Array.isArray(a.units)) {
-    return err("INVALID_INPUT", { detail: "match_applies_to.units must be an array" });
+    return err("INVALID_INPUT", {
+      detail: "match_applies_to.units must be an array",
+    });
   }
   const filter =
     typeof a.applies_to === "object" && a.applies_to !== null
       ? (a.applies_to as AbilityAppliesTo)
       : undefined;
   const matchedIds: string[] = [];
-  for (const u of a.units as Array<{ id?: unknown; keywords?: unknown; faction_keywords?: unknown }>) {
-    if (unitMatchesAppliesTo(filter, {
-      keywords: Array.isArray(u.keywords) ? (u.keywords as string[]) : undefined,
-      faction_keywords: Array.isArray(u.faction_keywords) ? (u.faction_keywords as string[]) : undefined,
-    })) {
+  for (const u of a.units as Array<{
+    id?: unknown;
+    keywords?: unknown;
+    faction_keywords?: unknown;
+  }>) {
+    if (
+      unitMatchesAppliesTo(filter, {
+        keywords: Array.isArray(u.keywords)
+          ? (u.keywords as string[])
+          : undefined,
+        faction_keywords: Array.isArray(u.faction_keywords)
+          ? (u.faction_keywords as string[])
+          : undefined,
+      })
+    ) {
       matchedIds.push(String(u.id));
     }
   }
@@ -927,45 +1199,85 @@ interface AssertionRef {
 function resolveAsserted(
   card: SecondaryCard,
   asserted: unknown,
-): { ok: true; value: AssertedAward[] } | { ok: false; response: RunnerResponse } {
+):
+  | { ok: true; value: AssertedAward[] }
+  | { ok: false; response: RunnerResponse } {
   if (!Array.isArray(asserted)) {
-    return { ok: false, response: err("INVALID_INPUT", { detail: "asserted must be an array" }) };
+    return {
+      ok: false,
+      response: err("INVALID_INPUT", { detail: "asserted must be an array" }),
+    };
   }
   const awards = awardsOf(card);
   const out: AssertedAward[] = [];
   for (const raw of asserted) {
     if (typeof raw !== "object" || raw === null) {
-      return { ok: false, response: err("INVALID_INPUT", { detail: "asserted entry must be an object" }) };
+      return {
+        ok: false,
+        response: err("INVALID_INPUT", {
+          detail: "asserted entry must be an object",
+        }),
+      };
     }
     const a = raw as AssertionRef;
-    if (typeof a.index !== "number" || a.index < 0 || a.index >= awards.length) {
-      return { ok: false, response: err("INVALID_INPUT", { detail: `asserted.index out of range: ${String(a.index)}` }) };
+    if (
+      typeof a.index !== "number" ||
+      a.index < 0 ||
+      a.index >= awards.length
+    ) {
+      return {
+        ok: false,
+        response: err("INVALID_INPUT", {
+          detail: `asserted.index out of range: ${String(a.index)}`,
+        }),
+      };
     }
-    out.push(a.count === undefined ? { award: awards[a.index] } : { award: awards[a.index], count: a.count });
+    out.push(
+      a.count === undefined
+        ? { award: awards[a.index] }
+        : { award: awards[a.index], count: a.count },
+    );
   }
   return { ok: true, value: out };
 }
 
 function handleScoreEvent(state: RunnerState, args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "score_event args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "score_event args must be an object",
+    });
   }
-  const a = args as { cardId?: unknown; approach?: unknown; asserted?: unknown; roundCap?: unknown };
+  const a = args as {
+    cardId?: unknown;
+    approach?: unknown;
+    asserted?: unknown;
+    roundCap?: unknown;
+  };
   if (typeof a.cardId !== "string") {
-    return err("INVALID_INPUT", { detail: "score_event.cardId must be a string" });
+    return err("INVALID_INPUT", {
+      detail: "score_event.cardId must be a string",
+    });
   }
   if (!isScoringMode(a.approach)) {
-    return err("INVALID_INPUT", { detail: "score_event.approach must be 'fixed' or 'tactical'" });
+    return err("INVALID_INPUT", {
+      detail: "score_event.approach must be 'fixed' or 'tactical'",
+    });
   }
   const card = getDataset(state).missionCards.get(a.cardId);
-  if (!card) return err("UNKNOWN_ENTITY", { kind: "secondary-card", id: a.cardId });
+  if (!card)
+    return err("UNKNOWN_ENTITY", { kind: "secondary-card", id: a.cardId });
   const resolved = resolveAsserted(card, a.asserted);
   if (!resolved.ok) return resolved.response;
 
   const turn = scoreTurn(resolved.value);
   const cap = scoreCap(card, a.approach);
   const banked = scoreSecondaryEvent(resolved.value, card, a.approach);
-  const value: { turn: number; cap: number | null; banked: number; primaryBanked?: number } = {
+  const value: {
+    turn: number;
+    cap: number | null;
+    banked: number;
+    primaryBanked?: number;
+  } = {
     turn,
     // Infinity (uncapped fixed) has no JSON form — null means "no cap".
     cap: cap === Infinity ? null : cap,
@@ -979,12 +1291,35 @@ function handleScoreEvent(state: RunnerState, args: unknown): RunnerResponse {
 
 type ScoreStateOp =
   | { kind: "draw"; cardId?: unknown }
-  | { kind: "score-secondary"; cardId?: unknown; round?: unknown; asserted?: unknown; roundCap?: unknown; gameCap?: unknown }
-  | { kind: "score-primary"; cardId?: unknown; round?: unknown; asserted?: unknown; roundCap?: unknown; gameCap?: unknown }
-  | { kind: "set-primary"; round?: unknown; vp?: unknown; roundCap?: unknown; gameCap?: unknown }
+  | {
+      kind: "score-secondary";
+      cardId?: unknown;
+      round?: unknown;
+      asserted?: unknown;
+      roundCap?: unknown;
+      gameCap?: unknown;
+    }
+  | {
+      kind: "score-primary";
+      cardId?: unknown;
+      round?: unknown;
+      asserted?: unknown;
+      roundCap?: unknown;
+      gameCap?: unknown;
+    }
+  | {
+      kind: "set-primary";
+      round?: unknown;
+      vp?: unknown;
+      roundCap?: unknown;
+      gameCap?: unknown;
+    }
   | { kind: "remove-score"; index?: unknown };
 
-function optionalCaps(o: { roundCap?: unknown; gameCap?: unknown }): { roundCap?: number; gameCap?: number } {
+function optionalCaps(o: { roundCap?: unknown; gameCap?: unknown }): {
+  roundCap?: number;
+  gameCap?: number;
+} {
   const caps: { roundCap?: number; gameCap?: number } = {};
   if (typeof o.roundCap === "number") caps.roundCap = o.roundCap;
   if (typeof o.gameCap === "number") caps.gameCap = o.gameCap;
@@ -993,11 +1328,15 @@ function optionalCaps(o: { roundCap?: unknown; gameCap?: unknown }): { roundCap?
 
 function handleScoreState(state: RunnerState, args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "score_state args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "score_state args must be an object",
+    });
   }
   const a = args as { approach?: unknown; ops?: unknown };
   if (!isScoringMode(a.approach)) {
-    return err("INVALID_INPUT", { detail: "score_state.approach must be 'fixed' or 'tactical'" });
+    return err("INVALID_INPUT", {
+      detail: "score_state.approach must be 'fixed' or 'tactical'",
+    });
   }
   if (!Array.isArray(a.ops)) {
     return err("INVALID_INPUT", { detail: "score_state.ops must be an array" });
@@ -1007,16 +1346,25 @@ function handleScoreState(state: RunnerState, args: unknown): RunnerResponse {
   for (const raw of a.ops as ScoreStateOp[]) {
     switch (raw.kind) {
       case "draw": {
-        if (typeof raw.cardId !== "string") return err("INVALID_INPUT", { detail: "draw.cardId must be a string" });
+        if (typeof raw.cardId !== "string")
+          return err("INVALID_INPUT", {
+            detail: "draw.cardId must be a string",
+          });
         pg = addToHand(pg, raw.cardId);
         break;
       }
       case "score-secondary": {
         if (typeof raw.cardId !== "string" || typeof raw.round !== "number") {
-          return err("INVALID_INPUT", { detail: "score-secondary needs cardId and round" });
+          return err("INVALID_INPUT", {
+            detail: "score-secondary needs cardId and round",
+          });
         }
         const card = ds.missionCards.get(raw.cardId);
-        if (!card) return err("UNKNOWN_ENTITY", { kind: "secondary-card", id: raw.cardId });
+        if (!card)
+          return err("UNKNOWN_ENTITY", {
+            kind: "secondary-card",
+            id: raw.cardId,
+          });
         const resolved = resolveAsserted(card, raw.asserted);
         if (!resolved.ok) return resolved.response;
         const vp = scoreSecondaryEvent(resolved.value, card, pg.approach);
@@ -1025,30 +1373,46 @@ function handleScoreState(state: RunnerState, args: unknown): RunnerResponse {
       }
       case "score-primary": {
         if (typeof raw.cardId !== "string" || typeof raw.round !== "number") {
-          return err("INVALID_INPUT", { detail: "score-primary needs cardId and round" });
+          return err("INVALID_INPUT", {
+            detail: "score-primary needs cardId and round",
+          });
         }
         const card = ds.missionCards.get(raw.cardId);
-        if (!card) return err("UNKNOWN_ENTITY", { kind: "secondary-card", id: raw.cardId });
+        if (!card)
+          return err("UNKNOWN_ENTITY", {
+            kind: "secondary-card",
+            id: raw.cardId,
+          });
         const resolved = resolveAsserted(card, raw.asserted);
         if (!resolved.ok) return resolved.response;
         // The app path: compute the round's raw total, then clamp on store.
-        pg = setPrimary(pg, raw.round, scoreTurn(resolved.value), optionalCaps(raw));
+        pg = setPrimary(
+          pg,
+          raw.round,
+          scoreTurn(resolved.value),
+          optionalCaps(raw),
+        );
         break;
       }
       case "set-primary": {
         if (typeof raw.round !== "number" || typeof raw.vp !== "number") {
-          return err("INVALID_INPUT", { detail: "set-primary needs round and vp" });
+          return err("INVALID_INPUT", {
+            detail: "set-primary needs round and vp",
+          });
         }
         pg = setPrimary(pg, raw.round, raw.vp, optionalCaps(raw));
         break;
       }
       case "remove-score": {
-        if (typeof raw.index !== "number") return err("INVALID_INPUT", { detail: "remove-score needs index" });
+        if (typeof raw.index !== "number")
+          return err("INVALID_INPUT", { detail: "remove-score needs index" });
         pg = removeScore(pg, raw.index);
         break;
       }
       default:
-        return err("INVALID_INPUT", { detail: `unknown score_state op kind: ${String((raw as { kind?: unknown }).kind)}` });
+        return err("INVALID_INPUT", {
+          detail: `unknown score_state op kind: ${String((raw as { kind?: unknown }).kind)}`,
+        });
     }
   }
   return ok({
@@ -1063,7 +1427,9 @@ function handleScoreState(state: RunnerState, args: unknown): RunnerResponse {
 
 function handleWtcResult(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "wtc_result args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "wtc_result args must be an object",
+    });
   }
   const a = args as { a?: unknown; b?: unknown };
   if (typeof a.a !== "number" || typeof a.b !== "number") {
@@ -1074,18 +1440,27 @@ function handleWtcResult(args: unknown): RunnerResponse {
 
 function handleResolveTerrain(args: unknown): RunnerResponse {
   if (typeof args !== "object" || args === null) {
-    return err("INVALID_INPUT", { detail: "resolve_terrain args must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "resolve_terrain args must be an object",
+    });
   }
   const a = args as { layout?: unknown; templates?: unknown };
   if (typeof a.layout !== "object" || a.layout === null) {
-    return err("INVALID_INPUT", { detail: "resolve_terrain.layout must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "resolve_terrain.layout must be an object",
+    });
   }
   const templates = a.templates ?? [];
   if (!Array.isArray(templates)) {
-    return err("INVALID_INPUT", { detail: "resolve_terrain.templates must be an array" });
+    return err("INVALID_INPUT", {
+      detail: "resolve_terrain.templates must be an array",
+    });
   }
   try {
-    const pieces = resolveLayout(a.layout as TerrainLayout, templates as TerrainTemplate[]);
+    const pieces = resolveLayout(
+      a.layout as TerrainLayout,
+      templates as TerrainTemplate[],
+    );
     return ok({ pieces });
   } catch (e) {
     if (e instanceof TerrainResolveError) {
@@ -1101,17 +1476,28 @@ function handleKeystones(args: unknown): RunnerResponse {
   }
   const a = args as { layout?: unknown; templates?: unknown; board?: unknown };
   if (typeof a.layout !== "object" || a.layout === null) {
-    return err("INVALID_INPUT", { detail: "keystones.layout must be an object" });
+    return err("INVALID_INPUT", {
+      detail: "keystones.layout must be an object",
+    });
   }
   const templates = a.templates ?? [];
   if (!Array.isArray(templates)) {
-    return err("INVALID_INPUT", { detail: "keystones.templates must be an array" });
+    return err("INVALID_INPUT", {
+      detail: "keystones.templates must be an array",
+    });
   }
   let board: { width: number; height: number } = BOARD_INCHES;
   if (a.board !== undefined) {
     const b = a.board as { width?: unknown; height?: unknown } | null;
-    if (typeof b !== "object" || b === null || typeof b.width !== "number" || typeof b.height !== "number") {
-      return err("INVALID_INPUT", { detail: "keystones.board must be {width, height}" });
+    if (
+      typeof b !== "object" ||
+      b === null ||
+      typeof b.width !== "number" ||
+      typeof b.height !== "number"
+    ) {
+      return err("INVALID_INPUT", {
+        detail: "keystones.board must be {width, height}",
+      });
     }
     board = { width: b.width, height: b.height };
   }
@@ -1138,7 +1524,10 @@ function handleKeystones(args: unknown): RunnerResponse {
  * Apply one decoded request to the runner state and return the response. Used
  * directly by tests; the CLI loop wraps it with line parsing.
  */
-export function dispatch(state: RunnerState, req: { op: string; args?: unknown }): RunnerResponse {
+export function dispatch(
+  state: RunnerState,
+  req: { op: string; args?: unknown },
+): RunnerResponse {
   if (!state.initialized && req.op !== "init") {
     return err("INVALID_INPUT", { detail: "must init before any other op" });
   }
@@ -1146,7 +1535,11 @@ export function dispatch(state: RunnerState, req: { op: string; args?: unknown }
     case "init":
       return handleInit(state, req.args);
     case "version":
-      return ok({ impl: IMPL_NAME, spec_version: SPEC_VERSION, impl_version: IMPL_VERSION });
+      return ok({
+        impl: IMPL_NAME,
+        spec_version: SPEC_VERSION,
+        impl_version: IMPL_VERSION,
+      });
     case "normalize":
       return handleNormalize(req.args);
     case "import":
@@ -1205,17 +1598,26 @@ export function dispatch(state: RunnerState, req: { op: string; args?: unknown }
  * should be written to stdout (one NDJSON response). Returns `null` only on
  * fully-empty input lines, which should be silently ignored.
  */
-export function processRequest(state: RunnerState, line: string): string | null {
+export function processRequest(
+  state: RunnerState,
+  line: string,
+): string | null {
   const trimmed = line.trim();
   if (trimmed === "") return null;
   let req: { op?: unknown; args?: unknown };
   try {
     req = JSON.parse(trimmed);
   } catch (e) {
-    return JSON.stringify(err("INVALID_INPUT", { detail: `not valid JSON: ${(e as Error).message}` }));
+    return JSON.stringify(
+      err("INVALID_INPUT", {
+        detail: `not valid JSON: ${(e as Error).message}`,
+      }),
+    );
   }
   if (typeof req.op !== "string") {
-    return JSON.stringify(err("INVALID_INPUT", { detail: "request must have a string `op` field" }));
+    return JSON.stringify(
+      err("INVALID_INPUT", { detail: "request must have a string `op` field" }),
+    );
   }
   const response = dispatch(state, { op: req.op, args: req.args });
   return JSON.stringify(response);
@@ -1232,7 +1634,11 @@ function isCliMain(): boolean {
   if (!process.argv[1]) return false;
   const entry = process.argv[1];
   const here = fileURLToPath(import.meta.url);
-  return entry === here || entry.endsWith("/runner.js") || entry.endsWith("/runner.ts");
+  return (
+    entry === here ||
+    entry.endsWith("/runner.js") ||
+    entry.endsWith("/runner.ts")
+  );
 }
 
 async function runCli(): Promise<void> {

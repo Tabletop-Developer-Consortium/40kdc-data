@@ -171,6 +171,11 @@ pub mod error {
 ///    "scope": {
 ///      "$ref": "#/$defs/scope"
 ///    },
+///    "source_digest": {
+///      "description": "SHA-256 of the NORMALISED printed rule this annotation was authored against — one-way, so the rule text itself stays outside this repository. Normalisation (defined once in tools/src/source-digest.ts) casefolds, folds Unicode, keeps the rule-significant operators + - = < > / % and replaces other punctuation with spaces, so reprint noise and quote style leave the digest unchanged while a changed value or an added condition changes it. Optional: absent means the source was never fingerprinted, which `npm run audit:source-digest` reports as untracked rather than current. Records source-content identity, not release history — consumers must not select, order or supersede abilities by it.",
+///      "type": "string",
+///      "pattern": "^[0-9a-f]{64}$"
+///    },
 ///    "supersedes": {
 ///      "oneOf": [
 ///        {
@@ -276,6 +281,9 @@ pub struct Ability {
     pub interactions: ::std::vec::Vec<AbilityInteractionsItem>,
     pub name: ::std::string::String,
     pub scope: Scope,
+    ///SHA-256 of the NORMALISED printed rule this annotation was authored against — one-way, so the rule text itself stays outside this repository. Normalisation (defined once in tools/src/source-digest.ts) casefolds, folds Unicode, keeps the rule-significant operators + - = < > / % and replaces other punctuation with spaces, so reprint noise and quote style leave the digest unchanged while a changed value or an added condition changes it. Optional: absent means the source was never fingerprinted, which `npm run audit:source-digest` reports as untracked rather than current. Records source-content identity, not release history — consumers must not select, order or supersede abilities by it.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub source_digest: ::std::option::Option<AbilitySourceDigest>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub supersedes: ::std::option::Option<DataslateVersion>,
     ///For reactive abilities: the game event(s) this ability fires on, plus structured guards. One trigger object, OR an array of trigger objects — the ability fires on ANY listed trigger (models multi-event reactions like 'set up OR ends a move'). See `$defs/trigger`.
@@ -635,6 +643,81 @@ impl ::std::convert::TryFrom<::std::string::String> for AbilityInteractionsItemT
         value: ::std::string::String,
     ) -> ::std::result::Result<Self, self::error::ConversionError> {
         value.parse()
+    }
+}
+///SHA-256 of the NORMALISED printed rule this annotation was authored against — one-way, so the rule text itself stays outside this repository. Normalisation (defined once in tools/src/source-digest.ts) casefolds, folds Unicode, keeps the rule-significant operators + - = < > / % and replaces other punctuation with spaces, so reprint noise and quote style leave the digest unchanged while a changed value or an added condition changes it. Optional: absent means the source was never fingerprinted, which `npm run audit:source-digest` reports as untracked rather than current. Records source-content identity, not release history — consumers must not select, order or supersede abilities by it.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "SHA-256 of the NORMALISED printed rule this annotation was authored against — one-way, so the rule text itself stays outside this repository. Normalisation (defined once in tools/src/source-digest.ts) casefolds, folds Unicode, keeps the rule-significant operators + - = < > / % and replaces other punctuation with spaces, so reprint noise and quote style leave the digest unchanged while a changed value or an added condition changes it. Optional: absent means the source was never fingerprinted, which `npm run audit:source-digest` reports as untracked rather than current. Records source-content identity, not release history — consumers must not select, order or supersede abilities by it.",
+///  "type": "string",
+///  "pattern": "^[0-9a-f]{64}$"
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct AbilitySourceDigest(::std::string::String);
+impl ::std::ops::Deref for AbilitySourceDigest {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<AbilitySourceDigest> for ::std::string::String {
+    fn from(value: AbilitySourceDigest) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for AbilitySourceDigest {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        static PATTERN: ::std::sync::LazyLock<::regress::Regex> = ::std::sync::LazyLock::new(||
+        { ::regress::Regex::new("^[0-9a-f]{64}$").unwrap() });
+        if PATTERN.find(value).is_none() {
+            return Err("doesn't match pattern \"^[0-9a-f]{64}$\"".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for AbilitySourceDigest {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for AbilitySourceDigest {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for AbilitySourceDigest {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for AbilitySourceDigest {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
     }
 }
 ///For reactive abilities: the game event(s) this ability fires on, plus structured guards. One trigger object, OR an array of trigger objects — the ability fires on ANY listed trigger (models multi-event reactions like 'set up OR ends a move'). See `$defs/trigger`.
@@ -3832,6 +3915,16 @@ impl<'de> ::serde::Deserialize<'de> for DeploymentPatternZonesItemName {
 ///        "to"
 ///      ],
 ///      "properties": {
+///        "attacker_keywords": {
+///          "description": "All keywords required on each individual friendly attacking MODEL, not on its unit. Only meaningful with to:attackers-of-target.",
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1,
+///          "uniqueItems": true
+///        },
 ///        "effect": {
 ///          "$ref": "#/$defs/effect-node"
 ///        },
@@ -3869,6 +3962,10 @@ impl<'de> ::serde::Deserialize<'de> for DeploymentPatternZonesItemName {
 ///        "count": {
 ///          "type": "integer",
 ///          "minimum": 1.0
+///        },
+///        "eligibility": {
+///          "description": "Predicate on the candidate before selecting it. Event-bound history can refer to the attack sequence that caused this selection.",
+///          "$ref": "#/$defs/condition"
 ///        },
 ///        "keyword_match": {
 ///          "default": "all",
@@ -3935,6 +4032,16 @@ pub struct DesignateTargetEffect {
 ///    "to"
 ///  ],
 ///  "properties": {
+///    "attacker_keywords": {
+///      "description": "All keywords required on each individual friendly attacking MODEL, not on its unit. Only meaningful with to:attackers-of-target.",
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1,
+///      "uniqueItems": true
+///    },
 ///    "effect": {
 ///      "$ref": "#/$defs/effect-node"
 ///    },
@@ -3954,8 +4061,89 @@ pub struct DesignateTargetEffect {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 #[serde(deny_unknown_fields)]
 pub struct DesignateTargetEffectApplies {
+    ///All keywords required on each individual friendly attacking MODEL, not on its unit. Only meaningful with to:attackers-of-target.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub attacker_keywords: ::std::option::Option<
+        Vec<DesignateTargetEffectAppliesAttackerKeywordsItem>,
+    >,
     pub effect: ::std::boxed::Box<EffectNode>,
     pub to: DesignateTargetEffectAppliesTo,
+}
+///`DesignateTargetEffectAppliesAttackerKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct DesignateTargetEffectAppliesAttackerKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for DesignateTargetEffectAppliesAttackerKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<DesignateTargetEffectAppliesAttackerKeywordsItem>
+for ::std::string::String {
+    fn from(value: DesignateTargetEffectAppliesAttackerKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for DesignateTargetEffectAppliesAttackerKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for DesignateTargetEffectAppliesAttackerKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for DesignateTargetEffectAppliesAttackerKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for DesignateTargetEffectAppliesAttackerKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for DesignateTargetEffectAppliesAttackerKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///`DesignateTargetEffectAppliesTo`
 ///
@@ -4218,6 +4406,10 @@ impl ::std::convert::TryFrom<::std::string::String> for DesignateTargetEffectDur
 ///      "type": "integer",
 ///      "minimum": 1.0
 ///    },
+///    "eligibility": {
+///      "description": "Predicate on the candidate before selecting it. Event-bound history can refer to the attack sequence that caused this selection.",
+///      "$ref": "#/$defs/condition"
+///    },
 ///    "keyword_match": {
 ///      "default": "all",
 ///      "type": "string",
@@ -4258,6 +4450,9 @@ impl ::std::convert::TryFrom<::std::string::String> for DesignateTargetEffectDur
 pub struct DesignateTargetEffectSelect {
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub count: ::std::option::Option<::std::num::NonZeroU64>,
+    ///Predicate on the candidate before selecting it. Event-bound history can refer to the attack sequence that caused this selection.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub eligibility: ::std::option::Option<Condition>,
     #[serde(default = "defaults::designate_target_effect_select_keyword_match")]
     pub keyword_match: DesignateTargetEffectSelectKeywordMatch,
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
@@ -4848,6 +5043,27 @@ impl ::std::default::Default for DetachmentRestrictions {
 ///        }
 ///      ]
 ///    },
+///    "test": {
+///      "description": "Perform an actual Leadership test with the normal test modifiers/re-roll permissions and the selected subject's current Leadership (the unit's applicable Leadership for subject:unit). It passes on 2D6 >= Leadership. It is not a Battle-shock test and does not itself inflict Battle-shock.",
+///      "type": "object",
+///      "required": [
+///        "kind",
+///        "subject"
+///      ],
+///      "properties": {
+///        "kind": {
+///          "const": "leadership"
+///        },
+///        "subject": {
+///          "type": "string",
+///          "enum": [
+///            "unit",
+///            "self"
+///          ]
+///        }
+///      },
+///      "additionalProperties": false
+///    },
 ///    "threshold": {
 ///      "description": "Fixed threshold or model characteristic to compare against",
 ///      "oneOf": [
@@ -4881,6 +5097,8 @@ pub struct DiceGatedEffect {
     pub on_fail: ::std::option::Option<::std::boxed::Box<EffectNode>>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub on_success: ::std::option::Option<::std::boxed::Box<EffectNode>>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub test: ::std::option::Option<DiceGatedEffectTest>,
     ///Fixed threshold or model characteristic to compare against
     pub threshold: DiceGatedEffectThreshold,
     #[serde(rename = "type")]
@@ -4981,6 +5199,116 @@ impl ::std::convert::TryFrom<::std::string::String> for DiceGatedEffectCompariso
 impl ::std::default::Default for DiceGatedEffectComparison {
     fn default() -> Self {
         DiceGatedEffectComparison::Gte
+    }
+}
+///Perform an actual Leadership test with the normal test modifiers/re-roll permissions and the selected subject's current Leadership (the unit's applicable Leadership for subject:unit). It passes on 2D6 >= Leadership. It is not a Battle-shock test and does not itself inflict Battle-shock.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Perform an actual Leadership test with the normal test modifiers/re-roll permissions and the selected subject's current Leadership (the unit's applicable Leadership for subject:unit). It passes on 2D6 >= Leadership. It is not a Battle-shock test and does not itself inflict Battle-shock.",
+///  "type": "object",
+///  "required": [
+///    "kind",
+///    "subject"
+///  ],
+///  "properties": {
+///    "kind": {
+///      "const": "leadership"
+///    },
+///    "subject": {
+///      "type": "string",
+///      "enum": [
+///        "unit",
+///        "self"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct DiceGatedEffectTest {
+    pub kind: ::serde_json::Value,
+    pub subject: DiceGatedEffectTestSubject,
+}
+///`DiceGatedEffectTestSubject`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "unit",
+///    "self"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum DiceGatedEffectTestSubject {
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "self")]
+    Self_,
+}
+impl ::std::fmt::Display for DiceGatedEffectTestSubject {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Unit => f.write_str("unit"),
+            Self::Self_ => f.write_str("self"),
+        }
+    }
+}
+impl ::std::str::FromStr for DiceGatedEffectTestSubject {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "unit" => Ok(Self::Unit),
+            "self" => Ok(Self::Self_),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for DiceGatedEffectTestSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for DiceGatedEffectTestSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for DiceGatedEffectTestSubject {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 ///Fixed threshold or model characteristic to compare against
@@ -5796,6 +6124,9 @@ impl ::std::convert::From<EffectNode> for Effect {
 ///    },
 ///    {
 ///      "$ref": "#/$defs/persistent-designation-effect"
+///    },
+///    {
+///      "$ref": "#/$defs/no-effect-effect"
 ///    }
 ///  ]
 ///}
@@ -5824,6 +6155,7 @@ pub enum EffectNode {
     ResourceActionMenuEffect(ResourceActionMenuEffect),
     LeaderModelAbilityGrantEffect(LeaderModelAbilityGrantEffect),
     PersistentDesignationEffect(PersistentDesignationEffect),
+    NoEffectEffect(NoEffectEffect),
 }
 impl ::std::convert::From<SingleEffect> for EffectNode {
     fn from(value: SingleEffect) -> Self {
@@ -5923,6 +6255,11 @@ impl ::std::convert::From<LeaderModelAbilityGrantEffect> for EffectNode {
 impl ::std::convert::From<PersistentDesignationEffect> for EffectNode {
     fn from(value: PersistentDesignationEffect) -> Self {
         Self::PersistentDesignationEffect(value)
+    }
+}
+impl ::std::convert::From<NoEffectEffect> for EffectNode {
+    fn from(value: NoEffectEffect) -> Self {
+        Self::NoEffectEffect(value)
     }
 }
 ///A purchasable upgrade for a character unit, provided by a detachment.
@@ -6848,6 +7185,13 @@ pub enum Footprint {
 ///          },
 ///          "minItems": 1
 ///        },
+///        "member_of": {
+///          "description": "Restrict candidates to models in the ability bearer's unit, including an Attached unit. With target_kind:model every listed keyword is tested on that individual model, never the union of unit keywords.",
+///          "type": "string",
+///          "enum": [
+///            "bearer-unit"
+///          ]
+///        },
 ///        "owner": {
 ///          "type": "string",
 ///          "enum": [
@@ -6908,6 +7252,13 @@ pub struct ForEachUnitEffect {
 ///      },
 ///      "minItems": 1
 ///    },
+///    "member_of": {
+///      "description": "Restrict candidates to models in the ability bearer's unit, including an Attached unit. With target_kind:model every listed keyword is tested on that individual model, never the union of unit keywords.",
+///      "type": "string",
+///      "enum": [
+///        "bearer-unit"
+///      ]
+///    },
 ///    "owner": {
 ///      "type": "string",
 ///      "enum": [
@@ -6939,6 +7290,9 @@ pub struct ForEachUnitEffectSelector {
     ///Every listed keyword is required on each matching unit.
     #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
     pub keywords: ::std::vec::Vec<ForEachUnitEffectSelectorKeywordsItem>,
+    ///Restrict candidates to models in the ability bearer's unit, including an Attached unit. With target_kind:model every listed keyword is tested on that individual model, never the union of unit keywords.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub member_of: ::std::option::Option<ForEachUnitEffectSelectorMemberOf>,
     pub owner: ForEachUnitEffectSelectorOwner,
     ///Whether each iteration binds a whole unit or one matching model.
     #[serde(default = "defaults::for_each_unit_effect_selector_target_kind")]
@@ -7019,6 +7373,80 @@ impl<'de> ::serde::Deserialize<'de> for ForEachUnitEffectSelectorKeywordsItem {
             .map_err(|e: self::error::ConversionError| {
                 <D::Error as ::serde::de::Error>::custom(e.to_string())
             })
+    }
+}
+///Restrict candidates to models in the ability bearer's unit, including an Attached unit. With target_kind:model every listed keyword is tested on that individual model, never the union of unit keywords.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Restrict candidates to models in the ability bearer's unit, including an Attached unit. With target_kind:model every listed keyword is tested on that individual model, never the union of unit keywords.",
+///  "type": "string",
+///  "enum": [
+///    "bearer-unit"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum ForEachUnitEffectSelectorMemberOf {
+    #[serde(rename = "bearer-unit")]
+    BearerUnit,
+}
+impl ::std::fmt::Display for ForEachUnitEffectSelectorMemberOf {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::BearerUnit => f.write_str("bearer-unit"),
+        }
+    }
+}
+impl ::std::str::FromStr for ForEachUnitEffectSelectorMemberOf {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "bearer-unit" => Ok(Self::BearerUnit),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for ForEachUnitEffectSelectorMemberOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for ForEachUnitEffectSelectorMemberOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for ForEachUnitEffectSelectorMemberOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
     }
 }
 ///`ForEachUnitEffectSelectorOwner`
@@ -7538,7 +7966,9 @@ impl<'de> ::serde::Deserialize<'de> for ForceDispositionText {
 ///    "on-damage-allocated",
 ///    "battle-shock-test",
 ///    "leadership-test",
-///    "desperate-escape-test"
+///    "desperate-escape-test",
+///    "stratagem-targeted",
+///    "ability-target-selected"
 ///  ]
 ///}
 /// ```
@@ -7674,6 +8104,10 @@ pub enum GameEvent {
     LeadershipTest,
     #[serde(rename = "desperate-escape-test")]
     DesperateEscapeTest,
+    #[serde(rename = "stratagem-targeted")]
+    StratagemTargeted,
+    #[serde(rename = "ability-target-selected")]
+    AbilityTargetSelected,
 }
 impl ::std::fmt::Display for GameEvent {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -7743,6 +8177,8 @@ impl ::std::fmt::Display for GameEvent {
             Self::BattleShockTest => f.write_str("battle-shock-test"),
             Self::LeadershipTest => f.write_str("leadership-test"),
             Self::DesperateEscapeTest => f.write_str("desperate-escape-test"),
+            Self::StratagemTargeted => f.write_str("stratagem-targeted"),
+            Self::AbilityTargetSelected => f.write_str("ability-target-selected"),
         }
     }
 }
@@ -7811,6 +8247,8 @@ impl ::std::str::FromStr for GameEvent {
             "battle-shock-test" => Ok(Self::BattleShockTest),
             "leadership-test" => Ok(Self::LeadershipTest),
             "desperate-escape-test" => Ok(Self::DesperateEscapeTest),
+            "stratagem-targeted" => Ok(Self::StratagemTargeted),
+            "ability-target-selected" => Ok(Self::AbilityTargetSelected),
             _ => Err("invalid value".into()),
         }
     }
@@ -10104,6 +10542,10 @@ impl<'de> ::serde::Deserialize<'de> for MissionSource {
 ///    "type"
 ///  ],
 ///  "properties": {
+///    "after_move": {
+///      "description": "Resolve this effect only after the target actually completes the granted move (including a legal zero-distance move). Declining to make the move does not resolve this effect. Uses the enclosing duration for lasting follow-up effects.",
+///      "$ref": "#/$defs/effect-node"
+///    },
 ///    "modifier": {
 ///      "type": "object",
 ///      "properties": {
@@ -10236,6 +10678,9 @@ impl<'de> ::serde::Deserialize<'de> for MissionSource {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 #[serde(deny_unknown_fields)]
 pub struct MovementModifierEffect {
+    ///Resolve this effect only after the target actually completes the granted move (including a legal zero-distance move). Declining to make the move does not resolve this effect. Uses the enclosing duration for lasting follow-up effects.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub after_move: ::std::option::Option<::std::boxed::Box<EffectNode>>,
     pub modifier: MovementModifierEffectModifier,
     pub target: MovementModifierEffectTarget,
     #[serde(rename = "type")]
@@ -11891,6 +12336,10 @@ impl<'de> ::serde::Deserialize<'de> for NamedRegionBranchTimingEvent {
 ///    "state_ref"
 ///  ],
 ///  "properties": {
+///    "attack_condition": {
+///      "description": "Gate shared by the default and qualified branches, evaluated on each current attack, without gating production of the named region.",
+///      "$ref": "#/$defs/condition"
+///    },
 ///    "beneficiary_gate": {
 ///      "type": "object",
 ///      "required": [
@@ -11948,6 +12397,9 @@ impl<'de> ::serde::Deserialize<'de> for NamedRegionBranchTimingEvent {
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 #[serde(deny_unknown_fields)]
 pub struct NamedRegionConsumer {
+    ///Gate shared by the default and qualified branches, evaluated on each current attack, without gating production of the named region.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub attack_condition: ::std::option::Option<Condition>,
     pub beneficiary_gate: NamedRegionConsumerBeneficiaryGate,
     pub default_branch: NamedRegionBranch,
     pub membership: NamedRegionMembership,
@@ -12833,9 +13285,25 @@ impl ::std::convert::TryFrom<::std::string::String> for NamedRegionPhaseExtensio
 ///          "source_gate"
 ///        ],
 ///        "properties": {
+///          "activation": {
+///            "type": "object",
+///            "required": [
+///              "event"
+///            ],
+///            "properties": {
+///              "event": {
+///                "const": "continuous"
+///              }
+///            },
+///            "additionalProperties": false
+///          },
 ///          "kind": {
 ///            "type": "string",
 ///            "minLength": 1
+///          },
+///          "radius_inches": {
+///            "type": "number",
+///            "exclusiveMinimum": 0.0
 ///          },
 ///          "source_gate": {
 ///            "$ref": "#/$defs/named-region-source-gate"
@@ -12903,9 +13371,25 @@ pub struct NamedRegionProducer {
 ///    "source_gate"
 ///  ],
 ///  "properties": {
+///    "activation": {
+///      "type": "object",
+///      "required": [
+///        "event"
+///      ],
+///      "properties": {
+///        "event": {
+///          "const": "continuous"
+///        }
+///      },
+///      "additionalProperties": false
+///    },
 ///    "kind": {
 ///      "type": "string",
 ///      "minLength": 1
+///    },
+///    "radius_inches": {
+///      "type": "number",
+///      "exclusiveMinimum": 0.0
 ///    },
 ///    "source_gate": {
 ///      "$ref": "#/$defs/named-region-source-gate"
@@ -12917,8 +13401,38 @@ pub struct NamedRegionProducer {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 pub struct NamedRegionProducerAdditiveExtensionsItem {
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub activation: ::std::option::Option<
+        NamedRegionProducerAdditiveExtensionsItemActivation,
+    >,
     pub kind: NamedRegionProducerAdditiveExtensionsItemKind,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub radius_inches: ::std::option::Option<f64>,
     pub source_gate: NamedRegionSourceGate,
+}
+///`NamedRegionProducerAdditiveExtensionsItemActivation`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "event"
+///  ],
+///  "properties": {
+///    "event": {
+///      "const": "continuous"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NamedRegionProducerAdditiveExtensionsItemActivation {
+    pub event: ::serde_json::Value,
 }
 ///`NamedRegionProducerAdditiveExtensionsItemKind`
 ///
@@ -13674,6 +14188,32 @@ pub struct NamedRegionState {
     pub consumer: NamedRegionConsumer,
     pub producer: NamedRegionProducer,
     pub region_ref: NamedRegionRef,
+}
+///Resolve no effect; does not create attacks, damage, selections, or secondary events.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Resolve no effect; does not create attacks, damage, selections, or secondary events.",
+///  "type": "object",
+///  "required": [
+///    "type"
+///  ],
+///  "properties": {
+///    "type": {
+///      "const": "no-effect"
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct NoEffectEffect {
+    #[serde(rename = "type")]
+    pub type_: ::serde_json::Value,
 }
 ///`PersistentDesignationEffect`
 ///
@@ -18036,6 +18576,7 @@ impl ::std::default::Default for ScalingRound {
 ///  ],
 ///  "properties": {
 ///    "duration": {
+///      "description": "attack-sequence expires when the currently selected unit finishes resolving its shooting or fighting attacks; resolution lasts only while resolving this activation and is not a battle/phase usage limit.",
 ///      "type": "string",
 ///      "enum": [
 ///        "phase",
@@ -18047,7 +18588,9 @@ impl ::std::default::Default for ScalingRound {
 ///        "until-next-battle-round",
 ///        "until-start-next-turn",
 ///        "one-use",
-///        "permanent"
+///        "permanent",
+///        "attack-sequence",
+///        "resolution"
 ///      ]
 ///    },
 ///    "range": {
@@ -18075,17 +18618,19 @@ impl ::std::default::Default for ScalingRound {
 /// </details>
 #[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
 pub struct Scope {
+    ///attack-sequence expires when the currently selected unit finishes resolving its shooting or fighting attacks; resolution lasts only while resolving this activation and is not a battle/phase usage limit.
     pub duration: ScopeDuration,
     pub range: ScopeRange,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub range_inches: ::std::option::Option<f64>,
 }
-///`ScopeDuration`
+///attack-sequence expires when the currently selected unit finishes resolving its shooting or fighting attacks; resolution lasts only while resolving this activation and is not a battle/phase usage limit.
 ///
 /// <details><summary>JSON schema</summary>
 ///
 /// ```json
 ///{
+///  "description": "attack-sequence expires when the currently selected unit finishes resolving its shooting or fighting attacks; resolution lasts only while resolving this activation and is not a battle/phase usage limit.",
 ///  "type": "string",
 ///  "enum": [
 ///    "phase",
@@ -18097,7 +18642,9 @@ pub struct Scope {
 ///    "until-next-battle-round",
 ///    "until-start-next-turn",
 ///    "one-use",
-///    "permanent"
+///    "permanent",
+///    "attack-sequence",
+///    "resolution"
 ///  ]
 ///}
 /// ```
@@ -18135,6 +18682,10 @@ pub enum ScopeDuration {
     OneUse,
     #[serde(rename = "permanent")]
     Permanent,
+    #[serde(rename = "attack-sequence")]
+    AttackSequence,
+    #[serde(rename = "resolution")]
+    Resolution,
 }
 impl ::std::fmt::Display for ScopeDuration {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -18149,6 +18700,8 @@ impl ::std::fmt::Display for ScopeDuration {
             Self::UntilStartNextTurn => f.write_str("until-start-next-turn"),
             Self::OneUse => f.write_str("one-use"),
             Self::Permanent => f.write_str("permanent"),
+            Self::AttackSequence => f.write_str("attack-sequence"),
+            Self::Resolution => f.write_str("resolution"),
         }
     }
 }
@@ -18168,6 +18721,8 @@ impl ::std::str::FromStr for ScopeDuration {
             "until-start-next-turn" => Ok(Self::UntilStartNextTurn),
             "one-use" => Ok(Self::OneUse),
             "permanent" => Ok(Self::Permanent),
+            "attack-sequence" => Ok(Self::AttackSequence),
+            "resolution" => Ok(Self::Resolution),
             _ => Err("invalid value".into()),
         }
     }
@@ -20291,6 +20846,38 @@ impl ::std::convert::TryFrom<::std::string::String> for SecondaryCardWhenDrawnOp
 ///          "type": "number",
 ///          "minimum": 0.0
 ///        },
+///        "reference": {
+///          "description": "Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.",
+///          "type": "string",
+///          "enum": [
+///            "bearer",
+///            "bearer-unit"
+///          ]
+///        },
+///        "selection_limit": {
+///          "description": "Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter.",
+///          "type": "object",
+///          "required": [
+///            "count",
+///            "period"
+///          ],
+///          "properties": {
+///            "count": {
+///              "type": "integer",
+///              "minimum": 1.0
+///            },
+///            "period": {
+///              "type": "string",
+///              "enum": [
+///                "turn",
+///                "phase",
+///                "battle-round",
+///                "battle"
+///              ]
+///            }
+///          },
+///          "additionalProperties": false
+///        },
 ///        "target_kind": {
 ///          "description": "Whether the selector binds whole units or individual models.",
 ///          "default": "unit",
@@ -20402,6 +20989,38 @@ pub struct SelectUnitsEffect {
 ///      "type": "number",
 ///      "minimum": 0.0
 ///    },
+///    "reference": {
+///      "description": "Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.",
+///      "type": "string",
+///      "enum": [
+///        "bearer",
+///        "bearer-unit"
+///      ]
+///    },
+///    "selection_limit": {
+///      "description": "Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter.",
+///      "type": "object",
+///      "required": [
+///        "count",
+///        "period"
+///      ],
+///      "properties": {
+///        "count": {
+///          "type": "integer",
+///          "minimum": 1.0
+///        },
+///        "period": {
+///          "type": "string",
+///          "enum": [
+///            "turn",
+///            "phase",
+///            "battle-round",
+///            "battle"
+///          ]
+///        }
+///      },
+///      "additionalProperties": false
+///    },
 ///    "target_kind": {
 ///      "description": "Whether the selector binds whole units or individual models.",
 ///      "default": "unit",
@@ -20444,6 +21063,13 @@ pub enum SelectUnitsEffectSelector {
         ///Distance from bearer to each selected unit.
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         range_inches: ::std::option::Option<f64>,
+        ///Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        reference: ::std::option::Option<SelectUnitsEffectSelectorVariant0Reference>,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        selection_limit: ::std::option::Option<
+            SelectUnitsEffectSelectorVariant0SelectionLimit,
+        >,
         ///Whether the selector binds whole units or individual models.
         #[serde(default = "defaults::select_units_effect_selector_variant0_target_kind")]
         target_kind: SelectUnitsEffectSelectorVariant0TargetKind,
@@ -20470,6 +21096,13 @@ pub enum SelectUnitsEffectSelector {
         ///Distance from bearer to each selected unit.
         #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
         range_inches: ::std::option::Option<f64>,
+        ///Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        reference: ::std::option::Option<SelectUnitsEffectSelectorVariant1Reference>,
+        #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+        selection_limit: ::std::option::Option<
+            SelectUnitsEffectSelectorVariant1SelectionLimit,
+        >,
         ///Whether the selector binds whole units or individual models.
         #[serde(default = "defaults::select_units_effect_selector_variant1_target_kind")]
         target_kind: SelectUnitsEffectSelectorVariant1TargetKind,
@@ -20636,6 +21269,211 @@ for SelectUnitsEffectSelectorVariant0Owner {
 }
 impl ::std::convert::TryFrom<::std::string::String>
 for SelectUnitsEffectSelectorVariant0Owner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.",
+///  "type": "string",
+///  "enum": [
+///    "bearer",
+///    "bearer-unit"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorVariant0Reference {
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "bearer-unit")]
+    BearerUnit,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant0Reference {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Bearer => f.write_str("bearer"),
+            Self::BearerUnit => f.write_str("bearer-unit"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant0Reference {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "bearer" => Ok(Self::Bearer),
+            "bearer-unit" => Ok(Self::BearerUnit),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorVariant0Reference {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant0Reference {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant0Reference {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter.",
+///  "type": "object",
+///  "required": [
+///    "count",
+///    "period"
+///  ],
+///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "period": {
+///      "type": "string",
+///      "enum": [
+///        "turn",
+///        "phase",
+///        "battle-round",
+///        "battle"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct SelectUnitsEffectSelectorVariant0SelectionLimit {
+    pub count: ::std::num::NonZeroU64,
+    pub period: SelectUnitsEffectSelectorVariant0SelectionLimitPeriod,
+}
+///`SelectUnitsEffectSelectorVariant0SelectionLimitPeriod`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "turn",
+///    "phase",
+///    "battle-round",
+///    "battle"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorVariant0SelectionLimitPeriod {
+    #[serde(rename = "turn")]
+    Turn,
+    #[serde(rename = "phase")]
+    Phase,
+    #[serde(rename = "battle-round")]
+    BattleRound,
+    #[serde(rename = "battle")]
+    Battle,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant0SelectionLimitPeriod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Turn => f.write_str("turn"),
+            Self::Phase => f.write_str("phase"),
+            Self::BattleRound => f.write_str("battle-round"),
+            Self::Battle => f.write_str("battle"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant0SelectionLimitPeriod {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "turn" => Ok(Self::Turn),
+            "phase" => Ok(Self::Phase),
+            "battle-round" => Ok(Self::BattleRound),
+            "battle" => Ok(Self::Battle),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for SelectUnitsEffectSelectorVariant0SelectionLimitPeriod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant0SelectionLimitPeriod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant0SelectionLimitPeriod {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -20891,6 +21729,211 @@ for SelectUnitsEffectSelectorVariant1Owner {
         value.parse()
     }
 }
+///Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit.",
+///  "type": "string",
+///  "enum": [
+///    "bearer",
+///    "bearer-unit"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorVariant1Reference {
+    #[serde(rename = "bearer")]
+    Bearer,
+    #[serde(rename = "bearer-unit")]
+    BearerUnit,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant1Reference {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Bearer => f.write_str("bearer"),
+            Self::BearerUnit => f.write_str("bearer-unit"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant1Reference {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "bearer" => Ok(Self::Bearer),
+            "bearer-unit" => Ok(Self::BearerUnit),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for SelectUnitsEffectSelectorVariant1Reference {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant1Reference {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant1Reference {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter.",
+///  "type": "object",
+///  "required": [
+///    "count",
+///    "period"
+///  ],
+///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "period": {
+///      "type": "string",
+///      "enum": [
+///        "turn",
+///        "phase",
+///        "battle-round",
+///        "battle"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct SelectUnitsEffectSelectorVariant1SelectionLimit {
+    pub count: ::std::num::NonZeroU64,
+    pub period: SelectUnitsEffectSelectorVariant1SelectionLimitPeriod,
+}
+///`SelectUnitsEffectSelectorVariant1SelectionLimitPeriod`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "turn",
+///    "phase",
+///    "battle-round",
+///    "battle"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum SelectUnitsEffectSelectorVariant1SelectionLimitPeriod {
+    #[serde(rename = "turn")]
+    Turn,
+    #[serde(rename = "phase")]
+    Phase,
+    #[serde(rename = "battle-round")]
+    BattleRound,
+    #[serde(rename = "battle")]
+    Battle,
+}
+impl ::std::fmt::Display for SelectUnitsEffectSelectorVariant1SelectionLimitPeriod {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Turn => f.write_str("turn"),
+            Self::Phase => f.write_str("phase"),
+            Self::BattleRound => f.write_str("battle-round"),
+            Self::Battle => f.write_str("battle"),
+        }
+    }
+}
+impl ::std::str::FromStr for SelectUnitsEffectSelectorVariant1SelectionLimitPeriod {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "turn" => Ok(Self::Turn),
+            "phase" => Ok(Self::Phase),
+            "battle-round" => Ok(Self::BattleRound),
+            "battle" => Ok(Self::Battle),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for SelectUnitsEffectSelectorVariant1SelectionLimitPeriod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for SelectUnitsEffectSelectorVariant1SelectionLimitPeriod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for SelectUnitsEffectSelectorVariant1SelectionLimitPeriod {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
 ///Whether the selector binds whole units or individual models.
 ///
 /// <details><summary>JSON schema</summary>
@@ -21106,6 +22149,7 @@ impl ::std::convert::TryFrom<::std::string::String> for Side {
 ///      "$comment": "For `was-hit-by-attack`, optional `source` is an event-bound-reference supplied by the sibling trigger and optional `window` may be `just-finished-shooting-sequence`; these fields keep source-sensitive predicates reusable without closing the shared parameter bag."
 ///    },
 ///    "type": {
+///      "description": " target-is-visible tests whether the target of the current attack is visible to its attacking model (not whether some other model can see it). within-range-of-objective subject:target tests the attack target; controlled_by qualifies the SAME marker, not an unrelated controlled objective.",
 ///      "type": "string",
 ///      "enum": [
 ///        "phase-is",
@@ -21159,7 +22203,8 @@ impl ::std::convert::TryFrom<::std::string::String> for Side {
 ///        "unit-was-in-engagement-range-of",
 ///        "unit-model-count",
 ///        "uniform-ranged-loadout",
-///        "all-attacks-target-same-unit"
+///        "all-attacks-target-same-unit",
+///        "target-is-visible"
 ///      ]
 ///    }
 ///  },
@@ -21173,15 +22218,17 @@ pub struct SimpleCondition {
     pub negated: bool,
     #[serde(default, skip_serializing_if = "::serde_json::Map::is_empty")]
     pub parameters: ::serde_json::Map<::std::string::String, ::serde_json::Value>,
+    /// target-is-visible tests whether the target of the current attack is visible to its attacking model (not whether some other model can see it). within-range-of-objective subject:target tests the attack target; controlled_by qualifies the SAME marker, not an unrelated controlled objective.
     #[serde(rename = "type")]
     pub type_: SimpleConditionType,
 }
-///`SimpleConditionType`
+/// target-is-visible tests whether the target of the current attack is visible to its attacking model (not whether some other model can see it). within-range-of-objective subject:target tests the attack target; controlled_by qualifies the SAME marker, not an unrelated controlled objective.
 ///
 /// <details><summary>JSON schema</summary>
 ///
 /// ```json
 ///{
+///  "description": " target-is-visible tests whether the target of the current attack is visible to its attacking model (not whether some other model can see it). within-range-of-objective subject:target tests the attack target; controlled_by qualifies the SAME marker, not an unrelated controlled objective.",
 ///  "type": "string",
 ///  "enum": [
 ///    "phase-is",
@@ -21235,7 +22282,8 @@ pub struct SimpleCondition {
 ///    "unit-was-in-engagement-range-of",
 ///    "unit-model-count",
 ///    "uniform-ranged-loadout",
-///    "all-attacks-target-same-unit"
+///    "all-attacks-target-same-unit",
+///    "target-is-visible"
 ///  ]
 ///}
 /// ```
@@ -21357,6 +22405,8 @@ pub enum SimpleConditionType {
     UniformRangedLoadout,
     #[serde(rename = "all-attacks-target-same-unit")]
     AllAttacksTargetSameUnit,
+    #[serde(rename = "target-is-visible")]
+    TargetIsVisible,
 }
 impl ::std::fmt::Display for SimpleConditionType {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -21419,6 +22469,7 @@ impl ::std::fmt::Display for SimpleConditionType {
             Self::UnitModelCount => f.write_str("unit-model-count"),
             Self::UniformRangedLoadout => f.write_str("uniform-ranged-loadout"),
             Self::AllAttacksTargetSameUnit => f.write_str("all-attacks-target-same-unit"),
+            Self::TargetIsVisible => f.write_str("target-is-visible"),
         }
     }
 }
@@ -21480,6 +22531,7 @@ impl ::std::str::FromStr for SimpleConditionType {
             "unit-model-count" => Ok(Self::UnitModelCount),
             "uniform-ranged-loadout" => Ok(Self::UniformRangedLoadout),
             "all-attacks-target-same-unit" => Ok(Self::AllAttacksTargetSameUnit),
+            "target-is-visible" => Ok(Self::TargetIsVisible),
             _ => Err("invalid value".into()),
         }
     }
@@ -21529,7 +22581,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///      "$comment": "`modifier-immunity`: the target ignores applied modifiers. `scope: characteristics` = ignore any/all modifiers to its characteristics (champion-of-humanity / obfuscation / ceramite family); `enemy-stratagems` / `enemy-abilities` = cannot be affected by enemy Stratagems / abilities. `exclude` lists characteristic codes the immunity does not cover. Roll-modifier immunity stays on `roll-modifier` { operation: ignore-modifiers }; a 'characteristics AND rolls' rule composes the two via a sequence."
 ///    },
 ///    {
-///      "$comment": "`stratagem-cost-modifier`: modify a Stratagem's CP cost. `operation: increase` adds `amount` CP (the cost-increase / opponent-tax direction — e.g. 'enemy Stratagems targeting this unit cost 1 more CP'); `set-to` sets the cost to `set_to`. `applies_to` picks which Stratagems: `stratagems-targeting-bearer` (enemy Stratagems against the bearer or its aura) or `stratagems-used-by-bearer`. Optional `stratagem` names a single Stratagem. The 'use a Stratagem for 0CP' reduction stays on `cp-refund`."
+///      "$comment": "Modify a Stratagem CP cost before payment. increase/decrease requires amount; set-to requires set_to. A decrease has a floor of 0CP. triggering-stratagem-use binds only the current use that caused the trigger. Free use is set-to:0, never cp-refund. Optional stratagem restricts to one named Stratagem."
 ///    },
 ///    {
 ///      "$comment": "`targeting-permission`: the bearer can only be SELECTED as a target (selection-time gate) of `attack_type` (`ranged` | `any`) attacks if `gate` holds — `within-range` (the attacking unit is within `range`\"; Lone Operative = ranged/12, fog-of-dreams = ranged/18), `closest-eligible` (it is the closest eligible target), or `closest-or-within-range`. Distinct from `attack-restriction` (resolution-time) and `targeting-range-limit` (the bearer's own offence)."
@@ -21541,7 +22593,7 @@ impl ::std::convert::TryFrom<::std::string::String> for SimpleConditionType {
 ///      "$comment": "`recovery-pool`: recover a unit's wounds using the closed dice expression, first healing wounded models and then returning destroyed models at one wound. With `target: all-friendly`, `per_target_unit: true` rolls and allocates an independent pool for every eligible friendly unit."
 ///    },
 ///    {
-///      "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception."
+///      "$comment": "Permission to target the named unit with a Stratagem despite the specified restriction. The prior-use exception applies ONLY to the named Stratagem and allows this unit to be targeted after a different unit was targeted this phase. The subsequent-use exception preserves a later use on a different unit after this unit is targeted. Neither removes other targeting restrictions."
 ///    },
 ///    {
 ///      "$comment": "`bind_count_as` binds a dice-valued mortal-wound count for a following local consumer."
@@ -24655,12 +25707,45 @@ impl ::std::convert::TryFrom<::std::string::String> for TransportOccupancySubjec
 ///          "enum": [
 ///            "self",
 ///            "bearer",
-///            "attached-unit"
+///            "attached-unit",
+///            "bearer-unit"
 ///          ]
 ///        },
 ///        "range": {
 ///          "type": "number",
 ///          "exclusiveMinimum": 0.0
+///        }
+///      },
+///      "additionalProperties": false
+///    },
+///    "source_ability": {
+///      "description": "Filter an ability-target-selected event by its source ability and source unit. The trigger subject is the selected unit. This does not infer that the source ability was used from a tag or phase.",
+///      "type": "object",
+///      "required": [
+///        "ability_id",
+///        "keywords",
+///        "owner"
+///      ],
+///      "properties": {
+///        "ability_id": {
+///          "$ref": "#/$defs/entity-id"
+///        },
+///        "keywords": {
+///          "description": "All keywords required on the unit using the named source ability, not on the selected target.",
+///          "type": "array",
+///          "items": {
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "minItems": 1,
+///          "uniqueItems": true
+///        },
+///        "owner": {
+///          "type": "string",
+///          "enum": [
+///            "friendly",
+///            "enemy"
+///          ]
 ///        }
 ///      },
 ///      "additionalProperties": false
@@ -24701,6 +25786,8 @@ pub struct Trigger {
     pub optional: bool,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub proximity: ::std::option::Option<TriggerProximity>,
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub source_ability: ::std::option::Option<TriggerSourceAbility>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub subject: ::std::option::Option<TriggerSubject>,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
@@ -24909,7 +25996,8 @@ impl ::std::convert::TryFrom<::std::string::String> for TriggerMoveTypesItem {
 ///      "enum": [
 ///        "self",
 ///        "bearer",
-///        "attached-unit"
+///        "attached-unit",
+///        "bearer-unit"
 ///      ]
 ///    },
 ///    "range": {
@@ -24938,7 +26026,8 @@ pub struct TriggerProximity {
 ///  "enum": [
 ///    "self",
 ///    "bearer",
-///    "attached-unit"
+///    "attached-unit",
+///    "bearer-unit"
 ///  ]
 ///}
 /// ```
@@ -24962,6 +26051,8 @@ pub enum TriggerProximityOf {
     Bearer,
     #[serde(rename = "attached-unit")]
     AttachedUnit,
+    #[serde(rename = "bearer-unit")]
+    BearerUnit,
 }
 impl ::std::fmt::Display for TriggerProximityOf {
     fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
@@ -24969,6 +26060,7 @@ impl ::std::fmt::Display for TriggerProximityOf {
             Self::Self_ => f.write_str("self"),
             Self::Bearer => f.write_str("bearer"),
             Self::AttachedUnit => f.write_str("attached-unit"),
+            Self::BearerUnit => f.write_str("bearer-unit"),
         }
     }
 }
@@ -24981,6 +26073,7 @@ impl ::std::str::FromStr for TriggerProximityOf {
             "self" => Ok(Self::Self_),
             "bearer" => Ok(Self::Bearer),
             "attached-unit" => Ok(Self::AttachedUnit),
+            "bearer-unit" => Ok(Self::BearerUnit),
             _ => Err("invalid value".into()),
         }
     }
@@ -25002,6 +26095,203 @@ impl ::std::convert::TryFrom<&::std::string::String> for TriggerProximityOf {
     }
 }
 impl ::std::convert::TryFrom<::std::string::String> for TriggerProximityOf {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///Filter an ability-target-selected event by its source ability and source unit. The trigger subject is the selected unit. This does not infer that the source ability was used from a tag or phase.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Filter an ability-target-selected event by its source ability and source unit. The trigger subject is the selected unit. This does not infer that the source ability was used from a tag or phase.",
+///  "type": "object",
+///  "required": [
+///    "ability_id",
+///    "keywords",
+///    "owner"
+///  ],
+///  "properties": {
+///    "ability_id": {
+///      "$ref": "#/$defs/entity-id"
+///    },
+///    "keywords": {
+///      "description": "All keywords required on the unit using the named source ability, not on the selected target.",
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1,
+///      "uniqueItems": true
+///    },
+///    "owner": {
+///      "type": "string",
+///      "enum": [
+///        "friendly",
+///        "enemy"
+///      ]
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct TriggerSourceAbility {
+    pub ability_id: EntityId,
+    ///All keywords required on the unit using the named source ability, not on the selected target.
+    pub keywords: Vec<TriggerSourceAbilityKeywordsItem>,
+    pub owner: TriggerSourceAbilityOwner,
+}
+///`TriggerSourceAbilityKeywordsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct TriggerSourceAbilityKeywordsItem(::std::string::String);
+impl ::std::ops::Deref for TriggerSourceAbilityKeywordsItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<TriggerSourceAbilityKeywordsItem> for ::std::string::String {
+    fn from(value: TriggerSourceAbilityKeywordsItem) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for TriggerSourceAbilityKeywordsItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for TriggerSourceAbilityKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for TriggerSourceAbilityKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for TriggerSourceAbilityKeywordsItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de> for TriggerSourceAbilityKeywordsItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`TriggerSourceAbilityOwner`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "enum": [
+///    "friendly",
+///    "enemy"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum TriggerSourceAbilityOwner {
+    #[serde(rename = "friendly")]
+    Friendly,
+    #[serde(rename = "enemy")]
+    Enemy,
+}
+impl ::std::fmt::Display for TriggerSourceAbilityOwner {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Friendly => f.write_str("friendly"),
+            Self::Enemy => f.write_str("enemy"),
+        }
+    }
+}
+impl ::std::str::FromStr for TriggerSourceAbilityOwner {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "friendly" => Ok(Self::Friendly),
+            "enemy" => Ok(Self::Enemy),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str> for TriggerSourceAbilityOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String> for TriggerSourceAbilityOwner {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String> for TriggerSourceAbilityOwner {
     type Error = self::error::ConversionError;
     fn try_from(
         value: ::std::string::String,
@@ -25888,6 +27178,81 @@ impl ::std::convert::TryFrom<::std::string::String> for UnitAttachmentRole {
 ///            "default": false,
 ///            "type": "boolean"
 ///          },
+///          "loadout_variant_budgets": {
+///            "description": "Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.",
+///            "type": "array",
+///            "items": {
+///              "type": "object",
+///              "required": [
+///                "count",
+///                "per_models",
+///                "scope",
+///                "variant_names"
+///              ],
+///              "properties": {
+///                "count": {
+///                  "type": "integer",
+///                  "minimum": 1.0
+///                },
+///                "per_models": {
+///                  "description": "Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.",
+///                  "type": "integer",
+///                  "minimum": 0.0
+///                },
+///                "scope": {
+///                  "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///                  "enum": [
+///                    "unit",
+///                    "model-row"
+///                  ]
+///                },
+///                "variant_names": {
+///                  "description": "The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.",
+///                  "type": "array",
+///                  "items": {
+///                    "type": "string",
+///                    "minLength": 1
+///                  },
+///                  "minItems": 1
+///                }
+///              },
+///              "additionalProperties": false
+///            },
+///            "minItems": 1
+///          },
+///          "loadout_variants": {
+///            "description": "The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.",
+///            "type": "array",
+///            "items": {
+///              "type": "object",
+///              "required": [
+///                "name",
+///                "weapon_ids"
+///              ],
+///              "properties": {
+///                "max_count": {
+///                  "description": "Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.",
+///                  "type": "integer",
+///                  "minimum": 1.0
+///                },
+///                "name": {
+///                  "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///                  "type": "string",
+///                  "minLength": 1
+///                },
+///                "weapon_ids": {
+///                  "description": "This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.",
+///                  "type": "array",
+///                  "items": {
+///                    "$ref": "#/$defs/entity-id"
+///                  },
+///                  "minItems": 1
+///                }
+///              },
+///              "additionalProperties": false
+///            },
+///            "minItems": 1
+///          },
 ///          "max": {
 ///            "type": "integer",
 ///            "minimum": 1.0
@@ -26019,6 +27384,81 @@ pub struct UnitComposition {
 ///      "default": false,
 ///      "type": "boolean"
 ///    },
+///    "loadout_variant_budgets": {
+///      "description": "Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "count",
+///          "per_models",
+///          "scope",
+///          "variant_names"
+///        ],
+///        "properties": {
+///          "count": {
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "per_models": {
+///            "description": "Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.",
+///            "type": "integer",
+///            "minimum": 0.0
+///          },
+///          "scope": {
+///            "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///            "enum": [
+///              "unit",
+///              "model-row"
+///            ]
+///          },
+///          "variant_names": {
+///            "description": "The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.",
+///            "type": "array",
+///            "items": {
+///              "type": "string",
+///              "minLength": 1
+///            },
+///            "minItems": 1
+///          }
+///        },
+///        "additionalProperties": false
+///      },
+///      "minItems": 1
+///    },
+///    "loadout_variants": {
+///      "description": "The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.",
+///      "type": "array",
+///      "items": {
+///        "type": "object",
+///        "required": [
+///          "name",
+///          "weapon_ids"
+///        ],
+///        "properties": {
+///          "max_count": {
+///            "description": "Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.",
+///            "type": "integer",
+///            "minimum": 1.0
+///          },
+///          "name": {
+///            "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///            "type": "string",
+///            "minLength": 1
+///          },
+///          "weapon_ids": {
+///            "description": "This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.",
+///            "type": "array",
+///            "items": {
+///              "$ref": "#/$defs/entity-id"
+///            },
+///            "minItems": 1
+///          }
+///        },
+///        "additionalProperties": false
+///      },
+///      "minItems": 1
+///    },
 ///    "max": {
 ///      "type": "integer",
 ///      "minimum": 1.0
@@ -26060,11 +27500,362 @@ pub struct UnitCompositionModelsItem {
     pub hull_shape_id: ::std::option::Option<EntityId>,
     #[serde(default)]
     pub is_leader_model: bool,
+    ///Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub loadout_variant_budgets: ::std::vec::Vec<
+        UnitCompositionModelsItemLoadoutVariantBudgetsItem,
+    >,
+    ///The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.
+    #[serde(default, skip_serializing_if = "::std::vec::Vec::is_empty")]
+    pub loadout_variants: ::std::vec::Vec<UnitCompositionModelsItemLoadoutVariantsItem>,
     pub max: ::std::num::NonZeroU64,
     pub min: u64,
     pub name: UnitCompositionModelsItemName,
     #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
     pub profile_name: ::std::option::Option<UnitCompositionModelsItemProfileName>,
+}
+///`UnitCompositionModelsItemLoadoutVariantBudgetsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "count",
+///    "per_models",
+///    "scope",
+///    "variant_names"
+///  ],
+///  "properties": {
+///    "count": {
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "per_models": {
+///      "description": "Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.",
+///      "type": "integer",
+///      "minimum": 0.0
+///    },
+///    "scope": {
+///      "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///      "enum": [
+///        "unit",
+///        "model-row"
+///      ]
+///    },
+///    "variant_names": {
+///      "description": "The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.",
+///      "type": "array",
+///      "items": {
+///        "type": "string",
+///        "minLength": 1
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitCompositionModelsItemLoadoutVariantBudgetsItem {
+    pub count: ::std::num::NonZeroU64,
+    ///Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.
+    pub per_models: u64,
+    ///Which model count scales the allowance: the whole unit, or just this model row.
+    pub scope: UnitCompositionModelsItemLoadoutVariantBudgetsItemScope,
+    ///The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.
+    pub variant_names: ::std::vec::Vec<
+        UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem,
+    >,
+}
+///Which model count scales the allowance: the whole unit, or just this model row.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+///  "enum": [
+///    "unit",
+///    "model-row"
+///  ]
+///}
+/// ```
+/// </details>
+#[derive(
+    ::serde::Deserialize,
+    ::serde::Serialize,
+    Clone,
+    Copy,
+    Debug,
+    Eq,
+    Hash,
+    Ord,
+    PartialEq,
+    PartialOrd
+)]
+pub enum UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    #[serde(rename = "unit")]
+    Unit,
+    #[serde(rename = "model-row")]
+    ModelRow,
+}
+impl ::std::fmt::Display for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    fn fmt(&self, f: &mut ::std::fmt::Formatter<'_>) -> ::std::fmt::Result {
+        match *self {
+            Self::Unit => f.write_str("unit"),
+            Self::ModelRow => f.write_str("model-row"),
+        }
+    }
+}
+impl ::std::str::FromStr for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        match value {
+            "unit" => Ok(Self::Unit),
+            "model-row" => Ok(Self::ModelRow),
+            _ => Err("invalid value".into()),
+        }
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemScope {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+///`UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem(
+    ::std::string::String,
+);
+impl ::std::ops::Deref
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<
+    UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem,
+> for ::std::string::String {
+    fn from(
+        value: UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem,
+    ) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for UnitCompositionModelsItemLoadoutVariantBudgetsItemVariantNamesItem {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
+}
+///`UnitCompositionModelsItemLoadoutVariantsItem`
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "type": "object",
+///  "required": [
+///    "name",
+///    "weapon_ids"
+///  ],
+///  "properties": {
+///    "max_count": {
+///      "description": "Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.",
+///      "type": "integer",
+///      "minimum": 1.0
+///    },
+///    "name": {
+///      "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///      "type": "string",
+///      "minLength": 1
+///    },
+///    "weapon_ids": {
+///      "description": "This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.",
+///      "type": "array",
+///      "items": {
+///        "$ref": "#/$defs/entity-id"
+///      },
+///      "minItems": 1
+///    }
+///  },
+///  "additionalProperties": false
+///}
+/// ```
+/// </details>
+#[derive(::serde::Deserialize, ::serde::Serialize, Clone, Debug, PartialEq)]
+#[serde(deny_unknown_fields)]
+pub struct UnitCompositionModelsItemLoadoutVariantsItem {
+    ///Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.
+    #[serde(default, skip_serializing_if = "::std::option::Option::is_none")]
+    pub max_count: ::std::option::Option<::std::num::NonZeroU64>,
+    ///The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+    pub name: UnitCompositionModelsItemLoadoutVariantsItemName,
+    ///This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.
+    pub weapon_ids: ::std::vec::Vec<EntityId>,
+}
+///The source peer's own model name (e.g. "Boy w/ Big shoota"). Unique within this model row.
+///
+/// <details><summary>JSON schema</summary>
+///
+/// ```json
+///{
+///  "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+///  "type": "string",
+///  "minLength": 1
+///}
+/// ```
+/// </details>
+#[derive(::serde::Serialize, Clone, Debug, Eq, Hash, Ord, PartialEq, PartialOrd)]
+#[serde(transparent)]
+pub struct UnitCompositionModelsItemLoadoutVariantsItemName(::std::string::String);
+impl ::std::ops::Deref for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Target = ::std::string::String;
+    fn deref(&self) -> &::std::string::String {
+        &self.0
+    }
+}
+impl ::std::convert::From<UnitCompositionModelsItemLoadoutVariantsItemName>
+for ::std::string::String {
+    fn from(value: UnitCompositionModelsItemLoadoutVariantsItemName) -> Self {
+        value.0
+    }
+}
+impl ::std::str::FromStr for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Err = self::error::ConversionError;
+    fn from_str(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        if value.chars().count() < 1usize {
+            return Err("shorter than 1 characters".into());
+        }
+        Ok(Self(value.to_string()))
+    }
+}
+impl ::std::convert::TryFrom<&str> for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &str,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<&::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: &::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl ::std::convert::TryFrom<::std::string::String>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    type Error = self::error::ConversionError;
+    fn try_from(
+        value: ::std::string::String,
+    ) -> ::std::result::Result<Self, self::error::ConversionError> {
+        value.parse()
+    }
+}
+impl<'de> ::serde::Deserialize<'de>
+for UnitCompositionModelsItemLoadoutVariantsItemName {
+    fn deserialize<D>(deserializer: D) -> ::std::result::Result<Self, D::Error>
+    where
+        D: ::serde::Deserializer<'de>,
+    {
+        ::std::string::String::deserialize(deserializer)?
+            .parse()
+            .map_err(|e: self::error::ConversionError| {
+                <D::Error as ::serde::de::Error>::custom(e.to_string())
+            })
+    }
 }
 ///`UnitCompositionModelsItemName`
 ///

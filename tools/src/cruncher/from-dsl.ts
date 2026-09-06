@@ -195,6 +195,12 @@ function walk(
     out.unsupported.push({ reason: MODEL_SCOPED_REASON, effectFragment: currentNode });
     return;
   }
+  // These typed predicates require a selected model/history/visibility binding.
+  // Keep the source representation intact rather than silently widening its buff.
+  if (hasUnresolvedFidelityBinding(currentNode)) {
+    out.unsupported.push({ reason: FIDELITY_BINDING_REASON, effectFragment: currentNode });
+    return;
+  }
   const type = currentNode.type;
   switch (type) {
     case "re-roll":
@@ -1483,4 +1489,19 @@ function toKebabCase(s: string): string {
 
 function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+const FIDELITY_BINDING_REASON = "selection/history/model/attack predicates are not resolved by the buff engine";
+function hasUnresolvedFidelityBinding(node: Record<string, unknown>): boolean {
+  const selector = isObject(node.selector) ? node.selector : {};
+  const select = isObject(node.select) ? node.select : {};
+  const applies = isObject(node.applies) ? node.applies : {};
+  const modifier = isObject(node.modifier) ? node.modifier : {};
+  const consumer = isObject(modifier.consumer) ? modifier.consumer : {};
+  return (
+    (node.type === "select-units" && (selector.target_kind === "model" ||
+      selector.eligibility != null || selector.reference != null || selector.selection_limit != null)) ||
+    (node.type === "designate-target" && (select.eligibility != null || applies.attacker_keywords != null)) ||
+    (node.type === "named-region-state" && consumer.attack_condition != null)
+  );
 }

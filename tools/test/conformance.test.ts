@@ -18,7 +18,7 @@ import { fileURLToPath } from "node:url";
 
 import { Dataset } from "../src/data/dataset.js";
 import { normalizeName } from "../src/data/normalize.js";
-import { baseLoadout, maximalLoadout } from "../src/data/loadout.js";
+import { baseLoadout, loadoutCandidates, maximalLoadout } from "../src/data/loadout.js";
 import { exportRoster, type ExportFormat } from "../src/export/index.js";
 import {
   decodeShareToken,
@@ -542,6 +542,21 @@ function runLinkedApi(ds: Dataset, c: LinkedApiCase): string | null | string[] {
       if (!u) throw new Error(`maximal_loadout: unknown unit ${c.args.unitId}`);
       const lo = maximalLoadout(u.raw, Number(c.args.modelCount), ds.wargearOptionsOf(u.raw));
       return [...lo.counts].map(([id, n]) => `${id}:${n}`).sort();
+    }
+    case "loadout_candidates": {
+      const u = c.args.factionId
+        ? ds.units.getInFaction(c.args.unitId, c.args.factionId)
+        : ds.units.getAny(c.args.unitId);
+      if (!u) throw new Error(`loadout_candidates: unknown unit ${c.args.unitId}`);
+      const comp = ds.unitCompositionOf(u.raw);
+      return loadoutCandidates(
+        u.raw,
+        Number(c.args.modelCount),
+        ds.wargearOptionsOf(u.raw),
+        comp?.models,
+        comp?.tiers,
+        c.args.limit == null ? undefined : Number(c.args.limit),
+      );
     }
     case "phases_of": {
       const a = ds.abilities.getAny(c.args.abilityId);

@@ -33,15 +33,15 @@
             </profile>
             <profile name="Surge of Wrath (Psychic)" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">During the Fight phase:
-  -&gt; You can re-roll the Hit roll.
-  -&gt; You can re-roll the Wound roll.
-  -&gt; You can re-roll the Damage roll.</characteristic>
+                <characteristic name="Description">Against MONSTER targets or against VEHICLE targets:
+  -&gt; You can re-roll the Hit roll for attacks made by this model with melee weapons.
+  -&gt; You can re-roll the Wound roll for attacks made by this model with melee weapons.
+  -&gt; You can re-roll the Damage roll for attacks made by this model with melee weapons.</characteristic>
               </characteristics>
             </profile>
             <profile name="Warrior Strategist" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">Once per battle, you can use one Stratagem on this model for 0CP.</characteristic>
+                <characteristic name="Description">When this model's unit is targeted with a Stratagem, you may use this ability, once per battle round per army, when resolving this use, reduce the CP cost of that use of the Stratagem by 1CP (to a minimum of 0CP), before paying its cost.</characteristic>
               </characteristics>
             </profile>
           </profiles>

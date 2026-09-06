@@ -7,6 +7,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7f180fb5e7f7d43eac9337cc29101f902ebdec6556e154c6785055d0dae9343d",
     "version": "2025-q3",
     "effect": {
       "type": "deep-strike",
@@ -34,6 +35,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "11b16c98c9ac34860ee473b8c42da593c59d9cea95d2b7f2f8f8f0013b01f476",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -93,6 +95,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "560841f3ef92be21217cb178d678b9261fd208e3a0e84637193139228ff91249",
     "version": "2025-q3",
     "effect": {
       "type": "mortal-wounds",
@@ -119,6 +122,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2d30f417964aaefc70ef1c9723b6e1ac7f048acfc5c10fe7e32e63ce8ee35ac5",
     "version": "2025-q3",
     "effect": {
       "type": "fallback-and-act",
@@ -143,6 +147,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -186,6 +191,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2ee42b23febd1cfb14990c1465bc635deac8c94a6801d1de8f4a4dd0f265a039",
     "version": "2025-q3",
     "effect": {
       "type": "cp-refund",
@@ -212,6 +218,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3facdd09f4f860335b1f2b1917fa5a199d172cb0b145ff80c8411f48b175f693",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -247,6 +254,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -290,6 +298,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "ca4b567df2eb67644dd49e42e986a2480bb39698b4c2e1baa8c672df61d7dd03",
     "version": "2025-q3",
     "effect": {
       "type": "unit-keyword",
@@ -316,6 +325,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "35b75d6aa70bf908e96518227e6df930880e956082166ee4318886d6b250008a",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -361,6 +371,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -482,6 +493,7 @@
       "dataslate": "pre-launch-provisional",
       "edition": "11th"
     },
+    "source_digest": "7e99ba8df6ff1534647d58781695a32361da904226084542574e2ff754a52c1d",
     "name": "Singular Purpose",
     "scope": {
       "duration": "battle",
@@ -500,6 +512,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "6240e6444ff31bcdcf713a61c2a2ff6b0606caa0745d4a3e423957298986cf40",
     "version": "2025-q3",
     "effect": {
       "type": "feel-no-pain",
@@ -527,6 +540,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "9a56719535ea34ca272d2e23ebd450c1a4aa49fbce390e51a7f7c1a9e3b2ad53",
     "version": "2025-q3",
     "effect": {
       "type": "ability-grant",
@@ -553,6 +567,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "e46b158be4d4c9b976d8f9273b013f67d2ab6a55fdb0d126979763f56281ae9b",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -587,6 +602,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c31aa110fae15074de5f39853cd25b7cde2d24ac4673b7a9fcbd9e541edfa611",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -620,6 +636,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a26ee819a67472cbcc6ef95f22c730330393fc6cc7328fa07408d85ad925828d",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -647,7 +664,9 @@
       "hierophant"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "stalking-forward",
@@ -657,6 +676,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3b050bffcccd4298397cb67be6b070a8ee3ea498e6461bd7c7f3b17d95253d2d",
     "version": "2025-q3",
     "effect": {
       "type": "movement-modifier",
@@ -685,6 +705,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c854a368d449138189de6f6b20d2837404d478196ecd791f1bba0844dcabf804",
     "version": "2025-q3",
     "effect": {
       "type": "cp-gain",
@@ -711,6 +732,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "11b3bf250f858ad22edf711f6d7f0d9de43048370a15f71f7bf337c99f6ab695",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -738,7 +760,9 @@
       "the-swarmlord"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "domination-of-the-hive-mind-aura",
@@ -748,6 +772,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "62492eb906e179e464520d9f1001afcb10a689cc9c8ccf6f99825e7456f6ce78",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -777,6 +802,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b99c65e2cab920c57f9ccbf111411b1f5885d291ecbedb9ad3926c1e4f85549b",
     "version": "2025-q3",
     "effect": {
       "type": "designate-target",
@@ -827,6 +853,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "259a208f3b74890127346efa737ed1ed0ecf3b6e96f57eb66b7ae867543fdc25",
     "version": "2025-q3",
     "effect": {
       "type": "roll-modifier",
@@ -856,6 +883,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4f4507702e3054dfe6c9787f432eace17e749763b183ef249c0c727e9e419b83",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -892,6 +920,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7f15007358289021630fca566cacfef50383a2f2c1cd336ae56f40dc3750c614",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -929,6 +958,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d787f70de49ac0985b29ce6ceb887fdd72abc172b69affa63b0344e82410e3cb",
     "version": "2025-q3",
     "effect": {
       "type": "rule-state",
@@ -958,6 +988,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "e9f53949b907e94f5e365eb1df6e6dbf627c484ddb54670a2d711859ebbad777",
     "version": "2025-q3",
     "effect": {
       "type": "mortal-wounds",
@@ -985,6 +1016,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "898036c733ea4a5cf7db13e3148a04bebd3dd97cd723d25a85cf9916af584476",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -1040,6 +1072,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4a04b1b69c641d451679376f3d6bf8b59fcea6688056aad25b30a5229ce3923a",
     "version": "2025-q3",
     "effect": {
       "type": "objective-control-modifier",
@@ -1066,6 +1099,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1109,6 +1143,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d0efe05559db762bb8673ed85c9297943ede8ce6b0ac23c1a5b6b06731ab5f31",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1148,6 +1183,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "71f22703f4d6f50fe5dcc81323a1ef66423412c6fd3beeaed0df9a9d9d0b26d9",
     "version": "2025-q3",
     "effect": {
       "type": "fight-first",
@@ -1173,6 +1209,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2eb1b3aa65c0169d2409be3784721358669b3d84f8f704cd9a60b9ea4f58da43",
     "version": "2025-q3",
     "effect": {
       "type": "unit-keyword",
@@ -1200,6 +1237,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "97e888af23148ae67829335b14b9e547038266533f8a93a670de3e06b8f14cf0",
     "version": "2025-q3",
     "effect": {
       "type": "targeting-permission",
@@ -1228,6 +1266,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a03c8f4afa0b0e22b4950e013c4c53e7a03a0bc56ccb681a33257b11ec3259be",
     "version": "2025-q3",
     "effect": {
       "type": "cp-gain",
@@ -1254,6 +1293,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a7e339cf84c7607644071caddbb148bef18d563023334d1b412bf5fe3e68679d",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1286,6 +1326,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "9f7cf4be1984a2bf62747bb6de7d49db48cb03d4d99bd2ea2cf624b0fdd4f956",
     "version": "2025-q3",
     "effect": {
       "type": "attack-restriction",
@@ -1312,6 +1353,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "ec3f7f284349d11b5ab131aa797ca99584954ebd0c557ab8def84ca4a19c54a2",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -1340,6 +1382,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a873b8ef115a88122283e0b1c4b0b2b650f66c3d3c4b0f43581f316f15bdc745",
     "version": "2025-q3",
     "effect": {
       "type": "cp-refund",
@@ -1356,7 +1399,9 @@
       "hyperadapted-raveners"
     ],
     "ability_type": "unit",
-    "behavior": "activated"
+    "behavior": "activated",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "harpoon-barbs",
@@ -1366,6 +1411,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "6411bed5796d39e320116da0fd75afde61e9889cf46fcf16d121f302fc295924",
     "version": "2025-q3",
     "effect": {
       "type": "mortal-wounds",
@@ -1395,6 +1441,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "0a46aa6bd88911ce0744dde67bf11effbcd45539a03f030de647eb3267a91e3d",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1434,6 +1481,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "950a441698ee4ba29d637acfa89b12b46ac5f94716af325ef5bb238e78786ec9",
     "version": "2025-q3",
     "effect": {
       "type": "cp-refund",
@@ -1450,7 +1498,9 @@
       "sporocyst"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "resilient-organism",
@@ -1460,6 +1510,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "acc0148b4587d2d0243be522e458833fdc1483aa493a5ccd848a7517a2360205",
     "version": "2025-q3",
     "effect": {
       "type": "damage-reduction",
@@ -1487,6 +1538,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7bd43fd4329637d0bc6eaba3492ef9e7efb5439e607432a0e3e754d72e12e298",
     "version": "2025-q3",
     "effect": {
       "type": "leadership-modifier",
@@ -1513,6 +1565,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "6cea58b64723e158f843bd79c267b91ca9d79630779d2f4d3cb44917d82325e4",
     "version": "2025-q3",
     "effect": {
       "type": "roll-modifier",
@@ -1542,6 +1595,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d063208539e576384bf82ff32c2bfcd0798fdea0539cee1305a013dc87ae09c1",
     "version": "2025-q3",
     "effect": {
       "type": "feel-no-pain",
@@ -1568,6 +1622,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "f5356628e4d36a04a2b8525ad86c9e04550c5850610209d55231b056de6232aa",
     "version": "2025-q3",
     "effect": {
       "type": "designate-target",
@@ -1630,6 +1685,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "f229754bc3572218af2f9ebe943eab5d23b7d52a2372a8d5c85d64680ff7a458",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1689,7 +1745,9 @@
     ],
     "ability_type": "unit",
     "behavior": "passive",
-    "community_notes": "auto-generated, partial"
+    "community_notes": "auto-generated, partial",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "spirit-leech-aura-psychic",
@@ -1699,6 +1757,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "f1944b0d377cf05bf6a07ecb25cfbad202b579c85d82c2859f56e1d898349850",
     "version": "2025-q3",
     "effect": {
       "type": "mortal-wounds",
@@ -1725,6 +1784,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "8a77d403d0844a3a775c3d77e6690114974bf72c1f9c9097a6d198cef8c1d457",
     "version": "2025-q3",
     "effect": {
       "type": "invulnerable-save",
@@ -1751,6 +1811,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2ff78b89dd5912f5a5624fdc4ae8ebcb3f665b86dd5e9949de1d58b7dd8ec138",
     "version": "2025-q3",
     "effect": {
       "type": "movement-modifier",
@@ -1778,6 +1839,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "53ff49b539a896816b50aae8d246b8a4b29f7555fa94bae8e2d0ec1a7d3487ed",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1812,6 +1874,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "8963a5013ab12b632874263112ac86ae7b1029869c5834c75d845b8620687f16",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1849,6 +1912,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d5c92f4db0e8e000fa46f01a1c2ee76290f4629c82fc688c1d05422c3783217c",
     "version": "2025-q3",
     "effect": {
       "type": "mortal-wounds",
@@ -1875,6 +1939,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "f3fce933f1fe108d7cb8d72cc2c4469d640a7fc8e11bd6ee193d8b8289b22537",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1938,6 +2003,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4102740ff29615fd91af5965ac2f3469f0cb0b40ac2ed74bb5e5c762536b9eb4",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1973,6 +2039,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "5516b712601ef01309db5029aad8840adc5c707f5a2c5b57a087598fb95d63a6",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2005,6 +2072,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "155c2311f122bc0337c87ef1902bff8f6e60379e19e113bac2b6a9e7e8e23c83",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2040,6 +2108,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4b26303e351e1a976044235a1b48f365091d27c8bdeaf5720177c82d3222d4b3",
     "version": "2025-q3",
     "effect": {
       "type": "ability-grant",
@@ -2066,6 +2135,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "9d02f5fc04fb6776618f0d126c48d282d3e31bebace87528557ea32fc61dc4a8",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -2107,6 +2177,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2b89c4e3a288323f57732fe5c27423a5fbf649f440eb51531c2a6c6eb6154e23",
     "version": "2025-q3",
     "effect": {
       "type": "rule-state",
@@ -2135,6 +2206,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "6eb5807a67768be26a3d241f2cd28351bab3d38ade43c509f23768f64dce3d4a",
     "version": "2025-q3",
     "effect": {
       "type": "mortal-wounds",
@@ -2161,6 +2233,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a4a02987fbdb65cc15c1fd053616826a9f643969c8824af37773a950a8f62fea",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2196,6 +2269,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3adb427945ac5ad5961e2e5d4f0eaaf79105edd184ac2cba4f674096fb85ac89",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2245,6 +2319,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4fc8abde45de3ae74d12ef1e98a98ace6cf59683d960871ed7107c53ebe49251",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2294,6 +2369,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3f86b944e4b5d0b44256c99222c7c581ed6e9e16758b8178b9ca2b0925570c4c",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2340,6 +2416,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d5b951127448be3757ff8c313f9d361dd180c03d3659ef2fcea93a23b329ff0e",
     "version": "2025-q3",
     "effect": {
       "type": "movement-modifier",
@@ -2374,6 +2451,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "200278b48009371aba87b1434e52e7103f64f2c7d4cc62879c25687ce3896deb",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2450,6 +2528,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2186bdf7a320409d814d58a33670d2771256965f46543bf3472ea57fe9c326c6",
     "version": "2025-q3",
     "effect": {
       "type": "roll-modifier",
@@ -2479,6 +2558,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "aab535d9c7d51a065aa3e5587cbdd3871861e4fe2467ef1a5b5cc69d80da7308",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2563,6 +2643,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a099db86ce050395054477055d041296aba809b357298a9c073cfe811bcca1a2",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2623,6 +2704,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "36049ce61a9d40c2936dc47122d01f6f8ad4fe3c43d5d0b45efec40d7a87c6b1",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2661,7 +2743,9 @@
       "hive-crone"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "spawn-termagants",
@@ -2671,6 +2755,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "f77902c25aa4dcac5efe2f5b42cde57e410ae667ddc589d31ef78692a125d63d",
     "version": "2025-q3",
     "effect": {
       "type": "resurrection",
@@ -2697,6 +2782,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "5a1407765349e3d9303cce8521d41d7f2462a9f374fe28478ff7f62422a3da98",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -2725,6 +2811,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "0ce98fed2c8e2578e0194a5619dcd97048bbb4efedc9120b1b40e4678638a7dc",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2758,6 +2845,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b828e9343c8218c2ceb7a4b9276ba40ee482bc69fe24b97cc24a549bade07dd8",
     "version": "2025-q3",
     "effect": {
       "type": "resurrection",
@@ -2785,6 +2873,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "09a471351ab62b38e60dd0170902f8e426b5997a6b325517a80453345d83dca5",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2820,6 +2909,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4cc7401236a35b01c49994e9cafb594d95e38f9d3a60c18d41acbdbf0d48f099",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2875,6 +2965,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "ea3ff72c0cc8ce6c0cd858b5d0addd6ee7c502441e2045188a6c647349ccc3d1",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -2903,6 +2994,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "acf0130816b58d9f65765a32e969283513e64a05329c351a73d237a8a173ea92",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -2938,6 +3030,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "524ebec3c9696603fd7ff529174a752d02ffe14fa66524bd3c0fca78cbbe6469",
     "version": "2025-q3",
     "effect": {
       "type": "fight-on-death",
@@ -2962,6 +3055,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "8f7fa3bcd8decbc150b177148d319e791b817e3cf8922ee438d63e5bf05cb297",
     "version": "2025-q3",
     "effect": {
       "type": "cp-refund",
@@ -2988,6 +3082,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "049fa9c3c57649000c8638941682aaeb1212a73a3eaab6af82ff7fde7762ee76",
     "version": "2025-q3",
     "effect": {
       "type": "movement-modifier",
@@ -3015,6 +3110,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "52a58ae9df962aed464e5ecf7872d097dfbe76423f11366a7b6474c73db2efe6",
     "version": "2025-q3",
     "effect": {
       "type": "fight-on-death",
@@ -3039,6 +3135,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "0f6240127073e77afec5c501ecb1112421b6084f090af9c1d9ea83a02cfb648b",
     "version": "2025-q3",
     "effect": {
       "type": "objective-control-modifier",
@@ -3065,6 +3162,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2e16696500b7d3d468844454ef5a7ed94b2aaea33c4f9683236cfaf23d82125",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -3108,6 +3206,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1c447fccd2d3c85e57c0c3000bf537d64a713ca91675707f50dc30bde227619f",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -3141,6 +3240,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "21431e3bae40e21671177d66d90f1ddad563a66c79e201d126085daadfd4ae16",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -3186,6 +3286,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3d79cb44a0f01bbce32f6e3de95bf14d218b185e14650f0546746a860c6c3907",
     "version": "2025-q3",
     "effect": {
       "type": "leadership-modifier",
@@ -3211,6 +3312,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a48a3c3697d4882f2dc1bf13867eaad2740589abcfe3cacfee490fca3a49130f",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -3250,6 +3352,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "bb597a68b597161035b2a65c6b8aad52b2e16a5b3bedc41b783e48cb2cbffb32",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3275,6 +3378,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d8fe25056b3edfabb13da958fd5cb3f23cdf56b4a39051048c352fa89208ec0e",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3341,6 +3445,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "246b53d3276bd9ace659d7ce39bfea101124807ad71f8203055af7754ed773b1",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3389,6 +3494,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "e068a496f11398446b15ee8a21dcdbb8a001aadd8344ded0c08cdd3bd2bd48aa",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3449,6 +3555,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "97f1720951eec8f24c498f6b9b3443db014e182d133c671efda6d17494c4859f",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3526,6 +3633,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "965b09c765a6ce4342e022b4fd8ddc17bb19b2d932bbf07cb2760c006c63bcc5",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3563,6 +3671,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1606d0747f1664c017e5838c47b0f675e0742e2fcb0cc5d0e6119f79afe6c619",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3591,6 +3700,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c5d411a7ba74ab2b9291763c6d5c8cc494b5824043616490e39c3c655b38960c",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3640,6 +3750,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b999c879cfdb62692afc603ff63dc77e81cc204deaaa62176925f871d20a84ea",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3680,6 +3791,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "03a338d046fcfa9c0365347d0cc4fffcc245e2f61d8501d97c87d080e2952164",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3723,6 +3835,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "18840a7468db536cdc368d1733bdef7159df479f31a9666fce71178994841a4a",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3754,6 +3867,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d31f7e92a2ab1aefd0b78b8f37359218322f44050eb16a4f814332db9f993d2c",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3782,6 +3896,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d18385c387044c53cff019754577cabd1bfe753ebb98bda0a4344fd8b50fd79a",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3856,6 +3971,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "5859049e5bb26cda02752602d22009891a2bf23aa4613c1cb0e352b69fbeb2a5",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3906,6 +4022,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "fafebfbc78c5f475ede04207f7bffececf7f16410286640e061b4ac1342b71d5",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3987,6 +4104,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2a722cd54e15f297b390b1e137f69d24ca2cb1da628452929e310c60b9d0246f",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4103,6 +4221,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1e2de38ad4229d75d6fc48f4dcdc135f2d0f385251cd0c8ae22e84517ff7209a",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4203,6 +4322,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "00b2f3eacfac0f6e8c07dfb0cbe82fc21095a00207f57771e3ef70e07bbb3025",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4264,6 +4384,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "fe2e842513256f1ab4d7bb2221e434dc9b25d369bd771159e3a0d904cc34b2fd",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4320,6 +4441,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a328b1eb9e80a572cdd442c9f845276b9b05027341135a181ac18fc8add0dea0",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4360,6 +4482,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "17b0a37ea9bb32c79aea39b2daa8f6e399eadcd86d31e36be3065c9bd1747ab6",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4473,6 +4596,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1bca6475537a10530fc04df645d5b5a5e891b169697c59a1c02a3e8512ab2ab7",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4516,6 +4640,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4055c08c20ea48acba5d2ca1f976234bcf68d17489f4029cbc4c66d877028b47",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -4620,6 +4745,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "348d6f2756dfffaffecee5962133d6121cae373462a6e27ffa51796ce7353842",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -4672,6 +4798,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "cec23fe9e42eec85726d2ceb18bb851ebdeec3c8e82746703c83e78c6e1a85e5",
     "version": "2025-q3",
     "effect": {
       "type": "movement-modifier",

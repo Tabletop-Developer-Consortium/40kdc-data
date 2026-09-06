@@ -1585,6 +1585,35 @@
         "default_weapon_ids": [
           "chitinous-claws-and-teeth-hive-guard",
           "shockcannon"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Hive Guard w/ shockcannon",
+            "weapon_ids": [
+              "chitinous-claws-and-teeth-hive-guard",
+              "shockcannon"
+            ],
+            "max_count": 6
+          },
+          {
+            "name": "Hive Guard w/ impaler cannon",
+            "weapon_ids": [
+              "chitinous-claws-and-teeth-hive-guard",
+              "impaler-cannon"
+            ],
+            "max_count": 6
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Hive Guard w/ shockcannon",
+              "Hive Guard w/ impaler cannon"
+            ],
+            "count": 6,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       }
     ],

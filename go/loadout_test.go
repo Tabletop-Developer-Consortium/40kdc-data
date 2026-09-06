@@ -52,3 +52,18 @@ func TestSingleWeaponFlatBudgetCaps(t *testing.T) {
 		t.Fatalf("expected maximal sword count 1, got %d", got)
 	}
 }
+
+func TestVariantBudgetCap(t *testing.T) {
+	unit := map[string]any{"count": float64(1), "per_models": float64(10), "scope": "unit"}
+	row := map[string]any{"count": float64(1), "per_models": float64(5), "scope": "model-row"}
+	flat := map[string]any{"count": float64(2), "per_models": float64(0), "scope": "unit"}
+	if got := variantBudgetCap(unit, 20, 5); got != 2 {
+		t.Fatalf("expected unit cap 2, got %d", got)
+	}
+	if got := variantBudgetCap(row, 20, 5); got != 1 {
+		t.Fatalf("expected row cap 1, got %d", got)
+	}
+	if got := variantBudgetCap(flat, 20, 5); got != 2 {
+		t.Fatalf("expected flat cap 2, got %d", got)
+	}
+}

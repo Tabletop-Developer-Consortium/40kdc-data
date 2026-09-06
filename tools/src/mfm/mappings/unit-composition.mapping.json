@@ -84,6 +84,71 @@
       "consumers": ["tools/src/mfm/project-loadout.ts#projectUnit", "tools/src/mfm/wargear.ts#reconcileModels"],
       "reason": "An item id is emitted only when the current resolver can establish the repository entity id."
     },
+    "/models/*/loadout_variants": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Whole-loadout model variants come from BSData's type=\"model\" peer groups. MFM's loadout-choice branches are reduced to base-relative wargear options and exact cross-products are factored into independent slots, so the dump retains no named peer identity for this field to be derived from."
+    },
+    "/models/*/loadout_variants/*": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Whole-loadout model variants come from BSData's type=\"model\" peer groups. MFM's loadout-choice branches are reduced to base-relative wargear options and exact cross-products are factored into independent slots, so the dump retains no named peer identity for this field to be derived from."
+    },
+    "/models/*/loadout_variants/*/name": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Whole-loadout model variants come from BSData's type=\"model\" peer groups. MFM's loadout-choice branches are reduced to base-relative wargear options and exact cross-products are factored into independent slots, so the dump retains no named peer identity for this field to be derived from."
+    },
+    "/models/*/loadout_variants/*/weapon_ids": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Whole-loadout model variants come from BSData's type=\"model\" peer groups. MFM's loadout-choice branches are reduced to base-relative wargear options and exact cross-products are factored into independent slots, so the dump retains no named peer identity for this field to be derived from."
+    },
+    "/models/*/loadout_variants/*/weapon_ids/*": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Whole-loadout model variants come from BSData's type=\"model\" peer groups. MFM's loadout-choice branches are reduced to base-relative wargear options and exact cross-products are factored into independent slots, so the dump retains no named peer identity for this field to be derived from."
+    },
+    "/models/*/loadout_variants/*/max_count": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
+    "/models/*/loadout_variant_budgets": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
+    "/models/*/loadout_variant_budgets/*": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
+    "/models/*/loadout_variant_budgets/*/variant_names": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
+    "/models/*/loadout_variant_budgets/*/variant_names/*": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
+    "/models/*/loadout_variant_budgets/*/count": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
+    "/models/*/loadout_variant_budgets/*/per_models": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
+    "/models/*/loadout_variant_budgets/*/scope": {
+      "provenance": "not-in-mfm", "coverage": "unimplemented",
+      "sources": [], "joins": [], "transforms": [], "filters": [], "precedence": [], "consumers": [],
+      "reason": "Variant-count caps come from the BSData parent group's constraints and increment modifiers. MFM's limited sets are projected as item-count wargear_budgets, which count final equipment ids rather than selected model peers, so no MFM source represents this field."
+    },
     "/models/*/profile_name": {
       "provenance": "repo-authored", "coverage": "partial", "sources": [], "joins": [],
       "transforms": [{ "symbol": "tools/src/mfm/wargear.ts#reconcileModels", "operation": "Preserve an existing profile_name while updating supported composition fields." }],

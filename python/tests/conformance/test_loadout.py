@@ -92,3 +92,31 @@ def test_grouping_prefers_the_same_candidate_order_for_ambiguous_models() -> Non
         {"model_name": "Trooper", "count": 1, "weapons": [{"id": "alpha", "count": 1}]},
         {"model_name": "Trooper", "count": 1, "weapons": [{"id": "beta", "count": 1}]},
     ]
+
+
+def test_variant_candidates_are_sorted_and_budgeted() -> None:
+    from wh40kdc.data.loadout import loadout_candidates
+
+    models = [
+        {
+            "name": "Trooper",
+            "min": 5,
+            "max": 5,
+            "loadout_variants": [
+                {"name": "Rifle", "weapon_ids": ["rifle"]},
+                {"name": "Plasma", "weapon_ids": ["plasma"], "max_count": 2},
+                {"name": "Melta", "weapon_ids": ["melta"], "max_count": 2},
+            ],
+            "loadout_variant_budgets": [
+                {
+                    "variant_names": ["Plasma", "Melta"],
+                    "count": 1,
+                    "per_models": 5,
+                    "scope": "model-row",
+                }
+            ],
+        }
+    ]
+    candidates = loadout_candidates({"id": "u"}, 5, [], models)
+    assert candidates == sorted(candidates)
+    assert "Plasma×1;Melta×1" not in "\n".join(candidates)

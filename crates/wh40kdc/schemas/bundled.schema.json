@@ -183,7 +183,9 @@
         "on-damage-allocated",
         "battle-shock-test",
         "leadership-test",
-        "desperate-escape-test"
+        "desperate-escape-test",
+        "stratagem-targeted",
+        "ability-target-selected"
       ]
     },
     "battle-size": {
@@ -2393,6 +2395,81 @@
                     "type": "null"
                   }
                 ]
+              },
+              "loadout_variants": {
+                "description": "The complete alternative loadouts a model of this type may be built with, as named peers rather than deltas against `default_weapon_ids`. Each variant states the WHOLE weapon multiset for one model, so a squad that allocates its models between several equally-privileged loadouts needs no base model to subtract from. Repeated ids mean multiplicity. Absent means every model of this type carries `default_weapon_ids`; present, `default_weapon_ids` still governs `base_loadout` and is not replaced.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "description": "The source peer's own model name (e.g. \"Boy w/ Big shoota\"). Unique within this model row.",
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "weapon_ids": {
+                      "description": "This variant's complete per-model weapon/wargear multiset. A variant with no equipment is not a loadout.",
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "$ref": "#/$defs/entity-id"
+                      }
+                    },
+                    "max_count": {
+                      "description": "Ceiling on how many models of this row may take this variant, when the source states one on the variant itself. Shared and ratio-scaled ceilings live in `loadout_variant_budgets` instead.",
+                      "type": "integer",
+                      "minimum": 1
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "weapon_ids"
+                  ],
+                  "additionalProperties": false
+                }
+              },
+              "loadout_variant_budgets": {
+                "description": "Caps over how many variant selections this model row may make, counting SELECTED VARIANTS rather than final weapon ids (two variants sharing a weapon must not charge each other's allowance). A singleton `variant_names` is an individual cap, several names a shared pool, and intersecting budgets a ratio plus a hard ceiling. The selected count across `variant_names` must not exceed `floor(scope_model_count * count / per_models)`, or simply `count` when `per_models` is 0.",
+                "type": "array",
+                "minItems": 1,
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "variant_names": {
+                      "description": "The `loadout_variants[].name` values sharing this allowance. Every name must exist in this same model row.",
+                      "type": "array",
+                      "minItems": 1,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1
+                      }
+                    },
+                    "count": {
+                      "type": "integer",
+                      "minimum": 1
+                    },
+                    "per_models": {
+                      "description": "Models required per `count` selections. 0 means the flat limit `count`, independent of squad size.",
+                      "type": "integer",
+                      "minimum": 0
+                    },
+                    "scope": {
+                      "description": "Which model count scales the allowance: the whole unit, or just this model row.",
+                      "enum": [
+                        "unit",
+                        "model-row"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "variant_names",
+                    "count",
+                    "per_models",
+                    "scope"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
@@ -3365,7 +3442,8 @@
               "enum": [
                 "self",
                 "bearer",
-                "attached-unit"
+                "attached-unit",
+                "bearer-unit"
               ]
             },
             "range": {
@@ -3416,6 +3494,38 @@
           "type": "string",
           "minLength": 1,
           "$comment": "Names the triggering event's bound object for later reference by a condition in the same reactive action. Internal only; never rendered."
+        },
+        "source_ability": {
+          "type": "object",
+          "properties": {
+            "ability_id": {
+              "$ref": "#/$defs/entity-id"
+            },
+            "owner": {
+              "type": "string",
+              "enum": [
+                "friendly",
+                "enemy"
+              ]
+            },
+            "keywords": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "description": "All keywords required on the unit using the named source ability, not on the selected target."
+            }
+          },
+          "required": [
+            "ability_id",
+            "owner",
+            "keywords"
+          ],
+          "additionalProperties": false,
+          "description": "Filter an ability-target-selected event by its source ability and source unit. The trigger subject is the selected unit. This does not infer that the source ability was used from a tag or phase."
         }
       },
       "required": [
@@ -3439,6 +3549,11 @@
         },
         "game_version": {
           "$ref": "#/$defs/game-version-ref"
+        },
+        "source_digest": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "SHA-256 of the NORMALISED printed rule this annotation was authored against — one-way, so the rule text itself stays outside this repository. Normalisation (defined once in tools/src/source-digest.ts) casefolds, folds Unicode, keeps the rule-significant operators + - = < > / % and replaces other punctuation with spaces, so reprint noise and quote style leave the digest unchanged while a changed value or an added condition changes it. Optional: absent means the source was never fingerprinted, which `npm run audit:source-digest` reports as untracked rather than current. Records source-content identity, not release history — consumers must not select, order or supersede abilities by it."
         },
         "version": {
           "$ref": "#/$defs/dataslate-version"
@@ -3709,8 +3824,10 @@
             "unit-was-in-engagement-range-of",
             "unit-model-count",
             "uniform-ranged-loadout",
-            "all-attacks-target-same-unit"
-          ]
+            "all-attacks-target-same-unit",
+            "target-is-visible"
+          ],
+          "description": " target-is-visible tests whether the target of the current attack is visible to its attacking model (not whether some other model can see it). within-range-of-objective subject:target tests the attack target; controlled_by qualifies the SAME marker, not an unrelated controlled objective."
         },
         "parameters": {
           "type": "object",
@@ -3815,6 +3932,9 @@
         },
         {
           "$ref": "#/$defs/persistent-designation-effect"
+        },
+        {
+          "$ref": "#/$defs/no-effect-effect"
         }
       ]
     },
@@ -4034,7 +4154,7 @@
           "$comment": "`modifier-immunity`: the target ignores applied modifiers. `scope: characteristics` = ignore any/all modifiers to its characteristics (champion-of-humanity / obfuscation / ceramite family); `enemy-stratagems` / `enemy-abilities` = cannot be affected by enemy Stratagems / abilities. `exclude` lists characteristic codes the immunity does not cover. Roll-modifier immunity stays on `roll-modifier` { operation: ignore-modifiers }; a 'characteristics AND rolls' rule composes the two via a sequence."
         },
         {
-          "$comment": "`stratagem-cost-modifier`: modify a Stratagem's CP cost. `operation: increase` adds `amount` CP (the cost-increase / opponent-tax direction — e.g. 'enemy Stratagems targeting this unit cost 1 more CP'); `set-to` sets the cost to `set_to`. `applies_to` picks which Stratagems: `stratagems-targeting-bearer` (enemy Stratagems against the bearer or its aura) or `stratagems-used-by-bearer`. Optional `stratagem` names a single Stratagem. The 'use a Stratagem for 0CP' reduction stays on `cp-refund`."
+          "$comment": "Modify a Stratagem CP cost before payment. increase/decrease requires amount; set-to requires set_to. A decrease has a floor of 0CP. triggering-stratagem-use binds only the current use that caused the trigger. Free use is set-to:0, never cp-refund. Optional stratagem restricts to one named Stratagem."
         },
         {
           "$comment": "`targeting-permission`: the bearer can only be SELECTED as a target (selection-time gate) of `attack_type` (`ranged` | `any`) attacks if `gate` holds — `within-range` (the attacking unit is within `range`\"; Lone Operative = ranged/12, fog-of-dreams = ranged/18), `closest-eligible` (it is the closest eligible target), or `closest-or-within-range`. Distinct from `attack-restriction` (resolution-time) and `targeting-range-limit` (the bearer's own offence)."
@@ -4046,7 +4166,7 @@
           "$comment": "`recovery-pool`: recover a unit's wounds using the closed dice expression, first healing wounded models and then returning destroyed models at one wound. With `target: all-friendly`, `per_target_unit: true` rolls and allocates an independent pool for every eligible friendly unit."
         },
         {
-          "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception."
+          "$comment": "Permission to target the named unit with a Stratagem despite the specified restriction. The prior-use exception applies ONLY to the named Stratagem and allows this unit to be targeted after a different unit was targeted this phase. The subsequent-use exception preserves a later use on a different unit after this unit is targeted. Neither removes other targeting restrictions."
         },
         {
           "$comment": "`bind_count_as` binds a dice-valued mortal-wound count for a following local consumer."
@@ -4227,6 +4347,27 @@
               "type": "null"
             }
           ]
+        },
+        "test": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "leadership"
+            },
+            "subject": {
+              "type": "string",
+              "enum": [
+                "unit",
+                "self"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject"
+          ],
+          "additionalProperties": false,
+          "description": "Perform an actual Leadership test with the normal test modifiers/re-roll permissions and the selected subject's current Leadership (the unit's applicable Leadership for subject:unit). It passes on 2D6 >= Leadership. It is not a Battle-shock test and does not itself inflict Battle-shock."
         }
       },
       "required": [
@@ -4430,6 +4571,38 @@
                 "not-engaged-with-bearer"
               ],
               "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches."
+            },
+            "reference": {
+              "type": "string",
+              "enum": [
+                "bearer",
+                "bearer-unit"
+              ],
+              "description": "Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit."
+            },
+            "selection_limit": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "period": {
+                  "type": "string",
+                  "enum": [
+                    "turn",
+                    "phase",
+                    "battle-round",
+                    "battle"
+                  ]
+                }
+              },
+              "required": [
+                "count",
+                "period"
+              ],
+              "additionalProperties": false,
+              "description": "Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter."
             }
           },
           "required": [
@@ -4509,6 +4682,13 @@
             "within_inches": {
               "type": "number",
               "exclusiveMinimum": 0
+            },
+            "member_of": {
+              "type": "string",
+              "enum": [
+                "bearer-unit"
+              ],
+              "description": "Restrict candidates to models in the ability bearer's unit, including an Attached unit. With target_kind:model every listed keyword is tested on that individual model, never the union of unit keywords."
             }
           },
           "required": [
@@ -4652,6 +4832,10 @@
               "$ref": "#/$defs/condition"
             }
           }
+        },
+        "after_move": {
+          "$ref": "#/$defs/effect-node",
+          "description": "Resolve this effect only after the target actually completes the granted move (including a legal zero-distance move). Declining to make the move does not resolve this effect. Uses the enclosing duration for lasting follow-up effects."
         }
       },
       "required": [
@@ -4791,6 +4975,10 @@
                 "any"
               ],
               "default": "all"
+            },
+            "eligibility": {
+              "$ref": "#/$defs/condition",
+              "description": "Predicate on the candidate before selecting it. Event-bound history can refer to the attack sequence that caused this selection."
             }
           },
           "required": [
@@ -4811,6 +4999,16 @@
             },
             "effect": {
               "$ref": "#/$defs/effect-node"
+            },
+            "attacker_keywords": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "description": "All keywords required on each individual friendly attacking MODEL, not on its unit. Only meaningful with to:attackers-of-target."
             }
           },
           "required": [
@@ -5617,6 +5815,22 @@
               },
               "source_gate": {
                 "$ref": "#/$defs/named-region-source-gate"
+              },
+              "radius_inches": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "activation": {
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "const": "continuous"
+                  }
+                },
+                "required": [
+                  "event"
+                ],
+                "additionalProperties": false
               }
             },
             "required": [
@@ -5688,6 +5902,10 @@
         },
         "qualified_branch": {
           "$ref": "#/$defs/named-region-branch"
+        },
+        "attack_condition": {
+          "$ref": "#/$defs/condition",
+          "description": "Gate shared by the default and qualified branches, evaluated on each current attack, without gating production of the named region."
         }
       },
       "required": [
@@ -5948,6 +6166,19 @@
         "duration"
       ]
     },
+    "no-effect-effect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "no-effect"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Resolve no effect; does not create attacks, damage, selections, or secondary events."
+    },
     "effect": {
       "title": "Ability Effect",
       "$ref": "#/$defs/effect-node"
@@ -5984,8 +6215,11 @@
             "until-next-battle-round",
             "until-start-next-turn",
             "one-use",
-            "permanent"
-          ]
+            "permanent",
+            "attack-sequence",
+            "resolution"
+          ],
+          "description": "attack-sequence expires when the currently selected unit finishes resolving its shooting or fighting attacks; resolution lasts only while resolving this activation and is not a battle/phase usage limit."
         },
         "range_inches": {
           "type": "number"

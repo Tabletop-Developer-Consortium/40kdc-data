@@ -299,7 +299,36 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Noise Marine w/ sonic blaster",
+            "weapon_ids": [
+              "sonic-blaster",
+              "close-combat-weapon-noise-marines"
+            ],
+            "max_count": 5
+          },
+          {
+            "name": "Noise Marine w/ blastmaster",
+            "weapon_ids": [
+              "close-combat-weapon-noise-marines",
+              "blastmaster"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Noise Marine w/ sonic blaster",
+              "Noise Marine w/ blastmaster"
+            ],
+            "count": 5,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -354,7 +383,45 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tormentor",
+            "weapon_ids": [
+              "close-combat-weapon-tormentors",
+              "boltgun"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Tormentor w/ plasma gun",
+            "weapon_ids": [
+              "close-combat-weapon-tormentors",
+              "plasma-gun"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Tormentor w/ meltagun",
+            "weapon_ids": [
+              "close-combat-weapon-tormentors",
+              "meltagun"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Tormentor",
+              "Tormentor w/ plasma gun",
+              "Tormentor w/ meltagun"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {

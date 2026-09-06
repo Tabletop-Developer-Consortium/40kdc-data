@@ -7,6 +7,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -50,6 +51,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "214c261ce0fe18aaa8b822a409452af48f2caab9da2f47455553605af0c3d310",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -97,6 +99,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "101f9ced36a023067ae95f27ff8ecc85fe86a769ae88bcf86567202e1da4905d",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -135,7 +138,9 @@
       "war-dog-brigand"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "executioner",
@@ -145,6 +150,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7670b04f9afcc71673363a273348e078ab322e71e3b9c7e18296a934c1327c1f",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -180,7 +186,9 @@
       "war-dog-executioner"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: condition gates on keyword \"A\", which no unit in the dataset has, so the gate never fires and the effect is dead; the intended keyword is unrecoverable from the encoding."
   },
   {
     "ability_id": "scouts-6",
@@ -190,6 +198,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2ff78b89dd5912f5a5624fdc4ae8ebcb3f665b86dd5e9949de1d58b7dd8ec138",
     "version": "2025-q3",
     "effect": {
       "type": "movement-modifier",
@@ -217,6 +226,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "182c3148f07ca40c4faad8729d04a7cc002a0f884e362e370b9cf1d0241a7806",
     "version": "2025-q3",
     "effect": {
       "type": "roll-modifier",
@@ -245,6 +255,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "50abfa531feeebeda388d39ecae4272c43a09d5c2477e04197a91458b9522d04",
     "version": "2025-q3",
     "effect": {
       "type": "cp-refund",
@@ -261,7 +272,9 @@
       "war-dog-moirax"
     ],
     "ability_type": "unit",
-    "behavior": "passive"
+    "behavior": "passive",
+    "disputed": true,
+    "dispute_notes": "Dangling reference: references stratagem id \"fire-overwatch-or-heroic\", which no stratagem file defines; the intended stratagem is unrecoverable from the encoding."
   },
   {
     "ability_id": "karnivore",
@@ -271,6 +284,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "797298065f482b920541722874f1f141f9e56444dbfd88c13d7fd3d44f98d1a4",
     "version": "2025-q3",
     "effect": {
       "type": "re-roll",
@@ -298,6 +312,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -341,6 +356,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "bae6c5ddc55f011cf46256af63429a674c0efb8d1845e022e1273d1c4bbc7af2",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -393,6 +409,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1529861649d7bc9e4b3f923c6a4f495b22a0359d47bc4904f725aa6c2563538d",
     "version": "2025-q3",
     "effect": {
       "type": "re-roll",
@@ -421,6 +438,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -464,6 +482,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "5b72f15d8d3ea9d44567a04d5416d5dd916811d880aca14be0e13d3096169558",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -499,6 +518,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "0c3e6970fdaf3e74c8caa1887fd02326c934ed4a6d4b22cc19dbf2f810e65e56",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -534,6 +554,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "f8a6b54d2627e6f07a4d87df45e1313644dc02f070477c3588d513565331bc9c",
     "version": "2025-q3",
     "effect": {
       "type": "re-roll",
@@ -561,6 +582,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b1414e0449868c263e074d5a1655ff41032472f7adab27316009ba9b1f6cc0f0",
     "version": "2025-q3",
     "effect": {
       "type": "stat-modifier",
@@ -589,6 +611,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "877ad151af77e6cc6a812a2bc7730c4c524513231f41b2e9b08095169d223808",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -626,6 +649,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "49cf46345c2959d68f9a52883d541a476012967d84b36f1db1b2b04f483255bb",
     "version": "2025-q3",
     "effect": {
       "type": "aura",
@@ -674,6 +698,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c2552b66bc19abc07a84224136cc2673d97b834bde4fe0c9ef391ecde0863aa0",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -717,6 +742,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "9ab54d98f88ca67958f5c35649ddbadcff5aa650482d9d5b92bce15e82dc9dcd",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -745,6 +771,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7c0a977ea36c8bbb2b3b3f2968d9063a38df631d6e9b4b4c2587dcda817448bb",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -788,6 +815,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "8d7ebfbf95a8787ff06a0194d4c9b8b784fd800bd6a5f08dcc0167719026384d",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -852,6 +880,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "41b977d19959322bf7eab1d38ccf6d2336cfa993663e1257d3283367fcca197d",
     "version": "2025-q3",
     "effect": {
       "type": "sequence",
@@ -895,6 +924,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "284e6a1138698ebda48265190aa096dcb1b647e7d0b43b1051c02e3384ff4454",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -932,6 +962,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "559d3ae6dcc0c601d06be4c89c83969ce873298504de494aa690c13ec27c6014",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -960,6 +991,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d6eff6823cc70058191a690ec5910915a6d27345f25972ccfb5e2f830a43dc16",
     "version": "2025-q3",
     "effect": {
       "type": "ability-grant",
@@ -987,6 +1019,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1d40894578091570983803741d13c2bb453d9807f878ac6269fe61417cc89fff",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -1015,6 +1048,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "58d176c7e8aa5aa265df2c53b20848612f87b500c5b69b444f5483d430879daa",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -1043,6 +1077,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "6e221c1e2b83629d8cbc959aa552373af0f22553b82fae8674d432e762652006",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1079,6 +1114,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1d40894578091570983803741d13c2bb453d9807f878ac6269fe61417cc89fff",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -1107,6 +1143,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c34e6d240a168267337e54f3835d260c6fd22a2bca37349add3568635085f081",
     "version": "2025-q3",
     "effect": {
       "type": "resurrection",
@@ -1134,6 +1171,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "f8af84daabb2f82b02d0061b430af8e7f4be79695ac72acab0680ed816775693",
     "version": "2025-q3",
     "effect": {
       "type": "ability-grant",
@@ -1160,6 +1198,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "e2bb9a35db17e2500d9b57fd40eb74fd4db4d2c7dca0f8f9b72f4845efbd45b2",
     "version": "2025-q3",
     "effect": {
       "type": "attack-restriction",
@@ -1187,6 +1226,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "5c0d0d3b846de1cef06f98abd2a8bc5d56253c9ca03cb0fce34eb6b82d77e09f",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1223,6 +1263,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b1975c2cec727f603762c5c06dccb8dfff12d7f29df873ad78b6643ca4c81206",
     "version": "2025-q3",
     "effect": {
       "type": "dice-gated",
@@ -1258,6 +1299,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "df73cb6b7e35f1e67c954d78f9e7ef415ceb335dfc7da6e1c4d757d18cd3170b",
     "version": "2025-q3",
     "effect": {
       "type": "keyword-grant",
@@ -1286,6 +1328,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3cfd0c9e7f755023e3c3a7060fc7f77ad8c66194933ba7cfddf05df20295eb8d",
     "version": "2025-q3",
     "effect": {
       "type": "conditional",
@@ -1457,6 +1500,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "28dde22bf70512289e7ff49dbba791c54676b490495ffcdead747e5ad639fb57",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1501,6 +1545,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "441c1fb4810fa79b75a30a7eb79a1052b2f2721111b2ad7cad3b2271fd0c2a5d",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1539,6 +1584,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "0d1510498934d1f3748286967f881c4fd92052e41d07b803e4741f56f2b957ee",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1568,6 +1614,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "cc4a12cdb0fa5187ce971d0d19eea36c6286277efbdca81967cc694182196662",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1596,6 +1643,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "613ef42ad7a54bd3994b52337f1dfe7c7cdfa1f8cd2c800750dacbdd96bc15a5",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1624,6 +1672,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "0b8ea83f7c42522c25d987d42670f4958360ec051641f219a1d74d181c199c4d",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1667,6 +1716,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "011ee4c6c92b3256d084b15b9ca4e8bc1efe092e1fd8e2be8e5eafd32c4ab50f",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1705,6 +1755,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "e31138ca2d396e01b384e6b05a258f56ff5596c921e891d14a43246c0bfdfcf4",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1736,6 +1787,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "822640bc1a93e88601e6c47d0003ab0f07f18aa0a2557b074455cc79eca5529b",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1765,6 +1817,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "8c034fed92c3560b83e498217baebd7710330ce0b57df1de8c6bd4d2507ce60b",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1792,6 +1845,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c20a376d1edbcb4c30276565e83546593502e938f9c9026a234d457bb3aeb14c",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1820,6 +1874,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "6dc29716e23abb2879be466315be398257468c02552309fc86e5c652206f2581",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1851,6 +1906,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "1f07d07fc95ddab3bab89d6a06b19ab98e3299513148fdb2ba8dda5b74136fef",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1885,6 +1941,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "fe571a504b418a177a682c1b7301f1379c4bd961e92f0d0ec76633d90482f36c",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1914,6 +1971,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "01ac9f1d204aeec0b2133e3e0400126ea9f69752ee6696c1b3071ec60ae0df5a",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1943,6 +2001,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "cdb5a9cd37513b6895308df554a021af75811652c11419a6492b91a5d39c5721",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -1992,6 +2051,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "bbbc72e5112fd3ef875d8b443405624221272ac6d29e9ea9ff2d724b68f2c305",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2033,6 +2093,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "39c0f5c94d24c9c4ea2a9b2bb1568929815cf5b4f9c82bb91c952723fa1e12a2",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2071,6 +2132,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "20832ec605ef28f13973a2d964bf91372732851c2bddee10d901348a27012d73",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2099,6 +2161,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "497fa6c74f10fbb26db44dc22914480091b60a735c36901e82f7aa82c8a585be",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2141,6 +2204,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "016ff8bd0de9ad28794ea46ef288d8a7b4cf8e7282c2c131f8a1124126964c79",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2201,6 +2265,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "db9362db5fc55d4b0e7f2474da3d1976bf0cdc2ec88a21cd1a1047ad65cbaa51",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2229,6 +2294,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "416214754212757a3f5343146aeb3ff14e894fe5f17da42e4879c41cf9cbe04a",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2257,6 +2323,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "ce3a4b8e61db525ffca6a37774237557ac86dce3ac8cf272078f2836fed4dcd4",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2285,6 +2352,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7c863fcee32c271f8735fc82f00ba91822d6ec1764fd0cfcdf3e0b8c16081d37",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2313,6 +2381,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7d1e0fc270424d80d1c712e4c5f5ce42cc5c920ffb86c66c152caf644352b441",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2343,6 +2412,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "03ccde63de637ccc78820fe0ed6a1c501103813fd062c8578acbac0c30e3de68",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2410,6 +2480,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a1402f43aa7a0b14427270f96510dea24714569f4e5da268ce8d74fdef7cfdf8",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2438,6 +2509,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "73f4b1e3720e256bd56f6daca302f5b358961df1138ccfddcc3d08babde74fcb",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2467,6 +2539,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "60f48fa7a937d0b312844e6a579cd4b0a163c746fda648f727418e611612cf21",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2565,6 +2638,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a47f0a77e0e44498d62a24fc11e55e4b862b9e3a60b7a88c6321977a84c1b057",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2592,6 +2666,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d4b24ddd34aeaab30659cb0a4e32f1b782b17961706e846c5962bc4c369b8d31",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2640,6 +2715,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "bd05080ceae613ecffef6b199ff5754baf5f55212c789c496d53f9d91d60c753",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2668,6 +2744,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "10162e0520eb2673674425d1bd4ea2b2f1d46d75a543a664c573f115ccacbe24",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2698,6 +2775,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "288d7ca9e129c98b714144ddc3094b5488d129e778b2296edf33306e6332a275",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2753,6 +2831,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "fdf9572eab8dbcf0f151c21675720eaf1c8a141991eb4eacd3834c25965c324e",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2782,6 +2861,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "4b3b14855eacb13d21afac3cc2fff28798252aee81d73eea6b3b3a69052cc392",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2811,6 +2891,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "bb209017993a49f44801c25fa4d29ed78cd93d2c8bfe8e57ad44909f5a99a1a0",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2839,6 +2920,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "ac0edcf9aca32caf9f15c8e6f66ea5ccb8b44b01f82d90499868a44ca415d67e",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2880,6 +2962,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b63c779c3d1e46e1eec3851664429ad185dfdc976d2aa9646b51fde3623e97aa",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2921,6 +3004,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "2921e9fa3a09803987ea46fce1f9f07d1be34181902763dc73d08cdca7100456",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2947,6 +3031,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a19189dc7481bce20ef5b79cfda43a0161b2bdd4c2f9041b8c737a2ef7dc3703",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -2977,6 +3062,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "640233923c10ec1224d5600083b671025edf2caa5bc10adafac739077d07cb29",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3019,6 +3105,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "27c339a63b518be55a78fbdc829cbb6f0a9a7c431598290ce1d6cc48a319a8ca",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3047,6 +3134,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "af9453cfdcfa11c622adfad3d724d6cc3f1f260a144c9cedfb80a68843211c73",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3131,6 +3219,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "81f566e62def98803d084042ae50c57de69471835f32127b2c14af6d75da1934",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3159,6 +3248,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "09c1cb2ac0dce849d507fcee9e03f8802b27c989f1037b708652ca9d5173b5b1",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3188,6 +3278,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d72252f25b01fa9b7ea59135daa244036730169d7af9b119e60ce302359016ad",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3216,6 +3307,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b1fe16ca4f8ce7573318a9606e1279375a45af2948c636187f2379fcc831a452",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3266,6 +3358,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3f4bb08b5e5bdd24b0063d9c7f56f6dcd7ed064eaf2b7f9ce955591fbe7abafa",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3297,6 +3390,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "76c4297f756f0c0212659249186683ae89d5a62396e78875e85ae48abbe067a1",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3325,6 +3419,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d44becbcf3ab62533cbb42551976cbb557b68e73dd04839eb1fc42f76f56364f",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3371,6 +3466,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "cc16050d85fa34c1d5badb33fd283b56d337336c4bdb2ebfdfedadba3c9eded4",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3401,6 +3497,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "979dff9f485f7c562110b847a39583565fbfbc2c7105554b7c79b3a1e1b19c75",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3431,6 +3528,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d2dfbd6dbf9a84e494280f75ace6252c127e8e74a21241f3a1aef8e672f484f4",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3462,6 +3560,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "8c4ddb4daa0edf76f47c4e2450bd9e6f75ff021d7262ee620557f9dd38ff291b",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3505,6 +3604,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "11f6ceb2f91c39f23f1a2920e1253378cc31d0e7b49b76004c842271f9da1280",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3535,6 +3635,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "a836c44b7bf6d09a0f3e8092945e2fb1702be2999ec058738e1bd8bae8b50bd3",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3572,6 +3673,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "89f2772058d739df4eadc64ff9699aa0bada2eb8022023fbf693ec3a46a468ea",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3600,6 +3702,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "315b4f37d696fbe011b60141f2e76eded1353194cd764fe4728a8be326052477",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3626,6 +3729,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "9224d1b4e8d7a31c4fa5691862320fbe4733a9ab729fbcb9e6405d148a017697",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3655,6 +3759,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "db3b8a9602a7e089c0f33528612437e91998a60603d54dd45eb09a9e4cf108fd",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3684,6 +3789,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "9f416f4679e8a31274db8cdfa46f6d8cc89d53b7b344664a64837d88f936a54e",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3712,6 +3818,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "3e9b7b90f90b0f905d2611d4339662defa8dc207eb3e7531d21bd6de6eb5fdfb",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3741,6 +3848,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "bfbd8989e193c6ee5247bed2f48600a1c34783aad8601a7103522c1f6ecbd82c",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3772,6 +3880,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "d3bccc7ad9fc26e75a60252a87fab7818b0526a18f8f72764fb8b713eea7b603",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3801,6 +3910,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c9398fca2fdeddd623aac14e398537ade93c1e922d3415e6c652294f321adf6f",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3830,6 +3940,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "227efac4b27830a270e284191b1f18e3108b27669fb2414d32b1375c0e9d6a14",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3873,6 +3984,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "626e54c022baa90e158a78baf8594f4fb42aac67279b40521b9aa68c5a82ac04",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -3952,6 +4064,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "b79489de069c1f223f4afa1985489805d8a7e6a69bb74153c0bce96d8b8f1c8f",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4001,6 +4114,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "c16f84834bdcc1cb47bcefbe28bf6f1c34596681cad917dc068a9a4b94f96dcc",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4030,6 +4144,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "e4d3df0905d9dbefe6a7bb8b5fdd13b95415831818d5a73309b053d393c836a6",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4072,6 +4187,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "41a72bd04a383f41ee61457fca59b2eb2e885516a9ca4743d7025785c50286da",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4103,6 +4219,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "7ea5f58598a4e53421f891bbe0f5b1bce1727967c5166a74375fdef9268dfafc",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4131,6 +4248,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "e330d3568124daf1ed157078152ccbe5da5c624e77a3696bc5a47684cfc72160",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4159,6 +4277,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "fa60efc867a824aa52d8e0a565fcf068493f27ecf5804358e3eea56cc182e4c9",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],
@@ -4188,6 +4307,7 @@
       "edition": "11th",
       "dataslate": "pre-launch-provisional"
     },
+    "source_digest": "537b1414a1e8f709a6ef3ca45c56072c8507133689383e2adf147a6c342ae8e4",
     "version": "2025-q3",
     "supersedes": null,
     "unit_ids": [],

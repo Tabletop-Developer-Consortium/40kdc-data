@@ -342,7 +342,64 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 28.5
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Kroot Farstalker",
+            "weapon_ids": [
+              "farstalker-firearm",
+              "kroot-pistol",
+              "close-combat-weapon"
+            ],
+            "max_count": 8
+          },
+          {
+            "name": "Kroot Farstalker w/ Farstalker firearm and Pech'ra",
+            "weapon_ids": [
+              "kroot-pistol",
+              "farstalker-firearm",
+              "close-combat-weapon"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kroot Farstalker w/ Dvorgite skinner",
+            "weapon_ids": [
+              "dvorgite-skinner",
+              "kroot-pistol",
+              "close-combat-weapon"
+            ]
+          },
+          {
+            "name": "Kroot Farstalker w/ Londaxi tribalest",
+            "weapon_ids": [
+              "londaxi-tribalest",
+              "kroot-pistol",
+              "close-combat-weapon"
+            ]
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Kroot Farstalker",
+              "Kroot Farstalker w/ Farstalker firearm and Pech'ra"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          },
+          {
+            "variant_names": [
+              "Kroot Farstalker w/ Dvorgite skinner",
+              "Kroot Farstalker w/ Londaxi tribalest",
+              "Kroot Farstalker"
+            ],
+            "count": 1,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       },
       {
         "name": "Kroot Hound",
@@ -522,7 +579,38 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Fire Warrior w/ pulse carbine",
+            "weapon_ids": [
+              "pulse-pistol",
+              "close-combat-weapon-strike-team",
+              "pulse-carbine"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Fire Warrior w/ pulse rifle",
+            "weapon_ids": [
+              "pulse-pistol",
+              "close-combat-weapon-strike-team",
+              "pulse-rifle"
+            ],
+            "max_count": 9
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Fire Warrior w/ pulse carbine",
+              "Fire Warrior w/ pulse rifle"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1000,6 +1088,37 @@
           "close-combat-weapon",
           "krootox-fists",
           "repeater-cannon"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Krootox Rider w/ repeater cannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "krootox-fists",
+              "repeater-cannon"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Krootox Rider w/ tanglecannon",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "krootox-fists",
+              "tanglecannon"
+            ],
+            "max_count": 3
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Krootox Rider w/ repeater cannon",
+              "Krootox Rider w/ tanglecannon"
+            ],
+            "count": 3,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       }
     ],

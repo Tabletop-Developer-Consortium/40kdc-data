@@ -237,13 +237,13 @@ export function describeCondition(c: Condition): string {
   // Compound nodes first — join the operands with lowercase connectives so the
   // result reads naturally inside a "... when X and Y" clause.
   if (c.operator === "and" && c.operands) {
-    return c.operands.map(describeCondition).join(" and ");
+    return c.operands.map((o) => o.operator === "or" ? `(${describeCondition(o)})` : describeCondition(o)).join(" and ");
   }
   if (c.operator === "or" && c.operands) {
     const keywordOperands = c.operands.every((o) => !o.negated && o.type === "unit-has-keyword");
     if (keywordOperands)
       return `the unit has the ${orList(c.operands.map((o) => str((o.parameters ?? {}).keyword)))} keywords`;
-    return c.operands.map(describeCondition).join(" or ");
+    return c.operands.map((o) => o.operator === "and" ? `(${describeCondition(o)})` : describeCondition(o)).join(" or ");
   }
   if (c.operator === "not" && c.operands) {
     return `not (${c.operands.map(describeCondition).join(", ")})`;
@@ -316,7 +316,7 @@ export function describeCondition(c: Condition): string {
       const weapon = p.weapon_name ? ` by ${str(p.weapon_name)}` : "";
       const boundSource =
         p.source && typeof p.source === "object" && "event_var" in (p.source as Record<string, unknown>)
-          ? " from that enemy unit"
+          ? " from the triggering unit"
           : p.source != null
             ? ` from ${str(p.source)}`
             : "";
@@ -345,6 +345,12 @@ export function describeCondition(c: Condition): string {
       return `${negate}an enemy unit is within ${where}`;
     }
     case "unit-within-range-of": {
+      if (Array.isArray(p.keywords)) {
+        const who = p.subject === "self" ? "this model" : p.subject === "triggering-unit" ? "the triggering unit" : "the unit";
+        const distance = p.range === "engagement" ? "Engagement Range" : `${str(p.range)}"`;
+        const owner = p.target_type === "friendly-keyword" ? "friendly" : "enemy";
+        return `${negate}${who} is within ${distance} of one or more ${owner} units with all of ${p.keywords.map(str).join(" and ")}`;
+      }
       const tt = str(p.target_type ?? "target");
       // `closest-eligible` names a specific model, not a radius — but a range, when
       // present, still bounds WHICH model is eligible ("the closest ... within 18\"").
@@ -363,8 +369,14 @@ export function describeCondition(c: Condition): string {
       const dist = p.range != null ? `${str(p.range)}"` : '?"';
       return `${negate}within ${dist} of ${who}`;
     }
-    case "within-range-of-objective":
-      return `${negate}within range of an objective`;
+    case "within-range-of-objective": {
+      if (p.subject == null && p.controlled_by == null) return `${negate}within range of an objective`;
+      const who = p.subject === "target" ? "the target unit" : p.subject === "attacker" ? "the attacking unit" : "the unit";
+      const control = p.controlled_by === "your-army" ? " you control" : p.controlled_by === "opponent" ? " your opponent controls" : "";
+      return `${negate}${who} is within range of an objective marker${control}`;
+    }
+    case "target-is-visible":
+      return `${negate}the target is visible to the attacking model`;
     case "has-fought-this-phase":
       return `${negate}has fought this phase`;
     case "destroyed-by-attack-type":
@@ -377,7 +389,7 @@ export function describeCondition(c: Condition): string {
       return `${negate}the attack's ${sv(p.attacker_stat)} is ${dekebab(sv(p.comparison))} the target's ${sv(p.target_stat)}`;
     }
     case "made-ingress-move-this-turn":
-      return `${negate}the unit made an ingress move this turn`;
+      return `${negate}the unit made an ingress move (including a Deep Strike setup) this turn`;
     case "engagement-state": {
       if (p.state == null) return `${negate}the unit is within Engagement Range`;
       const st = str(p.state);

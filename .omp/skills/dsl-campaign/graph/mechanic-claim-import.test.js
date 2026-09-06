@@ -27,11 +27,34 @@ test('generated registry covers every effect wrapper and required nested child p
   assert.deepEqual(
     descriptors.filter(item => item.container_type === 'named-region-state').map(item => [item.path, item.role]),
     [
+      ['modifier/consumer/attack_condition', 'attack-condition'],
       ['modifier/consumer/qualified_condition', 'condition'],
       ['modifier/consumer/default_branch/effect', 'default-branch'],
       ['modifier/consumer/qualified_branch/effect', 'qualified-branch'],
     ],
   )
+})
+
+test('closed no-effect leaves remain explicit inside dice-table bands', () => {
+  const registry = buildMechanicRegistry()
+  assert.ok(registry.schema_descriptors.effect_leaf_types.includes('no-effect'))
+  assert.ok(!registry.schema_descriptors.effect_wrapper_types.includes('no-effect'))
+  const result = mapEffectNodeToCandidates({
+    origin_id,
+    node: {
+      type: 'dice-table',
+      dice: 'D6',
+      outcomes: [
+        { results: [1], effect: { type: 'no-effect' } },
+        { results: [2, 3, 4, 5, 6], effect: leaf('deep-strike') },
+      ],
+    },
+  })
+  assert.deepEqual(result.unresolved, [])
+  const noop = byPredicate(result.assertions, 'mechanic.effect.no-effect')[0]
+  assert.deepEqual(valueOf(noop).arguments, [])
+  const table = byPredicate(result.assertions, 'mechanic.composition.dice-table')[0]
+  assert.ok(argument(table, 'members').some(band => band.results[0] === 1 && band.effect === noop.semantic_key))
 })
 
 test('Feel No Pain preserves entity, integer threshold, scope, and exact record pointer', () => {
@@ -189,4 +212,125 @@ test('timing mapper distinguishes passive defaults, explicit durations, usage, c
   assert.equal(timing({ effect: { type: 'rule-state', target: 'unit', modifier: { cost: { cp: 1 } } } }).length, 0)
   assert.equal(timing({ effect: { type: 'resource-action-menu', actions: [{ when: { event: 'after-move' }, cost: { amount: 1 }, effect: leaf() }] } }).length, 0)
   assert.equal(timing({ effect: { type: 'resource-action-menu', actions: [{ when: { event: 'after-move', cost: { cp: 1 } }, effect: leaf() }] } }).length, 0)
+})
+
+test('move consequences and selector eligibility remain linked graph children', () => {
+  const node = {
+    type: 'select-units',
+    selector: {
+      owner: 'friendly',
+      target_kind: 'model',
+      selection_limit: { count: 1, period: 'turn' },
+      eligibility: { type: 'is-battle-shocked' },
+    },
+    effect: {
+      type: 'movement-modifier',
+      target: 'unit',
+      modifier: { move_type: 'normal', distance: 6 },
+      after_move: leaf('attack-restriction'),
+    },
+  }
+  const result = mapEffectNodeToCandidates({ origin_id, node })
+  assert.deepEqual(result.unresolved, [])
+  const selection = byPredicate(result.assertions, 'mechanic.composition.select-units')[0]
+  const eligibility = byPredicate(result.assertions, 'mechanic.condition.is-battle-shocked')[0]
+  assert.equal(argument(selection, 'condition'), eligibility.semantic_key)
+  assert.deepEqual(argument(selection, 'parameters').selector.selection_limit, node.selector.selection_limit)
+  const movement = byPredicate(result.assertions, 'mechanic.composition.movement-modifier')[0]
+  const restriction = byPredicate(result.assertions, 'mechanic.effect.attack-restriction')[0]
+  assert.equal(argument(movement, 'after-move'), restriction.semantic_key)
+  assert.equal(restriction.evidence[0].path, '/effect/effect/after_move')
+})
+
+test('model membership and designation history remain in claim import', () => {
+  const iterator = {
+    type: 'for-each-unit',
+    selector: {
+      owner: 'friendly',
+      target_kind: 'model',
+      member_of: 'bearer-unit',
+      keywords: ['FABRICATED'],
+    },
+    effect: leaf(),
+  }
+  const mapped = mapEffectNodeToCandidates({ origin_id, node: iterator })
+  assert.deepEqual(mapped.unresolved, [])
+  const parent = byPredicate(mapped.assertions, 'mechanic.composition.for-each-unit')[0]
+  assert.deepEqual(argument(parent, 'parameters').selector, iterator.selector)
+  assert.ok(argument(parent, 'members'))
+
+  const designation = mapEffectNodeToCandidates({
+    origin_id,
+    node: {
+      type: 'designate-target',
+      select: {
+        eligibility: {
+          type: 'was-hit-by-attack',
+          parameters: {
+            subject: 'target',
+            attack_type: 'ranged',
+            source: { event_var: 'fabricated-shot' },
+            window: 'just-finished-shooting-sequence',
+          },
+        },
+      },
+      applies: { attacker_keywords: ['FABRICATED'], effect: leaf() },
+    },
+  })
+  assert.deepEqual(designation.unresolved, [])
+  const target = byPredicate(designation.assertions, 'mechanic.composition.designate-target')[0]
+  const history = byPredicate(designation.assertions, 'mechanic.condition.was-hit-by-attack')[0]
+  assert.equal(argument(target, 'condition'), history.semantic_key)
+  assert.deepEqual(argument(target, 'parameters').applies.attacker_keywords, ['FABRICATED'])
+})
+
+test('region attack eligibility differs from qualified-branch membership', () => {
+  const result = mapEffectNodeToCandidates({
+    origin_id,
+    node: {
+      type: 'named-region-state',
+      modifier: {
+        producer: { region_ref: 'fabricated' },
+        consumer: {
+          attack_condition: { type: 'target-is-visible' },
+          qualified_condition: {
+            type: 'unit-has-keyword',
+            parameters: { keyword: 'FABRICATED' },
+          },
+          default_branch: { effect: leaf('deep-strike') },
+          qualified_branch: { effect: leaf('fight-first') },
+        },
+      },
+    },
+  })
+  assert.deepEqual(result.unresolved, [])
+  const parent = byPredicate(result.assertions, 'mechanic.effect.named-region-state')[0]
+  const visible = byPredicate(result.assertions, 'mechanic.condition.target-is-visible')[0]
+  const qualified = byPredicate(result.assertions, 'mechanic.condition.unit-has-keyword')[0]
+  assert.equal(argument(parent, 'attack-condition'), visible.semantic_key)
+  assert.equal(argument(parent, 'condition'), qualified.semantic_key)
+  assert.notEqual(argument(parent, 'attack-condition'), argument(parent, 'condition'))
+})
+
+test('cross-ability trigger provenance changes trigger identity', () => {
+  const trigger = {
+    event: 'ability-target-selected',
+    binds_event_variable: 'fabricated-selection',
+    subject: { owner: 'enemy' },
+    source_ability: {
+      ability_id: 'fabricated-source',
+      owner: 'friendly',
+      keywords: ['FABRICATED'],
+    },
+  }
+  const first = byPredicate(timing({ trigger }), 'mechanic.trigger')[0]
+  assert.deepEqual(argument(first, 'source-ability'), trigger.source_ability)
+  assert.equal(argument(first, 'event-binding'), trigger.binds_event_variable)
+  const second = byPredicate(timing({
+    trigger: {
+      ...trigger,
+      source_ability: { ...trigger.source_ability, keywords: ['OTHER'] },
+    },
+  }), 'mechanic.trigger')[0]
+  assert.notEqual(first.semantic_key, second.semantic_key)
 })

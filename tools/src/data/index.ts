@@ -20,7 +20,11 @@
  * factions.find("World Eaters")!.units.length;
  */
 export { Dataset } from "./dataset.js";
-export type { StackableBuff, StackableBuffGroup, ReactiveTrigger } from "./dataset.js";
+export type {
+  StackableBuff,
+  StackableBuffGroup,
+  ReactiveTrigger,
+} from "./dataset.js";
 export { Collection } from "./collection.js";
 export type { CollectionConfig } from "./collection.js";
 export {
@@ -46,6 +50,9 @@ export {
   validateLoadout,
   groupLoadout,
   completeLoadout,
+  loadoutCandidates,
+  LOADOUT_CANDIDATES_DEFAULT_LIMIT,
+  LOADOUT_CANDIDATES_TRUNCATED,
 } from "./loadout.js";
 export type {
   Loadout,
@@ -123,9 +130,16 @@ export type {
   RosterViolationCode,
   NormRoster,
 } from "./roster-resolve.js";
-export { pointsLimitForBattleSize, detachmentCapForBattleSize } from "./battle-sizes.js";
+export {
+  pointsLimitForBattleSize,
+  detachmentCapForBattleSize,
+} from "./battle-sizes.js";
 export { candidateAffordability } from "./affordability.js";
-export type { AffordabilitySpec, AffordabilityUnit, CandidateCost } from "./affordability.js";
+export type {
+  AffordabilitySpec,
+  AffordabilityUnit,
+  CandidateCost,
+} from "./affordability.js";
 
 import { Dataset } from "./dataset.js";
 

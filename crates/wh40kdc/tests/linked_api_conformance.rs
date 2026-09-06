@@ -117,6 +117,33 @@ fn run_query(ds: &Dataset, query: &str, args: &Value) -> Value {
             encoded.sort_by(|a, b| a.as_str().unwrap_or("").cmp(b.as_str().unwrap_or("")));
             Value::Array(encoded)
         }
+        "loadout_candidates" => {
+            let id = arg_str("unitId");
+            let unit = args
+                .get("factionId")
+                .and_then(Value::as_str)
+                .and_then(|faction| ds.units.get_in_faction(id, faction))
+                .or_else(|| ds.units.get_any(id))
+                .unwrap_or_else(|| panic!("loadout_candidates: unknown unit {id}"));
+            let composition = ds.unit_compositions.iter().find(|c| {
+                c.unit_id.as_str() == id && c.faction_id.as_str() == unit.faction_id.as_str()
+            });
+            let models = composition.map(|c| wh40kdc::loadout_models(&c.models));
+            let tiers = composition.map(|c| wh40kdc::loadout_tiers(&c.tiers));
+            serde_json::to_value(wh40kdc::loadout_candidates(
+                unit,
+                arg_str("modelCount")
+                    .parse()
+                    .expect("modelCount is an integer"),
+                &ds.wargear_options_of(unit),
+                models.as_deref(),
+                tiers.as_deref(),
+                args.get("limit")
+                    .and_then(Value::as_str)
+                    .and_then(|v| v.parse().ok()),
+            ))
+            .expect("loadout candidates serialize")
+        }
         "phases_of" => {
             let id = arg_str("abilityId");
             let a = ds

@@ -1,5 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { createValidator, listSchemaIds } from "../src/schema-loader.js";
+import { sourceDigest } from "../src/source-digest.js";
 
 describe("schema-loader", () => {
   it("loads all schemas without errors", () => {
@@ -642,5 +643,44 @@ describe("schema-loader", () => {
         modifier: { ability_id: "Not An Entity", rules_bundle: true },
       }),
     ).toBe(false);
+  });
+
+  it("admits an optional 64-hex source_digest and nothing else digest-shaped", () => {
+    const validate = createValidator().getSchema(
+      "https://40kdc.dev/schemas/enrichment/ability-dsl/ability.schema.json",
+    );
+    expect(validate).toBeDefined();
+    const ability = {
+      ability_id: "fixture-ability",
+      name: "Fixture Ability",
+      authored_by: "40kdc-community",
+      game_version: { edition: "11th", dataslate: "pre-launch-provisional" },
+      effect: { type: "fight-first", target: "unit" },
+      scope: { range: "unit", duration: "phase" },
+    };
+    const digest = sourceDigest("Add 1 to the Strength characteristic.");
+
+    // Absent is legal — every already-authored annotation stays valid.
+    expect(validate!(ability)).toBe(true);
+    expect(validate!({ ...ability, source_digest: digest })).toBe(true);
+
+    // Uppercase hex, wrong length, non-hex characters, and non-strings are
+    // all rejected, so a stored digest is always byte-comparable as written.
+    expect(validate!({ ...ability, source_digest: digest.toUpperCase() })).toBe(
+      false,
+    );
+    expect(validate!({ ...ability, source_digest: digest.slice(0, 63) })).toBe(
+      false,
+    );
+    expect(validate!({ ...ability, source_digest: `${digest}0` })).toBe(false);
+    expect(
+      validate!({ ...ability, source_digest: `${digest.slice(0, 63)}z` }),
+    ).toBe(false);
+    expect(validate!({ ...ability, source_digest: "" })).toBe(false);
+    expect(validate!({ ...ability, source_digest: null })).toBe(false);
+    expect(validate!({ ...ability, source_digest: 0 })).toBe(false);
+
+    // The root stays closed: a near-miss field name is not smuggled through.
+    expect(validate!({ ...ability, source_hash: digest })).toBe(false);
   });
 });

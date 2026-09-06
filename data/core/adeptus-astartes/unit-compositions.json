@@ -190,6 +190,14 @@
         "default_weapon_ids": [
           "heavy-bolt-pistol",
           "astartes-chainsword"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Sword Brother w/ Twin Lightning Claws",
+            "weapon_ids": [
+              "twin-lightning-claws"
+            ]
+          }
         ]
       }
     ],
@@ -282,7 +290,36 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Neophyte w/ Firearm",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "neophyte-firearm"
+            ],
+            "max_count": 8
+          },
+          {
+            "name": "Neophyte w/ Astartes Chainsword",
+            "weapon_ids": [
+              "bolt-pistol",
+              "astartes-chainsword-crusader-squad"
+            ],
+            "max_count": 8
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Neophyte w/ Firearm",
+              "Neophyte w/ Astartes Chainsword"
+            ],
+            "count": 8,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1353,6 +1390,16 @@
         "default_weapon_ids": [
           "heavy-bolt-pistol",
           "astartes-chainsword-death-company-marines-with-jump-packs"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Death Company Marine",
+            "weapon_ids": [
+              "astartes-chainsword-death-company-marines-with-jump-packs",
+              "heavy-bolt-pistol"
+            ],
+            "max_count": 10
+          }
         ]
       }
     ],
@@ -2203,6 +2250,90 @@
         "default_weapon_ids": [
           "flamestorm-gauntlets",
           "twin-power-fists"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Kill Team Heavy Intercessor w/ melta rifle",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "melta-rifle"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Kill Team Heavy Intercessor w/ multi-melta",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "multi-melta-indomitor-kill-team"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kill Team Heavy Intercessor w/ power fists & auto boltstorm gauntlets",
+            "weapon_ids": [
+              "fragstorm-grenade-launcher",
+              "auto-boltstorm-gauntlets",
+              "twin-power-fists"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Kill Team Heavy Intercessor w/ power fists & flamestorm gauntlets",
+            "weapon_ids": [
+              "flamestorm-gauntlets",
+              "twin-power-fists"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Kill Team Heavy Intercessor",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "deathwatch-heavy-bolt-rifle"
+            ],
+            "max_count": 10
+          },
+          {
+            "name": "Kill Team Heavy Intercessor w/ heavy bolter",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "deathwatch-heavy-bolter"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Kill Team Heavy Intercessor w/ melta rifle",
+              "Kill Team Heavy Intercessor w/ multi-melta"
+            ],
+            "count": 3,
+            "per_models": 0,
+            "scope": "model-row"
+          },
+          {
+            "variant_names": [
+              "Kill Team Heavy Intercessor w/ power fists & auto boltstorm gauntlets",
+              "Kill Team Heavy Intercessor w/ power fists & flamestorm gauntlets"
+            ],
+            "count": 3,
+            "per_models": 0,
+            "scope": "model-row"
+          },
+          {
+            "variant_names": [
+              "Kill Team Heavy Intercessor",
+              "Kill Team Heavy Intercessor w/ heavy bolter"
+            ],
+            "count": 10,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       },
       {
@@ -2751,6 +2882,94 @@
           "bolt-pistol",
           "deathwatch-bolt-rifle",
           "close-combat-weapon"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Kill Team Intercessor",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "deathwatch-bolt-rifle"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Kill Team Intercessor w/ grenade launcher",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "deathwatch-bolt-rifle",
+              "astartes-grenade-launcher"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Kill Team Intercessor w/ heavy bolt pistol",
+            "weapon_ids": [
+              "astartes-chainsword-fortis-kill-team",
+              "heavy-bolt-pistol"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Kill Team Intercessor w/ pyreblaster",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "pyreblaster"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Kill Team Intercessor w/ plasma pistol and incinerator",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "plasma-pistol-fortis-kill-team",
+              "plasma-incinerator"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kill Team Intercessor w/ bolt pistol and incinerator",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "bolt-pistol",
+              "plasma-incinerator"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Kill Team Intercessor w/ vengor launcher",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "bolt-pistol",
+              "castellan-launcher",
+              "vengor-launcher"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Kill Team Intercessor",
+              "Kill Team Intercessor w/ grenade launcher",
+              "Kill Team Intercessor w/ heavy bolt pistol",
+              "Kill Team Intercessor w/ pyreblaster"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          },
+          {
+            "variant_names": [
+              "Kill Team Intercessor w/ plasma pistol and incinerator",
+              "Kill Team Intercessor w/ bolt pistol and incinerator"
+            ],
+            "count": 4,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       },
       {
@@ -2886,6 +3105,110 @@
           "deathwatch-marksman-bolt-carbine",
           "close-combat-weapon",
           "bolt-pistol"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Kill Team Infiltrator",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "deathwatch-marksman-bolt-carbine"
+            ],
+            "max_count": 10
+          },
+          {
+            "name": "Kill Team Infiltrator w/ occulus bolt carbine",
+            "weapon_ids": [
+              "bolt-pistol",
+              "deathwatch-occulus-bolt-carbine",
+              "paired-combat-blades"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Kill Team Infiltrator w/ wargear",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "deathwatch-marksman-bolt-carbine"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kill Team Infiltrator w/ combat knife",
+            "weapon_ids": [
+              "special-issue-bolt-pistol-spectrus-kill-team",
+              "combat-knife"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Kill Team Infiltrator w/ bolt carbine",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "special-issue-bolt-pistol-spectrus-kill-team",
+              "deathwatch-bolt-carbine"
+            ],
+            "max_count": 4
+          },
+          {
+            "name": "Kill Team Infiltrator w/ instigator bolt carbine",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "instigator-bolt-carbine"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Kill Team Infiltrator w/ las fusil",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "las-fusil"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Kill Team Infiltrator w/ bolt sniper rifle",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon",
+              "bolt-sniper-rifle"
+            ],
+            "max_count": 3
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Kill Team Infiltrator",
+              "Kill Team Infiltrator w/ occulus bolt carbine",
+              "Kill Team Infiltrator w/ wargear"
+            ],
+            "count": 10,
+            "per_models": 0,
+            "scope": "model-row"
+          },
+          {
+            "variant_names": [
+              "Kill Team Infiltrator w/ combat knife",
+              "Kill Team Infiltrator w/ bolt carbine"
+            ],
+            "count": 4,
+            "per_models": 0,
+            "scope": "model-row"
+          },
+          {
+            "variant_names": [
+              "Kill Team Infiltrator w/ instigator bolt carbine",
+              "Kill Team Infiltrator w/ las fusil",
+              "Kill Team Infiltrator w/ bolt sniper rifle"
+            ],
+            "count": 3,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       },
       {
@@ -8267,6 +8590,44 @@
         "default_weapon_ids": [
           "master-crafted-power-weapon-wolf-guard-terminators",
           "storm-bolter-wolf-guard-terminators"
+        ],
+        "loadout_variants": [
+          {
+            "name": "Wolf Guard Terminator w/ storm bolter",
+            "weapon_ids": [
+              "master-crafted-power-weapon-wolf-guard-terminators",
+              "storm-bolter-wolf-guard-terminators"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Wolf Guard Terminator w/ Assault Cannon",
+            "weapon_ids": [
+              "power-fist",
+              "assault-cannon-wolf-guard-terminators"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Wolf Guard Terminator w/ storm shield",
+            "weapon_ids": [
+              "storm-shield",
+              "master-crafted-power-weapon-wolf-guard-terminators"
+            ],
+            "max_count": 9
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Wolf Guard Terminator w/ storm bolter",
+              "Wolf Guard Terminator w/ Assault Cannon",
+              "Wolf Guard Terminator w/ storm shield"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
         ]
       }
     ],

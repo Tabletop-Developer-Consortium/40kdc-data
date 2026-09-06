@@ -497,7 +497,36 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Seraphim",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "bolt-pistol"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Seraphim with Special Weapons",
+            "weapon_ids": [
+              "close-combat-weapon",
+              "ministorum-hand-flamer"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Seraphim",
+              "Seraphim with Special Weapons"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1328,7 +1357,48 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Dominion",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun-dominion-squad",
+              "close-combat-weapon-dominion-squad"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Dominion w/ Simulacrum Imperialis",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun-dominion-squad",
+              "simulacrum-imperialis",
+              "close-combat-weapon-dominion-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Dominion w/ Special Weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon-dominion-squad"
+            ],
+            "max_count": 4
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Dominion",
+              "Dominion w/ Simulacrum Imperialis",
+              "Dominion w/ Special Weapon"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1438,7 +1508,57 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Battle Sister",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun",
+              "close-combat-weapon-battle-sisters-squad"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Battle Sister w/ Simulacrum Imperialis",
+            "weapon_ids": [
+              "bolt-pistol",
+              "boltgun",
+              "simulacrum-imperialis",
+              "close-combat-weapon-battle-sisters-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Battle Sister w/ Special or Heavy Weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon-battle-sisters-squad"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Battle Sister w/ Special Weapon",
+            "weapon_ids": [
+              "bolt-pistol",
+              "close-combat-weapon-battle-sisters-squad"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Battle Sister",
+              "Battle Sister w/ Simulacrum Imperialis",
+              "Battle Sister w/ Special or Heavy Weapon",
+              "Battle Sister w/ Special Weapon"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {

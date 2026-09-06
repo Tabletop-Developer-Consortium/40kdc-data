@@ -5,8 +5,12 @@
   "$defs": {
     "condition-node": {
       "oneOf": [
-        { "$ref": "#/$defs/simple-condition" },
-        { "$ref": "#/$defs/compound-condition" }
+        {
+          "$ref": "#/$defs/simple-condition"
+        },
+        {
+          "$ref": "#/$defs/compound-condition"
+        }
       ]
     },
     "event-bound-reference": {
@@ -19,7 +23,9 @@
           "minLength": 1
         }
       },
-      "required": ["event_var"]
+      "required": [
+        "event_var"
+      ]
     },
     "simple-condition": {
       "type": "object",
@@ -28,54 +34,208 @@
         "type": {
           "type": "string",
           "enum": [
-            "phase-is", "timing-is", "player-turn-is",
-            "unit-below-starting-strength", "unit-below-half-strength",
-            "unit-has-keyword", "unit-within-range-of",
-            "model-is-leader", "target-has-keyword",
-            "charged-this-turn", "advanced-this-turn", "remained-stationary",
-            "is-battle-shocked", "has-lost-wounds", "wounds-remaining-at-or-below", "was-hit-by-attack",
+            "phase-is",
+            "timing-is",
+            "player-turn-is",
+            "unit-below-starting-strength",
+            "unit-below-half-strength",
+            "unit-has-keyword",
+            "unit-within-range-of",
+            "model-is-leader",
+            "target-has-keyword",
+            "charged-this-turn",
+            "advanced-this-turn",
+            "remained-stationary",
+            "is-battle-shocked",
+            "has-lost-wounds",
+            "wounds-remaining-at-or-below",
+            "was-hit-by-attack",
             "wounds-lost-from-attack",
-            "opponent-unit-within-range", "within-range-of-objective",
-            "attack-is-type", "has-fought-this-phase",
-            "destroyed-by-attack-type", "controls-objective", "is-attached",
-            "terrain-area-control", "region-membership", "engagement-state", "territory-control",
-            "fights-first", "disposition-matches",
-            "units-destroyed", "units-destroyed-comparison", "objective-majority",
-            "action-completed", "objective-has-tag", "unit-has-tag",
-            "terrain-has-tag", "new-objective-controlled",
-            "engagement-fronts", "destroyed-while-on-objective",
-            "destroyed-in-tagged-terrain", "operation-markers",
-            "attack-stat-compare", "made-ingress-move-this-turn",
-            "disembarked-from-transport", "faction-rule-active",
-            "battle-round", "token-count-at-or-above", "unit-was-in-engagement-range-of",
-            "unit-model-count", "uniform-ranged-loadout", "all-attacks-target-same-unit"
-          ]
+            "opponent-unit-within-range",
+            "within-range-of-objective",
+            "attack-is-type",
+            "has-fought-this-phase",
+            "destroyed-by-attack-type",
+            "controls-objective",
+            "is-attached",
+            "terrain-area-control",
+            "region-membership",
+            "engagement-state",
+            "territory-control",
+            "fights-first",
+            "disposition-matches",
+            "units-destroyed",
+            "units-destroyed-comparison",
+            "objective-majority",
+            "action-completed",
+            "objective-has-tag",
+            "unit-has-tag",
+            "terrain-has-tag",
+            "new-objective-controlled",
+            "engagement-fronts",
+            "destroyed-while-on-objective",
+            "destroyed-in-tagged-terrain",
+            "operation-markers",
+            "attack-stat-compare",
+            "made-ingress-move-this-turn",
+            "disembarked-from-transport",
+            "faction-rule-active",
+            "battle-round",
+            "token-count-at-or-above",
+            "unit-was-in-engagement-range-of",
+            "unit-model-count",
+            "uniform-ranged-loadout",
+            "all-attacks-target-same-unit",
+            "target-is-visible"
+          ],
+          "description": " target-is-visible tests whether the target of the current attack is visible to its attacking model (not whether some other model can see it). within-range-of-objective subject:target tests the attack target; controlled_by qualifies the SAME marker, not an unrelated controlled objective."
         },
         "parameters": {
           "type": "object",
           "additionalProperties": true,
           "$comment": "For `was-hit-by-attack`, optional `source` is an event-bound-reference supplied by the sibling trigger and optional `window` may be `just-finished-shooting-sequence`; these fields keep source-sensitive predicates reusable without closing the shared parameter bag."
         },
-        "negated": { "type": "boolean", "default": false }
+        "negated": {
+          "type": "boolean",
+          "default": false
+        }
       },
-      "required": ["type"],
+      "required": [
+        "type"
+      ],
       "allOf": [
         {
           "if": {
             "properties": {
-              "type": { "const": "was-hit-by-attack" }
+              "type": {
+                "const": "was-hit-by-attack"
+              }
             }
           },
           "then": {
             "properties": {
               "parameters": {
                 "properties": {
-                  "source": { "$ref": "#/$defs/event-bound-reference" },
+                  "source": {
+                    "$ref": "#/$defs/event-bound-reference"
+                  },
                   "window": {
                     "type": "string",
-                    "enum": ["this-phase", "just-finished-shooting-sequence"]
+                    "enum": [
+                      "this-phase",
+                      "just-finished-shooting-sequence"
+                    ]
                   }
                 }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "unit-within-range-of"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "keywords": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "minLength": 1
+                    },
+                    "minItems": 1,
+                    "uniqueItems": true,
+                    "description": "All listed keywords must be present on the same nearby unit; do not join several keywords into a synthetic keyword."
+                  },
+                  "subject": {
+                    "type": "string",
+                    "enum": [
+                      "self",
+                      "unit",
+                      "triggering-unit"
+                    ],
+                    "description": "Entity whose distance/Engagement Range relation is tested. self is the bearer model; triggering-unit is the event subject."
+                  },
+                  "range": {
+                    "oneOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0
+                      },
+                      {
+                        "const": "engagement"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "within-range-of-objective"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "parameters": {
+                "type": "object",
+                "properties": {
+                  "subject": {
+                    "type": "string",
+                    "enum": [
+                      "unit",
+                      "attacker",
+                      "target"
+                    ]
+                  },
+                  "controlled_by": {
+                    "type": "string",
+                    "enum": [
+                      "your-army",
+                      "opponent"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "target-is-visible"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": false
               }
             }
           }
@@ -85,10 +245,26 @@
     "compound-condition": {
       "type": "object",
       "properties": {
-        "operator": { "type": "string", "enum": ["and", "or", "not"] },
-        "operands": { "type": "array", "items": { "$ref": "#/$defs/condition-node" }, "minItems": 1 }
+        "operator": {
+          "type": "string",
+          "enum": [
+            "and",
+            "or",
+            "not"
+          ]
+        },
+        "operands": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/condition-node"
+          },
+          "minItems": 1
+        }
       },
-      "required": ["operator", "operands"]
+      "required": [
+        "operator",
+        "operands"
+      ]
     }
   },
   "$ref": "#/$defs/condition-node"

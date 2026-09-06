@@ -89,6 +89,10 @@ func dslWalk(node any, source map[string]any, opts dslOpts, out *effectTranslati
 		out.unsupported = append(out.unsupported, unsup(modelScopedReason, n))
 		return
 	}
+	if hasUnresolvedFidelityBinding(n) {
+		out.unsupported = append(out.unsupported, unsup(fidelityBindingReason, n))
+		return
+	}
 	switch getStr(n, "type") {
 	case "re-roll":
 		translateReroll(n, source, opts, out)
@@ -1245,4 +1249,17 @@ func containsAnyV(l []any, v any) bool {
 		}
 	}
 	return false
+}
+
+const fidelityBindingReason = "selection/history/model/attack predicates are not resolved by the buff engine"
+
+func hasUnresolvedFidelityBinding(n map[string]any) bool {
+	selector, _ := getMap(n, "selector")
+	selectSpec, _ := getMap(n, "select")
+	applies, _ := getMap(n, "applies")
+	modifier, _ := getMap(n, "modifier")
+	consumer, _ := getMap(modifier, "consumer")
+	return (n["type"] == "select-units" && (selector["target_kind"] == "model" || selector["eligibility"] != nil || selector["reference"] != nil || selector["selection_limit"] != nil)) ||
+		(n["type"] == "designate-target" && (selectSpec["eligibility"] != nil || applies["attacker_keywords"] != nil)) ||
+		(n["type"] == "named-region-state" && consumer["attack_condition"] != nil)
 }

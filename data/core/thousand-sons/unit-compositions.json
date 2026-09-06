@@ -351,7 +351,45 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Rubric Marine w/ inferno boltgun",
+            "weapon_ids": [
+              "inferno-boltgun",
+              "close-combat-weapon-rubric-marines"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Rubric Marine w/ warpflamer",
+            "weapon_ids": [
+              "warpflamer",
+              "close-combat-weapon-rubric-marines"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Rubric Marine w/ soulreaper cannon",
+            "weapon_ids": [
+              "close-combat-weapon-rubric-marines",
+              "soulreaper-cannon"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Rubric Marine w/ inferno boltgun",
+              "Rubric Marine w/ warpflamer",
+              "Rubric Marine w/ soulreaper cannon"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -590,7 +628,36 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 40
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Scarab Occult Terminator w/ heavy warpflamer",
+            "weapon_ids": [
+              "heavy-warpflamer",
+              "prosperine-khopesh"
+            ],
+            "max_count": 2
+          },
+          {
+            "name": "Scarab Occult Terminator w/ soulreaper cannon",
+            "weapon_ids": [
+              "prosperine-khopesh",
+              "soulreaper-cannon"
+            ],
+            "max_count": 2
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Scarab Occult Terminator w/ heavy warpflamer",
+              "Scarab Occult Terminator w/ soulreaper cannon"
+            ],
+            "count": 2,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -764,7 +831,17 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Tzaangor w/ pistol and chainsword",
+            "weapon_ids": [
+              "autopistol",
+              "chainsword-tzaangors"
+            ],
+            "max_count": 19
+          }
+        ]
       }
     ],
     "game_version": {

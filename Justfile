@@ -150,6 +150,10 @@ mfm-download:
 mfm-bsdata bsdata ref:
     cd tools && npm run mfm:bsdata -- --bsdata "{{bsdata}}" --source-ref "{{ref}}"
 
+# Project whole-loadout model peers from the pinned 11e BSData catalogues.
+bsdata-loadout-variants *args:
+    cd tools && npm run bsdata:loadout-variants -- {{args}}
+
 # Regenerate the MFM completeness golden (data/_audit/mfm-golden.json + mfm-gaps.json).
 # Needs _private/dump.json locally; the artifacts are hand-committed and are NOT part of
 # verify-clean (CI can't read the dump). Re-run and commit the diff when a new MFM lands,

@@ -146,7 +146,7 @@ interface SourceImport {
   pointer: string;
 }
 
-interface SourceDocument {
+export interface SourceDocument {
   file: string;
   kind: "game-system" | "catalogue";
   id: string;
@@ -168,7 +168,7 @@ interface LinkReference {
   targetId: string;
 }
 
-interface ParsedRevision {
+export interface ParsedRevision {
   documents: readonly SourceDocument[];
   gameSystem: SourceDocument;
   facts: readonly BsdataEntryFact[];
@@ -531,7 +531,7 @@ function warningSort(left: BsdataWarning, right: BsdataWarning): number {
   return JSON.stringify(left).localeCompare(JSON.stringify(right));
 }
 
-function parseRevision(tree: RevisionTree, commit: string): ParsedRevision {
+export function parseRevision(tree: RevisionTree, commit: string): ParsedRevision {
   const documents = readDocuments(tree, commit);
   const gameSystems = documents.filter(
     (document) => document.kind === "game-system",
@@ -660,7 +660,7 @@ function importPath(
   return undefined;
 }
 
-function resolveLinks(parsed: ParsedRevision): BsdataLinkResolution[] {
+export function resolveLinks(parsed: ParsedRevision): BsdataLinkResolution[] {
   const documentsById = new Map<string, SourceDocument[]>();
   for (const document of parsed.documents) {
     const group = documentsById.get(document.id) ?? [];

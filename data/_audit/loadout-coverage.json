@@ -1,14 +1,446 @@
 {
   "generatedFrom": "tools/src/audit-loadout-coverage.ts",
-  "totalSkeletons": 8,
+  "totalSkeletons": 113,
   "byFaction": {
+    "adepta-sororitas": [
+      {
+        "faction": "adepta-sororitas",
+        "unit_id": "sanctuary-canoness-adalya",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adepta-sororitas",
+        "unit_id": "sanctuary-guardians-arco-flagellants",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adepta-sororitas",
+        "unit_id": "sanctuary-guardians-battle-sisters-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adepta-sororitas",
+        "unit_id": "sanctuary-guardians-celestian-sacresants",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
     "adeptus-astartes": [
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "askars-wolfpack-blood-claws",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "askars-wolfpack-wolf-guard-terminators",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "askars-wolfpack-wulfen",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "assault-force-captain",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "assault-force-intercessor-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "assault-force-land-speeder",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "assault-force-librarian",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "assault-force-vanguard-veteran-squad-with-jump-packs",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "captain-raldeo",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition"
+        ]
+      },
       {
         "faction": "adeptus-astartes",
         "unit_id": "drop-pod",
         "missing": [
           "weapons",
           "wargear-options"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "emperors-champion-vedrenn",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "fyrri-askar",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "master-zacharial",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "sanguinary-spearhead-assault-intercessor-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "sanguinary-spearhead-sanguinary-guard",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "vengeful-brethren-bladeguard-veteran-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "vengeful-brethren-hellblaster-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "vengeful-brethren-intercessor-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "vow-sworn-bladeguard-veteran-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "vow-sworn-crusader-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-astartes",
+        "unit_id": "vow-sworn-sword-brethren-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "adeptus-custodes": [
+      {
+        "faction": "adeptus-custodes",
+        "unit_id": "gilded-blades-allarus-custodians",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-custodes",
+        "unit_id": "gilded-blades-custodian-guard",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-custodes",
+        "unit_id": "gilded-blades-custodian-wardens",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-custodes",
+        "unit_id": "tristraen-of-the-gilded-blades",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "adeptus-mechanicus": [
+      {
+        "faction": "adeptus-mechanicus",
+        "unit_id": "manipulus-skand",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-mechanicus",
+        "unit_id": "purge-corps-pteraxii-sterylizors",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "adeptus-mechanicus",
+        "unit_id": "purge-corps-skitarii-vanguard",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "aeldari": [
+      {
+        "faction": "aeldari",
+        "unit_id": "clanblade",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "aeldari",
+        "unit_id": "dragon-knights",
+        "missing": [
+          "weapons",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "aeldari",
+        "unit_id": "kygharils-protectors-dire-avengers",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "aeldari",
+        "unit_id": "kygharils-protectors-warp-spiders",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "aeldari",
+        "unit_id": "kygharils-protectors-wraithblades",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "aeldari",
+        "unit_id": "leystalker",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "aeldari",
+        "unit_id": "spiritseer-kygharil",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "aeldari",
+        "unit_id": "stonesinger",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "agents-of-the-imperium": [
+      {
+        "faction": "agents-of-the-imperium",
+        "unit_id": "inquisitors-hand-eversor-assassin",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "agents-of-the-imperium",
+        "unit_id": "inquisitors-hand-inquisitorial-agents",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "agents-of-the-imperium",
+        "unit_id": "inquisitors-hand-vigilant-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "agents-of-the-imperium",
+        "unit_id": "preacher-teguen",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
         ]
       }
     ],
@@ -27,6 +459,36 @@
         "missing": [
           "weapons",
           "wargear-options"
+        ]
+      },
+      {
+        "faction": "astra-militarum",
+        "unit_id": "draydens-lance-attilan-rough-riders",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "astra-militarum",
+        "unit_id": "draydens-lance-command-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "astra-militarum",
+        "unit_id": "draydens-lance-kasrkin",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
         ]
       }
     ],
@@ -48,13 +510,533 @@
         ]
       }
     ],
+    "chaos-space-marines": [
+      {
+        "faction": "chaos-space-marines",
+        "unit_id": "aranis-zarkan",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "chaos-space-marines",
+        "unit_id": "zarkans-daemonkin-cultist-mob",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "chaos-space-marines",
+        "unit_id": "zarkans-daemonkin-legionaries",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "chaos-space-marines",
+        "unit_id": "zarkans-daemonkin-possessed",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "death-guard": [
+      {
+        "faction": "death-guard",
+        "unit_id": "maggot-lords-chaos-rhino",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "death-guard",
+        "unit_id": "maggot-lords-deathshroud-terminators",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "death-guard",
+        "unit_id": "maggot-lords-plague-marines",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "death-guard",
+        "unit_id": "septimol-fulg-maggot-lords-tallyman",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "death-guard",
+        "unit_id": "sholgor-the-putrid",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "drukhari": [
+      {
+        "faction": "drukhari",
+        "unit_id": "coven-of-agonies-cronos",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "drukhari",
+        "unit_id": "coven-of-agonies-talos",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "drukhari",
+        "unit_id": "coven-of-agonies-wracks",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "drukhari",
+        "unit_id": "xatrophos-nuul",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "emperors-children": [
+      {
+        "faction": "emperors-children",
+        "unit_id": "callous-blades-flawless-blades",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "emperors-children",
+        "unit_id": "callous-blades-infractors",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "emperors-children",
+        "unit_id": "lord-kaphrael-of-the-callous-blades",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "genestealer-cults": [
+      {
+        "faction": "genestealer-cults",
+        "unit_id": "claw-of-ascension-achilles-ridgerunner",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "genestealer-cults",
+        "unit_id": "claw-of-ascension-atalan-jackals",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "genestealer-cults",
+        "unit_id": "claw-of-ascension-hybrid-metamorphs",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "genestealer-cults",
+        "unit_id": "shanus-daskovian",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "grey-knights": [
+      {
+        "faction": "grey-knights",
+        "unit_id": "crowes-sanctifiers-brotherhood-terminator-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "grey-knights",
+        "unit_id": "crowes-sanctifiers-strike-squad",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "grey-knights",
+        "unit_id": "crowes-sanctifiers-venerable-dreadnought",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "grey-knights",
+        "unit_id": "sanctifiers-castellan-crowe",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "leagues-of-votann": [
+      {
+        "faction": "leagues-of-votann",
+        "unit_id": "bane-slayers-bulwark-brokhyr-thunderkyn",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "leagues-of-votann",
+        "unit_id": "bane-slayers-bulwark-einhyr-hearthguard",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "leagues-of-votann",
+        "unit_id": "bane-slayers-bulwark-hearthkyn-warriors",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "leagues-of-votann",
+        "unit_id": "vynn-bane-slayer",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "necrons": [
+      {
+        "faction": "necrons",
+        "unit_id": "amonhotekhs-guard-canoptek-doomstalker",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "necrons",
+        "unit_id": "amonhotekhs-guard-canoptek-scarab-swarms",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "necrons",
+        "unit_id": "amonhotekhs-guard-necron-warriors",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "necrons",
+        "unit_id": "amonhotekhs-guard-skorpekh-destroyers",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "necrons",
+        "unit_id": "overlord-amonhotekh",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "orks": [
+      {
+        "faction": "orks",
+        "unit_id": "ardmob-boyz",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "ardmob-gretchin",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "ardmob-warboss",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "ardmob-wartrakk",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "ardmob-weirdboy",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "nazdreg",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "rukkatrukk-squigbuggies",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "runtherd",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "orks",
+        "unit_id": "wartrakks",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
     "tau-empire": [
+      {
+        "faction": "tau-empire",
+        "unit_id": "commander-cloudspear",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "tau-empire",
+        "unit_id": "sudden-dawn-cadre-breacher-team",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "tau-empire",
+        "unit_id": "sudden-dawn-cadre-devilfish",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "tau-empire",
+        "unit_id": "sudden-dawn-cadre-pathfinder-team",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
       {
         "faction": "tau-empire",
         "unit_id": "tidewall-shieldline",
         "missing": [
           "weapons",
           "wargear-options"
+        ]
+      }
+    ],
+    "thousand-sons": [
+      {
+        "faction": "thousand-sons",
+        "unit_id": "kaaskrek",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "thousand-sons",
+        "unit_id": "prism-of-zadophon-rubric-marines",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "thousand-sons",
+        "unit_id": "prism-of-zadophon-tzaangor-enlightened",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "thousand-sons",
+        "unit_id": "zadophon-the-soul-eater",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
         ]
       }
     ],
@@ -73,6 +1055,98 @@
         "missing": [
           "weapons",
           "wargear-options"
+        ]
+      },
+      {
+        "faction": "tyranids",
+        "unit_id": "terror-of-vardenghast",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "tyranids",
+        "unit_id": "vardenghast-swarm-barbgaunts",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "tyranids",
+        "unit_id": "vardenghast-swarm-psychophage",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "tyranids",
+        "unit_id": "vardenghast-swarm-termagants",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "tyranids",
+        "unit_id": "vardenghast-swarm-von-ryans-leapers",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      }
+    ],
+    "world-eaters": [
+      {
+        "faction": "world-eaters",
+        "unit_id": "frenzied-reavers-jakhals",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "world-eaters",
+        "unit_id": "frenzied-reavers-khorne-berzerkers",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "world-eaters",
+        "unit_id": "frenzied-reavers-master-of-executions",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
+        ]
+      },
+      {
+        "faction": "world-eaters",
+        "unit_id": "vorrakh-lord-of-the-frenzied-reavers",
+        "missing": [
+          "weapons",
+          "wargear-options",
+          "composition",
+          "abilities"
         ]
       }
     ]

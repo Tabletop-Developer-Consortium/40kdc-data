@@ -262,12 +262,18 @@ def describe_condition(c: Condition) -> str:
     # Compound nodes first — join the operands with lowercase connectives.
     operands = c.get("operands")
     if c.get("operator") == "and" and operands:
-        return " and ".join(describe_condition(o) for o in operands)
+        return " and ".join(
+            f"({describe_condition(o)})" if o.get("operator") == "or" else describe_condition(o)
+            for o in operands
+        )
     if c.get("operator") == "or" and operands:
         if all(not o.get("negated") and o.get("type") == "unit-has-keyword" for o in operands):
             keywords = [_str((o.get("parameters") or {}).get("keyword")) for o in operands]
             return f"the unit has the {_or_list(keywords)} keywords"
-        return " or ".join(describe_condition(o) for o in operands)
+        return " or ".join(
+            f"({describe_condition(o)})" if o.get("operator") == "and" else describe_condition(o)
+            for o in operands
+        )
     if c.get("operator") == "not" and operands:
         return f"not ({', '.join(describe_condition(o) for o in operands)})"
 
@@ -350,7 +356,7 @@ def describe_condition(c: Condition) -> str:
         weapon = f" by {_str(p.get('weapon_name'))}" if p.get("weapon_name") else ""
         source = p.get("source")
         bound_source = (
-            " from that enemy unit"
+            " from the triggering unit"
             if isinstance(source, dict) and source.get("event_var") is not None
             else f" from {_str(source)}"
             if source is not None
@@ -385,6 +391,23 @@ def describe_condition(c: Condition) -> str:
             within = "engagement range" if range_ == "engagement" else f'{_str(range_)}"'
         return f"{negate}an enemy unit is within {within}"
     if ctype == "unit-within-range-of":
+        if isinstance(p.get("keywords"), list):
+            who = (
+                "this model"
+                if p.get("subject") == "self"
+                else "the triggering unit"
+                if p.get("subject") == "triggering-unit"
+                else "the unit"
+            )
+            distance = (
+                "Engagement Range" if p.get("range") == "engagement" else f'{_str(p.get("range"))}"'
+            )
+            owner = "friendly" if p.get("target_type") == "friendly-keyword" else "enemy"
+            keyword_text = " and ".join(_str(k) for k in p["keywords"])
+            return (
+                f"{negate}{who} is within {distance} of one or more {owner} units "
+                f"with all of {keyword_text}"
+            )
         tt = _str(p.get("target_type") if p.get("target_type") is not None else "target")
         # Targets that name a specific model, not a radius — no inches apply.
         if tt == "closest-eligible":
@@ -402,7 +425,25 @@ def describe_condition(c: Condition) -> str:
         dist = f'{_str(p.get("range"))}"' if p.get("range") is not None else '?"'
         return f"{negate}within {dist} of {who}"
     if ctype == "within-range-of-objective":
-        return f"{negate}within range of an objective"
+        if p.get("subject") is None and p.get("controlled_by") is None:
+            return f"{negate}within range of an objective"
+        who = (
+            "the target unit"
+            if p.get("subject") == "target"
+            else "the attacking unit"
+            if p.get("subject") == "attacker"
+            else "the unit"
+        )
+        control = (
+            " you control"
+            if p.get("controlled_by") == "your-army"
+            else " your opponent controls"
+            if p.get("controlled_by") == "opponent"
+            else ""
+        )
+        return f"{negate}{who} is within range of an objective marker{control}"
+    if ctype == "target-is-visible":
+        return f"{negate}the target is visible to the attacking model"
     if ctype == "has-fought-this-phase":
         return f"{negate}has fought this phase"
     if ctype == "destroyed-by-attack-type":
@@ -419,7 +460,7 @@ def describe_condition(c: Condition) -> str:
             f"{dekebab(_sv(p.get('comparison')))} the target's {_sv(p.get('target_stat'))}"
         )
     if ctype == "made-ingress-move-this-turn":
-        return f"{negate}the unit made an ingress move this turn"
+        return f"{negate}the unit made an ingress move (including a Deep Strike setup) this turn"
     if ctype == "engagement-state":
         state = p.get("state")
         if state is None:

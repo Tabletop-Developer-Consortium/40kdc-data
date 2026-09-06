@@ -1,0 +1,63 @@
+[
+  {
+    "unit_id": "boyz",
+    "faction_id": "test-faction",
+    "models": [
+      {
+        "name": "Boy",
+        "min": 9,
+        "max": 19,
+        "loadout_variants": [
+          { "name": "Boy", "weapon_ids": ["choppa-boyz", "slugga"], "max_count": 19 },
+          { "name": "Boy w/ Shoota", "weapon_ids": ["shoota", "choppa-boyz", "slugga"], "max_count": 19 },
+          { "name": "Boy w/ Big shoota", "weapon_ids": ["big-shoota-boyz", "close-combat-weapon"], "max_count": 2 }
+        ],
+        "loadout_variant_budgets": [
+          { "variant_names": ["Boy w/ Big shoota"], "count": 1, "per_models": 10, "scope": "unit" }
+        ]
+      }
+    ]
+  },
+  {
+    "unit_id": "beast-snagga-boyz",
+    "faction_id": "test-faction",
+    "models": [
+      {
+        "name": "Beast Snagga Boy",
+        "min": 5,
+        "max": 10,
+        "loadout_variants": [
+          { "name": "Beast Snagga Boy", "weapon_ids": ["choppa-beast-snagga-boyz"] },
+          { "name": "Beast Snagga Boy", "weapon_ids": ["choppa-beast-snagga-boyz", "slugga"] },
+          { "name": "Beast Snagga Boy w/ Thump Gun", "weapon_ids": ["thump-gun"] }
+        ],
+        "loadout_variant_budgets": [
+          { "variant_names": ["Nonexistent Variant"], "count": 1, "per_models": 5, "scope": "model-row" },
+          { "variant_names": ["Beast Snagga Boy w/ Thump Gun"], "count": 3, "per_models": 2, "scope": "unit" }
+        ]
+      }
+    ]
+  },
+  {
+    "unit_id": "special-squad",
+    "faction_id": "test-faction",
+    "models": [
+      {
+        "name": "Specialist",
+        "min": 1,
+        "max": 5,
+        "loadout_variants": [
+          { "name": "Specialist", "weapon_ids": ["choppa-beast-snagga-boyz", "shoota"] }
+        ]
+      },
+      {
+        "name": "Sergeant",
+        "min": 1,
+        "max": 1,
+        "loadout_variant_budgets": [
+          { "variant_names": ["Specialist"], "count": 1, "per_models": 0, "scope": "unit" }
+        ]
+      }
+    ]
+  }
+]

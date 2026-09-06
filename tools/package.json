@@ -1,6 +1,6 @@
 {
   "name": "@alpaca-software/40kdc-data",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "type": "module",
   "description": "The 40kdc Warhammer 40K dataset behind a linked, typed API — find units, follow them to their weapons, abilities, phases, and factions. Also validates data against the canonical JSON Schemas.",
   "keywords": [
@@ -66,6 +66,7 @@
     "audit:missing-units": "tsx src/audit-missing-units.ts",
     "audit:loadout-coverage": "tsx src/audit-loadout-coverage.ts",
     "audit:atc": "tsx src/audit-atc.ts",
+    "audit:dangling-refs": "tsx src/audit-dangling-refs.ts",
     "validate": "tsx src/cli.ts validate-all",
     "validate:core": "tsx src/cli.ts validate-core",
     "validate:enrichment": "tsx src/cli.ts validate-enrichment",
@@ -73,6 +74,8 @@
     "audit:coverage": "tsx src/cli.ts audit-coverage --write",
     "audit:external-refs": "tsx src/audit-external-refs.ts",
     "audit:store-coverage": "tsx src/audit-store-coverage.ts",
+    "audit:source-digest": "tsx src/audit-source-digest.ts",
+    "backfill:source-digest": "tsx src/backfill-source-digests.ts",
     "audit:mfm-contract": "tsx src/audit-mfm-contract.ts",
     "audit:phrasing": "tsx src/cli.ts audit-phrasing --write",
     "scrub:defensive-flag": "tsx src/scrub-defensive-flag.ts",
@@ -93,6 +96,7 @@
     "mfm:download": "tsx src/mfm/download.ts",
     "mfm:sync": "tsx src/mfm/sync.ts",
     "mfm:bsdata": "tsx src/mfm/bsdata-backstop.ts",
+    "bsdata:loadout-variants": "tsx src/convert-bsdata-loadout-variants.ts",
     "bundle:schemas": "tsx src/bundle-schemas.ts",
     "codegen:types": "json2ts -i ../crates/wh40kdc/schemas/bundled.schema.json -o src/generated.ts --unreachableDefinitions --bannerComment \"/* Generated from crates/wh40kdc/schemas/bundled.schema.json by 'npm run codegen:types'. DO NOT EDIT BY HAND. */\"",
     "copy:schemas": "rm -rf schemas && cp -R ../schemas schemas",

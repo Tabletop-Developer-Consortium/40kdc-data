@@ -53,12 +53,12 @@
             </profile>
             <profile name="Scuttling Horrors" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">An enemy unit ends a move, once per turn, the unit can make a Reactive move.</characteristic>
+                <characteristic name="Description">An enemy unit ends a move, you may use this ability, once per turn, the unit can make a Reactive move.</characteristic>
               </characteristics>
             </profile>
             <profile name="To Slake its Rage" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">The unit gains the Advance &amp; Charge ability.</characteristic>
+                <characteristic name="Description">The unit is eligible to declare a charge in a turn in which it Advanced.</characteristic>
               </characteristics>
             </profile>
           </profiles>
@@ -120,7 +120,7 @@
             </profile>
             <profile name="Meet Any Challenge" typeName="Abilities">
               <characteristics>
-                <characteristic name="Description">An enemy unit ends a move, the unit can make a Reactive move.</characteristic>
+                <characteristic name="Description">An enemy unit ends a move, you may use this ability, the unit can make a Reactive move.</characteristic>
               </characteristics>
             </profile>
             <profile name="Self Repair" typeName="Abilities">

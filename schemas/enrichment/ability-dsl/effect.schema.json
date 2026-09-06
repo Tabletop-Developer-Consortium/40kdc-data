@@ -64,6 +64,9 @@
         },
         {
           "$ref": "#/$defs/persistent-designation-effect"
+        },
+        {
+          "$ref": "#/$defs/no-effect-effect"
         }
       ]
     },
@@ -302,6 +305,11 @@
                     "enum": [
                       "any-result"
                     ]
+                  },
+                  "optional": {
+                    "type": "boolean",
+                    "default": true,
+                    "description": "Whether the controller may decline the re-roll. false requires the qualifying roll to be re-rolled."
                   }
                 },
                 "required": [
@@ -866,7 +874,7 @@
           }
         },
         {
-          "$comment": "`stratagem-cost-modifier`: modify a Stratagem's CP cost. `operation: increase` adds `amount` CP (the cost-increase / opponent-tax direction — e.g. 'enemy Stratagems targeting this unit cost 1 more CP'); `set-to` sets the cost to `set_to`. `applies_to` picks which Stratagems: `stratagems-targeting-bearer` (enemy Stratagems against the bearer or its aura) or `stratagems-used-by-bearer`. Optional `stratagem` names a single Stratagem. The 'use a Stratagem for 0CP' reduction stays on `cp-refund`.",
+          "$comment": "Modify a Stratagem CP cost before payment. increase/decrease requires amount; set-to requires set_to. A decrease has a floor of 0CP. triggering-stratagem-use binds only the current use that caused the trigger. Free use is set-to:0, never cp-refund. Optional stratagem restricts to one named Stratagem.",
           "if": {
             "properties": {
               "type": {
@@ -886,7 +894,8 @@
                     "type": "string",
                     "enum": [
                       "increase",
-                      "set-to"
+                      "set-to",
+                      "decrease"
                     ]
                   },
                   "amount": {
@@ -901,8 +910,10 @@
                     "type": "string",
                     "enum": [
                       "stratagems-targeting-bearer",
-                      "stratagems-used-by-bearer"
-                    ]
+                      "stratagems-used-by-bearer",
+                      "triggering-stratagem-use"
+                    ],
+                    "description": "triggering-stratagem-use binds only the Stratagem use that caused a stratagem-targeted trigger; other uses are not modified. A decrease reduces the cost before payment, to a minimum of 0CP, and is never a refund."
                   },
                   "stratagem": {
                     "type": "string"
@@ -911,6 +922,45 @@
                 "required": [
                   "operation",
                   "applies_to"
+                ],
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "operation": {
+                          "enum": [
+                            "increase",
+                            "decrease"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "operation"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "amount"
+                      ]
+                    }
+                  },
+                  {
+                    "if": {
+                      "properties": {
+                        "operation": {
+                          "const": "set-to"
+                        }
+                      },
+                      "required": [
+                        "operation"
+                      ]
+                    },
+                    "then": {
+                      "required": [
+                        "set_to"
+                      ]
+                    }
+                  }
                 ]
               }
             },
@@ -1084,7 +1134,7 @@
           }
         },
         {
-          "$comment": "`stratagem-targeting-permission`: an attached unit can be selected as a Stratagem target despite the named exception.",
+          "$comment": "Permission to target the named unit with a Stratagem despite the specified restriction. The prior-use exception applies ONLY to the named Stratagem and allows this unit to be targeted after a different unit was targeted this phase. The subsequent-use exception preserves a later use on a different unit after this unit is targeted. Neither removes other targeting restrictions.",
           "if": {
             "properties": {
               "type": {
@@ -1098,18 +1148,49 @@
           "then": {
             "properties": {
               "target": {
-                "const": "attached-unit"
+                "type": "string",
+                "enum": [
+                  "unit",
+                  "attached-unit"
+                ]
               },
               "modifier": {
                 "type": "object",
                 "additionalProperties": false,
                 "properties": {
                   "exception": {
-                    "const": "battle-shocked"
+                    "type": "string",
+                    "enum": [
+                      "battle-shocked",
+                      "already-targeted-different-unit-this-phase",
+                      "does-not-prevent-targeting-different-unit-this-phase"
+                    ]
+                  },
+                  "stratagem": {
+                    "$ref": "../../defs/common.schema.json#/$defs/entity-id"
                   }
                 },
                 "required": [
                   "exception"
+                ],
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "exception": {
+                          "enum": [
+                            "already-targeted-different-unit-this-phase",
+                            "does-not-prevent-targeting-different-unit-this-phase"
+                          ]
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "stratagem"
+                      ]
+                    }
+                  }
                 ]
               }
             },
@@ -1573,6 +1654,50 @@
               "modifier"
             ]
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "objective-control-modifier"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "properties": {
+              "modifier": {
+                "type": "object",
+                "properties": {
+                  "retake": {
+                    "const": "opponent-control-greater-at-phase-end",
+                    "description": "A sticky marker remains controlled until, at a phase end, the opponent's Level of Control exceeds yours. Leaving range and equal control do not release it."
+                  }
+                },
+                "allOf": [
+                  {
+                    "if": {
+                      "required": [
+                        "retake"
+                      ]
+                    },
+                    "then": {
+                      "properties": {
+                        "sticky": {
+                          "const": true
+                        }
+                      },
+                      "required": [
+                        "sticky"
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          }
         }
       ]
     },
@@ -1735,12 +1860,58 @@
               "type": "null"
             }
           ]
+        },
+        "test": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "const": "leadership"
+            },
+            "subject": {
+              "type": "string",
+              "enum": [
+                "unit",
+                "self"
+              ]
+            }
+          },
+          "required": [
+            "kind",
+            "subject"
+          ],
+          "additionalProperties": false,
+          "description": "Perform an actual Leadership test with the normal test modifiers/re-roll permissions and the selected subject's current Leadership (the unit's applicable Leadership for subject:unit). It passes on 2D6 >= Leadership. It is not a Battle-shock test and does not itself inflict Battle-shock."
         }
       },
       "required": [
         "type",
         "dice",
         "threshold"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "test"
+            ]
+          },
+          "then": {
+            "properties": {
+              "dice": {
+                "const": "2D6"
+              },
+              "threshold": {
+                "const": "leadership"
+              },
+              "comparison": {
+                "const": "gte"
+              }
+            },
+            "required": [
+              "comparison"
+            ]
+          }
+        }
       ]
     },
     "dice-table-effect": {
@@ -1938,6 +2109,38 @@
                 "not-engaged-with-bearer"
               ],
               "description": "Candidate engagement relation to the bearer; evaluated independently of range_inches."
+            },
+            "reference": {
+              "type": "string",
+              "enum": [
+                "bearer",
+                "bearer-unit"
+              ],
+              "description": "Origin of both the range and engagement_relation gates. Default bearer means the model carrying the ability; bearer-unit means its entire current unit."
+            },
+            "selection_limit": {
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "period": {
+                  "type": "string",
+                  "enum": [
+                    "turn",
+                    "phase",
+                    "battle-round",
+                    "battle"
+                  ]
+                }
+              },
+              "required": [
+                "count",
+                "period"
+              ],
+              "additionalProperties": false,
+              "description": "Maximum selections of EACH target by this ability across ALL friendly bearers during the named period. Counter key is (controlling army, ability identity, target identity, period), not bearer identity. Selecting another target does not consume this target's counter."
             }
           },
           "required": [
@@ -2017,10 +2220,39 @@
             "within_inches": {
               "type": "number",
               "exclusiveMinimum": 0
+            },
+            "member_of": {
+              "type": "string",
+              "enum": [
+                "bearer-unit"
+              ],
+              "description": "Restrict candidates to models in the ability bearer's unit, including an Attached unit. With target_kind:model every listed keyword is tested on that individual model, never the union of unit keywords."
             }
           },
           "required": [
             "owner"
+          ],
+          "allOf": [
+            {
+              "if": {
+                "required": [
+                  "member_of"
+                ]
+              },
+              "then": {
+                "properties": {
+                  "target_kind": {
+                    "const": "model"
+                  },
+                  "owner": {
+                    "const": "friendly"
+                  }
+                },
+                "required": [
+                  "target_kind"
+                ]
+              }
+            }
           ]
         },
         "effect": {
@@ -2160,6 +2392,10 @@
               "$ref": "condition.schema.json"
             }
           }
+        },
+        "after_move": {
+          "$ref": "#/$defs/effect-node",
+          "description": "Resolve this effect only after the target actually completes the granted move (including a legal zero-distance move). Declining to make the move does not resolve this effect. Uses the enclosing duration for lasting follow-up effects."
         }
       },
       "required": [
@@ -2299,6 +2535,10 @@
                 "any"
               ],
               "default": "all"
+            },
+            "eligibility": {
+              "$ref": "condition.schema.json",
+              "description": "Predicate on the candidate before selecting it. Event-bound history can refer to the attack sequence that caused this selection."
             }
           },
           "required": [
@@ -2319,6 +2559,16 @@
             },
             "effect": {
               "$ref": "#/$defs/effect-node"
+            },
+            "attacker_keywords": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "minLength": 1
+              },
+              "minItems": 1,
+              "uniqueItems": true,
+              "description": "All keywords required on each individual friendly attacking MODEL, not on its unit. Only meaningful with to:attackers-of-target."
             }
           },
           "required": [
@@ -2342,6 +2592,30 @@
         "designation",
         "select",
         "applies"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "applies": {
+                "required": [
+                  "attacker_keywords"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "applies": {
+                "properties": {
+                  "to": {
+                    "const": "attackers-of-target"
+                  }
+                }
+              }
+            }
+          }
+        }
       ]
     },
     "stance-select-effect": {
@@ -3125,13 +3399,54 @@
               },
               "source_gate": {
                 "$ref": "#/$defs/named-region-source-gate"
+              },
+              "radius_inches": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "activation": {
+                "type": "object",
+                "properties": {
+                  "event": {
+                    "const": "continuous"
+                  }
+                },
+                "required": [
+                  "event"
+                ],
+                "additionalProperties": false
               }
             },
             "required": [
               "kind",
               "source_gate"
             ],
-            "additionalProperties": true
+            "additionalProperties": true,
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "kind": {
+                      "const": "unit-proximity"
+                    }
+                  },
+                  "required": [
+                    "kind"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "radius_inches",
+                    "activation"
+                  ],
+                  "properties": {
+                    "kind": {
+                      "description": "Union of the battlefield areas within radius_inches of each currently qualifying source unit. Re-evaluated continuously as source units move/leave/enter the battlefield; not an objective-marker selection."
+                    }
+                  }
+                }
+              }
+            ]
           }
         }
       },
@@ -3280,6 +3595,10 @@
         },
         "qualified_branch": {
           "$ref": "#/$defs/named-region-branch"
+        },
+        "attack_condition": {
+          "$ref": "condition.schema.json",
+          "description": "Gate shared by the default and qualified branches, evaluated on each current attack, without gating production of the named region."
         }
       },
       "required": [
@@ -3601,6 +3920,19 @@
           }
         }
       ]
+    },
+    "no-effect-effect": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "const": "no-effect"
+        }
+      },
+      "required": [
+        "type"
+      ],
+      "additionalProperties": false,
+      "description": "Resolve no effect; does not create attacks, damage, selections, or secondary events."
     }
   },
   "$ref": "#/$defs/effect-node"

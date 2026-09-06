@@ -382,7 +382,45 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 32
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Combat Servitor w/ incendine igniter",
+            "weapon_ids": [
+              "servo-claw",
+              "incendine-igniter"
+            ],
+            "max_count": 3
+          },
+          {
+            "name": "Combat Servitor w/ meltagun",
+            "weapon_ids": [
+              "servo-claw",
+              "meltagun"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Combat Servitor w/ phophor blaster",
+            "weapon_ids": [
+              "servo-claw",
+              "phosphor-blaster-servitor-battleclade"
+            ],
+            "max_count": 6
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Combat Servitor w/ incendine igniter",
+              "Combat Servitor w/ meltagun",
+              "Combat Servitor w/ phophor blaster"
+            ],
+            "count": 6,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -665,7 +703,73 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Skitarii Vanguard w/ transuranic arquebus",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-vanguard",
+              "transuranic-arquebus"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ arc rifle",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-vanguard",
+              "arc-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ plasma caliver",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-vanguard",
+              "plasma-caliver"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ radium carbine",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-vanguard",
+              "radium-carbine"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Skitarii Vanguard w/ data-tether",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-vanguard",
+              "radium-carbine"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Vanguard w/ omnispex",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-vanguard",
+              "omnispex",
+              "radium-carbine"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Skitarii Vanguard w/ transuranic arquebus",
+              "Skitarii Vanguard w/ arc rifle",
+              "Skitarii Vanguard w/ plasma caliver",
+              "Skitarii Vanguard w/ radium carbine",
+              "Skitarii Vanguard w/ data-tether",
+              "Skitarii Vanguard w/ omnispex"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
@@ -1467,7 +1571,73 @@
         "base_size_mm": {
           "shape": "round",
           "diameter": 25
-        }
+        },
+        "loadout_variants": [
+          {
+            "name": "Skitarii Ranger w/ transuranic arquebus",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-rangers",
+              "transuranic-arquebus"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ arc rifle",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-rangers",
+              "arc-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ plasma caliver",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-rangers",
+              "plasma-caliver"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ galvanic rifle",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-rangers",
+              "galvanic-rifle"
+            ],
+            "max_count": 9
+          },
+          {
+            "name": "Skitarii Ranger w/ data-tether",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-rangers",
+              "galvanic-rifle"
+            ],
+            "max_count": 1
+          },
+          {
+            "name": "Skitarii Ranger w/ omnispex",
+            "weapon_ids": [
+              "close-combat-weapon-skitarii-rangers",
+              "omnispex",
+              "galvanic-rifle"
+            ],
+            "max_count": 1
+          }
+        ],
+        "loadout_variant_budgets": [
+          {
+            "variant_names": [
+              "Skitarii Ranger w/ transuranic arquebus",
+              "Skitarii Ranger w/ arc rifle",
+              "Skitarii Ranger w/ plasma caliver",
+              "Skitarii Ranger w/ galvanic rifle",
+              "Skitarii Ranger w/ data-tether",
+              "Skitarii Ranger w/ omnispex"
+            ],
+            "count": 9,
+            "per_models": 0,
+            "scope": "model-row"
+          }
+        ]
       }
     ],
     "game_version": {
